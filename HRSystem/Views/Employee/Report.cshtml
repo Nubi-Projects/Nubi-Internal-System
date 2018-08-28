@@ -1,0 +1,133 @@
+﻿@model IEnumerable<HRSystem.Models.Employee>
+@{
+    ViewBag.Title = Resources.NubiHR.AllEmployees;
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+}
+
+
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary list-panel" id="list-panel">
+            <div class="panel-heading list-panel-heading">
+                <h1 class="panel-title list-panel-title">@Resources.NubiHR.AllEmployees</h1>
+            </div>
+            <div class="panel-body">
+                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+
+
+
+
+                    <thead>
+                        <tr>
+                            <th>@Resources.NubiHR.FunctionalNumber</th>
+                            <th>@Resources.NubiHR.EmployeeName</th>
+                            <th>@Resources.NubiHR.StartDate</th>
+                            <th>@Resources.NubiHR.Department</th>
+                            <th>@Resources.NubiHR.Email</th>
+                            <th>@Resources.NubiHR.Address</th>
+                            <th>@Resources.NubiHR.Mobile</th>
+                            <th>@Resources.NubiHR.Position</th>
+                            <th>@Resources.NubiHR.Salary</th>
+
+                        </tr>
+                    </thead>
+
+
+
+
+                    <tbody>
+
+                        @foreach (var item in Model.Where(y => y.IsDeleted == false))
+                        {
+                            <tr>
+                                <td>
+                                    @item.FunctionalNumber
+                                </td>
+
+                                <td>
+                                    @item.FirstName @item.LastName
+                                </td>
+
+                                
+                                <td>
+                                    @item.StartDate
+                                </td>
+
+                                @if (IsArabic)
+                                {
+                                    <td>
+                                        @item.Department.DepartmentNameAr
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @item.Department.DepartmentNameEn
+                                    </td>
+                                }
+
+
+                                <td>
+                                    @item.Email
+                                </td>
+
+
+                                <td>
+                                    @item.Address
+                                </td>
+
+
+                                <td>
+                                    @item.Mobile1
+                                </td>
+
+                                @if (IsArabic)
+                                {
+                                    <td>
+                                        @item.Position.PositionNameAr
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @item.Position.PositionNameEn
+                                    </td>
+                                }
+
+                                <td>
+                                    @item.Salary.BasicSalary
+                                </td>
+                               
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+    //$(document).ready(function () {
+
+    //    $('#assets-data-table').DataTable();
+    //});
+
+    $(document).ready(function () {
+        $('#assets-data-table').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+
+
+
+</script>

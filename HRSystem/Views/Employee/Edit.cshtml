@@ -1,0 +1,410 @@
+﻿
+@model HRSystem.Models.VMAddEmployee
+
+@{
+    ViewBag.Title = Resources.NubiHR.EditEmployee;
+    var count = 1;
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+}
+
+
+
+
+
+<h2> @Resources.NubiHR.EditEmployee</h2>
+
+
+@using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@ViewBag.EmployeeName</h4>
+
+        <div>
+            @Html.ActionLink(Resources.NubiHR.BackTolist, "Index")
+        </div>
+        <br/>
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.IdEmployee)
+
+
+        <legend>@Resources.NubiHR.EmployeeInfo</legend>
+
+        <div class="form-group">
+           @* @Html.LabelFor("UserNo", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.HiddenFor(model => Model.IdEmployee, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => Model.IdEmployee, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.FirstName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => Model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.LastName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => Model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => Model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => Model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.EmailEmployee, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.EmailEmployee, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => Model.EmailEmployee, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.FunctionalNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.FunctionalNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => Model.FunctionalNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <legend>@Resources.NubiHR.PhoneInfo</legend>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.Mobile1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.Mobile1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.Mobile1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.Mobile2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.Mobile2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.Mobile2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       
+        <legend>@Resources.NubiHR.JobInfo</legend>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => Model.StartDate, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => Model.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdDepartment, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdDepartment, new SelectList(@ViewBag.Department, "Id",(IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn") ), Resources.NubiHR.Select, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdDepartment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdPosition, new { @class = "control-label col-md-2" }) 
+            <div class="col-md-10">
+               @Html.DropDownListFor(model => model.IdPosition, new SelectList(ViewBag.Position, "Id", (IsArabic == true ? "PositionNameAr" : "PositionNameEn") ), Resources.NubiHR.Select, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IdPosition, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+
+        <legend>@Resources.NubiHR.BankInfo</legend>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.AccountNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.AccountNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.BankName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.BankName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.BankName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.BankBranch, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.BankBranch, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.BankBranch, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <legend>@Resources.NubiHR.SalaryInfo</legend>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.BasicSalary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.BasicSalary, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.BasicSalary, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor("Bonus", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.Bonus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.Bonus, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        
+
+
+        @*<legend>Attachments</legend>*@
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary list-panel" id="list-panel">
+                    <div class="panel-heading list-panel-heading">
+                        <h1 class="panel-title list-panel-title">@Resources.NubiHR.Attachments</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                           
+                            <tbody>
+                               <tr>
+                                   <th>@Resources.NubiHR.NationalID</th>
+                                   <td>
+                                       <a href="~/Attachments/@Model.EmpAttachment.NationalId">
+                                           <i class="glyphicon glyphicon-file"></i>
+                                       </a>
+                                       @Model.EmpAttachment.NationalId
+                                       @Html.Hidden("EmpAttachment.NationalId", Model.EmpAttachment.NationalId,new { id = "NIDHiddenFile" })                                   
+                                       @Html.TextBox("NIDFile", null, new {type="file", id = "file", onchange = "return fileValidation('file','NIDHiddenFile')", htmlAttributes = new { @class = "form-control" } })
+                                       @Html.Editor("NIdTitle", new { htmlAttributes = new { @class = "form-control" } })
+                                   </td>
+
+                               </tr>
+                                <tr>
+                                    <th>@Resources.NubiHR.PassportNumber</th>
+                                    <td>
+                                        <a href="~/Attachments/@Model.EmpAttachment.PassportNumber">
+                                            <i class="glyphicon glyphicon-file"></i>
+                                        </a>
+                                        @Model.EmpAttachment.PassportNumber
+                                        @Html.Hidden("EmpAttachment.PassportNumber", Model.EmpAttachment.PassportNumber, new { id = "PassportHiddenFile" })
+                                        @Html.TextBox("PassportFile", null, new { type = "file", id = "file1", onchange = "return fileValidation('file1')", htmlAttributes = new { @class = "form-control" } })
+                                        @Html.Editor("PassportTitle",Model.PassportTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                        
+                                    </td>
+                                </tr>
+
+                                   <tr>
+                                       <th>@Resources.NubiHR.LastCertificate</th>
+                                       <td>
+                                           <a href="~/Attachments/@Model.EmpAttachment.LastCertificate">
+                                               <i class="glyphicon glyphicon-file"></i>
+                                           </a>
+                                           @Model.EmpAttachment.LastCertificate
+                                           @Html.Hidden("EmpAttachment.LastCertificate", Model.EmpAttachment.LastCertificate, new { id = "LastCertificateHiddenFile" })
+                                           @Html.TextBox("LastCertificateFile", null, new { type = "file", id = "file2", onchange = "return fileValidation('file2','LastCertificateHiddenFile')", htmlAttributes = new { @class = "form-control" } })
+                                           @Html.Editor("LastCertificateTitle", Model.LastCertTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                       
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <th>@Resources.NubiHR.Image</th>
+                                       <td>
+                                           <a href="~/Attachments/@Model.EmpAttachment.ImageUrl">
+                                               <i class="glyphicon glyphicon-file"></i>
+                                           </a>
+                                           @Model.EmpAttachment.ImageUrl
+                                           @Html.Hidden("EmpAttachment.ImageUrl", Model.EmpAttachment.ImageUrl, new { id = "ImageHiddenFile" })
+                                           @Html.TextBox("ImageFile", null, new { type = "file", id = "file3", onchange = "return fileValidation('file3','ImageHiddenFile')", htmlAttributes = new { @class = "form-control" } })
+                                           @Html.Editor("ImageTitle", Model.ImageTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                       </td>
+                                   </tr>
+                                 @foreach (var item in Model.TrainingCertificateList)
+                                       {
+                                    <tr>
+                                        <th> @Resources.NubiHR.TrainingCertificate @count</th>
+                                        <td>
+
+                                            <a href="~/Attachments/@Model.TrainingCertificateUrl">
+                                                <i class="glyphicon glyphicon-file"></i>
+                                            </a>
+                                            @item.TrainingCertificateUrl
+                                            @Html.Hidden("TrainingCertificateUrl" + count , item.TrainingCertificateUrl, new { id = "TCHiddenFile" + count })
+                                            @Html.TextBox("TrainingCertificateFile" + count, null, new { type = "file", id = "file4" + count, onchange = "return fileValidation('file4"+count+"', 'TCHiddenFile"+count+"')", htmlAttributes = new { @class = "form-control" } })
+                                            @Html.Editor("TrainingCertificateName" + count, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                            @*<a href=" @item.TrainingCertificateUrl"> @item.TrainingCertificateName </a>*@
+                                        </td>
+
+
+                                    </tr>
+                                     count++;
+                                               }
+
+
+
+
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@Resources.NubiHR.Update" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+     $(document).ready(function () {
+
+         $('#assets-data-table').DataTable();
+                                       });
+</script>   
+
+
+
+
+@if (ViewBag.MessageException != null)
+                                       {
+    <script type="text/javascript">
+            window.onload = function () {
+      swal(`Oops!`,`@ViewBag.MessageException`,`error`);
+                                           };
+    </script>
+
+
+}
+
+
+@if (ViewBag.Message != null)
+                                       {
+    <script type="text/javascript">
+            window.onload = function () {
+             //alert("@ViewBag.Message");
+             swal(`Great! :)`,`@ViewBag.Message`,`success`);
+            };
+    </script>
+}
+
+
+
+<div>
+    @Html.ActionLink(Resources.NubiHR.BackTolist, "Index")
+</div>
+
+@*<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>*@
+
+
+@* retreive positon depends on department *@
+
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+
+        $("#IdDepartment").on('change',function () {
+            $("#IdPosition").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetPosition")',
+                dataType: 'json',
+                data: { IdDepartment: $("#IdDepartment").val() },
+                success: function (IdPosition) {
+
+                    $.each(IdPosition, function (i, IdPosition) {
+                        $("#IdPosition").append('<option value="'
+                            + IdPosition.Value + '">'
+                            + IdPosition.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+
+
+
+
+</script>
+
+
+@*  validation for upload files *@
+
+<script>
+    function fileValidation(element1, element2) {
+        var fileInput = document.getElementById(element1);
+        var HiddenFile = document.getElementById(element2);
+        var filePath = fileInput.value;
+        var allowedExtensions = /(\.jfif|\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx)$/i;
+        if (!allowedExtensions.exec(filePath)) {
+            // alert('Please upload file having extensions .jpeg/.jpg/.png/.gif/ .doc/ .docx/ .pdf only.');
+            swal(`Error!`, `Please upload file having extensions .jfif .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf only.`, `error`);
+            fileInput.value = '';
+            return false;
+        } else {
+            //Image preview
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('imagePreview').innerHTML = '<img src="' + e.target.result + '"/>';
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+
+                $(HiddenFile).val(fileInput.value.split(/(\\|\/)/g).pop());
+
+
+            }
+        }
+    }
+
+</script>
+

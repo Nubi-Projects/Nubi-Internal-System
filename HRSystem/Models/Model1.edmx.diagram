@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7eaa24fc5419464795475d15e009bf0e" Name="Diagram1" ZoomLevel="43">
+        <EntityTypeShape EntityType="NubiDBModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NubiDBModel.AspNetRole" Width="1.5" PointX="9.75" PointY="25.375" />
+        <EntityTypeShape EntityType="NubiDBModel.AspNetUserClaim" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NubiDBModel.AspNetUserLogin" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="NubiDBModel.AspNetUser" Width="1.5" PointX="7.5" PointY="24.25" />
+        <EntityTypeShape EntityType="NubiDBModel.Attachment" Width="1.5" PointX="3" PointY="14.125" />
+        <EntityTypeShape EntityType="NubiDBModel.BankAccount" Width="1.5" PointX="3" PointY="11" />
+        <EntityTypeShape EntityType="NubiDBModel.Department" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="NubiDBModel.Employee" Width="1.5" PointX="5.25" PointY="12.375" />
+        <EntityTypeShape EntityType="NubiDBModel.ExtraSalary" Width="1.5" PointX="5.25" PointY="21.375" />
+        <EntityTypeShape EntityType="NubiDBModel.PermissionRequest" Width="1.5" PointX="7.5" PointY="11.5" />
+        <EntityTypeShape EntityType="NubiDBModel.PermissionType" Width="1.5" PointX="5.25" PointY="9.375" />
+        <EntityTypeShape EntityType="NubiDBModel.PhoneNumber" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="NubiDBModel.Position" Width="1.5" PointX="3" PointY="18.125" />
+        <EntityTypeShape EntityType="NubiDBModel.Salary" Width="1.5" PointX="3" PointY="21.375" />
+        <EntityTypeShape EntityType="NubiDBModel.Setting" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NubiDBModel.TrainingCertificate" Width="1.5" PointX="7.5" PointY="16.25" />
+        <EntityTypeShape EntityType="NubiDBModel.VacationRequest" Width="1.5" PointX="10.5" PointY="13.25" />
+        <EntityTypeShape EntityType="NubiDBModel.VacationType" Width="1.5" PointX="8.25" PointY="8.375" />
+        <AssociationConnector Association="NubiDBModel.FK_AspNetUsers_Employee" />
+        <AssociationConnector Association="NubiDBModel.FK_Employee_Attachment" />
+        <AssociationConnector Association="NubiDBModel.FK_Employee_BankAccount" />
+        <AssociationConnector Association="NubiDBModel.FK_Employee_Department" />
+        <AssociationConnector Association="NubiDBModel.FK_Position_Department" />
+        <AssociationConnector Association="NubiDBModel.FK_Employee_Position" />
+        <AssociationConnector Association="NubiDBModel.FK_Employee_Salary" />
+        <AssociationConnector Association="NubiDBModel.FK_PermissionRequest_Employee" />
+        <AssociationConnector Association="NubiDBModel.FK_TrainingCertificate_Employee" />
+        <AssociationConnector Association="NubiDBModel.FK_VacationRequest_Employee" />
+        <AssociationConnector Association="NubiDBModel.FK_ExtraSalary_Salary" />
+        <AssociationConnector Association="NubiDBModel.FK_PermissionRequest_PermissionType" />
+        <AssociationConnector Association="NubiDBModel.FK_VacationRequest_VacationType" />
+        <AssociationConnector Association="NubiDBModel.AspNetUserRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,501 @@
+﻿@model HRSystem.Models.VMAddEmployee
+
+@{
+    ViewBag.Title = Resources.NubiHR.AddEmployee;
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+}
+
+
+
+<style>
+    #panel, #flip {
+        padding: 5px;
+        text-align: center;
+        background-color: grey;
+        border: solid 1px #c3c3c3;
+    }
+
+    #panel {
+        padding: 50px;
+        display: none;
+    }
+</style>
+
+
+<h2>@Resources.NubiHR.AddEmployee</h2>
+
+<div>
+    @Html.ActionLink(Resources.NubiHR.BackTolist, "Index", "Employee")
+</div>
+
+
+
+@using (@Html.BeginForm("Create", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        
+        <input name="count" id='count' type="hidden" value="1" />
+
+        @*<div id="flip">
+            User Information
+        </div> */
+        <div id="panel">*@
+
+        <legend>@Resources.NubiHR.EmployeeInfo</legend>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => Model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => Model.PasswordHash, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.PasswordHash, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.EmailEmployee, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.EmailEmployee, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.EmailEmployee, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Mobile1, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.Mobile1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.Mobile1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.Mobile2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.Mobile2, new { htmlAttributes = new { @class = "form-control" } })
+                
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+      @* </div> *@  
+        <legend>@Resources.NubiHR.JobInfo</legend>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.IdDepartment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.IdDepartment, new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdDepartment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.IdPosition, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.IdPosition, new SelectList(string.Empty, "Id", (IsArabic == true ? "PositionNameAr" : "PositionNameEn") ), Resources.NubiHR.Select, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdPosition, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.BasicSalary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.BasicSalary, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.BasicSalary, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.FunctionalNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.FunctionalNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.FunctionalNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        
+        <br />
+
+        <legend>@Resources.NubiHR.BankInfo</legend>
+
+        @*<div id="flip">
+                Bank Information
+            </div>*@
+
+          @*<div id="panel">*@ 
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.AccountNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
+               
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.BankName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.BankName, new { htmlAttributes = new { @class = "form-control" } })
+                 
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.BankBranch, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.BankBranch, new { htmlAttributes = new { @class = "form-control" } })
+               
+            </div>
+        </div>
+
+        @* </div>*@
+
+
+
+        <br />
+        <legend>@Resources.NubiHR.Attachments</legend>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.NationalId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input type="file" id="NationalId" onchange="return fileValidation()" class = "form-control" />*@
+                @Html.TextBoxFor(model => model.NationalId, new { type = "file", id = "file", onchange = "return fileValidation('file')", htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.NationalId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.NIdTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.NIdTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.NIdTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.PassportNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PassportNumber, new { type = "file", id = "file1", onchange = "return fileValidation('file1')", htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.PassportTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.PassportTitle, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <br />
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.LastCertificate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LastCertificate, new { type = "file", id = "file2", onchange = "return fileValidation('file2')", htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.LastCertTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.LastCertTitle, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <br />
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ImageUrl, new { type = "file", id = "file3", onchange = "return fileValidation('file3')", htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.ImageUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.ImageTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.ImageTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.ImageTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.TrainingCertificateUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.TrainingCertificateUrl, new { type = "file", id = "file4", onchange = "return fileValidation('file4')", htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => Model.TrainingCertificateName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.TrainingCertificateName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        
+        <div id="MainDiv">
+
+           
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id='addButton' type="button" value="@Resources.NubiHR.AddMoreCertificates" class="btn btn-default" />
+                <input id='removeButton' type="button" value="@Resources.NubiHR.RemoveCertificate" class="btn btn-default" />
+            </div>
+        </div>
+
+        <br />
+
+       
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@Resources.NubiHR.AddEmployee" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery.validate.js"></script>
+@* slider  *@
+
+<script>
+
+    $(document).ready(function () {
+        $("#flip").click(function () {
+            $("#panel").slideToggle("slow");
+        });
+    });
+</script>
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                //alert("@ViewBag.Message");
+                swal(`Great! :)`,`@ViewBag.Message`,`success`);
+            };
+    </script>
+
+  
+    }
+
+@if (ViewBag.MessageError != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                //alert("@ViewBag.MessageError");
+                swal(`Ops!`,`@ViewBag.MessageError`,`info`);
+            };
+    </script>
+}
+
+@Html.Raw(TempData["msg"])
+
+<div>
+    @Html.ActionLink(Resources.NubiHR.BackTolist, "Index", "Employee")
+</div>
+
+
+
+
+@*  validation for upload files *@
+
+<script>
+            function fileValidation(element) {
+                var fileInput = document.getElementById(element);
+                var filePath = fileInput.value;
+                var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx)$/i;
+                if (!allowedExtensions.exec(filePath)) {
+                    swal(`Error!`, `Please upload file having extensions .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf only.`, `error`);
+                    fileInput.value = '';
+                    return false;
+                } else {
+                    //Image preview
+                    if (fileInput.files && fileInput.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            document.getElementById('imagePreview').innerHTML = '<img src="' + e.target.result + '"/>';
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                }
+            }
+
+</script>
+
+
+@* retreive positon depends on department *@
+
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+
+        $("#IdDepartment").on('change',function () {
+            $("#IdPosition").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetPosition")',
+                dataType: 'json',
+                data: { IdDepartment: $("#IdDepartment").val() },
+                success: function (IdPosition) {
+
+                    $.each(IdPosition, function (i, IdPosition) {
+                        $("#IdPosition").append('<option value="'
+                            + IdPosition.Value + '">'
+                            + IdPosition.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+@* add extra upload files when click on button *@
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var counter = 1;
+
+        $("#addButton").click(function () {
+
+
+            if (counter > 10) {
+                //   alert("Only 10 Training Certificate files allow");
+                swal(`Error!`, `Only 10 Training Certificate files allow`, `error`)
+                return false;
+            }
+            else {
+                $("#MainDiv").append(
+                    '<div id="BigDiv' + counter + '">' +
+                    ' <div class="form-group">' +
+                    '<label id="LabelForTC#' + counter + ' " name="LabelForTC#' + counter + '" class="control-label col-md-2" >@Resources.NubiHR.TrainingCertificate' + counter + '</label>' +
+                    '<div class="col-md-10">' +
+                    '<input id="UploadFile' + counter + '" name="UploadFile' + counter + '" type="file"/>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<label id="LabelForTCTitle#' + counter + '" name="LabelForTCTitle#' + counter + '" class="control-label col-md-2">@Resources.NubiHR.TrainingCertificateTitle ' + counter + '</label>' +
+                    '<div class="col-md-10">' +
+                    '<input id="InputText' + counter + '" name="InputText' + counter + '" type="text" class="form-control"/>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<br />'
+                );
+
+                counter++;
+                $('#count').val(counter);
+                var button = $("<input />").attr("type", "hidden").attr("value", "1").attr("name", "count");
+                button.val(value);
+
+            }
+
+        });
+
+        $("#removeButton").click(function () {
+            if (counter == 1) {
+                swal(`Oops!`, `No more Training Certificate file to remove.`, `info`);
+                return false;
+            }
+            else {
+                counter--;
+                $('#count').val(counter);
+               
+                $("#BigDiv" + counter).remove();
+               
+            }
+
+        });
+
+        $("#getButtonValue").click(function () {
+
+            var msg = '';
+            for (i = 1; i < counter; i++) {
+                msg += "\n Training Certificate# " + i + " : " + $('#TrainingCertificate' + i).val();
+            }
+            swal(``, msg, `info`);
+        });
+
+    });
+</script>
+
+
+
+
+
+
