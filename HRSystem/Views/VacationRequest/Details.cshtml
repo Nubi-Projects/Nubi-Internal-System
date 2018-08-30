@@ -1,0 +1,94 @@
+﻿@model Nubi.Models.VacationRequest
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Details";
+    Nubi.Models.Helper helperx = new Nubi.Models.Helper();
+    Nubi.Models.Mngr mngr = new Nubi.Models.Mngr();
+}
+
+
+<h2>Details</h2>
+
+
+   <div class="form-group">
+    <div class="row">
+        <label class="control-label col-md-3">
+            Employee
+        </label>
+        <div class="col-md-6">
+            @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Job
+        </label>
+        <div class="col-md-6">
+            @helperx.GetUserRole(User.Identity.GetUserId())
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Request Date
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.RequestDate)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Vacation Type
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.VacationType.Type)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Duration
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.Duration)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Start Date
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.StartDate)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            End Date
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.EndDate)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Resump Date
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.ResumeDate)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Address
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.Address)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Note
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.Note)
+        </div>
+    </div>
+</div>

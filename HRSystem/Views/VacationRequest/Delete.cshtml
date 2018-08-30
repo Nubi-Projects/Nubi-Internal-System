@@ -1,0 +1,16 @@
+﻿@model Nubi.Models.VacationRequest
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+@using (Html.BeginForm(null, null, FormMethod.Post))
+{
+    <h3>هل انت متاكد من عملية الحذف؟</h3>
+
+    <div>
+
+        @Html.ActionLink("رجوع", "Index") |
+        <input type="submit" value="حذف" class="btn btn-danger" />
+    </div>
+}

@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Nubi.Models.VacationRequest>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Index</h2>
+<a href="@Url.Action("Create")">اضافة</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Request Date
+            </th>
+            <th>
+                Start Date
+            </th>
+
+            <th>
+                End Date
+            </th>
+
+            <th>
+                Duration
+            </th>
+
+            <th>
+                Resump Date
+            </th>
+
+            <th>
+                Address
+            </th>
+
+            <th>
+                Vacation Type
+            </th>
+
+            <th>
+                Note
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+       
+        @foreach (var item in Model.Where(e => e.IsDeleted == false).ToList())
+            {
+            <tr onclick="Edit('@item.Id')">
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResumeDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.VacationType.Type)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+
+
+                <td>
+                    @*@Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |*@
+                    @Html.ActionLink("حذف", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function Edit(itemid)
+    {
+        
+        window.location.href = "/VacationRequest/Edit/" + itemid;
+    }
+
+</script>

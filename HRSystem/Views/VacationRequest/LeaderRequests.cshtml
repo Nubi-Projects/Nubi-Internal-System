@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Nubi.Models.VacationRequest>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "LeaderRequests";
+    Nubi.Models.Helper helperx = new Nubi.Models.Helper();
+}
+
+<h2>LeaderRequests</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Employee
+            </th>
+            
+            <th>
+                Job
+            </th>
+           
+            <th>
+                Request Date
+            </th>
+           
+            <th>
+                Vacation Type
+            </th>
+            
+            <th>
+                Note
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(e => e.LeaderApprovement == false && e.IsRejected == false).ToList())
+            {
+            <tr>
+                <td>
+                    @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+                </td>
+                <td>
+                    @helperx.GetUserRole(User.Identity.GetUserId())
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestDate)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.VacationType.Type)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td></td>
+
+                <td>
+                    @Html.ActionLink("قبول", "LeaderApprove", new { id = item.Id }) |
+                    @Html.ActionLink("رفض", "Reject", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", "VacationRequest", new { id = item.Id }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

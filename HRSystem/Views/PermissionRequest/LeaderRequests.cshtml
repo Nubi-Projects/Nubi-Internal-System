@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Nubi.Models.PermissionRequest>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "LeaderRequests";
+    Nubi.Models.Helper helperx = new Nubi.Models.Helper();
+    Nubi.Models.Mngr mngr = new Nubi.Models.Mngr();
+}
+
+<h2>Leader Requests</h2>
+
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Employee
+            </th>
+            
+            <th>
+                Job
+            </th>
+            
+            <th>
+                Request Date
+            </th>
+           
+            <th>
+                Permission Date
+            </th>
+            
+            <th>
+                Permission Type
+            </th>
+            
+            <th>
+                Note
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(e => e.LeaderApprovement == false && e.IsRejected == false).ToList())
+            {
+            <tr>
+                <td>
+                    @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+                </td>
+                <td>
+                    @helperx.GetUserRole(User.Identity.GetUserId())
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestDate)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.PermissionDate)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.PermissionType.Type)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+
+                <td>
+                    @Html.ActionLink("قبول", "LeaderApprove", new { id = item.ID }) |
+                    @Html.ActionLink("رفض", "Reject", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", "PermissionRequest", new { id = item.ID }, null)
+                </td>
+               
+            </tr>
+        }
+    </tbody>
+</table>

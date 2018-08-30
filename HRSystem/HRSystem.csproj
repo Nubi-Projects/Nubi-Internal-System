@@ -735,8 +735,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PermissionRequestController.cs" />
+    <Compile Include="Controllers\PermissionTypeController.cs" />
+    <Compile Include="Controllers\VacationRequestController.cs" />
+    <Compile Include="Controllers\VacationTypeController.cs" />
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -851,6 +858,49 @@
     <Content Include="Scripts\sweetalert-master\tsconfig.json" />
     <Content Include="Scripts\sweetalert-master\tslint.json" />
     <Content Include="Views\Employee\Report.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\PermissionRequest\Create.cshtml" />
+    <Content Include="Views\PermissionRequest\Delete.cshtml" />
+    <Content Include="Views\PermissionRequest\Details.cshtml" />
+    <Content Include="Views\PermissionRequest\Edit.cshtml" />
+    <Content Include="Views\PermissionRequest\Index.cshtml" />
+    <Content Include="Views\PermissionRequest\LeaderRequests.cshtml" />
+    <Content Include="Views\PermissionRequest\ManagerRequests.cshtml" />
+    <Content Include="Views\PermissionType\Create.cshtml" />
+    <Content Include="Views\PermissionType\Delete.cshtml" />
+    <Content Include="Views\PermissionType\Edit.cshtml" />
+    <Content Include="Views\PermissionType\Index.cshtml" />
+    <Content Include="Views\VacationRequest\Create.cshtml" />
+    <Content Include="Views\VacationRequest\Delete.cshtml" />
+    <Content Include="Views\VacationRequest\Details.cshtml" />
+    <Content Include="Views\VacationRequest\Edit.cshtml" />
+    <Content Include="Views\VacationRequest\Index.cshtml" />
+    <Content Include="Views\VacationRequest\LeaderRequests.cshtml" />
+    <Content Include="Views\VacationRequest\ManagerRequests.cshtml" />
+    <Content Include="Views\VacationType\Create.cshtml" />
+    <Content Include="Views\VacationType\Delete.cshtml" />
+    <Content Include="Views\VacationType\Edit.cshtml" />
+    <Content Include="Views\VacationType\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
