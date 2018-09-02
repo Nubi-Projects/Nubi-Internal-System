@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Resources;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HRSystem.Models
@@ -25,10 +26,10 @@ namespace HRSystem.Models
 
     public class VerifyCodeViewModel
     {
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         public string Provider { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(Name = "Code")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
@@ -41,43 +42,43 @@ namespace HRSystem.Models
 
     public class ForgotViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Email")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(ResourceType = typeof(NubiHR), Name = "RememberMe")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(ResourceType = typeof(NubiHR), Name = "ConfirmPassword")]
+        [Compare("Password", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "ComparePassword")]
         public string ConfirmPassword { get; set; }
 
         //[Required]
@@ -91,20 +92,20 @@ namespace HRSystem.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(ResourceType = typeof(NubiHR), Name = "ConfirmPassword")]
+        [Compare("Password", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "ComparePassword")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -112,9 +113,9 @@ namespace HRSystem.Models
 
     public class ForgotPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Email")]
         public string Email { get; set; }
     }
 }
