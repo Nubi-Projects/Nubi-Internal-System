@@ -252,34 +252,34 @@
                                            @Html.Editor("ImageTitle", Model.ImageTitle, new { htmlAttributes = new { @class = "form-control" } })
                                        </td>
                                    </tr>
-                                 @foreach (var item in Model.TrainingCertificateList)
-                                       {
-                                    <tr>
-                                        <th> @Resources.NubiHR.TrainingCertificate @count</th>
-                                        <td>
+                                @if (Model.TrainingCertificateList != null)
+                                {
+                                    foreach (var item in Model.TrainingCertificateList)
+                                    {
+                                        <tr>
+                                            <th> @Resources.NubiHR.TrainingCertificate @count</th>
+                                            <td>
 
-                                            <a href="~/Attachments/@Model.TrainingCertificateUrl">
-                                                <i class="glyphicon glyphicon-file"></i>
-                                            </a>
-                                            @item.TrainingCertificateUrl
-                                            @Html.Hidden("TrainingCertificateUrl" + count , item.TrainingCertificateUrl, new { id = "TCHiddenFile" + count })
-                                            @Html.TextBox("TrainingCertificateFile" + count, null, new { type = "file", id = "file4" + count, onchange = "return fileValidation('file4"+count+"', 'TCHiddenFile"+count+"')", htmlAttributes = new { @class = "form-control" } })
-                                            @Html.Editor("TrainingCertificateName" + count, new { htmlAttributes = new { @class = "form-control" } })
-
-
-                                            @*<a href=" @item.TrainingCertificateUrl"> @item.TrainingCertificateName </a>*@
-                                        </td>
+                                                <a href="~/Attachments/@Model.TrainingCertificateUrl">
+                                                    <i class="glyphicon glyphicon-file"></i>
+                                                </a>
+                                                @item.TrainingCertificateUrl
+                                                @Html.Hidden("TrainingCertificateUrl" + count, item.TrainingCertificateUrl, new { id = "TCHiddenFile" + count })
+                                                @Html.TextBox("TrainingCertificateFile" + count, null, new { type = "file", id = "file4" + count, onchange = "return fileValidation('file4" + count + "', 'TCHiddenFile" + count + "')", htmlAttributes = new { @class = "form-control" } })
+                                                @Html.Editor("TrainingCertificateName" + count, new { htmlAttributes = new { @class = "form-control" } })
 
 
-                                    </tr>
-                                     count++;
-                                               }
+                                            </td>
 
 
-
+                                        </tr>
+                                        count++;
+                                    }
 
 
 
+                                }
+                               
 
                             </tbody>
                         </table>

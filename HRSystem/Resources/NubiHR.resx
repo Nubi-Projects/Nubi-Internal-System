@@ -249,8 +249,8 @@
   <data name="Details" xml:space="preserve">
     <value>Details</value>
   </data>
-  <data name="HomeNumber" xml:space="preserve">
-    <value>Home Number</value>
+  <data name="Mobile2" xml:space="preserve">
+    <value>Additional Phone Number</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>

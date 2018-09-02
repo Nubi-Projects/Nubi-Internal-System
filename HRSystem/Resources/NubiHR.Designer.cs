@@ -304,15 +304,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home Number.
-        /// </summary>
-        public static string HomeNumber {
-            get {
-                return ResourceManager.GetString("HomeNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to HR System.
         /// </summary>
         public static string HRSystem {
@@ -381,6 +372,15 @@ namespace Resources {
         public static string Mobile {
             get {
                 return ResourceManager.GetString("Mobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional Phone Number.
+        /// </summary>
+        public static string Mobile2 {
+            get {
+                return ResourceManager.GetString("Mobile2", resourceCulture);
             }
         }
         

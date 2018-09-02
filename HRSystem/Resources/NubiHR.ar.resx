@@ -249,8 +249,8 @@
   <data name="Details" xml:space="preserve">
     <value>التفاصيل</value>
   </data>
-  <data name="HomeNumber" xml:space="preserve">
-    <value>رقم الهاتف</value>
+  <data name="Mobile2" xml:space="preserve">
+    <value>رقم الهاتف اخر</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>الصلاحية</value>
