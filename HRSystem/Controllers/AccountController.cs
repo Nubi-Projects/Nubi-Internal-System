@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Nubi.Models;
+using HRSystem.Models;
 
-namespace Nubi.Controllers
+namespace HRSystem.Controllers
 {
     [Authorize]
     public class AccountController : Controller

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Nubi.Controllers
+namespace HRSystem.Controllers
 {
     public class HomeController : Controller
     {

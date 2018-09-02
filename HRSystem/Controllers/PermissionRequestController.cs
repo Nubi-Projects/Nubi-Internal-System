@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Nubi.Models;
+using HRSystem.Models;
 using Microsoft.AspNet.Identity;
-namespace Nubi.Controllers
+namespace HRSystem.Controllers
 {
     public class PermissionRequestController : Controller
     {
@@ -14,7 +14,7 @@ namespace Nubi.Controllers
         // GET: PermissionRequest
         public ActionResult Index()
         {
-            Mngr mng = new Mngr();
+            Manager.RequestManager mng = new Manager.RequestManager();
             ViewBag.per = mng.GetPermission(id: User.Identity.GetUserId());
             return View(db.PermissionRequests.ToList());
         }

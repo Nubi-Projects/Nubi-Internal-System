@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using HRSystem.Models;
+namespace HRSystem.Manager
+{
+    public class RequestManager
+    {
+        NubiDBEntities db = new NubiDBEntities();
+        public static int GetMonthDifference(DateTime startDate, DateTime endDate)
+        {
+            int monthsApart = 12 * (startDate.Year - endDate.Year) + startDate.Month - endDate.Month;
+            return Math.Abs(monthsApart);
+        }
+
+        public bool GetPermission(string id)
+        {
+            var emp = db.AspNetUsers.Where(e => e.EmpNo == id).FirstOrDefault();
+            List<PermissionRequest> perReq = db.PermissionRequests.Where(e => e.PermissionDate.Month == DateTime.Now.Month && e.PermissionDate.Year == DateTime.Now.Year).ToList();
+            if (perReq.Count < 2)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool CheckFivedaysVaction(string id)
+        {
+            var emp = db.AspNetUsers.Where(e => e.EmpNo == id).FirstOrDefault();
+            var diff = GetMonthDifference(DateTime.Now, emp.Employee.StartDate);
+            if (diff >= 1)
+                return true;
+            else
+                return false;
+        }
+        public bool CheckVaction(string id)
+        {
+            var emp = db.AspNetUsers.Where(e => e.EmpNo == id).FirstOrDefault();
+            var diff = GetMonthDifference(DateTime.Now, emp.Employee.StartDate);
+            if (diff >= 12)
+                return true;
+            else
+                return false;
+        }
+        public int? totalVacationDuration(string id)
+        {
+            int? TotalDuration = 0;
+            List<VacationRequest> vac = db.VacationRequests.Where(e => e.EmployeeNo == id).ToList();
+            foreach (var item in vac)
+            {
+                TotalDuration = item.Duration + TotalDuration;
+            }
+            return TotalDuration;
+        }
+        public int? TotalVacationDays(string id)
+        {
+            int? TotalDuration = 0;
+            List<VacationRequest> vac = db.VacationRequests.Where(e => e.EmployeeNo == id).ToList();
+            foreach (var item in vac)
+            {
+                TotalDuration = item.Duration + TotalDuration;
+            }
+            return 30 - TotalDuration;
+        }
+    }
+}

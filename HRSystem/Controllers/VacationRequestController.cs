@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Nubi.Models;
+using HRSystem.Models;
 using Microsoft.AspNet.Identity;
 
-namespace Nubi.Controllers
+namespace HRSystem.Controllers
 {
     public class VacationRequestController : Controller
     {
@@ -62,7 +62,7 @@ namespace Nubi.Controllers
         }
         public ActionResult Create()
         {
-            Mngr mng = new Mngr();
+            Manager.RequestManager mng = new Manager.RequestManager();
             var chk = mng.CheckFivedaysVaction(id: User.Identity.GetUserId());
             if (chk == false)
             {
@@ -79,7 +79,7 @@ namespace Nubi.Controllers
         [HttpPost]
         public ActionResult Create(VacationRequest vac)
         {
-            Mngr mng = new Mngr();
+            Manager.RequestManager mng = new Manager.RequestManager();
             var v = mng.CheckVaction(id: User.Identity.GetUserId());
             string CurrentUser = User.Identity.GetUserId();
             vac.EmployeeNo =db.AspNetUsers.Where(a => a.EmpNo == CurrentUser).FirstOrDefault().Id;
