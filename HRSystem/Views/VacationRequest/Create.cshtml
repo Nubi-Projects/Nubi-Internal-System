@@ -1,0 +1,103 @@
+﻿@model Nubi.Models.VacationRequest
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Create";
+    Nubi.Models.Helper helperx = new Nubi.Models.Helper();
+    Nubi.Models.Mngr mngr = new Nubi.Models.Mngr();
+}
+<h2>Create</h2>
+@using (Html.BeginForm(null, null, FormMethod.Post))
+{
+   
+    <div class="form-group">
+        <div>
+            تاريخ الطلب
+        </div>
+        <div>
+            @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RequestDate, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <div>
+            نوع الاجازة
+        </div>
+        <div>
+            @Html.DropDownList("VacationTypeNo",null,"Select", new { @class = "form-control" })
+           
+        </div>
+        <br />
+    <div>
+        اسم الموظف
+    </div>
+    <div>
+        <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
+    </div>
+    <br />
+    <div>
+        الوظيفة
+    </div>
+    <div>
+       <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
+    </div>
+        <br />
+        <div>
+            ارجو الموافقة على منحي الاجازة الموضحة أعلاه لمدة 
+        </div>
+        <div>
+            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <div>
+            ابتداءا من
+        </div>
+        <div>
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <div>
+            وتنتهي في 
+        </div>
+        <div>
+            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <div>
+            وتاريخ العودة للعمل
+        </div>
+        <div>
+            @Html.EditorFor(model => model.ResumeDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ResumeDate, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <div>
+            وعنواني أثناء الاجازة
+        </div>
+        <div>
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        @*<div>
+        وسيكون البديل الموظف
+    </div>
+    <div>
+        @Html.DropDownList("UserName", new SelectList(@ViewBag.emp, "Id", "UserName", new { htmlAttributes = new { @class = "form-control" } }), "Select")
+    </div>
+            <br/>*@
+        <div>
+            ملاحظة
+        </div>
+        <div>
+            @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group">
+            <div>
+                <a href="@Url.Action("")" class="btn btn-default">رجوع</a>
+                <input type="submit" value="ارسال" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

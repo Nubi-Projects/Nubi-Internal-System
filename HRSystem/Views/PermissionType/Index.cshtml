@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Nubi.Models.PermissionType>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<a href="@Url.Action("Create")">اضافة</a>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                انواع الاذونات
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(e => e.IsDeleted == false).ToList())
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |
+
+                    @Html.ActionLink("حذف", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

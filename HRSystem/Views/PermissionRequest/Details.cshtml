@@ -1,0 +1,78 @@
+﻿@model Nubi.Models.PermissionRequest
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Details";
+    Nubi.Models.Helper helperx = new Nubi.Models.Helper();
+    Nubi.Models.Mngr mngr = new Nubi.Models.Mngr();
+}
+
+<h2>Details</h2>
+
+
+
+<div class="form-group">
+    <div class="row">
+        <label class="control-label col-md-3">
+            Employee
+        </label>
+        <div class="col-md-6">
+            @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Job
+        </label>
+        <div class="col-md-6">
+            @helperx.GetUserRole(User.Identity.GetUserId())
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Request Date
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.RequestDate)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Permission Date
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.PermissionDate)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Permission Type
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.PermissionType.Type)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Time From
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.TimeFrom)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Time To
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.TimeTo)
+        </div>
+    </div>
+    <div class="row">
+        <label class="control-label col-md-3">
+            Note
+        </label>
+        <div class="col-md-6">
+            @Html.DisplayFor(modelItem => Model.Note)
+        </div>
+    </div>
+</div>
