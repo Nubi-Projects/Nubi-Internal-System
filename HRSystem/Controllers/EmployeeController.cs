@@ -93,6 +93,7 @@ namespace HRSystem.Controllers
         [HttpPost]
         public ActionResult Create(VMAddEmployee model)
         {
+            //model.NationalId = model.EmpAttachment.NationalId;
             if (ModelState.IsValid)
             {
                 try
@@ -316,7 +317,7 @@ namespace HRSystem.Controllers
             string empname = Request.QueryString["employee"];
             ViewBag.EmployeeName = empname;
             Fc[model.FirstName] = empObj.FirstName;
-
+            
                 model = Db.Employees.Where(x => x.Id == id)
                .Select(y => new VMAddEmployee
                {
@@ -335,12 +336,9 @@ namespace HRSystem.Controllers
                    AccountNumber = y.BankAccount.AccountNumber,
                    BankName = y.BankAccount.BankName,
                    BankBranch = y.BankAccount.BankBranch,
-                   
-                   
-
 
                }).FirstOrDefault();
-
+           
             
             return View(model);
         }
@@ -354,12 +352,12 @@ namespace HRSystem.Controllers
         public ActionResult Edit(string id, VMAddEmployee model)
         {
             model.IdEmployee = id;
-
-            if (ModelState.IsValid)
+            
+            if (ModelState.IsValid || model.NationalId == null || model.ImageUrl == null)
             {
                 ViewBag.Department = Db.Departments.ToList();
                 ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
-                model.BankNo = Db.Employees.Where(e => e.Id == id).Select(x => x.BankNo).FirstOrDefault();
+                var BankNo = Db.Employees.Where(e => e.Id == id).Select(x => x.BankNo).FirstOrDefault();
                 model.SalaryNoEmployee = Db.Employees.Where(e => e.Id == id).Select(x => x.SalaryNo).FirstOrDefault();
                // model.PhoneNo = Db.Employees.Where(e => e.Id == id).Select(x => x.PhoneNo).FirstOrDefault();
                 model.AttachmentNo = Db.Employees.Where(e => e.Id == id).Select(x => x.AttachmentNo).FirstOrDefault();
@@ -438,7 +436,7 @@ namespace HRSystem.Controllers
                     {
                         BankAccount bank = new BankAccount()
                         {
-                            Id = (int)model.BankNo,
+                            Id = (int)/*model.*/BankNo,
                             BankBranch = model.BankBranch,
                             BankName = model.BankName,
                             AccountNumber = model.AccountNumber,
@@ -502,7 +500,7 @@ namespace HRSystem.Controllers
                     {
                         BankAccount bank = new BankAccount()
                         {
-                            Id = (int)model.BankNo,
+                            Id = (int)/*model.*/BankNo,
                             BankBranch = model.BankBranch,
                             BankName = model.BankName,
                             AccountNumber = model.AccountNumber,
@@ -610,7 +608,8 @@ namespace HRSystem.Controllers
             ViewBag.Department = Db.Departments.ToList();
             ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
 
-            return RedirectToAction("Edit");
+            //return RedirectToAction("Edit");
+            return View(model);
 
         }
 

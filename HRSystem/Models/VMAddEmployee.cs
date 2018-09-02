@@ -28,7 +28,7 @@ namespace HRSystem.Models
         public string Mobile1 { get; set; }
 
         
-        [Display(ResourceType = typeof(NubiHR), Name = "Mobile")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Mobile2")]
         public string Mobile2 { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
@@ -46,7 +46,7 @@ namespace HRSystem.Models
         [Display(ResourceType = typeof(NubiHR), Name = "FunctionalNumber")]
         public int FunctionalNumber { get; set; }
         public int AttachmentNo { get; set; }
-        public Nullable<int> BankNo { get; set; }
+       // public Nullable<int> BankNo { get; set; }
         public int SalaryNoEmployee { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
@@ -87,7 +87,7 @@ namespace HRSystem.Models
         [Display(ResourceType = typeof(NubiHR), Name = "BankBranch")]
         public string BankBranch { get; set; }
         public Nullable<bool> IsDeletedBank { get; set; }
-        public Nullable<System.DateTime> DateBank { get; set; }
+        //public Nullable<System.DateTime> DateBank { get; set; }
 
 
 
