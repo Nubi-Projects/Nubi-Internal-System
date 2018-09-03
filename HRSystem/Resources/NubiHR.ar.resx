@@ -294,4 +294,7 @@
   <data name="ComparePassword" xml:space="preserve">
     <value>كلمة المرور و تأكيد كلمة المرور لا يتطابقان</value>
   </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>إنشاء حساب</value>
+  </data>
 </root>

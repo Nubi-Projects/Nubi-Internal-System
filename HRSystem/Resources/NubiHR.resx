@@ -235,9 +235,6 @@
     <value>All Employees</value>
   </data>
   <data name="EmployeeHasBeenAddedSuccesfully" xml:space="preserve">
-    <value>Employee has been added succesfully</value>
-  </data>
-  <data name="EmployeeHasBeenAddedSuccesfully" xml:space="preserve">
     <value>Employee has been modified succesfully</value>
   </data>
   <data name="AddNewEmployee" xml:space="preserve">
@@ -296,5 +293,8 @@
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me?</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create Account</value>
   </data>
 </root>
