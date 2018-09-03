@@ -288,4 +288,13 @@
   <data name="Select" xml:space="preserve">
     <value>-- Select --</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="ComparePassword" xml:space="preserve">
+    <value>The password and confirmation password do not match</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
 </root>

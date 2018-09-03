@@ -288,4 +288,10 @@
   <data name="Select" xml:space="preserve">
     <value>-- اخنر --</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>لنشاء حساب جيد</value>
+  </data>
+  <data name="ComparePassword" xml:space="preserve">
+    <value>كلمة المرور و تأكيد كلمة المرور لا يتطابقان</value>
+  </data>
 </root>
