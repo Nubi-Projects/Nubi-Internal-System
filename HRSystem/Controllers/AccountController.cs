@@ -102,7 +102,7 @@ namespace HRSystem.Controllers
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
-                return View("Error");
+                return View(Resources.NubiHR.Error);
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -192,7 +192,7 @@ namespace HRSystem.Controllers
         {
             if (userId == null || code == null)
             {
-                return View("Error");
+                return View(Resources.NubiHR.Error);
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
@@ -247,7 +247,7 @@ namespace HRSystem.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            return code == null ? View(Resources.NubiHR.Error) : View();
         }
 
         //
@@ -303,7 +303,7 @@ namespace HRSystem.Controllers
             var userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
             {
-                return View("Error");
+                return View(Resources.NubiHR.Error);
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
@@ -325,7 +325,7 @@ namespace HRSystem.Controllers
             // Generate the token and send it
             if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
-                return View("Error");
+                return View(Resources.NubiHR.Error);
             }
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }

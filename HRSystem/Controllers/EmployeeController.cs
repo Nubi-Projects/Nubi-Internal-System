@@ -77,7 +77,7 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Report()
         {
-            ViewBag.Department = Db.Departments.ToList();
+            ViewBag.Position = Db.Positions.ToList();
 
             return View(Db.Employees.ToList());
         }

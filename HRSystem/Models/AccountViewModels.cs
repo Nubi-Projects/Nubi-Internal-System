@@ -71,7 +71,7 @@ namespace HRSystem.Models
         public string Email { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PasswordLength", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(NubiHR), Name = "Password")]
         public string Password { get; set; }
@@ -98,7 +98,7 @@ namespace HRSystem.Models
         public string Email { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PasswordLength", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(NubiHR), Name = "Password")]
         public string Password { get; set; }

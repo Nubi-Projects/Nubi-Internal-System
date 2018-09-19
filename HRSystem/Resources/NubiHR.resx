@@ -297,4 +297,19 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me?</value>
   </data>
+  <data name="PasswordLength" xml:space="preserve">
+    <value>Password must be at least {6} characters long</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
 </root>

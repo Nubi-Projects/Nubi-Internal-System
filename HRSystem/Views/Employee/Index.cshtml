@@ -76,7 +76,12 @@
 
 <script type="text/javascript">
      $(document).ready(function () {
-
-         $('#assets-data-table').DataTable();
+    var IsArabic = '@Request.Cookies["culture"].Value';
+            IsArabic = (IsArabic === 'ar');
+            $('#assets-data-table').DataTable({
+                "language": {
+                    "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                }
+            });
      });
 </script> 
