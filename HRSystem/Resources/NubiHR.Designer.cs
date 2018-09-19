@@ -205,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Account.
+        /// </summary>
+        public static string CreateAccount {
+            get {
+                return ResourceManager.GetString("CreateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Department.
         /// </summary>
         public static string Department {
