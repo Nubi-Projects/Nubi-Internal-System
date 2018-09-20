@@ -54,13 +54,15 @@ namespace HRSystem.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+            
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? (IsArabic == true ?  "تم تغيير كلمه المرور بنجاح" : "Your password has been changed.")
+                : message == ManageMessageId.SetPasswordSuccess ? (IsArabic == true ? "تم تعيين كلمه المرور" : "Your password has been set.")
+                : message == ManageMessageId.SetTwoFactorSuccess ? (IsArabic == true ? "تم تعيين موفر المصادقة الثنائية" : "Your two-factor authentication provider has been set.")
+                : message == ManageMessageId.Error ?  (IsArabic == true ? "حدث خطأ" : "An error has occurred." )
+                : message == ManageMessageId.AddPhoneSuccess ? (IsArabic == true ? "تم اضافة رقم الهاتف" : "Your phone number was added.")
+                : message == ManageMessageId.RemovePhoneSuccess ? (IsArabic == true ? "تم حذف رقم الهاتف" : "Your phone number was removed.")
                 : "";
 
             var userId = User.Identity.GetUserId();

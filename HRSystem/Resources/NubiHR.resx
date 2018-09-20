@@ -235,6 +235,9 @@
     <value>All Employees</value>
   </data>
   <data name="EmployeeHasBeenAddedSuccesfully" xml:space="preserve">
+    <value>Employee has been added succesfully</value>
+  </data>
+  <data name="EmployeeHasBeenAddedSuccesfully" xml:space="preserve">
     <value>Employee has been modified succesfully</value>
   </data>
   <data name="AddNewEmployee" xml:space="preserve">
@@ -294,7 +297,19 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me?</value>
   </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>Create Account</value>
+  <data name="PasswordLength" xml:space="preserve">
+    <value>Password must be at least {6} characters long</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
   </data>
 </root>

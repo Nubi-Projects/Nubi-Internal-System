@@ -294,7 +294,22 @@
   <data name="ComparePassword" xml:space="preserve">
     <value>كلمة المرور و تأكيد كلمة المرور لا يتطابقان</value>
   </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>إنشاء حساب</value>
+  <data name="RememberMe" xml:space="preserve">
+    <value>تذكرني ؟</value>
+  </data>
+  <data name="PasswordLength" xml:space="preserve">
+    <value>يجب ان تتكون كلمة المرور من {6} خانات على الاقل</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>الى</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>خطأ</value>
   </data>
 </root>

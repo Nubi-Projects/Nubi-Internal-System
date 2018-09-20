@@ -1,5 +1,5 @@
 ﻿ @{ 
-     string x = Request.Cookies["culture"].Value;
+     string Lang = Request.Cookies["culture"].Value;
  }
 @{ 
 
@@ -39,6 +39,18 @@
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/pdfmake.min.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/vfs_fonts.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/jszip.min.js"></script>
+
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            var IsArabic = '@Lang';
+            IsArabic = (IsArabic === 'ar');
+            $('#assets-data-table').dataTable({
+                "language": {
+                    "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                }
+            });
+        });
+    </script>*@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
