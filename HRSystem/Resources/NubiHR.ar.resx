@@ -312,4 +312,7 @@
   <data name="Error" xml:space="preserve">
     <value>خطأ</value>
   </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>انشاء حساب</value>
+  </data>
 </root>

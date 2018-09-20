@@ -64,7 +64,7 @@
                
                 @Html.ActionLink(@Resources.NubiHR.HRSystem, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink(@Resources.NubiHR.Report, "Report", "Employee", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink(Resources.NubiHR.CreateAccount, "Register", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(@Resources.NubiHR.CreateAccount, "Register", "Account", new { area = "" }, new { @class = "navbar-brand" })
            @{
                foreach (var i in HRSystem.Manager.LanguageManager.AvailableLanguages)
                {
