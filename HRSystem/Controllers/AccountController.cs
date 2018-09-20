@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HRSystem.Models;
+using System.Security.Cryptography;
 
 namespace HRSystem.Controllers
 {
@@ -144,7 +145,7 @@ namespace HRSystem.Controllers
         public ActionResult Register()
         {
             
-            ViewBag.RoleNo = new SelectList( db.AspNetRoles.ToList(), "Id", "NameEn");
+            ViewBag.EmpNo = new SelectList( db.Employees.ToList(), "Id", "FirstName");
             //ViewBag.JobTitleRoleNo = new SelectList( db.JobTitleRoles.ToList(), "ID", "JobTitle");
             return View();
         }
@@ -158,7 +159,7 @@ namespace HRSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email /*JobTitleRoleID=model.JobTitleRoleNo*/ };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmpNo = model.EmpNo };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -180,7 +181,7 @@ namespace HRSystem.Controllers
 
 
             //if error 
-            ViewBag.RoleNo = new SelectList(db.AspNetRoles.ToList(), "Id", "NameEn");
+            ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             //ViewBag.JobTitleRoleNo = new SelectList(db.JobTitleRoles.ToList(), "ID", "JobTitle");
             return View(model);
         }

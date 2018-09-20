@@ -81,9 +81,9 @@ namespace HRSystem.Models
         [Compare("Password", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "ComparePassword")]
         public string ConfirmPassword { get; set; }
 
-        //[Required]
-        //[Display(Name = "Job Title")]
-        //public int JobTitleRoleNo { get; set; }
+        [Required]
+        [Display(Name = "Employee")]
+        public string EmpNo { get; set; }
 
         //[Required]
         //[Display(Name = "RoleName")]

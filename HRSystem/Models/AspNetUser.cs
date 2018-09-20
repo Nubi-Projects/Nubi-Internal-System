@@ -33,6 +33,7 @@ namespace HRSystem.Models
         public Nullable<bool> LockoutEnabled { get; set; }
         public Nullable<int> AccessFailedCount { get; set; }
         public bool IsDeleted { get; set; }
+        public string PhoneNumber { get; set; }
     
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
