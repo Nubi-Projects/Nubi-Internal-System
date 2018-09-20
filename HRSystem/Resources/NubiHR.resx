@@ -298,7 +298,7 @@
     <value>Remember me?</value>
   </data>
   <data name="PasswordLength" xml:space="preserve">
-    <value>Password must be at least {6} characters long</value>
+    <value>Password must be at least 6 characters long</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
