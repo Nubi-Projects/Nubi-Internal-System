@@ -466,7 +466,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password must be at least {6} characters long.
+        ///   Looks up a localized string similar to Password must be at least 6 characters long.
         /// </summary>
         public static string PasswordLength {
             get {

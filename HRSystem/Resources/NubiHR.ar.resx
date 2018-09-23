@@ -298,7 +298,7 @@
     <value>تذكرني ؟</value>
   </data>
   <data name="PasswordLength" xml:space="preserve">
-    <value>يجب ان تتكون كلمة المرور من {6} خانات على الاقل</value>
+    <value>يجب ان تتكون كلمة المرور من 6 خانات على الاقل</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>بحث</value>
