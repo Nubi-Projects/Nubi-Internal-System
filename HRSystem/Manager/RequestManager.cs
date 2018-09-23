@@ -64,5 +64,20 @@ namespace HRSystem.Manager
             }
             return 30 - TotalDuration;
         }
+        public bool AvailableVacation(string id)
+        {
+            var emp = db.AspNetUsers.Where(e => e.EmpNo == id).FirstOrDefault();
+            var VacReq = db.VacationRequests.LastOrDefault(e=> e.EmployeeNo == emp.EmpNo);
+
+            if (VacReq.ResumeDate.AddDays(14) >= DateTime.Today)
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
