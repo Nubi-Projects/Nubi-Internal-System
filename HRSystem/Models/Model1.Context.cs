@@ -25,11 +25,6 @@ namespace HRSystem.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Attachment> Attachments { get; set; }
         public virtual DbSet<BankAccount> BankAccounts { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
@@ -42,7 +37,11 @@ namespace HRSystem.Models
         public virtual DbSet<Salary> Salaries { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<TrainingCertificate> TrainingCertificates { get; set; }
+        public virtual DbSet<UserPreference> UserPreferences { get; set; }
+        public virtual DbSet<UserSession> UserSessions { get; set; }
         public virtual DbSet<VacationRequest> VacationRequests { get; set; }
         public virtual DbSet<VacationType> VacationTypes { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
     }
 }

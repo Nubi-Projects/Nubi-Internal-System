@@ -5,42 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NubiDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="NameEn" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="NameAr" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetUserClaims">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ClaimType" Type="nvarchar(max)" />
-          <Property Name="ClaimValue" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="AspNetUserLogins">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
@@ -67,7 +38,7 @@
           <Property Name="LockoutEnabled" Type="bit" />
           <Property Name="AccessFailedCount" Type="int" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="PhoneNumber" Type="nchar" MaxLength="10" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Attachment">
           <Key>
@@ -210,6 +181,39 @@
           <Property Name="TrainingCertificateUrl" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPreferences">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Key" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserAgent" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Value" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="UserSessions">
+          <Key>
+            <PropertyRef Name="SESSIONID" />
+          </Key>
+          <Property Name="SESSIONID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="APPLICATIONNAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="CREATED" Type="datetime" Nullable="false" />
+          <Property Name="EXPIRES" Type="datetime" />
+          <Property Name="LOCKDATE" Type="datetime" />
+          <Property Name="LOCKID" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="TIMEOUT" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="LOCKED" Type="bit" />
+          <Property Name="SESSIONITEMS" Type="text" />
+          <Property Name="FLAGS" Type="int" />
+          <Property Name="IpAddress" Type="varchar" MaxLength="255" />
+          <Property Name="UserAgent" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Updated" Type="datetime" />
+          <Property Name="LastIndexUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="CurrentRole" Type="tinyint" />
+          <Property Name="CurrentRoleProviderId" Type="bigint" />
+          <Property Name="CurrentRoleJpcId" Type="bigint" />
         </EntityType>
         <EntityType Name="VacationRequest">
           <Key>
@@ -397,6 +401,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserPreferences_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="UserPreferences" Type="Self.UserPreferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPreferences">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSessions_Users">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="UserSessions" Type="Self.UserSessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSessions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VacationRequest_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="VacationRequest" Type="Self.VacationRequest" Multiplicity="*" />
@@ -422,10 +450,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NubiDBModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attachment" EntityType="Self.Attachment" Schema="dbo" store:Type="Tables" />
@@ -440,6 +465,8 @@
           <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainingCertificate" EntityType="Self.TrainingCertificate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPreferences" EntityType="Self.UserPreferences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSessions" EntityType="Self.UserSessions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VacationRequest" EntityType="Self.VacationRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VacationType" EntityType="Self.VacationType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="Self.FK_AspNetUserRoles_AspNetUsers">
@@ -494,6 +521,14 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="TrainingCertificate" EntitySet="TrainingCertificate" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserPreferences_AspNetUsers" Association="Self.FK_UserPreferences_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserPreferences" EntitySet="UserPreferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSessions_Users" Association="Self.FK_UserSessions_Users">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserSessions" EntitySet="UserSessions" />
+          </AssociationSet>
           <AssociationSet Name="FK_VacationRequest_Employee" Association="Self.FK_VacationRequest_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="VacationRequest" EntitySet="VacationRequest" />
@@ -508,11 +543,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="NubiDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="NubiDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="NubiDBModel.C__MigrationHistory" />
-          <EntitySet Name="AspNetRoles" EntityType="NubiDBModel.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="NubiDBModel.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="NubiDBModel.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="NubiDBModel.AspNetUser" />
           <EntitySet Name="Attachments" EntityType="NubiDBModel.Attachment" />
           <EntitySet Name="BankAccounts" EntityType="NubiDBModel.BankAccount" />
           <EntitySet Name="Departments" EntityType="NubiDBModel.Department" />
@@ -525,12 +555,10 @@
           <EntitySet Name="Salaries" EntityType="NubiDBModel.Salary" />
           <EntitySet Name="Settings" EntityType="NubiDBModel.Setting" />
           <EntitySet Name="TrainingCertificates" EntityType="NubiDBModel.TrainingCertificate" />
+          <EntitySet Name="UserPreferences" EntityType="NubiDBModel.UserPreference" />
+          <EntitySet Name="UserSessions" EntityType="NubiDBModel.UserSession" />
           <EntitySet Name="VacationRequests" EntityType="NubiDBModel.VacationRequest" />
           <EntitySet Name="VacationTypes" EntityType="NubiDBModel.VacationType" />
-          <AssociationSet Name="FK_AspNetUsers_Employee" Association="NubiDBModel.FK_AspNetUsers_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
           <AssociationSet Name="FK_Employee_Attachment" Association="NubiDBModel.FK_Employee_Attachment">
             <End Role="Attachment" EntitySet="Attachments" />
             <End Role="Employee" EntitySet="Employees" />
@@ -579,70 +607,25 @@
             <End Role="VacationType" EntitySet="VacationTypes" />
             <End Role="VacationRequest" EntitySet="VacationRequests" />
           </AssociationSet>
+          <EntitySet Name="AspNetUsers" EntityType="NubiDBModel.AspNetUser" />
+          <AssociationSet Name="FK_AspNetUsers_Employee" Association="NubiDBModel.FK_AspNetUsers_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPreferences_AspNetUsers" Association="NubiDBModel.FK_UserPreferences_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="UserPreference" EntitySet="UserPreferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSessions_Users" Association="NubiDBModel.FK_UserSessions_Users">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="UserSession" EntitySet="UserSessions" />
+          </AssociationSet>
+          <EntitySet Name="AspNetRoles" EntityType="NubiDBModel.AspNetRole" />
           <AssociationSet Name="AspNetUserRoles" Association="NubiDBModel.AspNetUserRoles">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="AspNetRole">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="NameEn" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="NameAr" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUserClaim">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="AspNetUserLogin">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="AspNetUser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="EmpNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" />
-          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" />
-          <Property Name="AccessFailedCount" Type="Int32" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="AspNetUser" ToRole="Employee" />
-          <NavigationProperty Name="AspNetRoles" Relationship="NubiDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
         <EntityType Name="Attachment">
           <Key>
             <PropertyRef Name="Id" />
@@ -699,7 +682,6 @@
           <Property Name="EndDate" Type="DateTime" Precision="0" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
           <NavigationProperty Name="Attachment" Relationship="NubiDBModel.FK_Employee_Attachment" FromRole="Employee" ToRole="Attachment" />
           <NavigationProperty Name="BankAccount" Relationship="NubiDBModel.FK_Employee_BankAccount" FromRole="Employee" ToRole="BankAccount" />
           <NavigationProperty Name="Department" Relationship="NubiDBModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
@@ -708,6 +690,7 @@
           <NavigationProperty Name="PermissionRequests" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="Employee" ToRole="PermissionRequest" />
           <NavigationProperty Name="TrainingCertificates" Relationship="NubiDBModel.FK_TrainingCertificate_Employee" FromRole="Employee" ToRole="TrainingCertificate" />
           <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="Employee" ToRole="VacationRequest" />
+          <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="ExtraSalary">
           <Key>
@@ -807,6 +790,41 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_TrainingCertificate_Employee" FromRole="TrainingCertificate" ToRole="Employee" />
         </EntityType>
+        <EntityType Name="UserPreference">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Key" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserAgent" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="NubiDBModel.FK_UserPreferences_AspNetUsers" FromRole="UserPreference" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="UserSession">
+          <Key>
+            <PropertyRef Name="SESSIONID" />
+          </Key>
+          <Property Name="SESSIONID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="APPLICATIONNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EXPIRES" Type="DateTime" Precision="3" />
+          <Property Name="LOCKDATE" Type="DateTime" Precision="3" />
+          <Property Name="LOCKID" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TIMEOUT" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LOCKED" Type="Boolean" />
+          <Property Name="SESSIONITEMS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FLAGS" Type="Int32" />
+          <Property Name="IpAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserAgent" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Updated" Type="DateTime" Precision="3" />
+          <Property Name="LastIndexUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentRole" Type="Byte" />
+          <Property Name="CurrentRoleProviderId" Type="Int64" />
+          <Property Name="CurrentRoleJpcId" Type="Int64" />
+          <NavigationProperty Name="AspNetUser" Relationship="NubiDBModel.FK_UserSessions_Users" FromRole="UserSession" ToRole="AspNetUser" />
+        </EntityType>
         <EntityType Name="VacationRequest">
           <Key>
             <PropertyRef Name="Id" />
@@ -838,18 +856,6 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationType" ToRole="VacationRequest" />
         </EntityType>
-        <Association Name="FK_AspNetUsers_Employee">
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="NubiDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUser">
-              <PropertyRef Name="EmpNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Employee_Attachment">
           <End Type="NubiDBModel.Attachment" Role="Attachment" Multiplicity="1" />
           <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
@@ -994,6 +1000,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="EmpNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" />
+          <Property Name="AccessFailedCount" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="AspNetUser" ToRole="Employee" />
+          <NavigationProperty Name="UserPreferences" Relationship="NubiDBModel.FK_UserPreferences_AspNetUsers" FromRole="AspNetUser" ToRole="UserPreference" />
+          <NavigationProperty Name="UserSessions" Relationship="NubiDBModel.FK_UserSessions_Users" FromRole="AspNetUser" ToRole="UserSession" />
+          <NavigationProperty Name="AspNetRoles" Relationship="NubiDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <Association Name="FK_AspNetUsers_Employee">
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="NubiDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUser">
+              <PropertyRef Name="EmpNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPreferences_AspNetUsers">
+          <End Type="NubiDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="NubiDBModel.UserPreference" Role="UserPreference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPreference">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSessions_Users">
+          <End Type="NubiDBModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="NubiDBModel.UserSession" Role="UserSession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSession">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NameAr" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
         <Association Name="AspNetUserRoles">
           <End Type="NubiDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
           <End Type="NubiDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
@@ -1004,64 +1078,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="NubiDBModelStoreContainer" CdmEntityContainer="NubiDBEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="NubiDBModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="NubiDBModel.AspNetRole">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="NameAr" ColumnName="NameAr" />
-                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="NubiDBModel.AspNetUserClaim">
-              <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="NubiDBModel.AspNetUserLogin">
-              <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="NubiDBModel.AspNetUser">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Attachments">
             <EntityTypeMapping TypeName="NubiDBModel.Attachment">
               <MappingFragment StoreEntitySet="Attachment">
@@ -1216,6 +1232,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserPreferences">
+            <EntityTypeMapping TypeName="NubiDBModel.UserPreference">
+              <MappingFragment StoreEntitySet="UserPreferences">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSessions">
+            <EntityTypeMapping TypeName="NubiDBModel.UserSession">
+              <MappingFragment StoreEntitySet="UserSessions">
+                <ScalarProperty Name="CurrentRoleJpcId" ColumnName="CurrentRoleJpcId" />
+                <ScalarProperty Name="CurrentRoleProviderId" ColumnName="CurrentRoleProviderId" />
+                <ScalarProperty Name="CurrentRole" ColumnName="CurrentRole" />
+                <ScalarProperty Name="LastIndexUrl" ColumnName="LastIndexUrl" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="FLAGS" ColumnName="FLAGS" />
+                <ScalarProperty Name="SESSIONITEMS" ColumnName="SESSIONITEMS" />
+                <ScalarProperty Name="LOCKED" ColumnName="LOCKED" />
+                <ScalarProperty Name="TIMEOUT" ColumnName="TIMEOUT" />
+                <ScalarProperty Name="LOCKID" ColumnName="LOCKID" />
+                <ScalarProperty Name="LOCKDATE" ColumnName="LOCKDATE" />
+                <ScalarProperty Name="EXPIRES" ColumnName="EXPIRES" />
+                <ScalarProperty Name="CREATED" ColumnName="CREATED" />
+                <ScalarProperty Name="APPLICATIONNAME" ColumnName="APPLICATIONNAME" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SESSIONID" ColumnName="SESSIONID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="VacationRequests">
             <EntityTypeMapping TypeName="NubiDBModel.VacationRequest">
               <MappingFragment StoreEntitySet="VacationRequest">
@@ -1243,6 +1294,35 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="NubiDBModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="NubiDBModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="NameAr" ColumnName="NameAr" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
