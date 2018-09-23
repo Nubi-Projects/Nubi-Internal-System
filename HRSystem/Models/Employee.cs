@@ -17,10 +17,10 @@ namespace HRSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
         {
-            this.AspNetUsers = new HashSet<AspNetUser>();
             this.PermissionRequests = new HashSet<PermissionRequest>();
             this.TrainingCertificates = new HashSet<TrainingCertificate>();
             this.VacationRequests = new HashSet<VacationRequest>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
         public string Id { get; set; }
@@ -41,8 +41,6 @@ namespace HRSystem.Models
         public System.DateTime Date { get; set; }
         public bool IsDeleted { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
         public virtual Attachment Attachment { get; set; }
         public virtual BankAccount BankAccount { get; set; }
         public virtual Department Department { get; set; }
@@ -54,5 +52,7 @@ namespace HRSystem.Models
         public virtual ICollection<TrainingCertificate> TrainingCertificates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VacationRequest> VacationRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }
