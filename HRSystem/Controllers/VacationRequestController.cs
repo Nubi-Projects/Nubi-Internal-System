@@ -69,6 +69,12 @@ namespace HRSystem.Controllers
                 TempData["check"] = "You did not complete Month Yet!";
                 return RedirectToAction("Index");
             }
+            var vac = mng.AvailableVacation(id: User.Identity.GetUserId());
+            if (vac == false)
+            {
+                TempData["vac"] = "You Did Not complete 14 Days From The Last Vacation!";
+                return RedirectToAction("Index");
+            }
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type");
             ViewBag.emp = db.AspNetUsers.ToList();
             return View();

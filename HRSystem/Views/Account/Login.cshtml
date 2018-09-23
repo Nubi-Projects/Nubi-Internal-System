@@ -40,11 +40,22 @@
 
 
         }
+
         @if (@TempData["chec"] != null)
         {
 
             <div class="alert alert-danger">
                 <strong> @TempData["chec"] </strong>
+            </div>
+
+
+        }
+
+        @if (@TempData["vac"] != null)
+        {
+
+            <div class="alert alert-danger">
+                <strong> @TempData["vac"] </strong>
             </div>
 
 
