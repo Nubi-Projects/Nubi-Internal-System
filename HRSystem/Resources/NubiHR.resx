@@ -237,9 +237,6 @@
   <data name="EmployeeHasBeenAddedSuccesfully" xml:space="preserve">
     <value>Employee has been added succesfully</value>
   </data>
-  <data name="EmployeeHasBeenAddedSuccesfully" xml:space="preserve">
-    <value>Employee has been modified succesfully</value>
-  </data>
   <data name="AddNewEmployee" xml:space="preserve">
     <value>Add new employee</value>
   </data>
@@ -314,5 +311,8 @@
   </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Create Account</value>
+  </data>
+  <data name="UploadAllowedExtensions" xml:space="preserve">
+    <value>Please upload file having extensions .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf only</value>
   </data>
 </root>

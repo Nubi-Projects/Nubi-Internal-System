@@ -373,7 +373,7 @@
                 var filePath = fileInput.value;
                 var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx)$/i;
                 if (!allowedExtensions.exec(filePath)) {
-                    swal(`Error!`, `Please upload file having extensions .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf only.`, `error`);
+                    swal(`Error!`, '@Resources.NubiHR.UploadAllowedExtensions', `error`);
                     fileInput.value = '';
                     return false;
                 } else {
