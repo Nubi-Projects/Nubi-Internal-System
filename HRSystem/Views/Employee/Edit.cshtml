@@ -386,7 +386,7 @@
         var allowedExtensions = /(\.jfif|\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx)$/i;
         if (!allowedExtensions.exec(filePath)) {
             // alert('Please upload file having extensions .jpeg/.jpg/.png/.gif/ .doc/ .docx/ .pdf only.');
-            swal(`Error!`, `Please upload file having extensions .jfif .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf only.`, `error`);
+            swal(`Error!`, '@Resources.NubiHR.UploadAllowedExtensions', `error`);
             fileInput.value = '';
             return false;
         } else {

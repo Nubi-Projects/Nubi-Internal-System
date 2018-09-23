@@ -268,7 +268,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Employee has been modified succesfully.
+        ///   Looks up a localized string similar to Employee has been added succesfully.
         /// </summary>
         public static string EmployeeHasBeenAddedSuccesfully {
             get {
@@ -624,6 +624,15 @@ namespace Resources {
         public static string Update {
             get {
                 return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please upload file having extensions .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf only.
+        /// </summary>
+        public static string UploadAllowedExtensions {
+            get {
+                return ResourceManager.GetString("UploadAllowedExtensions", resourceCulture);
             }
         }
         
