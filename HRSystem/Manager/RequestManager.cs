@@ -28,8 +28,8 @@ namespace HRSystem.Manager
 
         public bool CheckFivedaysVaction(string id)
         {
-            var emp = db.AspNetUsers.Where(e => e.EmpNo == id).FirstOrDefault();
-            var diff = GetMonthDifference(DateTime.Now, emp.Employee.StartDate);
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var diff = GetMonthDifference(DateTime.Now, emp.StartDate);
             if (diff >= 1)
                 return true;
             else
@@ -66,13 +66,12 @@ namespace HRSystem.Manager
         }
         public bool AvailableVacation(string id)
         {
-            var emp = db.AspNetUsers.Where(e => e.EmpNo == id).FirstOrDefault();
-            var VacReq = db.VacationRequests.LastOrDefault(e=> e.EmployeeNo == emp.EmpNo);
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var VacReq = db.VacationRequests.OrderByDescending(f=>f.Id).FirstOrDefault(e => e.EmployeeNo == emp.Id);
 
-            if (VacReq.ResumeDate.AddDays(14) >= DateTime.Today)
+            if (VacReq != null && VacReq.ResumeDate.AddDays(14) >= DateTime.Today)
             {
                 return true;
-
             }
             else
             {
