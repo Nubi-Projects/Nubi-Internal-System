@@ -1,24 +1,152 @@
-﻿body {
+﻿/*body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
+
 .dl-horizontal dt {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+}*/
+
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
+body {
+    font-family: 'Times New Roman', Times, serif;
 }
+
+h2 {
+    font-size: 30px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.bg {
+    background-image: url(../image/pexels-photo-1089549.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: beige;
+}
+
+.overlay {
+    /* background-color: #eea904;
+    opacity: 0.8; 
+    */
+    background: rgba(0, 0, 0, 0.47) !important;
+    z-index: -3;
+    height: 100% !important;
+}
+/* login form*/
+form {
+    margin-top: 173px;
+}
+
+    form > img {
+        margin-bottom: 20px;
+    }
+
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.icon {
+    padding: 10px;
+    background: #eea904;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+    .input-field:focus {
+        border: 2px solid d#eea904;
+    }
+
+/* Set a style for the submit button */
+.btn2 {
+    background-color: #eea904;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+    .btn2:hover {
+        opacity: 1;
+    }
+
+.newaccount {
+    text-align: center !important;
+    font-style: italic;
+    color: #ffffff;
+}
+
+    .newaccount:hover {
+        font-style: italic;
+        color: #ffffff;
+        text-decoration: underline;
+    }
+/* navbar style*/
+.navbar {
+    background-color: #eea904 !important;
+    color: #ffffff !important;
+}
+
+    .navbar .navbar-brand {
+        color: #ffffff;
+        font-size: 25px;
+        font-family: 'Abril Fatface', cursive;
+    }
+
+        .navbar .navbar-brand:hover {
+            color: #ffffff;
+        }
+
+    .navbar .navbar-nav li a {
+        color: #ffffff !important;
+    }
+
+.navbar-light .navbar-toggler {
+    color: rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.952) !important;
+}
+
+.the-legend {
+    border-style: none;
+    border-width: 0;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 0;
+    width: auto;
+    padding: 10px 10px;
+    border: 1px solid #e0e0e0;
+    font-weight: bold;
+    color: #eea904;
+}
+
+.the-fieldset {
+    border: 1px solid #c4c3c3;
+    padding: 10px;
+}
+
