@@ -10,10 +10,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - @Resources.NubiHR.HRSystem</title>
-
-
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+   
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
 
@@ -22,7 +22,7 @@
     <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="~/Scripts/DataTables/Buttons-1.5.1/css/buttons.bootstrap.css" rel="stylesheet" />
     <link href="~/Scripts/DataTables/Buttons-1.5.1/css/buttons.dataTables.css" rel="stylesheet" />
-
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/jquery-3.0.0.js"></script>
     <script src="~/Scripts/sweetalert.js"></script>
     <script src="~/Scripts/sweetalert.min.js"></script>
@@ -53,41 +53,47 @@
     </script>*@
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-               
-                @Html.ActionLink(@Resources.NubiHR.HRSystem, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+            <a class="navbar-brand" href="#"><span class="text-uppercase text-dark">hr</span>system</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">               
+                <ul class="navbar-nav ml-auto">
+                    <li role="presentation" class="nav-item"><a href="@Url.Action("Index","Home")" class="nav-link">HR System</a></li>
+                    <li role="presentation" class="nav-item"><a href="@Url.Action("Report","Employee")" class="nav-link">Reports</a></li>
+                    <li role="presentation" class="nav-item"><a href="@Url.Action("Register","Account")" class="nav-link">Create Account</a></li>
+
+
+                    @*@Html.ActionLink(@Resources.NubiHR.HRSystem, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink(@Resources.NubiHR.Report, "Report", "Employee", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink(@Resources.NubiHR.CreateAccount, "Register", "Account", new { area = "" }, new { @class = "navbar-brand" })
-           @{
-               foreach (var i in HRSystem.Manager.LanguageManager.AvailableLanguages)
-               {
-                @Html.ActionLink(i.LanguageFullName, "ChangeLanguage", "Employee", new { lang = i.LanguageCultureName }, new { @class = "navbar-brand" }) <text> </text>
-               }
-        }
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                @Html.ActionLink(@Resources.NubiHR.CreateAccount, "Register", "Account", new { area = "" }, new { @class = "navbar-brand" })*@
+                    @{
+                        foreach (var i in HRSystem.Manager.LanguageManager.AvailableLanguages)
+                        {
+                            <li @*@Html.ActionLink(i.LanguageFullName, "ChangeLanguage", "Employee", new { lang = i.LanguageCultureName }, new { @class = "" })*@ class="nav-item"><a href="@Url.Action( "ChangeLanguage", "Employee")" class="nav-link">@i.LanguageFullName</a></li>
+                        }
+                    }
                 </ul>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav"></ul>
+                </div>
             </div>
+        </nav>
+        <div class="container">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
+            </footer>
         </div>
-    </div>
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
-        </footer>
-    </div>
-
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+        @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+        <script src="~/Scripts/jquery.validate.js"></script>
 </body>
 </html>
