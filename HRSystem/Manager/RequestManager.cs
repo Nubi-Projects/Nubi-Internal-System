@@ -37,8 +37,8 @@ namespace HRSystem.Manager
         }
         public bool CheckVaction(string id)
         {
-            var emp = db.AspNetUsers.Where(e => e.EmpNo == id).FirstOrDefault();
-            var diff = GetMonthDifference(DateTime.Now, emp.Employee.StartDate);
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var diff = GetMonthDifference(DateTime.Now, emp.StartDate);
             if (diff >= 12)
                 return true;
             else

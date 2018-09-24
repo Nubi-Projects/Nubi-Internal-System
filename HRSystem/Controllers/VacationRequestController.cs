@@ -72,7 +72,7 @@ namespace HRSystem.Controllers
             var vac = mng.AvailableVacation(id: User.Identity.GetUserId());
             if (vac== true)
             {
-                TempData["vac"] = "You Did Not complete 14 Days From The Last Vacation!";
+                TempData["vac"] = "You Did Not complete 14 Days From The Last Vacation You Took!";
                 return RedirectToAction("Index");
             }
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type");
@@ -88,7 +88,7 @@ namespace HRSystem.Controllers
             Manager.RequestManager mng = new Manager.RequestManager();
             var v = mng.CheckVaction(id: User.Identity.GetUserId());
             string CurrentUser = User.Identity.GetUserId();
-            vac.EmployeeNo =db.AspNetUsers.Where(a => a.EmpNo == CurrentUser).FirstOrDefault().Id;
+            vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
             if (ModelState.IsValid)
             {
                 if (vac.Duration > 5 && v==false )
