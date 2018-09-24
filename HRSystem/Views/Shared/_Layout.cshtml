@@ -53,6 +53,35 @@
     </script>*@
 </head>
 <body>
+    @if (@TempData["check"] != null)
+    {
+
+        <div class="alert alert-danger">
+            <strong> @TempData["check"] </strong>
+        </div>
+
+
+    }
+
+    @if (@TempData["chec"] != null)
+    {
+
+        <div class="alert alert-danger">
+            <strong> @TempData["chec"] </strong>
+        </div>
+
+
+    }
+
+    @if (@TempData["vac"] != null)
+    {
+
+        <div class="alert alert-danger text-center">
+            <strong> @TempData["vac"] </strong>
+        </div>
+
+
+    }
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
         <div class="container">
 
