@@ -76,7 +76,7 @@ namespace HRSystem.Controllers
         public ActionResult Create(PermissionRequest per)
         {
             var CurrentUser = User.Identity.GetUserId();
-            per.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().Id;
+            per.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
             if (ModelState.IsValid)
             {
                 per.RequestDate = DateTime.Now;

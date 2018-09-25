@@ -16,7 +16,7 @@ namespace HRSystem.Manager
 
         public bool GetPermission(string id)
         {
-            var emp = db.AspNetUsers.Where(e => e.EmpNo == id).FirstOrDefault();
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             List<PermissionRequest> perReq = db.PermissionRequests.Where(e => e.PermissionDate.Month == DateTime.Now.Month && e.PermissionDate.Year == DateTime.Now.Year).ToList();
             if (perReq.Count < 2)
             {
