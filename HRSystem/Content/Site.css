@@ -19,21 +19,26 @@ select,
 textarea {
     max-width: 280px;
 }*/
-
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
 
 body {
     font-family: 'Times New Roman', Times, serif;
 }
 
+footer{
+    margin-top:50px;
+    text-align:center;
+}
+
 h2 {
     font-size: 30px;
     margin-top: 10px;
     font-weight: bold;
+    color: #eea904;
 }
 
 .bg {
-    background-image: url(../image/pexels-photo-1089549.jpeg);
+    background-image: url(../Content/image/pexels-photo-1089549.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
     color: beige;
@@ -48,7 +53,7 @@ h2 {
     height: 100% !important;
 }
 /* login form*/
-form {
+.form-log {
     margin-top: 173px;
 }
 
@@ -107,46 +112,3 @@ form {
         color: #ffffff;
         text-decoration: underline;
     }
-/* navbar style*/
-.navbar {
-    background-color: #eea904 !important;
-    color: #ffffff !important;
-}
-
-    .navbar .navbar-brand {
-        color: #ffffff;
-        font-size: 25px;
-        font-family: 'Abril Fatface', cursive;
-    }
-
-        .navbar .navbar-brand:hover {
-            color: #ffffff;
-        }
-
-    .navbar .navbar-nav li a {
-        color: #ffffff !important;
-    }
-
-.navbar-light .navbar-toggler {
-    color: rgba(255, 255, 255, 0.5) !important;
-    border-color: rgba(255, 255, 255, 0.952) !important;
-}
-
-.the-legend {
-    border-style: none;
-    border-width: 0;
-    font-size: 18px;
-    line-height: 20px;
-    margin-bottom: 0;
-    width: auto;
-    padding: 10px 10px;
-    border: 1px solid #e0e0e0;
-    font-weight: bold;
-    color: #eea904;
-}
-
-.the-fieldset {
-    border: 1px solid #c4c3c3;
-    padding: 10px;
-}
-

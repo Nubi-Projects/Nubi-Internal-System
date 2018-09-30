@@ -25,82 +25,81 @@
     <script src="~/Content/js/bootstrap.min.js"></script>*@
 </head>
 <body>
-    <div class="container body-content">
+    <div class="container">
+       
+            <div class="col-md-6 col-sm-push-3">
+                @*@if (@TempData["check"] != null)
+            { 
+
+                    <div class="alert alert-danger">
+                        <strong> @TempData["check"] </strong>
+                    </div>
 
 
+                }
+                @if (@TempData["chec"] != null)
+            {
+
+                    <div class="alert alert-danger">
+                        <strong> @TempData["chec"] </strong>
+                    </div>
 
 
-        @if (@TempData["check"] != null)
-        {
+                }*@
+                <h2>@ViewBag.Title</h2>
 
-            <div class="alert alert-danger">
-                <strong> @TempData["check"] </strong>
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                    @Html.AntiForgeryToken()
+
+                    <a href="#">Create New Account</a>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        <div class="">
+                            Select Employee
+                        </div>
+
+                        @Html.DropDownList("EmpNo", null, "Select", new { @class = "form-control" })
+
+                    </div>
+                    @*<div class="form-group">
+                        <div class="col-md-2 control-label">
+                            Select Job Title
+                        </div>
+                        <div class="col-md-10">
+                            @Html.DropDownList("JobTitleRoleNo", null, "Select", new { @class = "form-control" })
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        <div class="">
+                            <input type="submit" class="btn2" value="Register" />
+                        </div>
+                    </div>
+                }
             </div>
-
-
-        }
-        @if (@TempData["chec"] != null)
-        {
-
-            <div class="alert alert-danger">
-                <strong> @TempData["chec"] </strong>
-            </div>
-
-
-        }
-        <h2>@ViewBag.Title.</h2>
-
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            <h4>Create a new account.</h4>
-            <hr />
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-2 control-label">
-                    Select Employee
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownList("EmpNo", null, "Select", new { @class = "form-control" })
-                </div>
-            </div>
-            @*<div class="form-group">
-                <div class="col-md-2 control-label">
-                    Select Job Title
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownList("JobTitleRoleNo", null, "Select", new { @class = "form-control" })
-                </div>
-            </div>*@
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Register" />
-                </div>
-            </div>
-        }
-        
-        @*<footer>
-            <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
-        </footer>*@
-    </div>
+            @*<footer>
+                <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
+            </footer>*@
+        </div>
 
 </body>
 </html>
