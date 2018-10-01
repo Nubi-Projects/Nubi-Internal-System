@@ -34,290 +34,230 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        
-        <input name="count" id='count' type="hidden" value="1" />
 
-        @*<div id="flip">
+    <input name="count" id='count' type="hidden" value="1" />
+
+    @*<div id="flip">
             User Information
         </div> */
         <div id="panel">*@
-
-        <legend>@Resources.NubiHR.EmployeeInfo</legend>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.FirstName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => Model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.LastName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            @*<div class="form-group">
-                @Html.LabelFor(model => Model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.UserName, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-
-            @*<div class="form-group">
-                @Html.LabelFor(model => Model.PasswordHash, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.PasswordHash, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => Model.ConfirmPassword, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => Model.EmailEmployee, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.EmailEmployee, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.EmailEmployee, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => Model.Mobile1, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.Mobile1, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.Mobile1, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
+    <div class="col-md-8">
         <div class="form-group">
-            @Html.LabelFor(model => Model.Mobile2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <fieldset class="the-fieldset">
+                <legend class="the-legend">@Resources.NubiHR.EmployeeInfo</legend>
+
+
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => Model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.FirstName, "", new { @class = "text-danger" })
+
+
+
+                @Html.LabelFor(model => Model.LastName, htmlAttributes: new { @class = "control-label " })
+
+                @Html.EditorFor(model => Model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.LastName, "", new { @class = "text-danger" })
+
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => Model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => Model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => Model.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => Model.PasswordHash, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => Model.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => Model.PasswordHash, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => Model.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+
+
+                @Html.LabelFor(model => Model.EmailEmployee, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => Model.EmailEmployee, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.EmailEmployee, "", new { @class = "text-danger" })
+
+                @Html.LabelFor(model => Model.Mobile1, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => Model.Mobile1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.Mobile1, "", new { @class = "text-danger" })
+
+
+                @Html.LabelFor(model => Model.Mobile2, htmlAttributes: new { @class = "control-label" })
+
                 @Html.EditorFor(model => Model.Mobile2, new { htmlAttributes = new { @class = "form-control" } })
-                
-            </div>
+
+
+                @Html.LabelFor(model => Model.Address, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => Model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.Address, "", new { @class = "text-danger" })
+
+            </fieldset>
         </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => Model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.Address, "", new { @class = "text-danger" })
-                </div>
-            </div>
-      @* </div> *@  
-        <legend>@Resources.NubiHR.JobInfo</legend>
-            <div class="form-group">
-                @Html.LabelFor(model => Model.IdDepartment, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.IdDepartment, new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IdDepartment, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => Model.IdPosition, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.IdPosition, new SelectList(string.Empty, "Id", (IsArabic == true ? "PositionNameAr" : "PositionNameEn") ), Resources.NubiHR.Select, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.IdPosition, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
+        @* </div> *@
         <div class="form-group">
-            @Html.LabelFor(model => Model.BasicSalary, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <fieldset class="the-fieldset">
+                <legend class="the-legend">@Resources.NubiHR.JobInfo</legend>
+
+                @Html.LabelFor(model => Model.IdDepartment, htmlAttributes: new { @class = "control-label" })
+
+                @Html.DropDownListFor(model => model.IdDepartment, new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdDepartment, "", new { @class = "text-danger" })
+
+
+
+                @Html.LabelFor(model => Model.IdPosition, htmlAttributes: new { @class = "control-label" })
+
+                @Html.DropDownListFor(model => model.IdPosition, new SelectList(string.Empty, "Id", (IsArabic == true ? "PositionNameAr" : "PositionNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdPosition, "", new { @class = "text-danger" })
+
+
+
+
+                @Html.LabelFor(model => Model.BasicSalary, htmlAttributes: new { @class = "control-label" })
+
                 @Html.EditorFor(model => Model.BasicSalary, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => Model.BasicSalary, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => Model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+
+
+                @Html.LabelFor(model => Model.StartDate, htmlAttributes: new { @class = "control-label" })
+
                 @Html.EditorFor(model => Model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => Model.StartDate, "", new { @class = "text-danger" })
-            </div>
+
+
+
+                @Html.LabelFor(model => Model.FunctionalNumber, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => Model.FunctionalNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.FunctionalNumber, "", new { @class = "text-danger" })
+
+
+
+                <br />
+            </fieldset>
         </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => Model.FunctionalNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => Model.FunctionalNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => Model.FunctionalNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-        
-        <br />
-
-        <legend>@Resources.NubiHR.BankInfo</legend>
-
-        @*<div id="flip">
-                Bank Information
-            </div>*@
-
-          @*<div id="panel">*@ 
-
         <div class="form-group">
-            @Html.LabelFor(model => Model.AccountNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <fieldset class="the-fieldset">
+                <legend class="the-legend">@Resources.NubiHR.BankInfo</legend>
+
+                @*<div id="flip">
+                        Bank Information
+                    </div>*@
+
+                @*<div id="panel">*@
+
+
+                @Html.LabelFor(model => Model.AccountNumber, htmlAttributes: new { @class = "control-label" })
+
                 @Html.EditorFor(model => Model.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
-               
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => Model.BankName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+                @Html.LabelFor(model => Model.BankName, htmlAttributes: new { @class = "control-label" })
+
                 @Html.EditorFor(model => Model.BankName, new { htmlAttributes = new { @class = "form-control" } })
-                 
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => Model.BankBranch, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+                @Html.LabelFor(model => Model.BankBranch, htmlAttributes: new { @class = "control-label" })
+
                 @Html.EditorFor(model => Model.BankBranch, new { htmlAttributes = new { @class = "form-control" } })
-               
-            </div>
+
+
+                @* </div>*@
+
+            </fieldset>
         </div>
-
-        @* </div>*@
-
-
 
         <br />
-        <legend>@Resources.NubiHR.Attachments</legend>
-
         <div class="form-group">
-            @Html.LabelFor(model => Model.NationalId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <fieldset class="the-fieldset">
+                <legend class="the-legend">@Resources.NubiHR.Attachments</legend>
+
+                @Html.LabelFor(model => Model.NationalId, htmlAttributes: new { @class = "control-label col-md-8" })
+
                 @*<input type="file" id="NationalId" onchange="return fileValidation()" class = "form-control" />*@
-                @Html.TextBoxFor(model => model.NationalId, new { type = "file", id = "file", onchange = "return fileValidation('file')", htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.NationalId, new { type = "file", id = "file", onchange = "return fileValidation('file')", htmlAttributes = new { @class = "form-control col-md-8" } })
                 @Html.ValidationMessageFor(model => Model.NationalId, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => Model.NIdTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+                @Html.LabelFor(model => Model.NIdTitle, htmlAttributes: new { @class = "control-label col-md-8" })
+
                 @Html.EditorFor(model => Model.NIdTitle, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => Model.NIdTitle, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <br />
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => Model.PassportNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.PassportNumber, new { type = "file", id = "file1", onchange = "return fileValidation('file1')", htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
+                <br />
+                @Html.LabelFor(model => Model.PassportNumber, htmlAttributes: new { @class = "control-label col-md-8" })
 
+                @Html.TextBoxFor(model => model.PassportNumber, new { type = "file", id = "file1", onchange = "return fileValidation('file1')", htmlAttributes = new { @class = "form-control col-md-8" } })
 
-        <div class="form-group">
-            @Html.LabelFor(model => Model.PassportTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+                @Html.LabelFor(model => Model.PassportTitle, htmlAttributes: new { @class = "control-label col-md-8" })
+
                 @Html.EditorFor(model => Model.PassportTitle, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
+                <br />
+                @Html.LabelFor(model => Model.LastCertificate, htmlAttributes: new { @class = "control-label col-md-8" })
 
-        <br />
+                @Html.TextBoxFor(model => model.LastCertificate, new { type = "file", id = "file2", onchange = "return fileValidation('file2')", htmlAttributes = new { @class = "form-control col-md-8" } })
 
+                @Html.LabelFor(model => Model.LastCertTitle, htmlAttributes: new { @class = "control-label col-md-8" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => Model.LastCertificate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.LastCertificate, new { type = "file", id = "file2", onchange = "return fileValidation('file2')", htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => Model.LastCertTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
                 @Html.EditorFor(model => Model.LastCertTitle, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
+                <br />
+                @Html.LabelFor(model => Model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-8" })
 
-        <br />
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => Model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.ImageUrl, new { type = "file", id = "file3", onchange = "return fileValidation('file3')", htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.ImageUrl, new { type = "file", id = "file3", onchange = "return fileValidation('file3')", htmlAttributes = new { @class = "form-control col-md-8" } })
                 @Html.ValidationMessageFor(model => Model.ImageUrl, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => Model.ImageTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+                @Html.LabelFor(model => Model.ImageTitle, htmlAttributes: new { @class = "control-label col-md-8" })
+
                 @Html.EditorFor(model => Model.ImageTitle, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => Model.ImageTitle, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <br />
+                @Html.LabelFor(model => Model.TrainingCertificateUrl, htmlAttributes: new { @class = "control-label col-md-8" })
 
-        <br />
+                @Html.TextBoxFor(model => model.TrainingCertificateUrl, new { type = "file", id = "file4", onchange = "return fileValidation('file4')", htmlAttributes = new { @class = "form-control col-md-8" } })
 
+                @Html.LabelFor(model => Model.TrainingCertificateName, htmlAttributes: new { @class = "control-label col-md-8" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => Model.TrainingCertificateUrl, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.TrainingCertificateUrl, new { type = "file", id = "file4", onchange = "return fileValidation('file4')", htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => Model.TrainingCertificateName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
                 @Html.EditorFor(model => Model.TrainingCertificateName, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
 
-        
-        <div id="MainDiv">
 
-           
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input id='addButton' type="button" value="@Resources.NubiHR.AddMoreCertificates" class="btn btn-default" />
-                <input id='removeButton' type="button" value="@Resources.NubiHR.RemoveCertificate" class="btn btn-default" />
-            </div>
-        </div>
+                <div id="MainDiv">
 
-        <br />
 
-       
+                </div>
+                <br />
+                <input id='addButton' type="button" value="@Resources.NubiHR.AddMoreCertificates" class="btn btn-outline-success" />
+                <input id='removeButton' type="button" value="@Resources.NubiHR.RemoveCertificate" class="btn btn-outline-danger" />
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@Resources.NubiHR.AddEmployee" class="btn btn-success" />
-            </div>
+
+
+
+            </fieldset>
+
+            <input type="submit" value="@Resources.NubiHR.AddEmployee" class="btn2" />
+
+
+
         </div>
     </div>
 }
@@ -343,8 +283,8 @@
             };
     </script>
 
-  
-    }
+
+}
 
 @if (ViewBag.MessageError != null)
 {
@@ -475,9 +415,9 @@
             else {
                 counter--;
                 $('#count').val(counter);
-               
+
                 $("#BigDiv" + counter).remove();
-               
+
             }
 
         });
