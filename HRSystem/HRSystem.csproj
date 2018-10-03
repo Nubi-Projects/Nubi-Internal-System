@@ -154,6 +154,9 @@
     <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="Content\image\nubi.png" />
     <Content Include="Content\image\pexels-photo-1089549.jpeg" />
+    <Content Include="Content\image\sort_asc.png" />
+    <Content Include="Content\image\sort_both.png" />
+    <Content Include="Content\image\sort_desc.png" />
     <Content Include="Content\jquery.dataTables.css" />
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\jquery.dataTables_themeroller.css" />
