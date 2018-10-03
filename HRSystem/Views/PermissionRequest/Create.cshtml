@@ -10,9 +10,9 @@
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form" }))
 {
-    <div class="form-group">
+    <div class="form-group col-md-6">
         <div>
-            تاريخ الطلب
+           Request Date
         </div>
         <div>
           @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -20,7 +20,7 @@
         </div>
         <br />
         <div>
-            نوع الإذن
+            Permission Type
         </div>
         <div>
            @Html.DropDownList("PermissionTypeNo", null,"Select", new { @class = "form-control" })
@@ -28,24 +28,24 @@
         </div>
         <br />
         <div>
-            اسم الموظف
+            Employee Name
         </div>
         <div>
             <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
         </div>
         <br />
         <div>
-            الوظيفة
+            Position
         </div>
         <div>
             <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
         </div>
         <br />
         <div>
-            الفترة:
+            Period:
         </div>
         <div>
-            من الساعة
+            From
         </div>
         <div>
             @Html.EditorFor(model => model.TimeFrom, new { htmlAttributes = new { @class = "form-control" } })
@@ -53,7 +53,7 @@
         </div>
         <br />
         <div>
-            إلى الساعة
+            To
         </div>
         <div>
             @Html.EditorFor(model => model.TimeTo, new { htmlAttributes = new { @class = "form-control" } })
@@ -61,7 +61,7 @@
         </div>
         <br />
         <div>
-            التاريخ
+            Permission Date
         </div>
         <div>
             @Html.EditorFor(model => model.PermissionDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -69,7 +69,7 @@
         </div>
         <br />
         <div>
-            ملاحظة
+            Note
         </div>
         <div>
             @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
@@ -77,9 +77,10 @@
         <br />
         <div class="form-group">
             <div>
-                <a href="@Url.Action("")" class="btn btn-default">رجوع</a>
-                <input type="submit" value="ارسال" class="btn btn-primary" />
-            </div>
+               
+                <input type="submit" value="Send" class="btn2" />
+                <button class="btn-Back"><a href="@Url.Action("")">Back</a></button>
+</div>
         </div>
     </div>
 }

@@ -96,10 +96,26 @@ h2 {
     width: 100%;
     opacity: 0.9;
 }
-
     .btn2:hover {
         opacity: 1;
     }
+
+.btn-Back {
+    background-color: #3a4651;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+.btn-Back:hover {
+    opacity: 1;
+}
+    .btn-Back a{
+color:white;
+    }
+    
 
 .newaccount {
     text-align: center !important;

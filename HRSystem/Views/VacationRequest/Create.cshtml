@@ -9,9 +9,9 @@
 @using (Html.BeginForm(null, null, FormMethod.Post))
 {
    
-    <div class="form-group">
+    <div class="form-group col-md-6">
         <div>
-            تاريخ الطلب
+            Request Date
         </div>
         <div>
             @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -19,7 +19,7 @@
         </div>
         <br />
         <div>
-            نوع الاجازة
+            Vacation Type
         </div>
         <div>
             @Html.DropDownList("VacationTypeNo",null,"Select", new { @class = "form-control" })
@@ -27,21 +27,22 @@
         </div>
         <br />
     <div>
-        اسم الموظف
+        Employee Name
     </div>
     <div>
         <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
     </div>
     <br />
     <div>
-        الوظيفة
+        Position
     </div>
     <div>
         <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
     </div>
         <br />
         <div>
-            ارجو الموافقة على منحي الاجازة الموضحة أعلاه لمدة 
+            Please Accept My Vacation Described Above For a Period Of
+            @*ارجو الموافقة على منحي الاجازة الموضحة أعلاه لمدة*@ 
         </div>
         <div>
             @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
@@ -49,7 +50,7 @@
         </div>
         <br />
         <div>
-            ابتداءا من
+            From
         </div>
         <div>
             @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -57,7 +58,7 @@
         </div>
         <br />
         <div>
-            وتنتهي في 
+            To
         </div>
         <div>
             @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -65,7 +66,7 @@
         </div>
         <br />
         <div>
-            وتاريخ العودة للعمل
+            Resume Date
         </div>
         <div>
             @Html.EditorFor(model => model.ResumeDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -73,7 +74,7 @@
         </div>
         <br />
         <div>
-            وعنواني أثناء الاجازة
+            My Address During Vacation
         </div>
         <div>
             @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
@@ -88,7 +89,7 @@
     </div>
             <br/>*@
         <div>
-            ملاحظة
+            Note
         </div>
         <div>
             @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
@@ -96,8 +97,9 @@
         <br />
         <div class="form-group">
             <div>
-                <a href="@Url.Action("")" class="btn btn-default">رجوع</a>
-                <input type="submit" value="ارسال" class="btn btn-primary" />
+                <input type="submit" value="Send" class="btn2" />
+                
+                <button class="btn-Back"><a href="@Url.Action("")" >Back</a></button>
             </div>
         </div>
     </div>
