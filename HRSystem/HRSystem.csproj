@@ -426,6 +426,7 @@
     <Content Include="Scripts\DataTables\Select-1.2.5\css\select.semanticui.min.css" />
     <Content Include="Scripts\DataTables\Select-1.2.5\js\dataTables.select.js" />
     <Content Include="Scripts\DataTables\Select-1.2.5\js\dataTables.select.min.js" />
+    <Content Include="fonts\Myriad-Pro_31655.ttf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />

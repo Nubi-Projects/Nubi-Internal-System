@@ -20,9 +20,13 @@ textarea {
     max-width: 280px;
 }*/
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
-
+@font-face {
+    font-family: 'Myriad-Pro_31655';
+    src: url('../fonts/Myriad-Pro_31655.ttf') format('truetype');
+}
 body {
-    font-family: 'Times New Roman', Times, serif;
+    /*font-family: 'Times New Roman', Times, serif;*/
+    font-family: 'Myriad-Pro_31655';
 }
 
 footer{
