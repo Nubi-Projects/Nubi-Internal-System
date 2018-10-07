@@ -624,6 +624,8 @@
     <Content Include="Views\VacationType\Delete.cshtml" />
     <Content Include="Views\VacationType\Edit.cshtml" />
     <Content Include="Views\VacationType\Index.cshtml" />
+    <Content Include="Views\Shared\_EmployeeLayout.cshtml" />
+    <Content Include="Views\Shared\_LeaderLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,3 +1,30 @@
-﻿@{
+﻿@*@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+
+@using Microsoft.AspNet.Identity;
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
+
+}
+@{
+    if (User.Identity.GetUserId() != null)
+    {
+        if (@helperx.GetUserRole(User.Identity.GetUserId()) == "المدير العام")
+        {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+
+        else if (@helperx.GetUserRole(User.Identity.GetUserId()) == "المشرف")
+        {
+            Layout = "~/Views/Shared/_LeaderLayout.cshtml";
+        }
+
+        else
+        {
+            Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+
+        }
+    }
 }

@@ -2,10 +2,10 @@
 @{
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
 }
- @{ 
-     string Lang = Request.Cookies["culture"].Value;
- }
-@{ 
+@{
+    string Lang = Request.Cookies["culture"].Value;
+}
+@{
 
 }
 <!DOCTYPE html>
@@ -19,10 +19,10 @@
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
     @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    
 
 
-    <link href="~/Scripts/sweetalert.css" rel="stylesheet" />  
+
+    <link href="~/Scripts/sweetalert.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/style.css">
     <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="~/Scripts/DataTables/Buttons-1.5.1/css/buttons.bootstrap.css" rel="stylesheet" />
@@ -32,7 +32,7 @@
     <script src="~/Scripts/jquery-3.0.0.js"></script>
     <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
-  
+
     <script src="~/Scripts/sweetalert2.1.0.min.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/dataTables.buttons.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/buttons.bootstrap.js"></script>
@@ -43,19 +43,19 @@
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/vfs_fonts.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/jszip.min.js"></script>
 
-   
+
 
     @*<script type="text/javascript">
-        $(document).ready(function () {
-            var IsArabic = '@Lang';
-            IsArabic = (IsArabic === 'ar');
-            $('#assets-data-table').dataTable({
-                "language": {
-                    "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
-                }
+            $(document).ready(function () {
+                var IsArabic = '@Lang';
+                IsArabic = (IsArabic === 'ar');
+                $('#assets-data-table').dataTable({
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
             });
-        });
-    </script>*@
+        </script>*@
 </head>
 <body>
     @if (@TempData["check"] != null)
@@ -159,7 +159,7 @@
                         </li>
                         <li class="sidebar-dropdown">
                             <a href="#">
-                                <i class="fa fa-chart-line"></i>
+                                <i class="fa fa-shopping-cart"></i>
                                 <span>Employees Requests</span>
 
                             </a>
@@ -178,35 +178,34 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="">
-                            <a href="@Url.Action("Report","Employee")">
+
+                        <li class="sidebar-dropdown">
+                            <a href="#">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>Reports</span>
-                                @*<span class="badge badge-pill badge-primary">3</span>*@
+                                <span>New Request</span>
+
                             </a>
-                            @*<div class="sidebar-submenu">
+                            <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">
-                                            Products
-
+                                        <a href="@Url.Action("Create","VacationRequest")">
+                                            Vacation Request
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">Orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Credit cart</a>
+                                        <a href="@Url.Action("Create","PermissionRequest")">
+                                            Permission Request
+                                        </a>
                                     </li>
                                 </ul>
-                            </div>*@
+                            </div>
                         </li>
-                        <li class="">
+                        @*<li class="sidebar-dropdown">
                             <a href="@Url.Action("Register","Account")">
                                 <i class="far fa-gem"></i>
                                 <span>Create New Account</span>
                             </a>
-                            @*<div class="sidebar-submenu">
+                            <div class="sidebar-submenu">
                                 <ul>
                                     <li>
                                         <a href="#">General</a>
@@ -224,8 +223,8 @@
                                         <a href="#">Forms</a>
                                     </li>
                                 </ul>
-                            </div>*@
-                        </li>
+                            </div>
+                        </li>*@
                         @*<li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-chart-line"></i>
@@ -284,9 +283,9 @@
                                 <i class="fa fa-book"></i>
                                 <span>Documentation</span>
                             </a>
-                        </li>*@
+                        </li>
                     </ul>
-                </div>
+                </div>*@
                 <!-- sidebar-menu  -->
             </div>
             <!-- sidebar-content  -->
@@ -343,20 +342,20 @@
                         </div>
                     </nav>*@
                 @*.......*@
-        <main class="page-content">
-            <div class="container">
-                @RenderBody()
-                <hr />
-                <footer>
-                    <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
-                </footer>
+                <main class="page-content">
+                    <div class="container">
+                        @RenderBody()
+                        <hr />
+                        <footer>
+                            <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
+                        </footer>
+                    </div>
+                </main>
             </div>
-            </main>
-</div>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/index.js"></script>       
-</body>
-</html>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+            @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+            <script src="~/Scripts/jquery.validate.js"></script>
+            <script src="~/Scripts/index.js"></script>
+        </body>
+    </html>
