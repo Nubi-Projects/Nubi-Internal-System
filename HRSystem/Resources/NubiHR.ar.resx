@@ -318,4 +318,16 @@
   <data name="UploadAllowedExtensions" xml:space="preserve">
     <value>الرجاء ارفاق ملفات من نوع .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf فقط</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>تاريخ الإنتهاء</value>
+  </data>
+  <data name="RequestDate" xml:space="preserve">
+    <value>تاريخ الطلب</value>
+  </data>
+  <data name="ResumeDate" xml:space="preserve">
+    <value>تاريخ العودة للعمل</value>
+  </data>
+  <data name="PermissionDate" xml:space="preserve">
+    <value>تاريخ الاستئذان</value>
+  </data>
 </root>

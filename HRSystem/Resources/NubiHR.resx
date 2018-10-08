@@ -315,4 +315,16 @@
   <data name="UploadAllowedExtensions" xml:space="preserve">
     <value>Please upload file having extensions .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf only</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="RequestDate" xml:space="preserve">
+    <value>Request Date</value>
+  </data>
+  <data name="ResumeDate" xml:space="preserve">
+    <value>Resume Date</value>
+  </data>
+  <data name="PermissionDate" xml:space="preserve">
+    <value>Permission Date</value>
+  </data>
 </root>

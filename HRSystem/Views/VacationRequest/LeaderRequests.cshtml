@@ -2,10 +2,10 @@
 @using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "LeaderRequests";
-    HRSystem.Models.Helper helperx = new HRSystem.Models.Helper();
+    HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
 }
 
-<h2>LeaderRequests</h2>
+<h2>Leader Requests</h2>
 
 <table class="table table-hover">
     <thead>
@@ -15,7 +15,7 @@
             </th>
             
             <th>
-                Job
+                Position
             </th>
            
             <th>
@@ -55,8 +55,8 @@
                 <td></td>
 
                 <td>
-                    @Html.ActionLink("قبول", "LeaderApprove", new { id = item.Id }) |
-                    @Html.ActionLink("رفض", "Reject", new { id = item.Id }) |
+                    @Html.ActionLink("Approve", "LeaderApprove", new { id = item.Id }) |
+                    @Html.ActionLink("Reject", "Reject", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", "VacationRequest", new { id = item.Id }, null)
                 </td>
             </tr>

@@ -2,8 +2,8 @@
 @using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "ManagerRequests";
-    HRSystem.Models.Helper helperx = new HRSystem.Models.Helper();
-    HRSystem.Models.Mngr mngr = new HRSystem.Models.Mngr();
+    HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
+    HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
 }
 
 <h2>Manager Requests</h2>
@@ -18,7 +18,7 @@
             </th>
             
             <th>
-                Job
+                Position
             </th>
             
             <th>
@@ -67,9 +67,9 @@
                 </td>
                 
                 <td>
-                    @Html.ActionLink("قبول", "ManagerApprove", new { id = item.ID }) |
-                    @Html.ActionLink("رفض", "Reject", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", "PermissionRequest", new { id = item.ID }, null)
+                    @Html.ActionLink("Approve", "ManagerApprove", new { id = item.Id }) |
+                    @Html.ActionLink("Reject", "Reject", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", "PermissionRequest", new { id = item.Id }, null)
                 </td>
             </tr>
         }

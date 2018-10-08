@@ -64,7 +64,7 @@
 
 
                 }*@
-                <h2>@ViewBag.Title</h2>
+                <h2 style="opacity:-2">@ViewBag.Title</h2>
 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-log", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -90,9 +90,9 @@
 
                 <button type="submit" class="btn2">Login</button>
 
-                <div class="text-center" style=" margin-top: 10px;">
+                @*<div class="text-center" style=" margin-top: 10px;">
                     <i class="fa fa-user-plus" aria-hidden="true"></i> <a href="@Url.Action("Register", "Account")" class="newaccount">Create New account</a>
-                </div>
+                </div>*@
                 
             </form>
         </div>

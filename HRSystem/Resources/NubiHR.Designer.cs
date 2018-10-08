@@ -304,6 +304,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start Date.
+        /// </summary>
+        public static string EndDate {
+            get {
+                return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -475,6 +484,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permission Date.
+        /// </summary>
+        public static string PermissionDate {
+            get {
+                return ResourceManager.GetString("PermissionDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone Information.
         /// </summary>
         public static string PhoneInfo {
@@ -529,11 +547,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request Date.
+        /// </summary>
+        public static string RequestDate {
+            get {
+                return ResourceManager.GetString("RequestDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Required.
         /// </summary>
         public static string Required {
             get {
                 return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resume Date.
+        /// </summary>
+        public static string ResumeDate {
+            get {
+                return ResourceManager.GetString("ResumeDate", resourceCulture);
             }
         }
         

@@ -6,6 +6,13 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using Resources;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace HRSystem.Models
 {
@@ -15,11 +22,27 @@ namespace HRSystem.Models
     public partial class VacationRequest
     {
         public long Id { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(NubiHR), Name = "StartDate")]
+        [DataType(DataType.Date)]
         public System.DateTime StartDate { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(NubiHR), Name = "EndDate")]
+        [DataType(DataType.Date)]
         public System.DateTime EndDate { get; set; }
         public string Address { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(NubiHR), Name = "RequestDate")]
+        [DataType(DataType.Date)]
         public System.DateTime RequestDate { get; set; }
         public string Note { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(NubiHR), Name = "ResumeDate")]
+        [DataType(DataType.Date)]
         public System.DateTime ResumeDate { get; set; }
         public bool IsDeleted { get; set; }
         public string EmployeeNo { get; set; }
