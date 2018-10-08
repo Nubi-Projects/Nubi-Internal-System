@@ -133,6 +133,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to list.
         /// </summary>
         public static string BackTolist {
@@ -228,6 +237,15 @@ namespace Resources {
         public static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
             }
         }
         
@@ -448,6 +466,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Passport Number.
         /// </summary>
         public static string PassportNumber {
@@ -489,6 +516,15 @@ namespace Resources {
         public static string PermissionDate {
             get {
                 return ResourceManager.GetString("PermissionDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission Type.
+        /// </summary>
+        public static string PermissionType {
+            get {
+                return ResourceManager.GetString("PermissionType", resourceCulture);
             }
         }
         
@@ -628,6 +664,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time From.
+        /// </summary>
+        public static string TimeFrom {
+            get {
+                return ResourceManager.GetString("TimeFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time To.
+        /// </summary>
+        public static string TimeTo {
+            get {
+                return ResourceManager.GetString("TimeTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To.
         /// </summary>
         public static string To {
@@ -678,6 +732,15 @@ namespace Resources {
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VacationType.
+        /// </summary>
+        public static string VacationType {
+            get {
+                return ResourceManager.GetString("VacationType", resourceCulture);
             }
         }
         

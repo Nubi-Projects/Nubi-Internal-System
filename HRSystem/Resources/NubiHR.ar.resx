@@ -330,4 +330,25 @@
   <data name="PermissionDate" xml:space="preserve">
     <value>تاريخ الاستئذان</value>
   </data>
+  <data name="TimeFrom" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="TimeTo" xml:space="preserve">
+    <value>الى</value>
+  </data>
+  <data name="PermissionType" xml:space="preserve">
+    <value>نوع الإذن</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>ملاحظة</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>المدة</value>
+  </data>
+  <data name="VacationType" xml:space="preserve">
+    <value>نوع الاجازة</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
 </root>
