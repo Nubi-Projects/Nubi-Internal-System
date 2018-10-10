@@ -47,11 +47,10 @@
             {
             <tr>
                 <td>
-                    @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+                    @Html.DisplayFor(modelItem => item.Employee.FirstName)
                 </td>
-                
                 <td>
-                    @helperx.GetUserRole(User.Identity.GetUserId())
+                    @Html.DisplayFor(modelItem => item.Employee.Position.PositionNameEn)
                 </td>
                
                 <td>
