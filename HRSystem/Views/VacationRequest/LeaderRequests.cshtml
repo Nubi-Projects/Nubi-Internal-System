@@ -37,7 +37,7 @@
     </thead>
     <tbody>
         @foreach (var item in Model.Where(e => e.LeaderApprovement == null).ToList())
-            {
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Employee.FirstName)
@@ -59,7 +59,16 @@
 
                 <td>
                     @Html.ActionLink("Approve", "LeaderApprove", new { id = item.Id }) |
-                    @Html.ActionLink("Reject", "Reject", new { id = item.Id }) |
+                    @if (item.VacationType.Type != "Sick leave")
+                    {
+                        @Html.ActionLink("Reject", "Reject", new { id = item.Id }) <text>|</text>
+                    }
+                    else
+                    {
+                        <a href="#" style="color:gray;cursor:not-allowed">Reject</a> <text>|</text>
+
+                    }
+                    
                     @Html.ActionLink("Details", "Details", "VacationRequest", new { id = item.Id }, null)
                 </td>
             </tr>
