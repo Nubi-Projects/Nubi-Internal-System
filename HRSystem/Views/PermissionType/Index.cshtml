@@ -7,11 +7,15 @@
 <a href="@Url.Action("Create")">اضافة</a>
 
 
-<table class="table table-hover">
+<table id="assets-data-table" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>
-                انواع الاذونات
+                @Resources.NubiHR.PermissionType
+            </th>
+
+            <th>
+                @Resources.NubiHR.Actions
             </th>
         </tr>
     </thead>

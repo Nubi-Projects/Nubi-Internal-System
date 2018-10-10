@@ -351,4 +351,7 @@
   <data name="Back" xml:space="preserve">
     <value>رجوع</value>
   </data>
+  <data name="MedicalReport" xml:space="preserve">
+    <value>ارفاق التقرير الطبي</value>
+  </data>
 </root>

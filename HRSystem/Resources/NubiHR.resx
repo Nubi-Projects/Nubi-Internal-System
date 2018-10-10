@@ -348,4 +348,7 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="MedicalReport" xml:space="preserve">
+    <value>Medical Report</value>
+  </data>
 </root>

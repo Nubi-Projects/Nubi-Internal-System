@@ -233,6 +233,7 @@
           <Property Name="ManagerApprovement" Type="bit" />
           <Property Name="IsRejected" Type="bit" />
           <Property Name="VacationTypeNo" Type="int" Nullable="false" />
+          <Property Name="MedicalReport" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="VacationType">
           <Key>
@@ -557,7 +558,6 @@
           <EntitySet Name="TrainingCertificates" EntityType="NubiDBModel.TrainingCertificate" />
           <EntitySet Name="UserPreferences" EntityType="NubiDBModel.UserPreference" />
           <EntitySet Name="UserSessions" EntityType="NubiDBModel.UserSession" />
-          <EntitySet Name="VacationRequests" EntityType="NubiDBModel.VacationRequest" />
           <EntitySet Name="VacationTypes" EntityType="NubiDBModel.VacationType" />
           <AssociationSet Name="FK_Employee_Attachment" Association="NubiDBModel.FK_Employee_Attachment">
             <End Role="Attachment" EntitySet="Attachments" />
@@ -591,10 +591,6 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="TrainingCertificate" EntitySet="TrainingCertificates" />
           </AssociationSet>
-          <AssociationSet Name="FK_VacationRequest_Employee" Association="NubiDBModel.FK_VacationRequest_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="VacationRequest" EntitySet="VacationRequests" />
-          </AssociationSet>
           <AssociationSet Name="FK_ExtraSalary_Salary" Association="NubiDBModel.FK_ExtraSalary_Salary">
             <End Role="Salary" EntitySet="Salaries" />
             <End Role="ExtraSalary" EntitySet="ExtraSalaries" />
@@ -602,10 +598,6 @@
           <AssociationSet Name="FK_PermissionRequest_PermissionType" Association="NubiDBModel.FK_PermissionRequest_PermissionType">
             <End Role="PermissionType" EntitySet="PermissionTypes" />
             <End Role="PermissionRequest" EntitySet="PermissionRequests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VacationRequest_VacationType" Association="NubiDBModel.FK_VacationRequest_VacationType">
-            <End Role="VacationType" EntitySet="VacationTypes" />
-            <End Role="VacationRequest" EntitySet="VacationRequests" />
           </AssociationSet>
           <EntitySet Name="AspNetUsers" EntityType="NubiDBModel.AspNetUser" />
           <AssociationSet Name="FK_AspNetUsers_Employee" Association="NubiDBModel.FK_AspNetUsers_Employee">
@@ -624,6 +616,15 @@
           <AssociationSet Name="AspNetUserRoles" Association="NubiDBModel.AspNetUserRoles">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
+          </AssociationSet>
+          <EntitySet Name="VacationRequests" EntityType="NubiDBModel.VacationRequest" />
+          <AssociationSet Name="FK_VacationRequest_Employee" Association="NubiDBModel.FK_VacationRequest_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="VacationRequest" EntitySet="VacationRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VacationRequest_VacationType" Association="NubiDBModel.FK_VacationRequest_VacationType">
+            <End Role="VacationType" EntitySet="VacationTypes" />
+            <End Role="VacationRequest" EntitySet="VacationRequests" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Attachment">
@@ -689,8 +690,8 @@
           <NavigationProperty Name="Salary" Relationship="NubiDBModel.FK_Employee_Salary" FromRole="Employee" ToRole="Salary" />
           <NavigationProperty Name="PermissionRequests" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="Employee" ToRole="PermissionRequest" />
           <NavigationProperty Name="TrainingCertificates" Relationship="NubiDBModel.FK_TrainingCertificate_Employee" FromRole="Employee" ToRole="TrainingCertificate" />
-          <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="Employee" ToRole="VacationRequest" />
           <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
+          <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="Employee" ToRole="VacationRequest" />
         </EntityType>
         <EntityType Name="ExtraSalary">
           <Key>
@@ -825,27 +826,6 @@
           <Property Name="CurrentRoleJpcId" Type="Int64" />
           <NavigationProperty Name="AspNetUser" Relationship="NubiDBModel.FK_UserSessions_Users" FromRole="UserSession" ToRole="AspNetUser" />
         </EntityType>
-        <EntityType Name="VacationRequest">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ResumeDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Duration" Type="Int32" Nullable="false" />
-          <Property Name="LeaderApprovement" Type="Boolean" />
-          <Property Name="ManagerApprovement" Type="Boolean" />
-          <Property Name="IsRejected" Type="Boolean" />
-          <Property Name="VacationTypeNo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="VacationRequest" ToRole="Employee" />
-          <NavigationProperty Name="VacationType" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationRequest" ToRole="VacationType" />
-        </EntityType>
         <EntityType Name="VacationType">
           <Key>
             <PropertyRef Name="ID" />
@@ -952,18 +932,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VacationRequest_Employee">
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="NubiDBModel.VacationRequest" Role="VacationRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VacationRequest">
-              <PropertyRef Name="EmployeeNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ExtraSalary_Salary">
           <End Type="NubiDBModel.Salary" Role="Salary" Multiplicity="1" />
           <End Type="NubiDBModel.ExtraSalary" Role="ExtraSalary" Multiplicity="*" />
@@ -985,18 +953,6 @@
             </Principal>
             <Dependent Role="PermissionRequest">
               <PropertyRef Name="PermissionTypeNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VacationRequest_VacationType">
-          <End Type="NubiDBModel.VacationType" Role="VacationType" Multiplicity="1" />
-          <End Type="NubiDBModel.VacationRequest" Role="VacationRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VacationType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VacationRequest">
-              <PropertyRef Name="VacationTypeNo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1071,6 +1027,52 @@
         <Association Name="AspNetUserRoles">
           <End Type="NubiDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
           <End Type="NubiDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+        </Association>
+        <EntityType Name="VacationRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResumeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="LeaderApprovement" Type="Boolean" />
+          <Property Name="ManagerApprovement" Type="Boolean" />
+          <Property Name="IsRejected" Type="Boolean" />
+          <Property Name="VacationTypeNo" Type="Int32" Nullable="false" />
+          <Property Name="MedicalReport" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="VacationRequest" ToRole="Employee" />
+          <NavigationProperty Name="VacationType" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationRequest" ToRole="VacationType" />
+        </EntityType>
+        <Association Name="FK_VacationRequest_Employee">
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="NubiDBModel.VacationRequest" Role="VacationRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VacationRequest">
+              <PropertyRef Name="EmployeeNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VacationRequest_VacationType">
+          <End Type="NubiDBModel.VacationType" Role="VacationType" Multiplicity="1" />
+          <End Type="NubiDBModel.VacationRequest" Role="VacationRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VacationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VacationRequest">
+              <PropertyRef Name="VacationTypeNo" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1267,26 +1269,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VacationRequests">
-            <EntityTypeMapping TypeName="NubiDBModel.VacationRequest">
-              <MappingFragment StoreEntitySet="VacationRequest">
-                <ScalarProperty Name="VacationTypeNo" ColumnName="VacationTypeNo" />
-                <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />
-                <ScalarProperty Name="ManagerApprovement" ColumnName="ManagerApprovement" />
-                <ScalarProperty Name="LeaderApprovement" ColumnName="LeaderApprovement" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ResumeDate" ColumnName="ResumeDate" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="VacationTypes">
             <EntityTypeMapping TypeName="NubiDBModel.VacationType">
               <MappingFragment StoreEntitySet="VacationType">
@@ -1334,6 +1316,27 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="VacationRequests">
+            <EntityTypeMapping TypeName="NubiDBModel.VacationRequest">
+              <MappingFragment StoreEntitySet="VacationRequest">
+                <ScalarProperty Name="MedicalReport" ColumnName="MedicalReport" />
+                <ScalarProperty Name="VacationTypeNo" ColumnName="VacationTypeNo" />
+                <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />
+                <ScalarProperty Name="ManagerApprovement" ColumnName="ManagerApprovement" />
+                <ScalarProperty Name="LeaderApprovement" ColumnName="LeaderApprovement" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ResumeDate" ColumnName="ResumeDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

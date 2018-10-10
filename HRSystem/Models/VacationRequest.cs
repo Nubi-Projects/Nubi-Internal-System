@@ -7,12 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using Resources;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace HRSystem.Models
 {
@@ -51,6 +46,7 @@ namespace HRSystem.Models
         public Nullable<bool> ManagerApprovement { get; set; }
         public Nullable<bool> IsRejected { get; set; }
         public int VacationTypeNo { get; set; }
+        public string MedicalReport { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual VacationType VacationType { get; set; }

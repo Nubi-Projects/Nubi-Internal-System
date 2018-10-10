@@ -10,36 +10,40 @@
 
 
 
-<table class="table table-hover">
+<table id="assets-data-table" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>
-                Employee
+                @Resources.NubiHR.EmployeeName
             </th>
             
             <th>
-                Position
+                @Resources.NubiHR.Position
             </th>
             
             <th>
-                Request Date
+                @Resources.NubiHR.RequestDate
             </th>
            
             <th>
-                Permission Date
+                @Resources.NubiHR.PermissionDate
             </th>
             
             <th>
-                Permission Type
+                @Resources.NubiHR.PermissionType
             </th>
             
             <th>
-                Note
+                @Resources.NubiHR.Note
+            </th>
+
+            <th>
+                @Resources.NubiHR.Actions
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Where(e => e.LeaderApprovement == false && e.IsRejected == false).ToList())
+        @foreach (var item in Model.Where(e => e.LeaderApprovement == null).ToList())
             {
             <tr>
                 <td>
