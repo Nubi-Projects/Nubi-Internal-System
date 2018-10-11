@@ -2,15 +2,15 @@
 @using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "ManagerRequests";
-    HRSystem.Models.Helper helperx = new HRSystem.Models.Helper();
-    HRSystem.Models.Mngr mngr = new HRSystem.Models.Mngr();
+    HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
+    HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
 }
 
 <h2>Manager Requests</h2>
 
 
 
-<table class="table table-hover">
+<table id="assets-data-table" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>
@@ -18,7 +18,7 @@
             </th>
             
             <th>
-                Job
+                Position
             </th>
             
             <th>
@@ -36,6 +36,10 @@
             <th>
                 Note
             </th>
+
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -43,11 +47,10 @@
             {
             <tr>
                 <td>
-                    @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+                    @Html.DisplayFor(modelItem => item.Employee.FirstName)
                 </td>
-                
                 <td>
-                    @helperx.GetUserRole(User.Identity.GetUserId())
+                    @Html.DisplayFor(modelItem => item.Employee.Position.PositionNameEn)
                 </td>
                
                 <td>
@@ -67,9 +70,9 @@
                 </td>
                 
                 <td>
-                    @Html.ActionLink("قبول", "ManagerApprove", new { id = item.ID }) |
-                    @Html.ActionLink("رفض", "Reject", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", "PermissionRequest", new { id = item.ID }, null)
+                    @Html.ActionLink("Approve", "ManagerApprove", new { id = item.Id }) |
+                    @Html.ActionLink("Reject", "Reject", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", "PermissionRequest", new { id = item.Id }, null)
                 </td>
             </tr>
         }

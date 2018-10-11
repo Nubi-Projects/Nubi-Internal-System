@@ -75,6 +75,7 @@ namespace HRSystem.Controllers
                 TempData["vac"] = "You Did Not complete 14 Days From The Last Vacation You Took!";
                 return RedirectToAction("Index");
             }
+            ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type");
             ViewBag.emp = db.AspNetUsers.ToList();
             return View();
@@ -104,13 +105,14 @@ namespace HRSystem.Controllers
                 }
                 else
                 {
-                    TempData["chec"] = "Done!";
+                    TempData["chec"] = "Your Request Has Been Sented";
                     vac.RequestDate = DateTime.Now;
                     db.VacationRequests.Add(vac);
                     db.SaveChanges();
                     return RedirectToAction("index");
                 }
             }
+            ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
             ViewBag.emp = db.AspNetUsers.ToList();       
             return View();       

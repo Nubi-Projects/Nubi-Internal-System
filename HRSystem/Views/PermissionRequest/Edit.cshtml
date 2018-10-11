@@ -2,13 +2,13 @@
 @using  Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Edit";
-    HRSystem.Models.Helper helperx = new HRSystem.Models.Helper();
+    HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
 }
 <h2>Edit</h2>
 @using (Html.BeginForm(null, null, FormMethod.Post))
 {
     
-    <div class="form-group">
+    <div class="form-group col-md-6">
         <div>
             تاريخ الطلب
         </div>
@@ -74,8 +74,8 @@
         <br />
         <div class="form-group">
             <div>
-                <a href="@Url.Action("")" class="btn btn-default">رجوع</a>
-                <input type="submit" value="ارسال" class="btn btn-primary" />
+                <input type="submit" value="Send" class="btn2" />
+                <button class="btn-Back"><a href="@Url.Action("VacationRequest","Index")">Back</a></button>
             </div>
         </div>
     </div>

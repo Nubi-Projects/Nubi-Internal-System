@@ -318,4 +318,40 @@
   <data name="UploadAllowedExtensions" xml:space="preserve">
     <value>الرجاء ارفاق ملفات من نوع .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf فقط</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>تاريخ الإنتهاء</value>
+  </data>
+  <data name="RequestDate" xml:space="preserve">
+    <value>تاريخ الطلب</value>
+  </data>
+  <data name="ResumeDate" xml:space="preserve">
+    <value>تاريخ العودة للعمل</value>
+  </data>
+  <data name="PermissionDate" xml:space="preserve">
+    <value>تاريخ الاستئذان</value>
+  </data>
+  <data name="TimeFrom" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="TimeTo" xml:space="preserve">
+    <value>الى</value>
+  </data>
+  <data name="PermissionType" xml:space="preserve">
+    <value>نوع الإذن</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>ملاحظة</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>المدة</value>
+  </data>
+  <data name="VacationType" xml:space="preserve">
+    <value>نوع الاجازة</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="MedicalReport" xml:space="preserve">
+    <value>ارفاق التقرير الطبي</value>
+  </data>
 </root>

@@ -39,9 +39,9 @@ namespace HRSystem.Models
         public virtual DbSet<TrainingCertificate> TrainingCertificates { get; set; }
         public virtual DbSet<UserPreference> UserPreferences { get; set; }
         public virtual DbSet<UserSession> UserSessions { get; set; }
-        public virtual DbSet<VacationRequest> VacationRequests { get; set; }
         public virtual DbSet<VacationType> VacationTypes { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<VacationRequest> VacationRequests { get; set; }
     }
 }

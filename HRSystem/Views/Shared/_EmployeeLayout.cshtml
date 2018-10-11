@@ -2,10 +2,10 @@
 @{
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
 }
- @{ 
-     string Lang = Request.Cookies["culture"].Value;
- }
-@{ 
+@{
+    string Lang = Request.Cookies["culture"].Value;
+}
+@{
 
 }
 <!DOCTYPE html>
@@ -19,10 +19,10 @@
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css'>
     @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    
 
 
-    <link href="~/Scripts/sweetalert.css" rel="stylesheet" />  
+
+    <link href="~/Scripts/sweetalert.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/style.css">
     <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="~/Scripts/DataTables/Buttons-1.5.1/css/buttons.bootstrap.css" rel="stylesheet" />
@@ -32,7 +32,7 @@
     <script src="~/Scripts/jquery-3.0.0.js"></script>
     <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
-  
+
     <script src="~/Scripts/sweetalert2.1.0.min.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/dataTables.buttons.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/buttons.bootstrap.js"></script>
@@ -43,49 +43,27 @@
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/vfs_fonts.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/jszip.min.js"></script>
 
-   
-
-    @*<script type="text/javascript">
-        $(document).ready(function () {
-            var IsArabic = '@Lang';
-            IsArabic = (IsArabic === 'ar');
-            $('#assets-data-table').dataTable({
-                "language": {
-                    "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
-                }
-            });
-        });
-    </script>*@
 </head>
 <body>
     @if (@TempData["check"] != null)
     {
-
         <div class="alert alert-danger">
             <strong> @TempData["check"] </strong>
         </div>
-
-
     }
 
     @if (@TempData["chec"] != null)
     {
-
         <div class="alert alert-success text-center">
             <strong> @TempData["chec"] </strong>
         </div>
-
-
     }
 
     @if (@TempData["vac"] != null)
     {
-
         <div class="alert alert-danger text-center">
             <strong> @TempData["vac"] </strong>
         </div>
-
-
     }
 
     <div class="page-wrapper chiller-theme toggled">
@@ -105,8 +83,9 @@
                         <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/bootstrap4/assets/img/user.jpg" alt="User picture">
                     </div>
                     <div class="user-info">
-                        @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
-                        <strong>@helperx.GetName(User.Identity.GetUserId()).Employee.LastName</strong>
+                        <span class="user-name">
+                            @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+                            <strong>@helperx.GetName(User.Identity.GetUserId()).Employee.LastName</strong>
                         </span>
                         <span class="user-role">@helperx.GetUserRole(User.Identity.GetUserId())</span>
                         <span class="user-status">
@@ -138,160 +117,31 @@
                             <a href="@Url.Action("Index","Home")">
                                 <i class="fa fa-tachometer-alt"></i>
                                 <span>HR System</span>
-                                @*<span class="badge badge-pill badge-danger">New</span>*@
+                                
                             </a>
-                            @*<div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            Dashboard 1
-                                            <span class="badge badge-pill badge-success">Pro</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dashboard 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dashboard 3</a>
-                                    </li>
-                                </ul>
-                            </div>*@
-                        </li>
-                        <li class="">
-                            <a href="@Url.Action("Create","Employee")">
-                                <i class="fa fa-globe"></i>
-                                <span>Add Employee</span>
-                            </a>
-                           
+                            
                         </li>
                         <li class="sidebar-dropdown">
                             <a href="#">
-                                <i class="fa fa-chart-line"></i>
-                                <span>Employees Requests</span>
-
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="@Url.Action("ManagerRequests","VacationRequest")">
-                                            Employees Vacation Requests
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("ManagerRequests","PermissionRequest")">
-                                            Employees Permission Requests
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="">
-                            <a href="@Url.Action("Report","Employee")">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>Reports</span>
-                                @*<span class="badge badge-pill badge-primary">3</span>*@
+                                <span>New Request</span>
+                                
                             </a>
-                            @*<div class="sidebar-submenu">
+                            <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">
-                                            Products
-
+                                        <a href="@Url.Action("Create","VacationRequest")">
+                                            Vacation Request
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">Orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Credit cart</a>
-                                    </li>
-                                </ul>
-                            </div>*@
-                        </li>
-                        <li class="">
-                            <a href="@Url.Action("Register","Account")">
-                                <i class="far fa-gem"></i>
-                                <span>Create New Account</span>
-                            </a>
-                            @*<div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">General</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Panels</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tables</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Icons</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Forms</a>
-                                    </li>
-                                </ul>
-                            </div>*@
-                        </li>
-                        @*<li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-chart-line"></i>
-                                <span>Charts</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Pie chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Line chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Bar chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Histogram</a>
+                                        <a href="@Url.Action("Create","PermissionRequest")">
+                                        Permission Request</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-globe"></i>
-                                <span>Maps</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Google maps</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Open street map</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="header-menu">
-                            <span>Extra</span>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-calendar"></i>
-                                <span>Calendar</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-folder"></i>
-                                <span>Examples</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-book"></i>
-                                <span>Documentation</span>
-                            </a>
-                        </li>*@
+                        
                     </ul>
                 </div>
                 <!-- sidebar-menu  -->
@@ -350,22 +200,21 @@
                         </div>
                     </nav>*@
                 @*.......*@
-        <main class="page-content">
-            <div class="container">
-                @RenderBody()
-                <hr />
-                <footer>
-                    <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
-                </footer>
+                <main class="page-content">
+                    <div class="container">
+                        @RenderBody()
+                        <hr />
+                        <footer>
+                            <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
+                        </footer>
+                    </div>
+                </main>
             </div>
-            </main>
-</div>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/index.js"></script>  
-    
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+            @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+            <script src="~/Scripts/jquery.validate.js"></script>
+            <script src="~/Scripts/index.js"></script>
     <script>
         $(document).ready(function () {
     var IsArabic = '@Request.Cookies["culture"].Value';
@@ -377,5 +226,5 @@
             });
      });
     </script>
-</body>
-</html>
+        </body>
+    </html>

@@ -2,51 +2,55 @@
 @using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "LeaderRequests";
-    HRSystem.Models.Helper helperx = new HRSystem.Models.Helper();
-    HRSystem.Models.Mngr mngr = new HRSystem.Models.Mngr();
+    HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
+    HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
 }
 
 <h2>Leader Requests</h2>
 
 
 
-<table class="table table-hover">
+<table id="assets-data-table" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>
-                Employee
+                @Resources.NubiHR.EmployeeName
             </th>
             
             <th>
-                Job
+                @Resources.NubiHR.Position
             </th>
             
             <th>
-                Request Date
+                @Resources.NubiHR.RequestDate
             </th>
            
             <th>
-                Permission Date
+                @Resources.NubiHR.PermissionDate
             </th>
             
             <th>
-                Permission Type
+                @Resources.NubiHR.PermissionType
             </th>
             
             <th>
-                Note
+                @Resources.NubiHR.Note
+            </th>
+
+            <th>
+                @Resources.NubiHR.Actions
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Where(e => e.LeaderApprovement == false && e.IsRejected == false).ToList())
+        @foreach (var item in Model.Where(e => e.LeaderApprovement == null).ToList())
             {
             <tr>
                 <td>
-                    @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+                    @Html.DisplayFor(modelItem => item.Employee.FirstName)
                 </td>
                 <td>
-                    @helperx.GetUserRole(User.Identity.GetUserId())
+                    @Html.DisplayFor(modelItem => item.Employee.Position.PositionNameEn)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RequestDate)
@@ -65,9 +69,9 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("قبول", "LeaderApprove", new { id = item.ID }) |
-                    @Html.ActionLink("رفض", "Reject", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", "PermissionRequest", new { id = item.ID }, null)
+                    @Html.ActionLink("Approve", "LeaderApprove", new { id = item.Id }) |
+                    @Html.ActionLink("Reject", "Reject", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", "PermissionRequest", new { id = item.Id }, null)
                 </td>
                
             </tr>

@@ -11,34 +11,46 @@
    
     <div class="form-group col-md-6">
         <div>
-            Request Date
+            @Resources.NubiHR.EmployeeName
+        </div>
+        <div>
+            <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
+        </div>
+        <br />
+        <div>
+            @Resources.NubiHR.Position
+        </div>
+        <div>
+            <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
+        </div>
+        <br />
+        <div>
+            @Resources.NubiHR.RequestDate
         </div>
         <div>
             @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.RequestDate, "", new { @class = "text-danger" })
         </div>
         <br />
-        <div>
-            Vacation Type
-        </div>
-        <div>
-            @Html.DropDownList("VacationTypeNo",null,"Select", new { @class = "form-control" })
-           
-        </div>
+        
+            <div>
+                @Resources.NubiHR.VacationType
+            </div>
+            <div>
+                @Html.DropDownList("VacationTypeNo", null, "Select", new { @class = "form-control" })
+
+            </div>
+        
         <br />
-    <div>
-        Employee Name
-    </div>
-    <div>
-        <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
-    </div>
-    <br />
-    <div>
-        Position
-    </div>
-    <div>
-        <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
-    </div>
+        <div id="MedicalReport">
+            <div>
+                @Resources.NubiHR.MedicalReport
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.MedicalReport, new { type = "file", @*id = "file4", onchange = "return fileValidation('file4')",*@ htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MedicalReport, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <br />
         <div>
             Please Accept My Vacation Described Above For a Period Of
@@ -50,7 +62,7 @@
         </div>
         <br />
         <div>
-            From
+            @Resources.NubiHR.From
         </div>
         <div>
             @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -58,7 +70,7 @@
         </div>
         <br />
         <div>
-            To
+            @Resources.NubiHR.To
         </div>
         <div>
             @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -66,7 +78,7 @@
         </div>
         <br />
         <div>
-            Resume Date
+            @Resources.NubiHR.ResumeDate
         </div>
         <div>
             @Html.EditorFor(model => model.ResumeDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -81,15 +93,15 @@
             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
         <br />
-        @*<div>
+        <div>
         وسيكون البديل الموظف
     </div>
     <div>
-        @Html.DropDownList("UserName", new SelectList(@ViewBag.emp, "Id", "UserName", new { htmlAttributes = new { @class = "form-control" } }), "Select")
+        @Html.DropDownList("EmpNo", null, "Select", new { @class = "form-control" })
     </div>
-            <br/>*@
+            <br/>
         <div>
-            Note
+            @Resources.NubiHR.Note
         </div>
         <div>
             @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
@@ -99,8 +111,26 @@
             <div>
                 <input type="submit" value="Send" class="btn2" />
                 
-                <button class="btn-Back"><a href="@Url.Action("")" >Back</a></button>
+                <button class="btn-Back"><a href="@Url.Action("VacationRequest","Index")" >@Resources.NubiHR.Back</a></button>
             </div>
         </div>
     </div>
 }
+<script type="text/javascript">
+
+    $(document).ready(function ()
+    {
+        $("#MedicalReport").hide();
+    }
+    )
+    $(function () {
+        $("#VacationTypeNo").change(function () {
+            if ($("#VacationTypeNo").val() == "2") {
+                $("#MedicalReport").show();
+            }
+            else {
+                $("#MedicalReport").hide();
+            }
+        });
+    });
+</script>

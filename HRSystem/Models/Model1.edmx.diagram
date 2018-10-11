@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="NubiDBModel.TrainingCertificate" Width="1.5" PointX="7.5" PointY="17.5" />
         <EntityTypeShape EntityType="NubiDBModel.UserPreference" Width="1.5" PointX="9.75" PointY="28.625" />
         <EntityTypeShape EntityType="NubiDBModel.UserSession" Width="1.5" PointX="9.75" PointY="20.625" />
-        <EntityTypeShape EntityType="NubiDBModel.VacationRequest" Width="1.5" PointX="7.5" PointY="11.75" />
         <EntityTypeShape EntityType="NubiDBModel.VacationType" Width="1.5" PointX="5.25" PointY="8.875" />
         <AssociationConnector Association="NubiDBModel.FK_Employee_Attachment" />
         <AssociationConnector Association="NubiDBModel.FK_Employee_BankAccount" />
@@ -29,16 +28,17 @@
         <AssociationConnector Association="NubiDBModel.FK_Employee_Salary" />
         <AssociationConnector Association="NubiDBModel.FK_PermissionRequest_Employee" />
         <AssociationConnector Association="NubiDBModel.FK_TrainingCertificate_Employee" />
-        <AssociationConnector Association="NubiDBModel.FK_VacationRequest_Employee" />
         <AssociationConnector Association="NubiDBModel.FK_ExtraSalary_Salary" />
         <AssociationConnector Association="NubiDBModel.FK_PermissionRequest_PermissionType" />
-        <AssociationConnector Association="NubiDBModel.FK_VacationRequest_VacationType" />
         <EntityTypeShape EntityType="NubiDBModel.AspNetUser" Width="1.5" PointX="7.5" PointY="20.625" />
         <AssociationConnector Association="NubiDBModel.FK_AspNetUsers_Employee" />
         <AssociationConnector Association="NubiDBModel.FK_UserPreferences_AspNetUsers" />
         <AssociationConnector Association="NubiDBModel.FK_UserSessions_Users" />
         <EntityTypeShape EntityType="NubiDBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="0.75" />
         <AssociationConnector Association="NubiDBModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="NubiDBModel.VacationRequest" Width="1.5" PointX="7.5" PointY="12.25" />
+        <AssociationConnector Association="NubiDBModel.FK_VacationRequest_Employee" />
+        <AssociationConnector Association="NubiDBModel.FK_VacationRequest_VacationType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

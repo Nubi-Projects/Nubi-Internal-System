@@ -7,11 +7,14 @@
 <a href="@Url.Action("Create")">اضافة</a>
 
 
-<table class="table table-hover">
+<table id="assets-data-table" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>
-                انواع الاجازات
+                @Resources.NubiHR.VacationType
+            </th>
+            <th>
+                @Resources.NubiHR.Actions
             </th>
         </tr>
     </thead>
