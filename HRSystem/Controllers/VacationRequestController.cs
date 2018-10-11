@@ -88,11 +88,12 @@ namespace HRSystem.Controllers
         {
             Manager.RequestManager mng = new Manager.RequestManager();
             var v = mng.CheckVaction(id: User.Identity.GetUserId());
+            var HaveTheEmpFatherDeathVacation = mng.EmployeeHaveFatherDeathVacation(id: User.Identity.GetUserId());
             string CurrentUser = User.Identity.GetUserId();
             vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
             if (ModelState.IsValid)
             {
-                if (vac.Duration > 5 && v==false )
+                if ( vac.Duration > 5 && v == false )
                 {
                     TempData["chec"] = "You Can Not Take More Than 5 Days Until Complete one Year!";
 
@@ -101,7 +102,14 @@ namespace HRSystem.Controllers
 
                     ViewBag.emp = db.AspNetUsers.ToList();
 
-                    return View();
+                 
+                }
+                else if (vac.VacationTypeNo == 5 && HaveTheEmpFatherDeathVacation == true)
+                {
+                    TempData["CheckFatherDeathVacation"] = "You Can Not Take This Vacation You Have Already Taken Father's Death Vacation";
+                    ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
+
+                    ViewBag.emp = db.AspNetUsers.ToList();
                 }
                 else
                 {
@@ -111,6 +119,26 @@ namespace HRSystem.Controllers
                     db.SaveChanges();
                     return RedirectToAction("index");
                 }
+
+
+
+                //if(vac.VacationTypeNo == 5 && HaveTheEmpFatherDeathVacation == true)
+                //{
+                //    TempData["CheckFatherDeathVacation"] = "You Can Not Take This Vacation You Have Already Taken Father's Death Vacation";
+                //    ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
+
+                //    ViewBag.emp = db.AspNetUsers.ToList();
+
+                 
+                //}
+                //else
+                //{
+                //    TempData["CheckFatherDeathVacation"] = "Your Request Has Been Sented";
+                //    vac.RequestDate = DateTime.Now;
+                //    db.VacationRequests.Add(vac);
+                //    db.SaveChanges();
+                //    return RedirectToAction("index");
+                //}
             }
             ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);

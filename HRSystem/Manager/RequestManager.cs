@@ -78,5 +78,19 @@ namespace HRSystem.Manager
                 return false;
             }
         }
+
+        public bool EmployeeHaveFatherDeathVacation (string id)
+        {
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var FDV = db.VacationRequests.Where(e => e.VacationTypeNo == 5).ToList();
+            if (FDV != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
