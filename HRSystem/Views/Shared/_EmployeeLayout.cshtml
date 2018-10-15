@@ -4,6 +4,7 @@
 }
 @{
     string Lang = Request.Cookies["culture"].Value;
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 @{
 
@@ -118,12 +119,27 @@
                 <div class="sidebar-menu">
                     <ul>
                         <li class="header-menu">
-                            <span>General</span>
+                            @{
+
+                                if (!IsArabic)
+                                {
+                                    @Html.ActionLink("العربية", "ChangeLanguage", "Base", new { lang = "ar" }, new { @class = "navbar-brand" }) <text> </text>
+                                }
+                                else if (IsArabic)
+                                {
+                                    @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en" }, new { @class = "navbar-brand" }) <text> </text>
+                                }
+                            <li>
+
+                            </li>
+
+                            }
                         </li>
+                       
                         <li class="">
                             <a href="@Url.Action("Index","Home")">
                                 <i class="fa fa-tachometer-alt"></i>
-                                <span>HR System</span>
+                                <span>@Resources.NubiHR.HRSystem</span>
                                 
                             </a>
                             
@@ -131,19 +147,20 @@
                         <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>New Request</span>
+                                <span>@Resources.NubiHR.NewRequest</span>
                                 
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
                                         <a href="@Url.Action("Create","VacationRequest")">
-                                            Vacation Request
+                                           @Resources.NubiHR.NewVacationRequest
                                         </a>
                                     </li>
                                     <li>
                                         <a href="@Url.Action("Create","PermissionRequest")">
-                                        Permission Request</a>
+                                        @Resources.NubiHR.NewPermissionRequests
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -226,11 +243,25 @@
         $(document).ready(function () {
     var IsArabic = '@Request.Cookies["culture"].Value';
             IsArabic = (IsArabic === 'ar');
-            $('#assets-data-table').DataTable({
-                "language": {
-                    "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
-                }
-            });
+
+            if ($('#assets-data-table').hasClass("ReportPage")) {
+                $('#assets-data-table').DataTable({
+                    dom: 'lBfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
+            else {
+                $('#assets-data-table').DataTable({
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
      });
     </script>
         </body>

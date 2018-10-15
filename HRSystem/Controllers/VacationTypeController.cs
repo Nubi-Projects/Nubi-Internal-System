@@ -8,7 +8,7 @@ using HRSystem.Models;
 namespace HRSystem.Controllers
 {
  
-    public class VacationTypeController : Controller
+    public class VacationTypeController : BaseController
     {
         NubiDBEntities db = new NubiDBEntities();
         // GET: VacationType

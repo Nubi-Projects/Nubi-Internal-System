@@ -14,7 +14,7 @@ using System.Security.Cryptography;
 namespace HRSystem.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         NubiDBEntities db = new NubiDBEntities();
         private ApplicationSignInManager _signInManager;

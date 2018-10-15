@@ -7,7 +7,7 @@ using HRSystem.Models;
 using Microsoft.AspNet.Identity;
 namespace HRSystem.Controllers
 {
-    public class PermissionRequestController : Controller
+    public class PermissionRequestController : BaseController
     {
         NubiDBEntities db = new NubiDBEntities();
 

@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity;
 
 namespace HRSystem.Controllers
 {
-    public class VacationRequestController : Controller
+    public class VacationRequestController : BaseController
     {
         NubiDBEntities db = new NubiDBEntities();
         // GET: VacationRequest
