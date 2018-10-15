@@ -171,10 +171,10 @@
         }
     );
 
-
+    
     $(document).ready(function () {
       
-        var IsArabic = '@Request.Cookies["culture"].Value';
+        @*var IsArabic = '@Request.Cookies["culture"].Value';
             IsArabic = (IsArabic === 'ar');
         $('#assets-data-table').DataTable({
             dom: 'lBfrtip',
@@ -184,7 +184,7 @@
             "language": {
                 "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
             }
-        });
+        });*@ 
         // Event listener to the two range filtering inputs to redraw on input
         $('#SalaryMin, #SalaryMax').keyup(function () {
             var table = $('#assets-data-table').DataTable();
