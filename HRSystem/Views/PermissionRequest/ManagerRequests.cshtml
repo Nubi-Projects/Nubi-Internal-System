@@ -4,9 +4,10 @@
     ViewBag.Title = "ManagerRequests";
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 
-<h2>Manager Requests</h2>
+<h2>@Resources.NubiHR.PermissionRequests</h2>
 
 
 
@@ -14,31 +15,31 @@
     <thead>
         <tr>
             <th>
-                Employee
+                @Resources.NubiHR.EmployeeName
             </th>
             
             <th>
-                Position
+                @Resources.NubiHR.Position
             </th>
             
             <th>
-                Request Date
+                @Resources.NubiHR.RequestDate
             </th>
             
             <th>
-                Permission Date
+                @Resources.NubiHR.PermissionDate
             </th>
             
             <th>
-                Permission Type
+                @Resources.NubiHR.PermissionType
             </th>
             
             <th>
-                Note
+                @Resources.NubiHR.Note
             </th>
 
             <th>
-                Actions
+                @Resources.NubiHR.Actions
             </th>
         </tr>
     </thead>
@@ -47,12 +48,20 @@
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Employee.FirstName)
+                    @Html.DisplayFor(modelItem => item.Employee.FirstName + item.Employee.LastName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Employee.Position.PositionNameEn)
-                </td>
-               
+                @if (IsArabic)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Position.PositionNameAr)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Position.PositionNameEn)
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.RequestDate)
                 </td>

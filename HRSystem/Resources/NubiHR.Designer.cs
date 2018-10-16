@@ -322,6 +322,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee requests.
+        /// </summary>
+        public static string EmployeeRequests {
+            get {
+                return ResourceManager.GetString("EmployeeRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Date.
         /// </summary>
         public static string EndDate {
@@ -475,6 +484,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New permission request.
+        /// </summary>
+        public static string NewPermissionRequests {
+            get {
+                return ResourceManager.GetString("NewPermissionRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New requests.
+        /// </summary>
+        public static string NewRequest {
+            get {
+                return ResourceManager.GetString("NewRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New vacation request.
+        /// </summary>
+        public static string NewVacationRequest {
+            get {
+                return ResourceManager.GetString("NewVacationRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Note.
         /// </summary>
         public static string Note {
@@ -525,6 +561,15 @@ namespace Resources {
         public static string PermissionDate {
             get {
                 return ResourceManager.GetString("PermissionDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Permission requests.
+        /// </summary>
+        public static string PermissionRequests {
+            get {
+                return ResourceManager.GetString("PermissionRequests", resourceCulture);
             }
         }
         
@@ -741,6 +786,15 @@ namespace Resources {
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vacation requests.
+        /// </summary>
+        public static string VacationRequests {
+            get {
+                return ResourceManager.GetString("VacationRequests", resourceCulture);
             }
         }
         

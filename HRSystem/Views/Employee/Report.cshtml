@@ -56,7 +56,7 @@
                 <h2 class="">@Resources.NubiHR.AllEmployees</h2>
             </div>
             <div class="panel-body">
-                <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                <table id="assets-data-table" class="table table-striped table-bordered ReportPage" style="width:100%">
 
                     <thead>
                         <tr>
@@ -174,17 +174,7 @@
     
     $(document).ready(function () {
       
-        @*var IsArabic = '@Request.Cookies["culture"].Value';
-            IsArabic = (IsArabic === 'ar');
-        $('#assets-data-table').DataTable({
-            dom: 'lBfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-            "language": {
-                "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
-            }
-        });*@ 
+       
         // Event listener to the two range filtering inputs to redraw on input
         $('#SalaryMin, #SalaryMax').keyup(function () {
             var table = $('#assets-data-table').DataTable();

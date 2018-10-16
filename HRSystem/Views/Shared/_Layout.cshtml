@@ -4,6 +4,7 @@
 }
  @{ 
      string Lang = Request.Cookies["culture"].Value;
+     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
  }
 @{ 
 
@@ -132,12 +133,29 @@
                 <div class="sidebar-menu">
                     <ul>
                         <li class="header-menu">
-                            <span>General</span>
+                            @{
+
+                                if (!IsArabic)
+                                {
+                                    @Html.ActionLink("العربية", "ChangeLanguage", "Base", new { lang = "ar" }, new { @class = "navbar-brand" }) <text> </text>
+                                }
+                                else if (IsArabic)
+                                {
+                                    @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en" }, new { @class = "navbar-brand" }) <text> </text>
+                                }
+                            <li>
+
+                            </li>
+
+                            }
                         </li>
+                       
+                           
+                        
                         <li class="">
                             <a href="@Url.Action("Index","Home")">
                                 <i class="fa fa-tachometer-alt"></i>
-                                <span>HR System</span>
+                                <span>@Resources.NubiHR.HRSystem</span>
                                 @*<span class="badge badge-pill badge-danger">New</span>*@
                             </a>
                             @*<div class="sidebar-submenu">
@@ -160,26 +178,33 @@
                         <li class="">
                             <a href="@Url.Action("Create","Employee")">
                                 <i class="fa fa-globe"></i>
-                                <span>Add Employee</span>
+                                <span>@Resources.NubiHR.AddEmployee</span>
                             </a>
                            
+                        </li>
+                        <li class="">
+                            <a href="@Url.Action("Index","Employee")">
+                                <i class="fa fa-globe"></i>
+                                <span>@Resources.NubiHR.EmployeeDetails</span>
+                            </a>
+
                         </li>
                         <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-chart-line"></i>
-                                <span>Employees Requests</span>
+                                <span>@Resources.NubiHR.EmployeeRequests</span>
 
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
                                         <a href="@Url.Action("ManagerRequests","VacationRequest")">
-                                            Employees Vacation Requests
+                                            @Resources.NubiHR.NewVacationRequest
                                         </a>
                                     </li>
                                     <li>
                                         <a href="@Url.Action("ManagerRequests","PermissionRequest")">
-                                            Employees Permission Requests
+                                            @Resources.NubiHR.PermissionRequests
                                         </a>
                                     </li>
                                 </ul>
@@ -188,7 +213,7 @@
                         <li class="">
                             <a href="@Url.Action("Report","Employee")">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>Reports</span>
+                                <span>@Resources.NubiHR.Report</span>
                                 @*<span class="badge badge-pill badge-primary">3</span>*@
                             </a>
                             @*<div class="sidebar-submenu">
@@ -211,7 +236,7 @@
                         <li class="">
                             <a href="@Url.Action("Register","Account")">
                                 <i class="far fa-gem"></i>
-                                <span>Create New Account</span>
+                                <span>@Resources.NubiHR.Register</span>
                             </a>
                             @*<div class="sidebar-submenu">
                                 <ul>
@@ -369,12 +394,26 @@
     <script>
         $(document).ready(function () {
     var IsArabic = '@Request.Cookies["culture"].Value';
-            IsArabic = (IsArabic === 'ar');
+        IsArabic = (IsArabic === 'ar');
+
+        if ($('#assets-data-table').hasClass("ReportPage")) {
+            $('#assets-data-table').DataTable({
+                dom: 'lBfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                "language": {
+                    "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                }
+            });
+        }
+        else {
             $('#assets-data-table').DataTable({
                 "language": {
                     "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
                 }
             });
+        }
      });
     </script>
 </body>

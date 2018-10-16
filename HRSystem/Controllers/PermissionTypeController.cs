@@ -7,7 +7,7 @@ using HRSystem.Models;
 
 namespace HRSystem.Controllers
 {
-    public class PermissionTypeController : Controller
+    public class PermissionTypeController : BaseController
     {
         NubiDBEntities db = new NubiDBEntities();
         // GET: PermissionType

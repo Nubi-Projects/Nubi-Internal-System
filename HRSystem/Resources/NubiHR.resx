@@ -351,4 +351,22 @@
   <data name="MedicalReport" xml:space="preserve">
     <value>Medical Report</value>
   </data>
+  <data name="VacationRequests" xml:space="preserve">
+    <value>Vacation requests</value>
+  </data>
+  <data name="PermissionRequests" xml:space="preserve">
+    <value>Permission requests</value>
+  </data>
+  <data name="EmployeeRequests" xml:space="preserve">
+    <value>Employee requests</value>
+  </data>
+  <data name="NewRequest" xml:space="preserve">
+    <value>New requests</value>
+  </data>
+  <data name="NewVacationRequest" xml:space="preserve">
+    <value>New vacation request</value>
+  </data>
+  <data name="NewPermissionRequests" xml:space="preserve">
+    <value>New permission request</value>
+  </data>
 </root>

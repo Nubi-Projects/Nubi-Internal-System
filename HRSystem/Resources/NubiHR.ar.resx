@@ -354,4 +354,22 @@
   <data name="MedicalReport" xml:space="preserve">
     <value>ارفاق التقرير الطبي</value>
   </data>
+  <data name="VacationRequests" xml:space="preserve">
+    <value>طلبات الاجازة</value>
+  </data>
+  <data name="PermissionRequests" xml:space="preserve">
+    <value>طلبات الاستئذان</value>
+  </data>
+  <data name="EmployeeRequests" xml:space="preserve">
+    <value>طلبات الموظفين</value>
+  </data>
+  <data name="NewRequest" xml:space="preserve">
+    <value>انشاء طلب جديد</value>
+  </data>
+  <data name="NewVacationRequest" xml:space="preserve">
+    <value>طلب اجازة جديد</value>
+  </data>
+  <data name="NewPermissionRequests" xml:space="preserve">
+    <value>طلب استئذان جديد</value>
+  </data>
 </root>
