@@ -92,5 +92,19 @@ namespace HRSystem.Manager
                 return false;
             }
         }
+
+        public bool EmployeeHaveMotherDeathVacation(string id)
+        {
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var MDV = db.VacationRequests.Where(e => e.VacationTypeNo == 6).ToList();
+            if (MDV != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

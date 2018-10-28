@@ -89,6 +89,7 @@ namespace HRSystem.Controllers
             Manager.RequestManager mng = new Manager.RequestManager();
             var v = mng.CheckVaction(id: User.Identity.GetUserId());
             var HaveTheEmpFatherDeathVacation = mng.EmployeeHaveFatherDeathVacation(id: User.Identity.GetUserId());
+            var HaveTheEmpMotherDeathVacation = mng.EmployeeHaveMotherDeathVacation(id: User.Identity.GetUserId());
             string CurrentUser = User.Identity.GetUserId();
             vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
             if (ModelState.IsValid)
@@ -107,6 +108,13 @@ namespace HRSystem.Controllers
                 else if (vac.VacationTypeNo == 5 && HaveTheEmpFatherDeathVacation == true)
                 {
                     TempData["CheckFatherDeathVacation"] = "You Can Not Take This Vacation You Have Already Taken Father's Death Vacation";
+                    ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
+
+                    ViewBag.emp = db.AspNetUsers.ToList();
+                }
+                else if (vac.VacationTypeNo == 6 && HaveTheEmpMotherDeathVacation == true)
+                {
+                    TempData["CheckMotherDeathVacation"] = "You Can Not Take This Vacation You Have Already Taken Mother's Death Vacation";
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
 
                     ViewBag.emp = db.AspNetUsers.ToList();
