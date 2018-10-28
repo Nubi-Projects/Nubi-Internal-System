@@ -83,7 +83,7 @@ namespace HRSystem.Manager
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             var FDV = db.VacationRequests.Where(e => e.VacationTypeNo == 5).ToList();
-            if (FDV != null)
+            if (FDV != null && FDV.Count>0)
             {
                 return true;
             }
@@ -97,7 +97,7 @@ namespace HRSystem.Manager
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             var MDV = db.VacationRequests.Where(e => e.VacationTypeNo == 6).ToList();
-            if (MDV != null)
+            if (MDV != null && MDV.Count > 0)
             {
                 return true;
             }

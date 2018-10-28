@@ -36,7 +36,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Where(e => e.ManagerApprovement == null && e.LeaderApprovement == true && e.IsRejected == null).ToList())
+        @foreach (var item in Model.Where(e => e.ManagerApprovement == null && e.LeaderApprovement == true).ToList())
             {
             <tr>
                 <td>
