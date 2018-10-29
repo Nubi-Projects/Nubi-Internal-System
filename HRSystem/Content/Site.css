@@ -30,9 +30,10 @@ body {
 }
 
 footer {
-    position: fixed;
+    /*position: fixed;*/
     bottom: 0;
-    margin: 0px 420px;
+    text-align: center;
+    /*margin: 0px 420px;*/
 }
 
 
@@ -89,7 +90,11 @@ h2 {
 }
 
     .input-field:focus {
-        border: 2px solid d#eea904;
+        border: 2px solid #eea904;
+    }
+
+    .input-field:hover {
+        border: 2px solid #eea904;
     }
 
 /* Set a style for the submit button */

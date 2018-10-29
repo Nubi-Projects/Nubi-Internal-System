@@ -492,3 +492,7 @@ body {
     background-color: transparent;
 }
 /*my style */
+
+.page-content {
+    min-height: 500px;
+}
