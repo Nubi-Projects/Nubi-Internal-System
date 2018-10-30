@@ -1,13 +1,8 @@
 ﻿@using Microsoft.AspNet.Identity
 @{
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
-}
- @{ 
-     string Lang = Request.Cookies["culture"].Value;
-     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
- }
-@{ 
-
+    string Lang = Request.Cookies["culture"].Value;
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 <!DOCTYPE html>
 <html dir=" @(Request.Cookies["culture"].Value == "ar"? "rtl" : "ltr" )">
