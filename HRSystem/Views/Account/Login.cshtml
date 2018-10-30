@@ -14,7 +14,7 @@
     @*@Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")*@
 
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--  jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -44,11 +44,11 @@
         footer {
             position: fixed;
             bottom: 0;
-            margin: 0px 420px;
+            /*margin: auto;*/
         }
     </style>
 </head>
-<body>
+<body style="height:auto">
     <div class="bg">
         <div class="overlay">
             <div class="container">
@@ -91,7 +91,7 @@
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-md-4"></div>
-        <div class="col-md-4">
+        <div class="col-md-4" style="margin:81px 0px">
 
             <form>
                 <img src="~/Content/image/nubi.png" alt="Login" class="d-block mx-auto img-fluid">
@@ -175,7 +175,7 @@
                         </div>*@
                 @*</div>*@
                 
-                <footer>
+                <footer class="col-sm-12">
                     <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
                 </footer>
             </div>
