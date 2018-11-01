@@ -25,6 +25,9 @@ else
         <thead>
             <tr>
                 <th>
+                    @Resources.NubiHR.EmployeeName
+                </th>
+                <th>
                     @Resources.NubiHR.RequestDate
                 </th>
                 <th>
@@ -56,6 +59,9 @@ else
             @foreach (var item in Model.Where(e => e.IsDeleted == false).ToList())
             {
                 <tr onclick="">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.FirstName)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.RequestDate)
                     </td>

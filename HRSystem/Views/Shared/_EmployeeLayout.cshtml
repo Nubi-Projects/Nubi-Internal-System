@@ -48,8 +48,15 @@
 <body>
     @if (@TempData["check"] != null)
     {
-        <div class="alert alert-danger">
+        <div class="alert alert-danger text-center">
             <strong> @TempData["check"] </strong>
+        </div>
+    }
+
+    @if (TempData["checkk"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            <strong> @TempData["checkk"] </strong>
         </div>
     }
 

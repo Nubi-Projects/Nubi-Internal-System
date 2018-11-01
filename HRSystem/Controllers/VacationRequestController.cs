@@ -96,7 +96,7 @@ namespace HRSystem.Controllers
             {
                 if ( vac.Duration > 5 && v == false )
                 {
-                    TempData["chec"] = "You Can Not Take More Than 5 Days Until Complete one Year!";
+                    TempData["checkk"] = "You Can Not Take More Than 5 Days Until Complete one Year!";
 
              
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
