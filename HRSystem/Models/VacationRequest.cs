@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 using Resources;
 using System.ComponentModel.DataAnnotations;
-
 namespace HRSystem.Models
 {
     using System;
@@ -17,24 +16,20 @@ namespace HRSystem.Models
     public partial class VacationRequest
     {
         public long Id { get; set; }
-
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "StartDate")]
         [DataType(DataType.Date)]
         public System.DateTime StartDate { get; set; }
-
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "EndDate")]
         [DataType(DataType.Date)]
         public System.DateTime EndDate { get; set; }
         public string Address { get; set; }
-
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "RequestDate")]
         [DataType(DataType.Date)]
         public System.DateTime RequestDate { get; set; }
         public string Note { get; set; }
-
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "ResumeDate")]
         [DataType(DataType.Date)]
@@ -47,6 +42,8 @@ namespace HRSystem.Models
         public Nullable<bool> IsRejected { get; set; }
         public int VacationTypeNo { get; set; }
         public string MedicalReport { get; set; }
+        public Nullable<bool> LeaderHasSeen { get; set; }
+        public Nullable<bool> ManagerHasSeen { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual VacationType VacationType { get; set; }

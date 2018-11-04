@@ -120,6 +120,8 @@
           <Property Name="IsRejected" Type="bit" />
           <Property Name="PermissionTypeNo" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="LeaderHasSeen" Type="bit" />
+          <Property Name="ManagerHasSeen" Type="bit" />
         </EntityType>
         <EntityType Name="PermissionType">
           <Key>
@@ -234,6 +236,8 @@
           <Property Name="IsRejected" Type="bit" />
           <Property Name="VacationTypeNo" Type="int" Nullable="false" />
           <Property Name="MedicalReport" Type="nvarchar(max)" />
+          <Property Name="LeaderHasSeen" Type="bit" />
+          <Property Name="ManagerHasSeen" Type="bit" />
         </EntityType>
         <EntityType Name="VacationType">
           <Key>
@@ -723,6 +727,8 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="PermissionRequest" ToRole="Employee" />
           <NavigationProperty Name="PermissionType" Relationship="NubiDBModel.FK_PermissionRequest_PermissionType" FromRole="PermissionRequest" ToRole="PermissionType" />
+          <Property Name="LeaderHasSeen" Type="Boolean" />
+          <Property Name="ManagerHasSeen" Type="Boolean" />
         </EntityType>
         <EntityType Name="PermissionType">
           <Key>
@@ -1049,6 +1055,8 @@
           <Property Name="MedicalReport" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="VacationRequest" ToRole="Employee" />
           <NavigationProperty Name="VacationType" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationRequest" ToRole="VacationType" />
+          <Property Name="LeaderHasSeen" Type="Boolean" />
+          <Property Name="ManagerHasSeen" Type="Boolean" />
         </EntityType>
         <Association Name="FK_VacationRequest_Employee">
           <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
@@ -1152,6 +1160,8 @@
           <EntitySetMapping Name="PermissionRequests">
             <EntityTypeMapping TypeName="NubiDBModel.PermissionRequest">
               <MappingFragment StoreEntitySet="PermissionRequest">
+                <ScalarProperty Name="ManagerHasSeen" ColumnName="ManagerHasSeen" />
+                <ScalarProperty Name="LeaderHasSeen" ColumnName="LeaderHasSeen" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="PermissionTypeNo" ColumnName="PermissionTypeNo" />
                 <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />
@@ -1319,6 +1329,8 @@
           <EntitySetMapping Name="VacationRequests">
             <EntityTypeMapping TypeName="NubiDBModel.VacationRequest">
               <MappingFragment StoreEntitySet="VacationRequest">
+                <ScalarProperty Name="ManagerHasSeen" ColumnName="ManagerHasSeen" />
+                <ScalarProperty Name="LeaderHasSeen" ColumnName="LeaderHasSeen" />
                 <ScalarProperty Name="MedicalReport" ColumnName="MedicalReport" />
                 <ScalarProperty Name="VacationTypeNo" ColumnName="VacationTypeNo" />
                 <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />

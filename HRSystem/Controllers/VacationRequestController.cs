@@ -87,14 +87,14 @@ namespace HRSystem.Controllers
         public ActionResult Create(VacationRequest vac)
         {
             Manager.RequestManager mng = new Manager.RequestManager();
-            var v = mng.CheckVaction(id: User.Identity.GetUserId());
+            var CompleteYear = mng.CheckVaction(id: User.Identity.GetUserId());
             var HaveTheEmpFatherDeathVacation = mng.EmployeeHaveFatherDeathVacation(id: User.Identity.GetUserId());
             var HaveTheEmpMotherDeathVacation = mng.EmployeeHaveMotherDeathVacation(id: User.Identity.GetUserId());
             string CurrentUser = User.Identity.GetUserId();
             vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
             if (ModelState.IsValid)
             {
-                if ( vac.Duration > 5 && v == false )
+                if ( vac.Duration > 5 && CompleteYear == false )
                 {
                     TempData["checkk"] = "You Can Not Take More Than 5 Days Until Complete one Year!";
 

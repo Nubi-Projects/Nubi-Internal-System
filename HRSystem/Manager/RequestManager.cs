@@ -106,5 +106,61 @@ namespace HRSystem.Manager
                 return false;
             }
         }
+
+        public int NoOfLeaderVacationRequests ()
+        {
+            var EmpReq = db.VacationRequests.Count(e => e.LeaderApprovement == null);
+            if (EmpReq > 0)
+            {
+                return EmpReq;
+            }
+            else
+            {
+                return 0;
+            }
+                
+        }
+
+        public int NoOfManagerVacationRequests()
+        {
+            var EmpReq = db.VacationRequests.Count(e => e.LeaderApprovement == true);
+            if (EmpReq >= 1)
+            {
+                return EmpReq;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
+        public int NoOfLeaderPermissionRequests()
+        {
+            var EmpReq = db.PermissionRequests.Count(e => e.LeaderApprovement == null);
+            if (EmpReq > 0)
+            {
+                return EmpReq;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
+        public int NoOfManagerPermissionRequests()
+        {
+            var EmpReq = db.PermissionRequests.Count(e => e.LeaderApprovement == true);
+            if (EmpReq >= 1)
+            {
+                return EmpReq;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
     }
 }

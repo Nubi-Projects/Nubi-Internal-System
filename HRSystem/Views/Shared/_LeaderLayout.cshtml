@@ -1,12 +1,12 @@
 ﻿@using Microsoft.AspNet.Identity
 @{
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
-}
-@{
+    HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
     string Lang = Request.Cookies["culture"].Value;
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
-}
-@{
+    var VacRequests = mngr.NoOfLeaderVacationRequests();
+    var PerRequests = mngr.NoOfLeaderPermissionRequests();
+    var Sum = VacRequests + PerRequests;
 
 }
 <!DOCTYPE html>
@@ -198,6 +198,7 @@
                             <a href="#">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>@Resources.NubiHR.EmployeeRequests</span>
+                                <span class="badge badge-pill badge-warning notification">@Sum </span>
 
                             </a>
                             <div class="sidebar-submenu">
@@ -206,11 +207,13 @@
                                         <a href="@Url.Action("LeaderRequests","VacationRequest")">
                                             @Resources.NubiHR.VacationRequests
                                         </a>
+                                        <span class="badge badge-pill badge-warning notification">@VacRequests </span>
                                     </li>
                                     <li>
                                         <a href="@Url.Action("LeaderRequests","PermissionRequest")">
                                             @Resources.NubiHR.PermissionRequests
                                         </a>
+                                        <span class="badge badge-pill badge-warning notification">@PerRequests </span>
                                     </li>
                                 </ul>
                             </div>
@@ -327,19 +330,20 @@
             </div>
             <!-- sidebar-content  -->
             <div class="sidebar-footer">
-                <a href="#">
+                @*<a href="#">
                     <i class="fa fa-bell"></i>
-                    <span class="badge badge-pill badge-warning notification">3</span>
+                    <span class="badge badge-pill badge-warning notification">@VacRequests </span>
                 </a>
                 <a href="#">
                     <i class="fa fa-envelope"></i>
-                    <span class="badge badge-pill badge-success notification">7</span>
+                    <span class="badge badge-pill badge-success notification">@PerRequests</span>
                 </a>
                 <a href="#">
                     <i class="fa fa-cog"></i>
                     <span class="badge-sonar"></span>
-                </a>
+                </a>*@
                 <a href="@Url.Action("Login","Account")">
+                    <span>Logout</span>
                     <i class="fa fa-power-off"></i>
                 </a>
             </div>
