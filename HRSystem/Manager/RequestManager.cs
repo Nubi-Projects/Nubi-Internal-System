@@ -162,5 +162,61 @@ namespace HRSystem.Manager
             }
 
         }
+
+        public bool HasLeaderSeenVacationRequests()
+        {
+            var EmpReq = db.VacationRequests.Where(e => e.LeaderApprovement == null && e.LeaderHasSeen == true).ToList();
+            if (EmpReq != null && EmpReq.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool HasLeaderSeenPermissionRequests()
+        {
+            var EmpReq = db.PermissionRequests.Where(e => e.LeaderApprovement == null && e.LeaderHasSeen == true).ToList();
+            if (EmpReq != null && EmpReq.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool HasManagerSeenVacationRequests()
+        {
+            var EmpReq = db.VacationRequests.Where(e => e.ManagerApprovement == null && e.ManagerHasSeen == true).ToList();
+            if (EmpReq != null && EmpReq.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public bool HasManagerSeenPermissionRequests()
+        {
+            var EmpReq = db.PermissionRequests.Where(e => e.ManagerApprovement == null && e.ManagerHasSeen == true).ToList();
+            if (EmpReq != null && EmpReq.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
     }
 }

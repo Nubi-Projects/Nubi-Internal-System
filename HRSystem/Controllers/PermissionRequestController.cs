@@ -20,6 +20,17 @@ namespace HRSystem.Controllers
         }
         public ActionResult LeaderRequests()
         {
+            var permission = db.PermissionRequests.Where(x => x.LeaderApprovement == null).ToList();
+            foreach (PermissionRequest per in permission)
+
+            {
+
+                PermissionRequest Existing_per = db.PermissionRequests.Find(per.Id);
+
+                Existing_per.LeaderHasSeen = true;
+
+            }
+            db.SaveChanges();
             return View(db.PermissionRequests.ToList());
         }
         public ActionResult LeaderApprove(int id)
@@ -32,7 +43,7 @@ namespace HRSystem.Controllers
                 db.SaveChanges();
                 return RedirectToAction("LeaderRequests");
             }
-            return View(db.PermissionRequests.ToList());
+            return View(db.PermissionRequests.OrderBy(e => e.RequestDate));
         }
         public ActionResult Reject(int id)
         {
@@ -48,7 +59,18 @@ namespace HRSystem.Controllers
         }
         public ActionResult ManagerRequests()
         {
-            return View(db.PermissionRequests.ToList());
+            var permission = db.PermissionRequests.Where(x => x.LeaderApprovement == true).ToList();
+            foreach (PermissionRequest per in permission)
+
+            {
+
+                PermissionRequest Existing_per = db.PermissionRequests.Find(per.Id);
+
+                Existing_per.ManagerHasSeen = true;
+
+            }
+            db.SaveChanges();
+            return View(db.PermissionRequests.OrderBy(e => e.RequestDate));
         }
 
         public ActionResult ManagerApprove(int id)

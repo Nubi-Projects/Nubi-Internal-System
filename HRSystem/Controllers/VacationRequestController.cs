@@ -18,6 +18,18 @@ namespace HRSystem.Controllers
         }
         public ActionResult LeaderRequests()
         {
+            //List<VacationRequest> vacation
+            var vacation = db.VacationRequests.Where(x => x.LeaderApprovement == null).ToList();
+            foreach (VacationRequest vac in vacation)
+
+            {
+
+                VacationRequest Existing_vac = db.VacationRequests.Find(vac.Id);
+
+                Existing_vac.LeaderHasSeen = true;
+
+            }
+            db.SaveChanges();
             return View(db.VacationRequests.ToList());
         }
         public ActionResult LeaderApprove(int id)
@@ -30,7 +42,7 @@ namespace HRSystem.Controllers
                 db.SaveChanges();
                 return RedirectToAction("LeaderRequests");
             }
-            return View(db.VacationRequests.ToList());
+            return View(db.VacationRequests.OrderBy( e => e.RequestDate));
         }
         public ActionResult Reject(int id)
         {
@@ -46,7 +58,18 @@ namespace HRSystem.Controllers
         }
         public ActionResult ManagerRequests()
         {
-            return View(db.VacationRequests.ToList());
+            var vacation = db.VacationRequests.Where(x => x.LeaderApprovement == true).ToList();
+            foreach (VacationRequest vac in vacation)
+
+            {
+
+                VacationRequest Existing_vac = db.VacationRequests.Find(vac.Id);
+
+                Existing_vac.ManagerHasSeen = true;
+
+            }
+            db.SaveChanges();
+            return View(db.VacationRequests.OrderBy(e => e.RequestDate));
         }
         public ActionResult ManagerApprove(int id)
         {

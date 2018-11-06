@@ -6,6 +6,8 @@
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
     var VacRequests = mngr.NoOfManagerVacationRequests();
     var PerRequests = mngr.NoOfManagerPermissionRequests();
+    ViewBag.ManagerHasSeen = mngr.HasManagerSeenVacationRequests();
+    ViewBag.ManagerHasSeenPer = mngr.HasManagerSeenPermissionRequests();
     var Sum = VacRequests + PerRequests;
 
 }
@@ -214,7 +216,14 @@
                             <a href="#">
                                 <i class="fa fa-chart-line"></i>
                                 <span>@Resources.NubiHR.EmployeeRequests</span>
-                                <span class="badge badge-pill badge-warning notification">@Sum </span>
+                                @if (ViewBag.ManagerHasSeen == true || ViewBag.ManagerHasSeenPer == true)
+                                {
+
+                                }
+                                else
+                                {
+                                    <span class="badge badge-pill badge-warning notification">@Sum </span>
+                                }
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
@@ -222,13 +231,27 @@
                                         <a href="@Url.Action("ManagerRequests","VacationRequest")">
                                             @Resources.NubiHR.VacationRequests
                                         </a>
-                                        <span class="badge badge-pill badge-warning notification">@VacRequests </span>
+                                        @if (ViewBag.ManagerHasSeen == true || VacRequests == 0)
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-warning notification">@VacRequests </span>
+                                        }
                                     </li>
                                     <li>
                                         <a href="@Url.Action("ManagerRequests","PermissionRequest")">
                                             @Resources.NubiHR.PermissionRequests
                                         </a>
-                                        <span class="badge badge-pill badge-warning notification">@PerRequests </span>
+                                        @if (ViewBag.ManagerHasSeenPer == true || PerRequests == 0)
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-warning notification">@PerRequests </span>
+                                        }
                                     </li>
                                 </ul>
                             </div>
