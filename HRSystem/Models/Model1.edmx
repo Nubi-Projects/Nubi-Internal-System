@@ -111,8 +111,10 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeNo" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="RequestDate" Type="datetime" Nullable="false" />
-          <Property Name="TimeFrom" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="TimeTo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeFromHours" Type="int" Nullable="false" />
+          <Property Name="TimeFromMinutes" Type="int" />
+          <Property Name="TimeToHours" Type="int" Nullable="false" />
+          <Property Name="TimeToMinutes" Type="int" />
           <Property Name="PermissionDate" Type="datetime" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" />
           <Property Name="LeaderApprovement" Type="bit" />
@@ -553,7 +555,6 @@
           <EntitySet Name="Departments" EntityType="NubiDBModel.Department" />
           <EntitySet Name="Employees" EntityType="NubiDBModel.Employee" />
           <EntitySet Name="ExtraSalaries" EntityType="NubiDBModel.ExtraSalary" />
-          <EntitySet Name="PermissionRequests" EntityType="NubiDBModel.PermissionRequest" />
           <EntitySet Name="PermissionTypes" EntityType="NubiDBModel.PermissionType" />
           <EntitySet Name="PhoneNumbers" EntityType="NubiDBModel.PhoneNumber" />
           <EntitySet Name="Positions" EntityType="NubiDBModel.Position" />
@@ -587,10 +588,6 @@
             <End Role="Salary" EntitySet="Salaries" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK_PermissionRequest_Employee" Association="NubiDBModel.FK_PermissionRequest_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="PermissionRequest" EntitySet="PermissionRequests" />
-          </AssociationSet>
           <AssociationSet Name="FK_TrainingCertificate_Employee" Association="NubiDBModel.FK_TrainingCertificate_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="TrainingCertificate" EntitySet="TrainingCertificates" />
@@ -598,10 +595,6 @@
           <AssociationSet Name="FK_ExtraSalary_Salary" Association="NubiDBModel.FK_ExtraSalary_Salary">
             <End Role="Salary" EntitySet="Salaries" />
             <End Role="ExtraSalary" EntitySet="ExtraSalaries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PermissionRequest_PermissionType" Association="NubiDBModel.FK_PermissionRequest_PermissionType">
-            <End Role="PermissionType" EntitySet="PermissionTypes" />
-            <End Role="PermissionRequest" EntitySet="PermissionRequests" />
           </AssociationSet>
           <EntitySet Name="AspNetUsers" EntityType="NubiDBModel.AspNetUser" />
           <AssociationSet Name="FK_AspNetUsers_Employee" Association="NubiDBModel.FK_AspNetUsers_Employee">
@@ -630,7 +623,16 @@
             <End Role="VacationType" EntitySet="VacationTypes" />
             <End Role="VacationRequest" EntitySet="VacationRequests" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="PermissionRequests" EntityType="NubiDBModel.PermissionRequest" />
+          <AssociationSet Name="FK_PermissionRequest_Employee" Association="NubiDBModel.FK_PermissionRequest_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="PermissionRequest" EntitySet="PermissionRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PermissionRequest_PermissionType" Association="NubiDBModel.FK_PermissionRequest_PermissionType">
+            <End Role="PermissionType" EntitySet="PermissionTypes" />
+            <End Role="PermissionRequest" EntitySet="PermissionRequests" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Attachment">
           <Key>
             <PropertyRef Name="Id" />
@@ -692,10 +694,10 @@
           <NavigationProperty Name="Department" Relationship="NubiDBModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
           <NavigationProperty Name="Position" Relationship="NubiDBModel.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
           <NavigationProperty Name="Salary" Relationship="NubiDBModel.FK_Employee_Salary" FromRole="Employee" ToRole="Salary" />
-          <NavigationProperty Name="PermissionRequests" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="Employee" ToRole="PermissionRequest" />
           <NavigationProperty Name="TrainingCertificates" Relationship="NubiDBModel.FK_TrainingCertificate_Employee" FromRole="Employee" ToRole="TrainingCertificate" />
           <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
           <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="Employee" ToRole="VacationRequest" />
+          <NavigationProperty Name="PermissionRequests" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="Employee" ToRole="PermissionRequest" />
         </EntityType>
         <EntityType Name="ExtraSalary">
           <Key>
@@ -708,27 +710,6 @@
           <Property Name="IsDeleted" Type="Int64" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Salary" Relationship="NubiDBModel.FK_ExtraSalary_Salary" FromRole="ExtraSalary" ToRole="Salary" />
-        </EntityType>
-        <EntityType Name="PermissionRequest">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TimeFrom" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TimeTo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PermissionDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LeaderApprovement" Type="Boolean" />
-          <Property Name="ManagerApprovement" Type="Boolean" />
-          <Property Name="IsRejected" Type="Boolean" />
-          <Property Name="PermissionTypeNo" Type="Int32" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="PermissionRequest" ToRole="Employee" />
-          <NavigationProperty Name="PermissionType" Relationship="NubiDBModel.FK_PermissionRequest_PermissionType" FromRole="PermissionRequest" ToRole="PermissionType" />
-          <Property Name="LeaderHasSeen" Type="Boolean" />
-          <Property Name="ManagerHasSeen" Type="Boolean" />
         </EntityType>
         <EntityType Name="PermissionType">
           <Key>
@@ -914,18 +895,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PermissionRequest_Employee">
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="NubiDBModel.PermissionRequest" Role="PermissionRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PermissionRequest">
-              <PropertyRef Name="EmployeeNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TrainingCertificate_Employee">
           <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
           <End Type="NubiDBModel.TrainingCertificate" Role="TrainingCertificate" Multiplicity="*" />
@@ -947,18 +916,6 @@
             </Principal>
             <Dependent Role="ExtraSalary">
               <PropertyRef Name="SalaryNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PermissionRequest_PermissionType">
-          <End Type="NubiDBModel.PermissionType" Role="PermissionType" Multiplicity="1" />
-          <End Type="NubiDBModel.PermissionRequest" Role="PermissionRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PermissionType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PermissionRequest">
-              <PropertyRef Name="PermissionTypeNo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1082,6 +1039,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PermissionRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeFromHours" Type="Int32" Nullable="false" />
+          <Property Name="TimeFromMinutes" Type="Int32" />
+          <Property Name="TimeToHours" Type="Int32" Nullable="false" />
+          <Property Name="TimeToMinutes" Type="Int32" />
+          <Property Name="PermissionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LeaderApprovement" Type="Boolean" />
+          <Property Name="ManagerApprovement" Type="Boolean" />
+          <Property Name="IsRejected" Type="Boolean" />
+          <Property Name="PermissionTypeNo" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="LeaderHasSeen" Type="Boolean" />
+          <Property Name="ManagerHasSeen" Type="Boolean" />
+          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="PermissionRequest" ToRole="Employee" />
+          <NavigationProperty Name="PermissionType" Relationship="NubiDBModel.FK_PermissionRequest_PermissionType" FromRole="PermissionRequest" ToRole="PermissionType" />
+        </EntityType>
+        <Association Name="FK_PermissionRequest_Employee">
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="NubiDBModel.PermissionRequest" Role="PermissionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PermissionRequest">
+              <PropertyRef Name="EmployeeNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermissionRequest_PermissionType">
+          <End Type="NubiDBModel.PermissionType" Role="PermissionType" Multiplicity="1" />
+          <End Type="NubiDBModel.PermissionRequest" Role="PermissionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermissionType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PermissionRequest">
+              <PropertyRef Name="PermissionTypeNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1153,26 +1157,6 @@
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="ExtraHours" ColumnName="ExtraHours" />
                 <ScalarProperty Name="SalaryNo" ColumnName="SalaryNo" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PermissionRequests">
-            <EntityTypeMapping TypeName="NubiDBModel.PermissionRequest">
-              <MappingFragment StoreEntitySet="PermissionRequest">
-                <ScalarProperty Name="ManagerHasSeen" ColumnName="ManagerHasSeen" />
-                <ScalarProperty Name="LeaderHasSeen" ColumnName="LeaderHasSeen" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="PermissionTypeNo" ColumnName="PermissionTypeNo" />
-                <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />
-                <ScalarProperty Name="ManagerApprovement" ColumnName="ManagerApprovement" />
-                <ScalarProperty Name="LeaderApprovement" ColumnName="LeaderApprovement" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="PermissionDate" ColumnName="PermissionDate" />
-                <ScalarProperty Name="TimeTo" ColumnName="TimeTo" />
-                <ScalarProperty Name="TimeFrom" ColumnName="TimeFrom" />
-                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1345,6 +1329,28 @@
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermissionRequests">
+            <EntityTypeMapping TypeName="NubiDBModel.PermissionRequest">
+              <MappingFragment StoreEntitySet="PermissionRequest">
+                <ScalarProperty Name="ManagerHasSeen" ColumnName="ManagerHasSeen" />
+                <ScalarProperty Name="LeaderHasSeen" ColumnName="LeaderHasSeen" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PermissionTypeNo" ColumnName="PermissionTypeNo" />
+                <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />
+                <ScalarProperty Name="ManagerApprovement" ColumnName="ManagerApprovement" />
+                <ScalarProperty Name="LeaderApprovement" ColumnName="LeaderApprovement" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="PermissionDate" ColumnName="PermissionDate" />
+                <ScalarProperty Name="TimeToMinutes" ColumnName="TimeToMinutes" />
+                <ScalarProperty Name="TimeToHours" ColumnName="TimeToHours" />
+                <ScalarProperty Name="TimeFromMinutes" ColumnName="TimeFromMinutes" />
+                <ScalarProperty Name="TimeFromHours" ColumnName="TimeFromHours" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

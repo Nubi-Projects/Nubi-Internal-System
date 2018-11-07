@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="NubiDBModel.Department" Width="1.5" PointX="0.75" PointY="13.875" />
         <EntityTypeShape EntityType="NubiDBModel.Employee" Width="1.5" PointX="5.25" PointY="11.875" />
         <EntityTypeShape EntityType="NubiDBModel.ExtraSalary" Width="1.5" PointX="5.25" PointY="18.75" />
-        <EntityTypeShape EntityType="NubiDBModel.PermissionRequest" Width="1.5" PointX="10.5" PointY="13" />
         <EntityTypeShape EntityType="NubiDBModel.PermissionType" Width="1.5" PointX="8.25" PointY="8.875" />
         <EntityTypeShape EntityType="NubiDBModel.PhoneNumber" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="NubiDBModel.Position" Width="1.5" PointX="3" PointY="13.75" />
@@ -26,10 +25,8 @@
         <AssociationConnector Association="NubiDBModel.FK_Position_Department" />
         <AssociationConnector Association="NubiDBModel.FK_Employee_Position" />
         <AssociationConnector Association="NubiDBModel.FK_Employee_Salary" />
-        <AssociationConnector Association="NubiDBModel.FK_PermissionRequest_Employee" />
         <AssociationConnector Association="NubiDBModel.FK_TrainingCertificate_Employee" />
         <AssociationConnector Association="NubiDBModel.FK_ExtraSalary_Salary" />
-        <AssociationConnector Association="NubiDBModel.FK_PermissionRequest_PermissionType" />
         <EntityTypeShape EntityType="NubiDBModel.AspNetUser" Width="1.5" PointX="7.5" PointY="20.625" />
         <AssociationConnector Association="NubiDBModel.FK_AspNetUsers_Employee" />
         <AssociationConnector Association="NubiDBModel.FK_UserPreferences_AspNetUsers" />
@@ -39,6 +36,9 @@
         <EntityTypeShape EntityType="NubiDBModel.VacationRequest" Width="1.5" PointX="7.5" PointY="12.25" />
         <AssociationConnector Association="NubiDBModel.FK_VacationRequest_Employee" />
         <AssociationConnector Association="NubiDBModel.FK_VacationRequest_VacationType" />
+        <EntityTypeShape EntityType="NubiDBModel.PermissionRequest" Width="1.5" PointX="10.5" PointY="11.125" />
+        <AssociationConnector Association="NubiDBModel.FK_PermissionRequest_Employee" />
+        <AssociationConnector Association="NubiDBModel.FK_PermissionRequest_PermissionType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
