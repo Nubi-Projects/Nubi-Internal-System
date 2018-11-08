@@ -52,7 +52,7 @@
             {
                     @Html.AntiForgeryToken()
 
-                    <a href="#">Create New Account</a>
+                    <a href="#">@Resources.NubiHR.CreateNewAccount</a>
                     <hr />
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="form-group">
@@ -75,7 +75,7 @@
                     </div>
                     <div class="form-group">
                         <div class="">
-                            Select Employee
+                            @Resources.NubiHR.SelectEmployee
                         </div>
 
                         @Html.DropDownList("EmpNo", null, "Select", new { @class = "form-control" })
@@ -91,7 +91,7 @@
                     </div>*@
                     <div class="form-group">
                         <div class="">
-                            <input type="submit" class="btn2" value="Register" />
+                            <input type="submit" class="btn2" value=@Resources.NubiHR.Register />
                         </div>
                     </div>
                 }

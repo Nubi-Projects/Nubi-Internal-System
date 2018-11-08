@@ -98,6 +98,15 @@ h2 {
     }
 
 /* Set a style for the submit button */
+.btn2disabled {
+    background-color: #eea904;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    width: 100%;
+    opacity: 0.9;
+}
+
 .btn2 {
     background-color: #eea904;
     color: white;

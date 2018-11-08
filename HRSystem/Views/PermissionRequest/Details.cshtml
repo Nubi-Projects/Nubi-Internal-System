@@ -1,19 +1,19 @@
 ﻿@model HRSystem.Models.PermissionRequest
 @using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Details";
-    HRSystem.Models.Helper helperx = new HRSystem.Models.Helper();
-    HRSystem.Models.Mngr mngr = new HRSystem.Models.Mngr();
+    ViewBag.Title = Resources.NubiHR.Details;
+    HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
+    HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
 }
 
-<h2>Details</h2>
+<h2>@Resources.NubiHR.Details</h2>
 
 
 
 <div class="form-group">
     <div class="row">
         <label class="control-label col-md-3">
-            Employee
+            @Resources.NubiHR.EmployeeName
         </label>
         <div class="col-md-6">
             @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
@@ -21,7 +21,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Job
+            @Resources.NubiHR.Position
         </label>
         <div class="col-md-6">
             @helperx.GetUserRole(User.Identity.GetUserId())
@@ -29,7 +29,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Request Date
+            @Resources.NubiHR.RequestDate
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.RequestDate)
@@ -37,7 +37,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Permission Date
+            @Resources.NubiHR.PermissionDate
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.PermissionDate)
@@ -45,7 +45,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Permission Type
+            @Resources.NubiHR.PermissionType
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.PermissionType.Type)
@@ -53,10 +53,10 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Time From
+            @Resources.NubiHR.TimeFrom
         </label>
         <div class="col-md-6">
-            @Html.DisplayFor(modelItem => Model.TimeFrom)
+            @Html.DisplayFor(modelItem => Model.TimeFromHours)
         </div>
     </div>
     <div class="row">
@@ -64,12 +64,12 @@
             Time To
         </label>
         <div class="col-md-6">
-            @Html.DisplayFor(modelItem => Model.TimeTo)
+            @Html.DisplayFor(modelItem => Model.TimeToHours)
         </div>
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Note
+            @Resources.NubiHR.Note
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.Note)

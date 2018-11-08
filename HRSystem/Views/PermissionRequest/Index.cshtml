@@ -11,11 +11,11 @@
 
 @if (ViewBag.per)
 {
-    <a href="@Url.Action("Create")" class="btn btn-primary">اضافة</a>
+    <a href="@Url.Action("Create","PermissionRequest")" class="btn btn-primary">@Resources.NubiHR.Create</a>
 }
 else
 {
-    <a href="@Url.Action("Create")" class="btn btn-primary disabled">اضافة</a>
+    <a href="@Url.Action("Create","PermissionRequest")" class="btn btn-primary disabled">@Resources.NubiHR.Create</a>
 }
 
 
@@ -67,11 +67,11 @@ else
                     </td>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.TimeFrom)
+                        @Html.DisplayFor(modelItem => item.TimeFromHours) : @Html.DisplayFor(modelItem => item.TimeFromMinutes)
                     </td>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.TimeTo)
+                        @Html.DisplayFor(modelItem => item.TimeToHours) : @Html.DisplayFor(modelItem => item.TimeToMinutes)
                     </td>
 
                     <td>
@@ -87,9 +87,9 @@ else
                     </td>
 
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink(Resources.NubiHR.Edit, "Edit", new { id = item.Id }) |
 
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @Html.ActionLink(Resources.NubiHR.Delete, "Delete", new { id = item.Id })
                     </td>
                 </tr>
             }

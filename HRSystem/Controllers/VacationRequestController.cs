@@ -205,7 +205,7 @@ namespace HRSystem.Controllers
             vac.Id = id;
             vac.RequestDate = DateTime.Now;
             string CurrentUser = User.Identity.GetUserId();
-            vac.EmployeeNo = db.AspNetUsers.Where(a => a.EmpNo == CurrentUser).FirstOrDefault().Id;
+            vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
             if (ModelState.IsValid)
             {
                 db.Entry(vac).State = System.Data.Entity.EntityState.Modified;

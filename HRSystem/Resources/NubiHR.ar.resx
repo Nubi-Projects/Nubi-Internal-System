@@ -372,4 +372,37 @@
   <data name="NewPermissionRequests" xml:space="preserve">
     <value>طلب استئذان جديد</value>
   </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>انشاء حساب جديد</value>
+  </data>
+  <data name="SelectEmployee" xml:space="preserve">
+    <value>اختر موظف</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="CreatePermissionRequest" xml:space="preserve">
+    <value>انشاء طلب اذن</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>الفترة</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>الساعة</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>دقيقة</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteThis" xml:space="preserve">
+    <value>هل انت متاكد من عملية الحذف؟</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
 </root>

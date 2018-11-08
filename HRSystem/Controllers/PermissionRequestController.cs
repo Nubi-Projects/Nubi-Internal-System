@@ -88,15 +88,19 @@ namespace HRSystem.Controllers
 
         public ActionResult Create()
         {
+            Manager.RequestManager mng = new Manager.RequestManager();
+            ViewBag.per = mng.GetPermission(id: User.Identity.GetUserId());
             ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
             return View();
+            
         }
-
-        //
+        
         // POST: /PermissionRequest/Create
         [HttpPost]
         public ActionResult Create(PermissionRequest per)
         {
+            Manager.RequestManager mng = new Manager.RequestManager();
+            ViewBag.per = mng.GetPermission(id: User.Identity.GetUserId());
             var CurrentUser = User.Identity.GetUserId();
             per.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
             if (ModelState.IsValid)
@@ -132,15 +136,16 @@ namespace HRSystem.Controllers
                     TempData["checkHours"] = "You Can Not Take More Than 4 Hours!";
                     ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
                 }
+                else
+                {
+                    TempData["chec"] = "Your Request Has Been Sented";
+                    per.RequestDate = DateTime.Now;
+                    db.PermissionRequests.Add(per);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            else
-            {
-                TempData["chec"] = "Your Request Has Been Sented";
-                per.RequestDate = DateTime.Now;
-                db.PermissionRequests.Add(per);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            
                 
             
             ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
@@ -172,7 +177,7 @@ namespace HRSystem.Controllers
             per.Id = id;
             per.RequestDate = DateTime.Now;
             string CurrentUser = User.Identity.GetUserId();
-            per.EmployeeNo = db.AspNetUsers.Where(a => a.EmpNo == CurrentUser).FirstOrDefault().Id;
+            per.EmployeeNo = db.AspNetUsers.Where(e => e.Id == CurrentUser).FirstOrDefault().EmpNo;
             if (ModelState.IsValid)
             {
                 db.Entry(per).State = System.Data.Entity.EntityState.Modified;

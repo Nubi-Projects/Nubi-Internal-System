@@ -1,16 +1,16 @@
 ﻿@model HRSystem.Models.PermissionRequest
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = Resources.NubiHR.Delete;
 }
 
-<h2>Delete</h2>
+<h2>@Resources.NubiHR.Delete</h2>
 @using (Html.BeginForm(null, null, FormMethod.Post))
 {
-    <h3>هل انت متاكد من عملية الحذف؟</h3>
+    <h3>@Resources.NubiHR.AreYouSureYouWantToDeleteThis</h3>
 
     <div>
 
-        @Html.ActionLink("رجوع", "Index") |
-        <input type="submit" value="حذف" class="btn btn-danger" />
+        @Html.ActionLink(Resources.NubiHR.Back, "Index") |
+        <input type="submit" value=@Resources.NubiHR.Delete class="btn btn-danger" />
     </div>
 }

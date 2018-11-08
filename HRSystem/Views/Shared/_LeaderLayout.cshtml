@@ -6,7 +6,7 @@
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
     var VacRequests = mngr.NoOfLeaderVacationRequests();
     var PerRequests = mngr.NoOfLeaderPermissionRequests();
-    ViewBag.LeaderHasSeen = mngr.HasLeaderSeenVacationRequests();
+    ViewBag.LeaderHasSeenVac = mngr.HasLeaderSeenVacationRequests();
     ViewBag.LeaderHasSeenPer = mngr.HasLeaderSeenPermissionRequests();
     var Sum = VacRequests + PerRequests;
 
@@ -118,6 +118,13 @@
             <strong> @TempData["checkHours"] </strong>
         </div>
     }
+
+    @if (@TempData["checkPermission"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            <strong> @TempData["checkPermission"] </strong>
+        </div>
+    }
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
@@ -206,13 +213,27 @@
                             <a href="#">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>@Resources.NubiHR.EmployeeRequests</span>
-                                @if (ViewBag.LeaderHasSeen == true || ViewBag.LeaderHasSeenPer == true)
+                                @if (ViewBag.LeaderHasSeenVac == true && ViewBag.LeaderHasSeenPer == true)
                                 {
 
                                 }
                                 else
                                 {
-                                    <span class="badge badge-pill badge-warning notification">@Sum </span>
+                                    <span class="badge badge-pill badge-warning notification">
+                                @if (ViewBag.LeaderHasSeenVac == false && ViewBag.LeaderHasSeenPer == false)
+                                {
+                                    @Sum
+                                }
+                                else if(ViewBag.LeaderHasSeenVac == false && ViewBag.LeaderHasSeenPer == true)
+                                {
+                                    @VacRequests
+                                }
+                                else if(ViewBag.LeaderHasSeenVac == true && ViewBag.LeaderHasSeenPer == false)
+                                {
+                                    @PerRequests
+                                }
+
+                                    </span>
                                 }
                                 
 
@@ -223,7 +244,7 @@
                                         <a href="@Url.Action("LeaderRequests","VacationRequest")">
                                             @Resources.NubiHR.VacationRequests
                                         </a>
-                                        @if (ViewBag.LeaderHasSeen == true || VacRequests == 0 )
+                                        @if (ViewBag.LeaderHasSeenVac == true || VacRequests == 0 )
                                         {
 
                                         }

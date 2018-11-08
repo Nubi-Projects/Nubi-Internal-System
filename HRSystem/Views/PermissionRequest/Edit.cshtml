@@ -1,7 +1,7 @@
 ﻿@model HRSystem.Models.PermissionRequest
 @using  Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Resources.NubiHR.Edit;
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
 }
 <h2>Edit</h2>
@@ -10,55 +10,79 @@
     
     <div class="form-group col-md-6">
         <div>
-            تاريخ الطلب
-        </div>
-        <div>
-            @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RequestDate, "", new { @class = "text-danger" })
-        </div>
-        <br />
-        <div>
-            نوع الإذن
-        </div>
-        <div>
-            @Html.DropDownList("PermissionTypeNo", null,"Select", new { @class = "form-control" })
-        </div>
-        <br />
-        <div>
-            اسم الموظف
+            @Resources.NubiHR.EmployeeName
         </div>
         <div>
             <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
         </div>
         <br />
         <div>
-            الوظيفة
+            @Resources.NubiHR.Position
         </div>
         <div>
             <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
         </div>
         <br />
         <div>
-            الفترة:
+            @Resources.NubiHR.PermissionType
         </div>
         <div>
-            من الساعة
-        </div>
-        <div>
-            @Html.EditorFor(model => model.TimeFrom, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TimeFrom, "", new { @class = "text-danger" })
+            @Html.DropDownList("PermissionTypeNo", null,"Select", new { @class = "form-control" })
         </div>
         <br />
         <div>
-            إلى الساعة
+            @Resources.NubiHR.Period:
         </div>
         <div>
-            @Html.EditorFor(model => model.TimeTo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TimeTo, "", new { @class = "text-danger" })
+            @Resources.NubiHR.TimeFrom
+        </div>
+
+        <br />
+        <div class="row">
+            <label>@Resources.NubiHR.Hour</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.TimeFromHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeFromHours, "", new { @class = "text-danger" })
+            </div>
+            <label>@Resources.NubiHR.Minute</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.TimeFromMinutes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeFromMinutes, "", new { @class = "text-danger" })
+            </div>
         </div>
         <br />
         <div>
-            التاريخ
+            @Resources.NubiHR.TimeTo
+        </div>
+        <br />
+        <div class="row">
+            <label>@Resources.NubiHR.Hour</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.TimeToHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeToHours, "", new { @class = "text-danger" })
+            </div>
+            <label>@Resources.NubiHR.Minute</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.TimeToMinutes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeToMinutes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div>
+            @Html.EditorFor(model => model.TimeFromHours, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TimeFromHours, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <div>
+            @Resources.NubiHR.TimeTo
+        </div>
+        <div>
+            @Html.EditorFor(model => model.TimeToHours, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TimeToHours, "", new { @class = "text-danger" })
+        </div>*@
+        <br />
+        <div>
+            @Resources.NubiHR.PermissionDate
         </div>
         <div>
             @Html.EditorFor(model => model.PermissionDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -66,7 +90,7 @@
         </div>
         <br />
         <div>
-            ملاحظة
+            @Resources.NubiHR.Note
         </div>
         <div>
             @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
@@ -74,8 +98,8 @@
         <br />
         <div class="form-group">
             <div>
-                <input type="submit" value="Send" class="btn2" />
-                <button class="btn-Back"><a href="@Url.Action("VacationRequest","Index")">Back</a></button>
+                <input type="submit" value=@Resources.NubiHR.Send class="btn2" />
+                <button class="btn-Back"><a href="@Url.Action("PermissionRequest","Index")">@Resources.NubiHR.Back</a></button>
             </div>
         </div>
     </div>

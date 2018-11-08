@@ -1,12 +1,12 @@
 ﻿@model HRSystem.Models.PermissionRequest
 @using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = Resources.NubiHR.CreatePermissionRequest;
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
 }
 
-<h2>Create</h2>
+<h2>@Resources.NubiHR.CreatePermissionRequest</h2>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form" }))
 {
@@ -20,41 +20,41 @@
         </div>
         <br />*@
         <div>
-            Permission Type
-        </div>
-        <div>
-           @Html.DropDownList("PermissionTypeNo", null,"Select", new { @class = "form-control" })
-            
-        </div>
-        <br />
-        <div>
-            Employee Name
+            @Resources.NubiHR.EmployeeName
         </div>
         <div>
             <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
         </div>
         <br />
         <div>
-            Position
+            @Resources.NubiHR.Position
         </div>
         <div>
             <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
         </div>
         <br />
         <div>
-            Period:
+            @Resources.NubiHR.PermissionType
         </div>
         <div>
-            From
+            @Html.DropDownList("PermissionTypeNo", null, "Select", new { @class = "form-control" })
+
+        </div>
+        <br />
+        <div>
+            @Resources.NubiHR.Period:
+        </div>
+        <div>
+            @Resources.NubiHR.TimeFrom
         </div>
         <br />
         <div class="row">
-            <label>Hours</label>
+            <label>@Resources.NubiHR.Hour</label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.TimeFromHours, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeFromHours, "", new { @class = "text-danger" })
             </div>
-            <label>Minutes</label>
+            <label>@Resources.NubiHR.Minute</label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.TimeFromMinutes, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeFromMinutes, "", new { @class = "text-danger" })
@@ -62,16 +62,16 @@
         </div>
         <br />
         <div>
-            To
+            @Resources.NubiHR.TimeTo
         </div>
         <br />
         <div class="row">
-            <label>Hours</label>
+            <label>@Resources.NubiHR.Hour</label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.TimeToHours, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeToHours, "", new { @class = "text-danger" })
             </div>
-            <label>Minutes</label>
+            <label>@Resources.NubiHR.Minute</label>
             <div class="col-md-4">
                 @Html.EditorFor(model => model.TimeToMinutes, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeToMinutes, "", new { @class = "text-danger" })
@@ -79,7 +79,7 @@
         </div>
         <br />
         <div>
-            Permission Date
+            @Resources.NubiHR.PermissionDate
         </div>
         <div>
             @Html.EditorFor(model => model.PermissionDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -87,7 +87,7 @@
         </div>
         <br />
         <div>
-            Note
+            @Resources.NubiHR.Note
         </div>
         <div>
             @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
@@ -95,10 +95,17 @@
         <br />
         <div class="form-group">
             <div>
-               
-                <input type="submit" value="Send" class="btn2" />
-                <button class="btn-Back"><a href="@Url.Action("")">Back</a></button>
-</div>
+                @if (ViewBag.per)
+                {
+                    <input type="submit" value=@Resources.NubiHR.Send class="btn2" />
+                }
+                else
+                {
+                    <input type="submit" value=@Resources.NubiHR.Send class="btn2disabled" disabled />
+                }
+                
+                <button class="btn-Back"><a href="@Url.Action("PermissionRequest","Index")">@Resources.NubiHR.Back</a></button>
+            </div>
         </div>
     </div>
 }

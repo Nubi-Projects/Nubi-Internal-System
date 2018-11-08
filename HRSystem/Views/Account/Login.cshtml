@@ -2,7 +2,7 @@
 @model LoginViewModel
 @{
     Layout = null;
-    ViewBag.Title = "Log in";
+    ViewBag.Title = Resources.NubiHR.Login;
 }
 <!DOCTYPE html>
 <html>
@@ -109,7 +109,7 @@
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
 
-                <button type="submit" class="btn2">Login</button>
+                <button type="submit" class="btn2">@Resources.NubiHR.Login</button>
 
                 @*<div class="text-center" style=" margin-top: 10px;">
                     <i class="fa fa-user-plus" aria-hidden="true"></i> <a href="@Url.Action("Register", "Account")" class="newaccount">Create New account</a>
