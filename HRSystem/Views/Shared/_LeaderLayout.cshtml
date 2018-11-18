@@ -126,6 +126,19 @@
             <strong> @TempData["checkPermission"] </strong>
         </div>
     }
+
+    @if (@TempData["AccidentalLeave"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            <strong> @TempData["AccidentalLeave"] </strong>
+        </div>
+    }
+    @if (@TempData["AccLeave"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            <strong> @TempData["AccLeave"] </strong>
+        </div>
+    }
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>

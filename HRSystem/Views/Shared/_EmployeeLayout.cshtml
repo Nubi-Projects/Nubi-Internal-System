@@ -100,6 +100,13 @@
             <strong> @TempData["checkHours"] </strong>
         </div>
     }
+
+    @if (@TempData["checkPermission"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            <strong> @TempData["checkPermission"] </strong>
+        </div>
+    }
     
     @if (@TempData["AccidentalLeave"] != null)
     {
