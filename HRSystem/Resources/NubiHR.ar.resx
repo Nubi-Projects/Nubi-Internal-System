@@ -405,4 +405,7 @@
   <data name="Create" xml:space="preserve">
     <value>إضافة</value>
   </data>
+  <data name="UploadAllowedMedicalExtensions" xml:space="preserve">
+    <value>الرجاء ارفاق ملفات من نوع .jpeg , .jpg , .png , .gif , .pdf فقط</value>
+  </data>
 </root>

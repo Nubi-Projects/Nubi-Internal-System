@@ -16,32 +16,45 @@
 @using (Html.BeginForm(null, null, FormMethod.Post))
 {
     <div class="form-group col-md-6">
-        <div>
+        @*<div>
             تاريخ الطلب
         </div>
         <div>
             @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control date", name="date" } })
             @Html.ValidationMessageFor(model => model.RequestDate, "", new { @class = "text-danger" })
         </div>
-        <br />
+        <br />*@
         <div>
-            نوع الاجازة
+            @Resources.NubiHR.VacationType
         </div>
         <div>
-            @Html.DropDownList( "VacationTypeNo",null,"Select", new { @class = "form-control" })
+            @Html.DisplayFor(model => model.VacationType.Type, new { htmlAttributes = new { @class = "form-control date", name = "date" } })
             @*@Html.DropDownListFor(model => model.VacationTypeNo, (SelectList)ViewBag.VacationTypeNo, "Select", new { @class = "form-control" })*@
-            
         </div>
         <br />
+        @if (Model.VacationTypeNo == 2)
+        {
+            <div>
+                <div>
+                    @Resources.NubiHR.MedicalReport
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.MedicalReport, new { type = "file", id = "file4", onchange = "return fileValidation('file4')", htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MedicalReport, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+       
+        <br />
         <div>
-            اسم الموظف
+            @Resources.NubiHR.EmployeeName
         </div>
         <div>
             <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
         </div>
         <br />
         <div>
-            الوظيفة
+            @Resources.NubiHR.Position
         </div>
         <div>
             <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
@@ -56,26 +69,26 @@
         </div>
         <br />
         <div>
-            ابتداءا من
+            @Resources.NubiHR.StartDate
         </div>
         <div>
-            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
         </div>
         <br />
         <div>
-            وتنتهي في
+            @Resources.NubiHR.EndDate
         </div>
         <div>
-            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
         </div>
         <br />
         <div>
-            وتاريخ العودة للعمل
+            @Resources.NubiHR.ResumeDate
         </div>
         <div>
-            @Html.EditorFor(model => model.ResumeDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.ResumeDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.ResumeDate, "", new { @class = "text-danger" })
         </div>
         <br />
@@ -95,7 +108,7 @@
         </div>
          <br />*@
         <div>
-            ملاحظة
+            @Resources.NubiHR.Note
         </div>
         <div>
             @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
@@ -103,17 +116,60 @@
         <br />
         <div class="form-group">
             <div>
-                <input type="submit" value="Send" class="btn2" />
+                <input type="submit" value=@Resources.NubiHR.Send class="btn2" />
 
-                <button class="btn-Back"><a href="@Url.Action("VacationRequest","Index")">Back</a></button>
+                <button class="btn-Back"><a href="@Url.Action("VacationRequest","Index")">@Resources.NubiHR.Back</a></button>
             </div>
         </div>
         <script type="text/javascript">
-            $(function (){
-                $('.date').date();
-   
-    });
+            $(document).ready(function () {
+                $("#MedicalReport").hide();
+            }
+            )
+
+            $(document).ready(function () {
+                $("#Other").hide();
+            }
+            )
+
+            $(function () {
+                $("#VacationTypeNo").change(function () {
+
+
+
+                    if ($("#VacationTypeNo").val() == "2") {
+                        $("#MedicalReport").show();
+                    }
+                    else {
+                        $("#MedicalReport").hide();
+                    }
+
+                    
+                });
+            });
 
         </script> 
+        <script>
+            function fileValidation(element) {
+                var fileInput = document.getElementById(element);
+                var filePath = fileInput.value;
+                var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf)$/i;
+                if (!allowedExtensions.exec(filePath)) {
+                    swal(`Error!`, '@Resources.NubiHR.UploadAllowedMedicalExtensions', `error`);
+                    fileInput.value = '';
+                    return false;
+                } else {
+                    //Image preview
+                    if (fileInput.files && fileInput.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            document.getElementById('imagePreview').innerHTML = '<img src="' + e.target.result + '"/>';
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                }
+            }
+
+        </script>
     </div>
 }

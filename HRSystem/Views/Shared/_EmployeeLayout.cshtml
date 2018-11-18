@@ -44,6 +44,12 @@
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/vfs_fonts.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/jszip.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />*@
 </head>
 <body>
     @if (@TempData["check"] != null)
@@ -94,7 +100,19 @@
             <strong> @TempData["checkHours"] </strong>
         </div>
     }
-
+    
+    @if (@TempData["AccidentalLeave"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            <strong> @TempData["AccidentalLeave"] </strong>
+        </div>
+    }
+    @if (@TempData["AccLeave"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            <strong> @TempData["AccLeave"] </strong>
+        </div>
+    }
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
@@ -285,5 +303,49 @@
             }
      });
     </script>
+    @*<script>
+        $(document).ready(function () {
+            $('#startdate_datepicker').datepicker();
+
+            $('#btn').click(function (e) {
+                e.preventDefault();
+                $('#startdate_datepicker').datepicker("show");
+                setTimeout(function () {
+                    $('#startdate_datepicker').datepicker("hide");
+                }, 1000)
+            })
+
+        });
+
+        $(document).ready(function () {
+            $('#enddate_datepicker').datepicker();
+
+            $('#btn1').click(function (e) {
+                e.preventDefault();
+                $('#enddate_datepicker').datepicker("show");
+                setTimeout(function () {
+                    $('#enddate_datepicker').datepicker("hide");
+                }, 1000)
+            })
+
+        });
+
+        $(document).ready(function () {
+            $('#resumedate_datepicker').datepicker();
+
+            $('#btn2').click(function (e) {
+                e.preventDefault();
+                $('#resumedate_datepicker').datepicker("show");
+                setTimeout(function () {
+                    $('#resumedate_datepicker').datepicker("hide");
+                }, 1000)
+            })
+
+        });
+    </script>*@
+    @*//$("#startdate_datepicker").datepicker();
+    //$("#enddate_datepicker").datepicker();
+    //$("#resumedate_datepicker").datepicker();*@
+    
         </body>
     </html>

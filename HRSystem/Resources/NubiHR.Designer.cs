@@ -376,7 +376,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start Date.
+        ///   Looks up a localized string similar to End Date.
         /// </summary>
         public static string EndDate {
             get {
@@ -876,6 +876,15 @@ namespace Resources {
         public static string UploadAllowedExtensions {
             get {
                 return ResourceManager.GetString("UploadAllowedExtensions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please upload file having extensions .jpeg , .jpg , .png , .gif , .pdf only.
+        /// </summary>
+        public static string UploadAllowedMedicalExtensions {
+            get {
+                return ResourceManager.GetString("UploadAllowedMedicalExtensions", resourceCulture);
             }
         }
         

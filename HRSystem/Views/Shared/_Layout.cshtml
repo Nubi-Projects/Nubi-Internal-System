@@ -46,7 +46,8 @@
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/vfs_fonts.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/jszip.min.js"></script>
 
-   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 
     @*<script type="text/javascript">
         $(document).ready(function () {
@@ -223,7 +224,7 @@
                             <a href="#">
                                 <i class="fa fa-chart-line"></i>
                                 <span>@Resources.NubiHR.EmployeeRequests</span>
-                                @if (ViewBag.ManagerHasSeen == true || ViewBag.ManagerHasSeenPer == true)
+                                @if ((ViewBag.ManagerHasSeen == true || ViewBag.ManagerHasSeenPer == true) || (VacRequests == 0 && PerRequests == 0))
                                 {
 
                                 }
@@ -469,5 +470,49 @@
         }
      });
     </script>
+    @*<script>
+        $(document).ready(function () {
+            $('#startdate_datepicker').datepicker();
+
+            $('#btn').click(function (e) {
+                e.preventDefault();
+                $('#startdate_datepicker').datepicker("show");
+                setTimeout(function () {
+                    $('#startdate_datepicker').datepicker("hide");
+                }, 1000)
+            })
+
+        });
+
+        $(document).ready(function () {
+            $('#enddate_datepicker').datepicker();
+
+            $('#btn1').click(function (e) {
+                e.preventDefault();
+                $('#enddate_datepicker').datepicker("show");
+                setTimeout(function () {
+                    $('#enddate_datepicker').datepicker("hide");
+                }, 1000)
+            })
+
+        });
+
+        $(document).ready(function () {
+            $('#resumedate_datepicker').datepicker();
+
+            $('#btn2').click(function (e) {
+                e.preventDefault();
+                $('#resumedate_datepicker').datepicker("show");
+                setTimeout(function () {
+                    $('#resumedate_datepicker').datepicker("hide");
+                }, 1000)
+            })
+
+        });
+    </script>*@
+    @*//$("#startdate_datepicker").datepicker();
+    //$("#enddate_datepicker").datepicker();
+    //$("#resumedate_datepicker").datepicker();*@
+    
 </body>
 </html>

@@ -30,7 +30,7 @@ namespace HRSystem.Controllers
 
             }
             db.SaveChanges();
-            return View(db.VacationRequests.ToList());
+            return View(db.VacationRequests.OrderBy(e => e.RequestDate));
         }
         public ActionResult LeaderApprove(int id)
         {
@@ -42,7 +42,7 @@ namespace HRSystem.Controllers
                 db.SaveChanges();
                 return RedirectToAction("LeaderRequests");
             }
-            return View(db.VacationRequests.OrderBy( e => e.RequestDate));
+            return View(db.VacationRequests.ToList());
         }
         public ActionResult Reject(int id)
         {
@@ -93,7 +93,7 @@ namespace HRSystem.Controllers
                 return RedirectToAction("Index");
             }
             var vac = mng.AvailableVacation(id: User.Identity.GetUserId());
-            if (vac== true)
+            if (vac== false)
             {
                 TempData["vac"] = "You Did Not complete 14 Days From The Last Vacation You Took!";
                 return RedirectToAction("Index");
@@ -113,8 +113,24 @@ namespace HRSystem.Controllers
             var CompleteYear = mng.CheckVaction(id: User.Identity.GetUserId());
             var HaveTheEmpFatherDeathVacation = mng.EmployeeHaveFatherDeathVacation(id: User.Identity.GetUserId());
             var HaveTheEmpMotherDeathVacation = mng.EmployeeHaveMotherDeathVacation(id: User.Identity.GetUserId());
+            var AvailableAccidentalLeave = mng.AvailableAccidentalLeave(id: User.Identity.GetUserId());
+            var NoOfAccidentalLeaves = mng.NoOfAccidentalLeave(id: User.Identity.GetUserId());
             string CurrentUser = User.Identity.GetUserId();
             vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
+            if((vac.StartDate < DateTime.Today && vac.VacationTypeNo == 1) ||(vac.StartDate < DateTime.Today && vac.VacationTypeNo == 3) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 5) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 6))
+            {
+                ModelState.AddModelError("StartDate", "Start date not valid");
+            }
+            else if ((vac.EndDate < DateTime.Today && vac.VacationTypeNo == 1) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 3) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 5) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 6))
+            {
+                ModelState.AddModelError("EndDate", "End Date not valid");
+            }
+            else if (vac.VacationTypeNo == 3 && vac.Duration > 1)
+            {
+                ModelState.AddModelError("Duration", "Just one day allowed for accidental leave");
+            }
+            else
+            { 
             if (ModelState.IsValid)
             {
                 if ( vac.Duration > 5 && CompleteYear == false )
@@ -142,14 +158,27 @@ namespace HRSystem.Controllers
 
                     ViewBag.emp = db.AspNetUsers.ToList();
                 }
+                else if (vac.VacationTypeNo == 3 && NoOfAccidentalLeaves == true && CompleteYear == false)
+                    {
+                        TempData["AccidentalLeave"] = "You Took 3 Accidental Leaves In This Year You Can't Take Accidental Leave";
+                        ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
+                        ViewBag.emp = db.AspNetUsers.ToList();
+                    }
+                else if ((vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && NoOfAccidentalLeaves == false && CompleteYear == false) || (vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && NoOfAccidentalLeaves == false && CompleteYear == true))
+                    {
+                        TempData["AccLeave"]= "You can't take accidental leave";
+                    }
                 else
                 {
-                    TempData["chec"] = "Your Request Has Been Sented";
-                    vac.RequestDate = DateTime.Now;
-                    db.VacationRequests.Add(vac);
+                        vac.EndDate = vac.StartDate.AddDays(vac.Duration);
+                        vac.ResumeDate = vac.EndDate.AddDays(1);
+                        vac.RequestDate = DateTime.Now;
+                        TempData["chec"] = "Your Request Has Been Sented";
+                        db.VacationRequests.Add(vac);
                     db.SaveChanges();
                     return RedirectToAction("index");
                 }
+                //ModelState.AddModelError("MedicalReport","ple;lsjkjdfhshdkn ksjdf sffkh jkwhe fshdf owihuhdf owhjf ihf wieofh woeif")
 
 
 
@@ -170,6 +199,7 @@ namespace HRSystem.Controllers
                 //    db.SaveChanges();
                 //    return RedirectToAction("index");
                 //}
+            }
             }
             ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);

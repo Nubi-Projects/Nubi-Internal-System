@@ -31,7 +31,7 @@ namespace HRSystem.Controllers
 
             }
             db.SaveChanges();
-            return View(db.PermissionRequests.ToList());
+            return View(db.PermissionRequests.OrderBy(e => e.RequestDate));
         }
         public ActionResult LeaderApprove(int id)
         {
@@ -129,21 +129,22 @@ namespace HRSystem.Controllers
                 TimeSpan timeFrom = new TimeSpan(0, per.TimeFromHours, per.TimeFromMinutes??0, 0);
                 TimeSpan timeTo = new TimeSpan(0, per.TimeToHours, per.TimeToMinutes ?? 0, 0);
 
-                var differnce = timeTo - timeFrom;
+                //var differnce = timeTo - timeFrom;
 
-                if (differnce.TotalHours > 4 )
-                {
-                    TempData["checkHours"] = "You Can Not Take More Than 4 Hours!";
-                    ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
-                }
-                else
-                {
-                    TempData["chec"] = "Your Request Has Been Sented";
-                    per.RequestDate = DateTime.Now;
+                //if (differnce.TotalHours > 4 )
+                //{
+                //    TempData["checkHours"] = "You Can Not Take More Than 4 Hours!";
+                //    ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
+                //}
+                //else
+                //{
+                per.RequestDate = DateTime.Now;
+                per.TimeToHours = timeFrom.Hours + 4;
+                TempData["chec"] = "Your Request Has Been Sented";
                     db.PermissionRequests.Add(per);
                     db.SaveChanges();
                     return RedirectToAction("Index");
-                }
+                //}
             }
             
                 

@@ -69,7 +69,7 @@ namespace HRSystem.Manager
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             var VacReq = db.VacationRequests.OrderByDescending(f=>f.Id).FirstOrDefault(e => e.EmployeeNo == emp.Id);
 
-            if (VacReq != null && VacReq.ResumeDate.AddDays(14) >= DateTime.Today)
+            if (VacReq != null && VacReq.ResumeDate.AddDays(14) <= DateTime.Today && VacReq.IsDeleted == false)
             {
                 return true;
             }
@@ -98,6 +98,35 @@ namespace HRSystem.Manager
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             var MDV = db.VacationRequests.Where(e => e.VacationTypeNo == 6).ToList();
             if (MDV != null && MDV.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AvailableAccidentalLeave (string id)
+        {
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            //var AccLeave = db.VacationRequests.Where(e => e.VacationTypeNo == 3).LastOrDefault();
+            var AccLeave = db.VacationRequests.OrderByDescending(e => e.VacationTypeNo == 3).FirstOrDefault(e => e.EmployeeNo == emp.Id);
+            if (AccLeave != null && AccLeave.ResumeDate.AddDays(30) < DateTime.Today || AccLeave == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool NoOfAccidentalLeave (string id)
+        {
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var NoOfAccLeave = db.VacationRequests.Where(e => e.VacationTypeNo == 3).ToList();
+            if (NoOfAccLeave != null && NoOfAccLeave.Count > 3)
             {
                 return true;
             }
