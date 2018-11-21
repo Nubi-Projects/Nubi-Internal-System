@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 @*<script type="text/javascript">
     $(document).ready(function () {
@@ -16,19 +17,34 @@
 @using (Html.BeginForm(null, null, FormMethod.Post))
 {
     <div class="form-group col-md-6">
-        @*<div>
-            تاريخ الطلب
+        <div>
+            @Resources.NubiHR.EmployeeName
         </div>
         <div>
-            @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control date", name="date" } })
-            @Html.ValidationMessageFor(model => model.RequestDate, "", new { @class = "text-danger" })
+            <label> @Html.DisplayFor(modelItem => Model.Employee.FirstName)</label>
         </div>
-        <br />*@
+        <br />
+        <div>
+            @Resources.NubiHR.Position
+        </div>
+        <div>
+            <label>
+                @if (IsArabic)
+                {
+                    @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameAr)
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameEn)
+                }
+            </label>
+        </div>
+        <br />
         <div>
             @Resources.NubiHR.VacationType
         </div>
         <div>
-            @Html.DisplayFor(model => model.VacationType.Type, new { htmlAttributes = new { @class = "form-control date", name = "date" } })
+            @Html.DisplayFor(model => model.VacationType.Type, new { htmlAttributes = new { @class = "form-control" } })
             @*@Html.DropDownListFor(model => model.VacationTypeNo, (SelectList)ViewBag.VacationTypeNo, "Select", new { @class = "form-control" })*@
         </div>
         <br />
@@ -44,24 +60,10 @@
                 </div>
             </div>
         }
-       
+
         <br />
         <div>
-            @Resources.NubiHR.EmployeeName
-        </div>
-        <div>
-            <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
-        </div>
-        <br />
-        <div>
-            @Resources.NubiHR.Position
-        </div>
-        <div>
-            <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
-        </div>
-        <br />
-        <div>
-            ارجو الموافقة على منحي الاجازة الموضحة أعلاه لمدة
+            @Resources.NubiHR.PleaseAcceptMyVacationDescribedAboveForAPeriodOf
         </div>
         <div>
             @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
@@ -93,7 +95,7 @@
         </div>
         <br />
         <div>
-            وعنواني أثناء الاجازة
+            @Resources.NubiHR.MyAddressDuringVacation
         </div>
         <div>
             @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
@@ -117,8 +119,10 @@
         <div class="form-group">
             <div>
                 <input type="submit" value=@Resources.NubiHR.Send class="btn2" />
-
-                <button class="btn-Back"><a href="@Url.Action("VacationRequest","Index")">@Resources.NubiHR.Back</a></button>
+            </div>
+            <br />
+            <div>
+                <a href="@Url.Action("Index")" class="btn-Back" style="color:white; text-decoration: none;">@Resources.NubiHR.Back</a>
             </div>
         </div>
         <script type="text/javascript">
@@ -132,21 +136,6 @@
             }
             )
 
-            $(function () {
-                $("#VacationTypeNo").change(function () {
-
-
-
-                    if ($("#VacationTypeNo").val() == "2") {
-                        $("#MedicalReport").show();
-                    }
-                    else {
-                        $("#MedicalReport").hide();
-                    }
-
-                    
-                });
-            });
 
         </script> 
         <script>

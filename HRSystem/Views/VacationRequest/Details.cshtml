@@ -1,35 +1,41 @@
 ﻿@model HRSystem.Models.VacationRequest
-@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Details";
-    HRSystem.Models.Helper helperx = new HRSystem.Models.Helper();
-    HRSystem.Models.Mngr mngr = new HRSystem.Models.Mngr();
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 
 
-<h2>Details</h2>
+<h2>@Resources.NubiHR.Details</h2>
 
 
    <div class="form-group">
     <div class="row">
         <label class="control-label col-md-3">
-            Employee
+            @Resources.NubiHR.EmployeeName
         </label>
         <div class="col-md-6">
-            @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+            @Html.DisplayFor(modelItem => Model.Employee.FirstName)
         </div>
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Job
+            @Resources.NubiHR.Position
         </label>
         <div class="col-md-6">
-            @helperx.GetUserRole(User.Identity.GetUserId())
+            @if (IsArabic)
+            {
+                @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameAr)
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameEn)
+            }
+            
         </div>
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Request Date
+            @Resources.NubiHR.RequestDate
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.RequestDate)
@@ -37,7 +43,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Vacation Type
+            @Resources.NubiHR.VacationType
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.VacationType.Type)
@@ -45,7 +51,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Duration
+            @Resources.NubiHR.Duration
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.Duration)
@@ -53,7 +59,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Start Date
+            @Resources.NubiHR.StartDate
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.StartDate)
@@ -61,7 +67,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            End Date
+            @Resources.NubiHR.EndDate
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.EndDate)
@@ -69,7 +75,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Resump Date
+            @Resources.NubiHR.ResumeDate
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.ResumeDate)
@@ -77,7 +83,7 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Address
+            @Resources.NubiHR.Address
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.Address)
@@ -85,10 +91,14 @@
     </div>
     <div class="row">
         <label class="control-label col-md-3">
-            Note
+            @Resources.NubiHR.Note
         </label>
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.Note)
         </div>
     </div>
+       <br />
+       <div>
+           <a href="@Url.Action("Index")" class="btn-Back" style="color:white; text-decoration: none;">@Resources.NubiHR.Back</a>
+       </div>
 </div>

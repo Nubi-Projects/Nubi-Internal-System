@@ -6,7 +6,7 @@
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
 }
 
-<h2>Create</h2>
+<h2>@Resources.NubiHR.VacationRequests</h2>
 @using (Html.BeginForm(null, null, FormMethod.Post))
 {
    
@@ -89,7 +89,7 @@
             
         </div>*@
         <div>
-            Please Accept My Vacation Described Above For a Period Of
+            @Resources.NubiHR.PleaseAcceptMyVacationDescribedAboveForAPeriodOf
             @*ارجو الموافقة على منحي الاجازة الموضحة أعلاه لمدة*@ 
         </div>
         <div>
@@ -134,7 +134,7 @@
         </div>
         <br />
         <div>
-            My Address During Vacation
+            @Resources.NubiHR.MyAddressDuringVacation
         </div>
         <div>
             @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
@@ -142,7 +142,7 @@
         </div>
         <br />
         <div>
-        وسيكون البديل الموظف
+        @Resources.NubiHR.TheAlternativeEmployeeWillBe
     </div>
     <div>
         @Html.DropDownList("EmpNo", null, "Select", new { @class = "form-control" })
@@ -157,13 +157,22 @@
         <br />
         <div class="form-group">
             <div>
-                <input type="submit" value="Send" class="btn2" />
+                <input type="submit" value=@Resources.NubiHR.Send class="btn2" />
                 
-                <button class="btn-Back"><a href="@Url.Action("VacationRequest","Index")" >@Resources.NubiHR.Back</a></button>
+                
+                @*@Html.ActionLink(Resources.NubiHR.Back, "Index", new { @class = "btn-Back" })*@
+                @*<input value="Back" type="button" class="btn-Back" @Html.ActionLink(Resources.NubiHR.Back, "Index")>*@
             </div>
+            <br />
+            <div>
+                <a href="@Url.Action("Index")" class="btn-Back" style="color:white; text-decoration: none;">@Resources.NubiHR.Back</a>
+            </div>
+
         </div>
     </div>
 }
+@*<button class="btn-Back"><a href="@Url.Action("Index")" >@Resources.NubiHR.Back</a></button>*@
+
 <script type="text/javascript">
 
     $(document).ready(function ()

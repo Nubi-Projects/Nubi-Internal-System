@@ -160,7 +160,7 @@ namespace HRSystem.Controllers
                 }
                 else if (vac.VacationTypeNo == 3 && NoOfAccidentalLeaves == true && CompleteYear == false)
                     {
-                        TempData["AccidentalLeave"] = "You Took 3 Accidental Leaves In This Year You Can't Take Accidental Leave";
+                        TempData["AccidentalLeave"] = "You Took 3 Accidental Leaves In Year You Can't Take Accidental Leave";
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
                         ViewBag.emp = db.AspNetUsers.ToList();
                     }

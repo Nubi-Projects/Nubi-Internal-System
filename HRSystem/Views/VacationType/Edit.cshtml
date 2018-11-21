@@ -3,21 +3,21 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>@Resources.NubiHR.Edit</h2>
 @using (Html.BeginForm(null, null, FormMethod.Post))
 {
     <div class="form-group">
         <div>
-            نوع الاجازة
+            @Resources.NubiHR.VacationType
         </div>
         <div>
             @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
         </div>
         <br />
         <div>
-            <a href="@Url.Action("")" class="btn btn-default">رجوع</a>
+            <a href="@Url.Action("VacationRequest","Index")" class="btn btn-default">@Resources.NubiHR.Back</a>
 
-            <input type="submit" value="حفظ" class="btn btn-primary" />
+            <input type="submit" value=@Resources.NubiHR.Send class="btn btn-primary" />
         </div>
     </div>
 }

@@ -5,7 +5,7 @@
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
 }
 
-<h2>Index</h2>
+<h2>@Resources.NubiHR.Permissions</h2>
 
  
 
@@ -58,7 +58,7 @@ else
         <tbody>
             @foreach (var item in Model.Where(e => e.IsDeleted == false).ToList())
             {
-                <tr onclick="">
+                <tr onclick="Edit('@item.Id')">
                     <td>
                         @Html.DisplayFor(modelItem => item.Employee.FirstName)
                     </td>
@@ -88,14 +88,18 @@ else
 
                     <td>
                         @Html.ActionLink(Resources.NubiHR.Edit, "Edit", new { id = item.Id }) |
-
-                        @Html.ActionLink(Resources.NubiHR.Delete, "Delete", new { id = item.Id })
+                        @Html.ActionLink(Resources.NubiHR.Details, "Details", new { id = item.Id })
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    
+    <script>
+    function Edit(itemid) {
+
+        window.location.href = "/PermissionRequest/Edit/" + itemid;
+    }
+</script>
 @*<script type="text/javascript">
      $(document).ready(function () {
     var IsArabic = '@Request.Cookies["culture"].Value';

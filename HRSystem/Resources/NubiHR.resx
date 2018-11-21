@@ -405,4 +405,28 @@
   <data name="UploadAllowedMedicalExtensions" xml:space="preserve">
     <value>Please upload file having extensions .jpeg , .jpg , .png , .gif , .pdf only</value>
   </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="EditPermissionRequest" xml:space="preserve">
+    <value>Edit Permission Request</value>
+  </data>
+  <data name="LeaderRequests" xml:space="preserve">
+    <value>Leader Requests</value>
+  </data>
+  <data name="MyAddressDuringVacation" xml:space="preserve">
+    <value>My Address During Vacation</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="PleaseAcceptMyVacationDescribedAboveForAPeriodOf" xml:space="preserve">
+    <value>Please Accept My Vacation Described Above For a Period Of</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="TheAlternativeEmployeeWillBe" xml:space="preserve">
+    <value>The Alternative Employee Will Be</value>
+  </data>
 </root>

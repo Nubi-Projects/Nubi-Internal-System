@@ -27,9 +27,9 @@
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <td>
-                    @Html.ActionLink("تعديل", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink(Resources.NubiHR.Edit, "Edit", new { id = item.Id }) |
 
-                    @Html.ActionLink("حذف", "Delete", new { id = item.Id })
+                    @Html.ActionLink(Resources.NubiHR.Delete, "Delete", new { id = item.Id })
                 </td>
             </tr>
         }

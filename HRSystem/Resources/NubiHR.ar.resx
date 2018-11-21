@@ -408,4 +408,28 @@
   <data name="UploadAllowedMedicalExtensions" xml:space="preserve">
     <value>الرجاء ارفاق ملفات من نوع .jpeg , .jpg , .png , .gif , .pdf فقط</value>
   </data>
+  <data name="Approve" xml:space="preserve">
+    <value>قبول</value>
+  </data>
+  <data name="EditPermissionRequest" xml:space="preserve">
+    <value>تعديل طلب اذن</value>
+  </data>
+  <data name="LeaderRequests" xml:space="preserve">
+    <value>طلبات المشرف</value>
+  </data>
+  <data name="MyAddressDuringVacation" xml:space="preserve">
+    <value>عنواني اثناء الاجازة</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>الأذونات</value>
+  </data>
+  <data name="PleaseAcceptMyVacationDescribedAboveForAPeriodOf" xml:space="preserve">
+    <value>أرجو الموافقة على منحي الاجازة الموضحة أعلاه لمدة</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>رفض</value>
+  </data>
+  <data name="TheAlternativeEmployeeWillBe" xml:space="preserve">
+    <value>وسيكون البديل الموظف</value>
+  </data>
 </root>

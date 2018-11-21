@@ -79,9 +79,9 @@
                 </td>
                 
                 <td>
-                    @Html.ActionLink("Approve", "ManagerApprove", new { id = item.Id }) |
-                    @Html.ActionLink("Reject", "Reject", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", "PermissionRequest", new { id = item.Id }, null)
+                    @Html.ActionLink(Resources.NubiHR.Approve, "ManagerApprove", new { id = item.Id }) |
+                    @Html.ActionLink(Resources.NubiHR.Reject, "Reject", new { id = item.Id }) |
+                    @Html.ActionLink(Resources.NubiHR.Details, "Details", "PermissionRequest", new { id = item.Id }, null)
                 </td>
             </tr>
         }

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "ManagerRequests";
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 
 <h2>@Resources.NubiHR.VacationRequests</h2>
@@ -42,10 +43,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Employee.FirstName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Employee.Position.PositionNameEn)
-                </td>
-               
+                @if (IsArabic)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Position.PositionNameAr)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Position.PositionNameEn)
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.RequestDate)
                 </td>
@@ -60,9 +69,9 @@
                
 
                 <td>
-                    @Html.ActionLink("Approve", "ManagerApprove", new { id = item.Id }) |
-                    @Html.ActionLink("Reject", "Reject", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", "VacationRequest", new { id = item.Id }, null)
+                    @Html.ActionLink(Resources.NubiHR.Approve, "ManagerApprove", new { id = item.Id }) |
+                    @Html.ActionLink(Resources.NubiHR.Reject, "Reject", new { id = item.Id }) |
+                    @Html.ActionLink(Resources.NubiHR.Details, "Details", "VacationRequest", new { id = item.Id }, null)
                 </td>
             </tr>
         }

@@ -69,7 +69,7 @@ namespace HRSystem.Manager
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             var VacReq = db.VacationRequests.OrderByDescending(f=>f.Id).FirstOrDefault(e => e.EmployeeNo == emp.Id);
 
-            if (VacReq != null && VacReq.ResumeDate.AddDays(14) <= DateTime.Today && VacReq.IsDeleted == false)
+            if (VacReq != null && VacReq.ResumeDate.AddDays(14) <= DateTime.Today && VacReq.IsDeleted == false && VacReq.IsDeleted == false || VacReq == null)
             {
                 return true;
             }
@@ -82,7 +82,7 @@ namespace HRSystem.Manager
         public bool EmployeeHaveFatherDeathVacation (string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
-            var FDV = db.VacationRequests.Where(e => e.VacationTypeNo == 5).ToList();
+            var FDV = db.VacationRequests.Where(e => e.VacationTypeNo == 5 && e.IsDeleted == false).ToList();
             if (FDV != null && FDV.Count>0)
             {
                 return true;
@@ -96,7 +96,7 @@ namespace HRSystem.Manager
         public bool EmployeeHaveMotherDeathVacation(string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
-            var MDV = db.VacationRequests.Where(e => e.VacationTypeNo == 6).ToList();
+            var MDV = db.VacationRequests.Where(e => e.VacationTypeNo == 6 && e.IsDeleted == false).ToList();
             if (MDV != null && MDV.Count > 0)
             {
                 return true;
@@ -112,7 +112,7 @@ namespace HRSystem.Manager
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             //var AccLeave = db.VacationRequests.Where(e => e.VacationTypeNo == 3).LastOrDefault();
             var AccLeave = db.VacationRequests.OrderByDescending(e => e.VacationTypeNo == 3).FirstOrDefault(e => e.EmployeeNo == emp.Id);
-            if (AccLeave != null && AccLeave.ResumeDate.AddDays(30) < DateTime.Today || AccLeave == null)
+            if (AccLeave != null && AccLeave.ResumeDate.AddDays(30) < DateTime.Today && AccLeave.IsDeleted == false || AccLeave == null)
             {
                 return true;
             }
@@ -125,7 +125,7 @@ namespace HRSystem.Manager
         public bool NoOfAccidentalLeave (string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
-            var NoOfAccLeave = db.VacationRequests.Where(e => e.VacationTypeNo == 3).ToList();
+            var NoOfAccLeave = db.VacationRequests.Where(e => e.VacationTypeNo == 3 && e.IsDeleted == false).ToList();
             if (NoOfAccLeave != null && NoOfAccLeave.Count > 3)
             {
                 return true;
@@ -138,7 +138,7 @@ namespace HRSystem.Manager
 
         public int NoOfLeaderVacationRequests ()
         {
-            var EmpReq = db.VacationRequests.Count(e => e.LeaderApprovement == null);
+            var EmpReq = db.VacationRequests.Count(e => e.LeaderApprovement == null && e.IsDeleted == false);
             if (EmpReq > 0)
             {
                 return EmpReq;
@@ -152,7 +152,7 @@ namespace HRSystem.Manager
 
         public int NoOfManagerVacationRequests()
         {
-            var EmpReq = db.VacationRequests.Count(e => e.LeaderApprovement == true);
+            var EmpReq = db.VacationRequests.Count(e => e.LeaderApprovement == true && e.IsDeleted == false);
             if (EmpReq >= 1)
             {
                 return EmpReq;
@@ -166,7 +166,7 @@ namespace HRSystem.Manager
 
         public int NoOfLeaderPermissionRequests()
         {
-            var EmpReq = db.PermissionRequests.Count(e => e.LeaderApprovement == null);
+            var EmpReq = db.PermissionRequests.Count(e => e.LeaderApprovement == null && e.IsDeleted == false);
             if (EmpReq > 0)
             {
                 return EmpReq;
@@ -180,7 +180,7 @@ namespace HRSystem.Manager
 
         public int NoOfManagerPermissionRequests()
         {
-            var EmpReq = db.PermissionRequests.Count(e => e.LeaderApprovement == true);
+            var EmpReq = db.PermissionRequests.Count(e => e.LeaderApprovement == true && e.IsDeleted == false);
             if (EmpReq >= 1)
             {
                 return EmpReq;

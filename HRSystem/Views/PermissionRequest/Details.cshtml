@@ -4,6 +4,7 @@
     ViewBag.Title = Resources.NubiHR.Details;
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 
 <h2>@Resources.NubiHR.Details</h2>
@@ -16,7 +17,7 @@
             @Resources.NubiHR.EmployeeName
         </label>
         <div class="col-md-6">
-            @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
+            @Html.DisplayFor(modelItem => Model.Employee.FirstName)
         </div>
     </div>
     <div class="row">
@@ -24,7 +25,14 @@
             @Resources.NubiHR.Position
         </label>
         <div class="col-md-6">
-            @helperx.GetUserRole(User.Identity.GetUserId())
+            @if (IsArabic)
+            {
+                    @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameAr)
+            }
+            else
+            {
+                    @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameEn)
+            }
         </div>
     </div>
     <div class="row">
@@ -74,5 +82,9 @@
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.Note)
         </div>
+    </div>
+    <br />
+    <div>
+        <a href="@Url.Action("Index")" class="btn-Back" style="color:white; text-decoration: none;">@Resources.NubiHR.Back</a>
     </div>
 </div>

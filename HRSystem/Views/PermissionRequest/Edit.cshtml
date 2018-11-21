@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = Resources.NubiHR.Edit;
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
-<h2>Edit</h2>
+<h2>@Resources.NubiHR.EditPermissionRequest</h2>
 @using (Html.BeginForm(null, null, FormMethod.Post))
 {
     
@@ -13,21 +14,30 @@
             @Resources.NubiHR.EmployeeName
         </div>
         <div>
-            <label> @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName</label>
+            <label> @Html.DisplayFor(modelItem => Model.Employee.FirstName)</label>
         </div>
         <br />
         <div>
             @Resources.NubiHR.Position
         </div>
         <div>
-            <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
+            @if (IsArabic)
+            {
+                <label> @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameAr)</label>
+            }
+            else
+            {
+                <label> @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameEn)</label>
+            }
+            
         </div>
         <br />
         <div>
             @Resources.NubiHR.PermissionType
         </div>
         <div>
-            @Html.DropDownList("PermissionTypeNo", null,"Select", new { @class = "form-control" })
+            @Html.DisplayFor(model => model.PermissionType.Type, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.DropDownList("PermissionTypeNo", null,"Select", new { @class = "form-control" })*@
         </div>
         <br />
         <div>
@@ -99,7 +109,10 @@
         <div class="form-group">
             <div>
                 <input type="submit" value=@Resources.NubiHR.Send class="btn2" />
-                <button class="btn-Back"><a href="@Url.Action("PermissionRequest","Index")">@Resources.NubiHR.Back</a></button>
+            </div>
+            <br />
+            <div>
+                <a href="@Url.Action("Index")" class="btn-Back" style="color:white; text-decoration: none;">@Resources.NubiHR.Back</a>
             </div>
         </div>
     </div>

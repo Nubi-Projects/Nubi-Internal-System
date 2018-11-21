@@ -124,6 +124,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approve.
+        /// </summary>
+        public static string Approve {
+            get {
+                return ResourceManager.GetString("Approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are You Sure You Want To Delete This?.
         /// </summary>
         public static string AreYouSureYouWantToDeleteThis {
@@ -313,6 +322,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Permission Request.
+        /// </summary>
+        public static string EditPermissionRequest {
+            get {
+                return ResourceManager.GetString("EditPermissionRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -493,6 +511,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leader Requests.
+        /// </summary>
+        public static string LeaderRequests {
+            get {
+                return ResourceManager.GetString("LeaderRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {
@@ -534,6 +561,15 @@ namespace Resources {
         public static string Mobile2 {
             get {
                 return ResourceManager.GetString("Mobile2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Address During Vacation.
+        /// </summary>
+        public static string MyAddressDuringVacation {
+            get {
+                return ResourceManager.GetString("MyAddressDuringVacation", resourceCulture);
             }
         }
         
@@ -655,6 +691,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permissions.
+        /// </summary>
+        public static string Permissions {
+            get {
+                return ResourceManager.GetString("Permissions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permission Type.
         /// </summary>
         public static string PermissionType {
@@ -673,6 +718,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please Accept My Vacation Described Above For a Period Of.
+        /// </summary>
+        public static string PleaseAcceptMyVacationDescribedAboveForAPeriodOf {
+            get {
+                return ResourceManager.GetString("PleaseAcceptMyVacationDescribedAboveForAPeriodOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position.
         /// </summary>
         public static string Position {
@@ -687,6 +741,15 @@ namespace Resources {
         public static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reject.
+        /// </summary>
+        public static string Reject {
+            get {
+                return ResourceManager.GetString("Reject", resourceCulture);
             }
         }
         
@@ -813,6 +876,15 @@ namespace Resources {
         public static string StartDate {
             get {
                 return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Alternative Employee Will Be.
+        /// </summary>
+        public static string TheAlternativeEmployeeWillBe {
+            get {
+                return ResourceManager.GetString("TheAlternativeEmployeeWillBe", resourceCulture);
             }
         }
         
