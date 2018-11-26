@@ -125,10 +125,11 @@ body {
 /*----------------sidebar-content----------------*/
 
 .sidebar-content {
-  max-height: calc(100% - 30px);
-  height: calc(100% - 30px);
-  overflow-y: auto;
-  position: relative;
+    max-height: calc(100% - 30px);
+    height: calc(100% - 30px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
 }
 
 .sidebar-content.desktop {

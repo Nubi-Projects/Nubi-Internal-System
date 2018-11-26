@@ -22,7 +22,6 @@ namespace HRSystem.Models
         public System.DateTime StartDate { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.NubiHR), Name = "EndDate")]
-        [DataType(DataType.Date)]
         public System.DateTime EndDate { get; set; }
         public string Address { get; set; }
         public System.DateTime RequestDate { get; set; }
