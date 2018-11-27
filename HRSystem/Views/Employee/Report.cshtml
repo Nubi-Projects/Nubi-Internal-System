@@ -13,22 +13,22 @@
     <div class="form-group">
         @Html.Label(Resources.NubiHR.Position, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("IdPosition", new SelectList(@ViewBag.Position, "Id", (IsArabic == true ? "PositionNameAr" : "PositionNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
-            @Html.ValidationMessage("IdPosition", "", new { @class = "text-danger" })
+            @Html.DropDownList("IdDepartment", new SelectList(@ViewBag.Departments, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+           @* @Html.ValidationMessage("IdDepartment", "", new { @class = "text-danger" })*@
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input id='addButton' type="button" value="@Resources.NubiHR.Search" class="btn btn-primary" />
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         @Html.Label(Resources.NubiHR.Salary + " " + Resources.NubiHR.From, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.Editor("SalaryMin", new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessage("SalaryMin", "", new { @class = "text-danger" })
+            @*@Html.ValidationMessage("SalaryMin", "", new { @class = "text-danger" })*@
         </div>
     </div>
 
@@ -36,7 +36,7 @@
         @Html.Label(Resources.NubiHR.To, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.Editor("SalaryMax", new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessage("max", "", new { @class = "text-danger" })
+            @*@Html.ValidationMessage("max", "", new { @class = "text-danger" })*@
         </div>
     </div>
 </div>
@@ -158,8 +158,9 @@
     $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
             var min = parseInt($('#SalaryMin').val(), 10);
-            var max = parseInt($('#SalaryMax').val(), 10);
+            var max = parseInt($('#SalaryMax').val(), 10); 
             var salary = parseFloat(data[8]) || 0; // use data for the salary column
+            
 
             if ((isNaN(min) && isNaN(max)) ||
                 (isNaN(min) && salary <= max) ||
@@ -173,14 +174,35 @@
 
     
     $(document).ready(function () {
-      
+
        
+        $('#IdDepartment').on('change', function () {
+
+            var GetElement = document.getElementById("IdDepartment");
+            var ValueOfCurrentSelectedItem = GetElement.options[GetElement.selectedIndex].value;
+            if (ValueOfCurrentSelectedItem != "") {
+               
+                var SelectedText = GetElement.options[ValueOfCurrentSelectedItem].textContent;
+                $('#assets-data-table').DataTable()
+                    .columns(3)
+                    .search(SelectedText)
+                    .draw();
+            }
+            else {
+
+                $('#assets-data-table').DataTable().columns(3).search("").draw();
+                
+            }
+            
+
+        });
         // Event listener to the two range filtering inputs to redraw on input
         $('#SalaryMin, #SalaryMax').keyup(function () {
             var table = $('#assets-data-table').DataTable();
             table.draw();
         });
     });
+
 
 
 

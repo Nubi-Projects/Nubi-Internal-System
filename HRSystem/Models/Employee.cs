@@ -34,14 +34,13 @@ namespace HRSystem.Models
         public System.DateTime StartDate { get; set; }
         public int DepartmentNo { get; set; }
         public int PositionNo { get; set; }
-        public int AttachmentNo { get; set; }
+        public Nullable<int> AttachmentNo { get; set; }
         public Nullable<int> BankNo { get; set; }
         public int SalaryNo { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public System.DateTime Date { get; set; }
         public bool IsDeleted { get; set; }
     
-        public virtual Attachment Attachment { get; set; }
         public virtual BankAccount BankAccount { get; set; }
         public virtual Department Department { get; set; }
         public virtual Position Position { get; set; }
@@ -54,5 +53,6 @@ namespace HRSystem.Models
         public virtual ICollection<VacationRequest> VacationRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PermissionRequest> PermissionRequests { get; set; }
+        public virtual Attachment Attachment { get; set; }
     }
 }

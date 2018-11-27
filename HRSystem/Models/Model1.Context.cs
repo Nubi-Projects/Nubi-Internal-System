@@ -25,7 +25,6 @@ namespace HRSystem.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Attachment> Attachments { get; set; }
         public virtual DbSet<BankAccount> BankAccounts { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
@@ -43,5 +42,6 @@ namespace HRSystem.Models
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<VacationRequest> VacationRequests { get; set; }
         public virtual DbSet<PermissionRequest> PermissionRequests { get; set; }
+        public virtual DbSet<Attachment> Attachments { get; set; }
     }
 }

@@ -11,25 +11,15 @@ namespace HRSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class VacationRequest
     {
         public long Id { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.NubiHR), Name = "StartDate")]
-        [DataType(DataType.Date)]
         public System.DateTime StartDate { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.NubiHR), Name = "EndDate")]
-        [DataType(DataType.Date)]
         public System.DateTime EndDate { get; set; }
         public string Address { get; set; }
         public System.DateTime RequestDate { get; set; }
         public string Note { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.NubiHR), Name = "ResumeDate")]
-        [DataType(DataType.Date)]
         public System.DateTime ResumeDate { get; set; }
         public bool IsDeleted { get; set; }
         public string EmployeeNo { get; set; }

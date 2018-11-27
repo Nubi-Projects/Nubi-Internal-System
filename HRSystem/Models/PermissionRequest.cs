@@ -11,23 +11,16 @@ namespace HRSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class PermissionRequest
     {
         public long Id { get; set; }
         public string EmployeeNo { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.NubiHR), Name = "RequestDate")]
-        [DataType(DataType.Date)]
         public System.DateTime RequestDate { get; set; }
         public int TimeFromHours { get; set; }
         public Nullable<int> TimeFromMinutes { get; set; }
         public int TimeToHours { get; set; }
         public Nullable<int> TimeToMinutes { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.NubiHR), Name = "PermissionDate")]
-        [DataType(DataType.Date)]
         public System.DateTime PermissionDate { get; set; }
         public string Note { get; set; }
         public Nullable<bool> LeaderApprovement { get; set; }

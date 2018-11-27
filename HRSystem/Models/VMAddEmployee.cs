@@ -117,10 +117,10 @@ namespace HRSystem.Models
 
         [Display(ResourceType = typeof(NubiHR), Name = "NationalIDTitle")]
 
-        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         public string NIdTitle { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "NationalID")]
         //[FileExtensions("jpg,jpeg,png")]
        // [DataType(DataType.Upload)]
@@ -139,12 +139,12 @@ namespace HRSystem.Models
         [Display(ResourceType = typeof(NubiHR), Name = "LastCertificate")]
         public HttpPostedFileBase LastCertificate { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "ImageTitle")]
         public string ImageTitle { get; set; }
 
         [Display(ResourceType = typeof(NubiHR), Name = "Image")]
-        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         public HttpPostedFileBase ImageUrl { get; set; }
         
         public bool IsDeletedAttachment { get; set; }
