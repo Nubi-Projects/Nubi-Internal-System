@@ -25,27 +25,13 @@
             <label> @helperx.GetUserRole(User.Identity.GetUserId())</label>
         </div>
         <br />
-        @*<div>
-            @Resources.NubiHR.RequestDate
-        </div>
-        <div>
-            @Html.EditorFor(model => model.RequestDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RequestDate, "", new { @class = "text-danger" })
-        </div>
-        <br />*@
         
-        <div>
+        <label>
             @Resources.NubiHR.VacationType
-        </div>
+        </label>
         <div>
             @Html.Hidden("VacationTypeNo")
-            @*<select id="VacationTypeNo" class="form-control">
-                <option value="">Select</option>
-                <option value="1">Normal Leave</option>
-                <option value="2">Sick leave</option>
-                <option value="3">Accidental leave</option>
-                <option value="4">Other</option>
-            </select>*@
+            
                         @Html.DropDownList("VacationTypeNoMain", new List<SelectListItem>
         {
            new SelectListItem{ Text="select", Value = "" },
@@ -78,19 +64,8 @@
             </div>
         </div>
         <br />
-        @*<input id="datepicker" width="270" />*@
-        @*<div class="dates">
-            <div class="start_date input-group mb-4">
-                <input class="form-control start_date" type="text" placeholder="start date" >
-                <div class="input-group-append">
-                    <span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true"></span>
-                </div>
-            </div>
-            
-        </div>*@
         <div>
             @Resources.NubiHR.PleaseAcceptMyVacationDescribedAboveForAPeriodOf
-            @*ارجو الموافقة على منحي الاجازة الموضحة أعلاه لمدة*@ 
         </div>
         <div>
             @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control"  } })
@@ -112,25 +87,31 @@
         <div>
             @Resources.NubiHR.To
         </div>
-        <div class="start_date input-group mb-4">
-            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-            <div class="input-group-append">
+        <br />
+        <div>
+            @*@Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control",disabled="disabled" } })*@
+            @*<div class="input-group-append">
                 <span class="fa fa-calendar input-group-text end_date_calendar" aria-hidden="true"></span>
-            </div>
-            <br />
-            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>*@
+
+            <label id="ED" style="color: #de340d"></label>
+
+            
+            @*@Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })*@
         </div>
         <br />
         <div>
             @Resources.NubiHR.ResumeDate
         </div>
-        <div class="start_date input-group mb-4">
-            @Html.EditorFor(model => model.ResumeDate, new { htmlAttributes = new { @class = "form-control" } })
+        <br />
+        <div>
+            @*@Html.EditorFor(model => model.ResumeDate, new { htmlAttributes = new { @class = "form-control" } })
             <div class="input-group-append">
                 <span class="fa fa-calendar input-group-text resume_date_calendar" aria-hidden="true"></span>
-            </div>
-            <br />
-            @Html.ValidationMessageFor(model => model.ResumeDate, "", new { @class = "text-danger" })
+            </div>*@
+            @*<br />
+            @Html.ValidationMessageFor(model => model.ResumeDate, "", new { @class = "text-danger" })*@
+            <label id="RD" style="color: #de340d"></label>
         </div>
         <br />
         <div>
@@ -159,9 +140,6 @@
             <div>
                 <input type="submit" value=@Resources.NubiHR.Send class="btn2" />
                 
-                
-                @*@Html.ActionLink(Resources.NubiHR.Back, "Index", new { @class = "btn-Back" })*@
-                @*<input value="Back" type="button" class="btn-Back" @Html.ActionLink(Resources.NubiHR.Back, "Index")>*@
             </div>
             <br />
             <div>
@@ -171,7 +149,6 @@
         </div>
     </div>
 }
-@*<button class="btn-Back"><a href="@Url.Action("Index")" >@Resources.NubiHR.Back</a></button>*@
 
 <script type="text/javascript">
 
@@ -246,17 +223,16 @@
                 }
             }
 
+    
+            $("#StartDate").change(function () {
+                var duration = parseInt($("#Duration").val());
+                var startday = new Date($("#StartDate").val());
+                var ed = new Date();
+                var rd = new Date();
+                ed.setDate(startday.getDate() + duration);
+                rd.setDate(ed.getDate() + 1);
+                $("#ED").text(ed.toDateString());
+                $("#RD").text(rd.toDateString());
+            })
 </script>
-@*<script>
-    $(document).ready(function () {
-        $('#datepicker').datepicker({
-            uiLibrary: 'bootstrap'
-        });
-    });
-</script>*@
-@*<script>
-    $('#startdate_datepicker').datepicker({
-        uiLibrary: 'bootstrap'
-    });
-</script>*@
 

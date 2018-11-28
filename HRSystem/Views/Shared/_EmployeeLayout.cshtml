@@ -24,7 +24,7 @@
 
 
     <link href="~/Scripts/sweetalert.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/Content/style.css">
+    @*<link rel="stylesheet" href="~/Content/style.css">*@
     <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link href="~/Scripts/DataTables/Buttons-1.5.1/css/buttons.bootstrap.css" rel="stylesheet" />
     <link href="~/Scripts/DataTables/Buttons-1.5.1/css/buttons.dataTables.css" rel="stylesheet" />
@@ -170,14 +170,14 @@
                                 if (!IsArabic)
                                 {
                                     @Html.ActionLink("العربية", "ChangeLanguage", "Base", new { lang = "ar" }, new { @class = "navbar-brand" }) <text> </text>
+                                    <link rel="stylesheet" href="~/Content/style.css">
                                 }
                                 else if (IsArabic)
                                 {
                                     @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en" }, new { @class = "navbar-brand" }) <text> </text>
+                                    <link rel="stylesheet" href="~/Content/StyleAr.css" />
                                 }
-                            <li>
 
-                            </li>
 
                             }
                         </li>

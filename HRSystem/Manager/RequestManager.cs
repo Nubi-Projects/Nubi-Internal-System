@@ -35,29 +35,61 @@ namespace HRSystem.Manager
             else
                 return false;
         }
-        public bool CheckVaction(string id)
+
+        public int NoOfEmployeeYears(string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             var diff = GetMonthDifference(DateTime.Now, emp.StartDate);
-            if (diff >= 12)
-                return true;
-            else
-                return false;
+            return diff / 12;
         }
+        //public bool CheckVaction(string id)
+        //{
+        //    var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+        //    var diff = GetMonthDifference(DateTime.Now, emp.StartDate);
+        //    if (diff >= 12)
+        //        return true;
+        //    else
+        //        return false;
+        //}
         public int? totalVacationDuration(string id)
         {
             int? TotalDuration = 0;
-            List<VacationRequest> vac = db.VacationRequests.Where(e => e.EmployeeNo == id).ToList();
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            List<VacationRequest> vac = db.VacationRequests.Where(e => e.VacationTypeNo == 1 && e.IsDeleted == false).ToList();
             foreach (var item in vac)
             {
                 TotalDuration = item.Duration + TotalDuration;
             }
-            return TotalDuration;
+            return TotalDuration / 30;
         }
+
+        //public bool EligbleVacation ()
+        //{
+        //    if (totalVacationDuration < CheckVaction)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        //public bool EligibleAccLeav ()
+        //{
+        //    if(NoOfAccidentalLeave < CheckVaction)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
         public int? TotalVacationDays(string id)
         {
             int? TotalDuration = 0;
-            List<VacationRequest> vac = db.VacationRequests.Where(e => e.EmployeeNo == id).ToList();
+            List<VacationRequest> vac = db.VacationRequests.Where(e => e.EmployeeNo == id && e.VacationTypeNo == 1).ToList();
             foreach (var item in vac)
             {
                 TotalDuration = item.Duration + TotalDuration;
@@ -122,18 +154,12 @@ namespace HRSystem.Manager
             }
         }
 
-        public bool NoOfAccidentalLeave (string id)
+        public int NoOfAccidentalLeave (string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
-            var NoOfAccLeave = db.VacationRequests.Where(e => e.VacationTypeNo == 3 && e.IsDeleted == false).ToList();
-            if (NoOfAccLeave != null && NoOfAccLeave.Count > 3)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var NoOfAccLeave = db.VacationRequests.Count(e => e.VacationTypeNo == 3 && e.IsDeleted == false);
+            return NoOfAccLeave / 3; 
+            
         }
 
         public int NoOfLeaderVacationRequests ()

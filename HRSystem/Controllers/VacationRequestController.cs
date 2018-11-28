@@ -110,7 +110,8 @@ namespace HRSystem.Controllers
         public ActionResult Create(VacationRequest vac)
         {
             Manager.RequestManager mng = new Manager.RequestManager();
-            var CompleteYear = mng.CheckVaction(id: User.Identity.GetUserId());
+            var NoOfYear = mng.NoOfEmployeeYears(id: User.Identity.GetUserId());
+            var total = mng.totalVacationDuration(id: User.Identity.GetUserId());
             var HaveTheEmpFatherDeathVacation = mng.EmployeeHaveFatherDeathVacation(id: User.Identity.GetUserId());
             var HaveTheEmpMotherDeathVacation = mng.EmployeeHaveMotherDeathVacation(id: User.Identity.GetUserId());
             var AvailableAccidentalLeave = mng.AvailableAccidentalLeave(id: User.Identity.GetUserId());
@@ -133,7 +134,7 @@ namespace HRSystem.Controllers
             { 
             if (ModelState.IsValid)
             {
-                if ( vac.Duration > 5 && CompleteYear == false )
+                if (vac.VacationTypeNo == 1 && vac.Duration > 5 && (total >= NoOfYear))
                 {
                     TempData["checkk"] = "You Can Not Take More Than 5 Days Until Complete one Year!";
 
@@ -158,13 +159,13 @@ namespace HRSystem.Controllers
 
                     ViewBag.emp = db.AspNetUsers.ToList();
                 }
-                else if (vac.VacationTypeNo == 3 && NoOfAccidentalLeaves == true && CompleteYear == false)
+                else if (vac.VacationTypeNo == 3 && (NoOfAccidentalLeaves >= NoOfYear))
                     {
                         TempData["AccidentalLeave"] = "You Took 3 Accidental Leaves In Year You Can't Take Accidental Leave";
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
                         ViewBag.emp = db.AspNetUsers.ToList();
                     }
-                else if ((vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && NoOfAccidentalLeaves == false && CompleteYear == false) || (vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && NoOfAccidentalLeaves == false && CompleteYear == true))
+                else if ((vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && (NoOfAccidentalLeaves < NoOfYear)) || (vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && (NoOfAccidentalLeaves >= NoOfYear)))
                     {
                         TempData["AccLeave"]= "You can't take accidental leave";
                     }
@@ -175,8 +176,8 @@ namespace HRSystem.Controllers
                         vac.RequestDate = DateTime.Now;
                         TempData["chec"] = "Your Request Has Been Sented";
                         db.VacationRequests.Add(vac);
-                    db.SaveChanges();
-                    return RedirectToAction("index");
+                        db.SaveChanges();
+                        return RedirectToAction("index");
                 }
                 //ModelState.AddModelError("MedicalReport","ple;lsjkjdfhshdkn ksjdf sffkh jkwhe fshdf owihuhdf owhjf ihf wieofh woeif")
 
