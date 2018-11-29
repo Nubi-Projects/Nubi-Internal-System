@@ -1,6 +1,10 @@
 ﻿@using Microsoft.AspNet.Identity
 @{
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
+    HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
+    var totalvacation = mngr.TotalVacationDays(id: User.Identity.GetUserId());
+    var years = mngr.NoOfEmployeeYears(id: User.Identity.GetUserId());
+    var vacations = mngr.totalVacationDuration(id: User.Identity.GetUserId());
 }
 @{
     string Lang = Request.Cookies["culture"].Value;
@@ -120,6 +124,13 @@
             <strong> @TempData["AccLeave"] </strong>
         </div>
     }
+    
+    @if (@TempData["normal"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            <strong> @TempData["normal"] </strong>
+        </div>
+    }
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
@@ -211,9 +222,20 @@
                                 </ul>
                             </div>
                         </li>
-                        
+                        <li>
+                            @if (years >= 1 && (vacations < years))
+                            {
+                                <a> Your vacation days is</a><span class="badge badge-pill badge-warning notification">@totalvacation</span>
+
+                            }
+                            else
+                            {
+
+                            }
+                        </li>
                     </ul>
                 </div>
+
                 <!-- sidebar-menu  -->
             </div>
             <!-- sidebar-content  -->
@@ -284,6 +306,8 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
             @*<script src="~/Scripts/bootstrap.min.js"></script>*@
             <script src="~/Scripts/jquery.validate.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+            <script src="~/Scripts/moment.min.js"></script>
             <script src="~/Scripts/index.js"></script>
     <script>
         $(document).ready(function () {
@@ -310,49 +334,6 @@
             }
      });
     </script>
-    @*<script>
-        $(document).ready(function () {
-            $('#startdate_datepicker').datepicker();
-
-            $('#btn').click(function (e) {
-                e.preventDefault();
-                $('#startdate_datepicker').datepicker("show");
-                setTimeout(function () {
-                    $('#startdate_datepicker').datepicker("hide");
-                }, 1000)
-            })
-
-        });
-
-        $(document).ready(function () {
-            $('#enddate_datepicker').datepicker();
-
-            $('#btn1').click(function (e) {
-                e.preventDefault();
-                $('#enddate_datepicker').datepicker("show");
-                setTimeout(function () {
-                    $('#enddate_datepicker').datepicker("hide");
-                }, 1000)
-            })
-
-        });
-
-        $(document).ready(function () {
-            $('#resumedate_datepicker').datepicker();
-
-            $('#btn2').click(function (e) {
-                e.preventDefault();
-                $('#resumedate_datepicker').datepicker("show");
-                setTimeout(function () {
-                    $('#resumedate_datepicker').datepicker("hide");
-                }, 1000)
-            })
-
-        });
-    </script>*@
-    @*//$("#startdate_datepicker").datepicker();
-    //$("#enddate_datepicker").datepicker();
-    //$("#resumedate_datepicker").datepicker();*@
     
         </body>
     </html>

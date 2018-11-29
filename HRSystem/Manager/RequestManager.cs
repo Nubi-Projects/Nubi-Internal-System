@@ -36,11 +36,12 @@ namespace HRSystem.Manager
                 return false;
         }
 
-        public int NoOfEmployeeYears(string id)
+        public double NoOfEmployeeYears(string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             var diff = GetMonthDifference(DateTime.Now, emp.StartDate);
-            return diff / 12;
+            double result = diff / 12.0;
+            return result;
         }
         //public bool CheckVaction(string id)
         //{
@@ -51,7 +52,7 @@ namespace HRSystem.Manager
         //    else
         //        return false;
         //}
-        public int? totalVacationDuration(string id)
+        public double? totalVacationDuration(string id)
         {
             int? TotalDuration = 0;
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
@@ -60,7 +61,7 @@ namespace HRSystem.Manager
             {
                 TotalDuration = item.Duration + TotalDuration;
             }
-            return TotalDuration / 30;
+            return TotalDuration / 30.0;
         }
 
         //public bool EligbleVacation ()
@@ -89,7 +90,8 @@ namespace HRSystem.Manager
         public int? TotalVacationDays(string id)
         {
             int? TotalDuration = 0;
-            List<VacationRequest> vac = db.VacationRequests.Where(e => e.EmployeeNo == id && e.VacationTypeNo == 1).ToList();
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            List<VacationRequest> vac = db.VacationRequests.Where(e => e.VacationTypeNo == 1 && e.IsDeleted == false).ToList();
             foreach (var item in vac)
             {
                 TotalDuration = item.Duration + TotalDuration;
@@ -99,7 +101,7 @@ namespace HRSystem.Manager
         public bool AvailableVacation(string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
-            var VacReq = db.VacationRequests.OrderByDescending(f=>f.Id).FirstOrDefault(e => e.EmployeeNo == emp.Id);
+            var VacReq = db.VacationRequests.Where(e => e.VacationTypeNo != 3).OrderByDescending(f=>f.Id).FirstOrDefault(e => e.EmployeeNo == emp.Id);
 
             if (VacReq != null && VacReq.ResumeDate.AddDays(14) <= DateTime.Today && VacReq.IsDeleted == false && VacReq.IsDeleted == false || VacReq == null)
             {
@@ -154,11 +156,11 @@ namespace HRSystem.Manager
             }
         }
 
-        public int NoOfAccidentalLeave (string id)
+        public double? NoOfAccidentalLeave (string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             var NoOfAccLeave = db.VacationRequests.Count(e => e.VacationTypeNo == 3 && e.IsDeleted == false);
-            return NoOfAccLeave / 3; 
+            return NoOfAccLeave / 3.0; 
             
         }
 

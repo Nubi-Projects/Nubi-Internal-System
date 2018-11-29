@@ -68,7 +68,7 @@
             @Resources.NubiHR.PleaseAcceptMyVacationDescribedAboveForAPeriodOf
         </div>
         <div>
-            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control"  } })
+            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" , required = "required" } })
             @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
         </div>
         <br />
@@ -76,7 +76,7 @@
             @Resources.NubiHR.From
         </div>
         <div class="start_date input-group mb-4">
-            @Html.EditorFor(model => Model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => Model.StartDate, new { htmlAttributes = new { @class = "form-control", required = "required" } })
             <div class="input-group-append">
                 <span class="fa fa-calendar input-group-text start_date_calendar" aria-hidden="true"></span>
             </div>
@@ -118,7 +118,7 @@
             @Resources.NubiHR.MyAddressDuringVacation
         </div>
         <div>
-            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", required = "required" } })
             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
         <br />
@@ -225,14 +225,43 @@
 
     
             $("#StartDate").change(function () {
-                var duration = parseInt($("#Duration").val());
+                var duration = /*parseInt*/($("#Duration").val());
                 var startday = new Date($("#StartDate").val());
-                var ed = new Date();
-                var rd = new Date();
-                ed.setDate(startday.getDate() + duration);
-                rd.setDate(ed.getDate() + 1);
-                $("#ED").text(ed.toDateString());
-                $("#RD").text(rd.toDateString());
+                //var ed = new Date();
+                //var rd = new Date();
+                //ed.setDate(startday.getDate() + duration);
+                //rd.setDate(startday.getDate() + duration + 1);
+                //$("#ED").text(ed.toDateString());
+                //$("#RD").text(rd.toDateString());
+                var end_date = moment(startday).add(duration, 'day');
+                var last_ed = moment(end_date).subtract(1, 'day');
+
+
+
+              
+                if (last_ed.format('dddd') == "Friday")
+                {
+                 
+                      last_ed= moment(last_ed).add(1, 'day');
+                }
+                //else if (last_ed.format('dddd') == "Saturday")
+                //{
+                //    last_ed=  moment(last_ed).add(1, 'day');
+                //}
+
+                var resume_date = moment(last_ed).add(1, 'days');
+                if (resume_date.format('dddd D MMM YYYY') == "Friday") {
+                    moment(resume_date).add(2, 'day');
+                }
+                //else if (resume_date.format('dddd D MMM YYYY') == "Saturday") {
+                //    moment(resume_date).add(1, 'day');
+                //}
+
+                $("#ED").text(last_ed.format('dddd D MMM YYYY'));
+                $("#RD").text(resume_date.format('dddd D MMM YYYY'));
             })
+
+
+
 </script>
 

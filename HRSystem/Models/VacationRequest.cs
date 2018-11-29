@@ -23,15 +23,16 @@ namespace HRSystem.Models
         [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.NubiHR), Name = "EndDate")]
         public System.DateTime EndDate { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
         public string Address { get; set; }
         public System.DateTime RequestDate { get; set; }
         public string Note { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.NubiHR), Name = "ResumeDate")]
-        [DataType(DataType.Date)]
         public System.DateTime ResumeDate { get; set; }
         public bool IsDeleted { get; set; }
         public string EmployeeNo { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
         public int Duration { get; set; }
         public Nullable<bool> LeaderApprovement { get; set; }
         public Nullable<bool> ManagerApprovement { get; set; }
