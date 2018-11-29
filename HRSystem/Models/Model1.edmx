@@ -45,10 +45,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NationalId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NationalId" Type="nvarchar(max)" />
           <Property Name="PassportNumber" Type="nvarchar(max)" />
           <Property Name="LastCertificate" Type="nvarchar(max)" />
-          <Property Name="ImageUrl" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
         </EntityType>
@@ -86,7 +86,7 @@
           <Property Name="StartDate" Type="date" Nullable="false" />
           <Property Name="DepartmentNo" Type="int" Nullable="false" />
           <Property Name="PositionNo" Type="int" Nullable="false" />
-          <Property Name="AttachmentNo" Type="int" Nullable="false" />
+          <Property Name="AttachmentNo" Type="int" />
           <Property Name="BankNo" Type="int" />
           <Property Name="SalaryNo" Type="int" Nullable="false" />
           <Property Name="EndDate" Type="date" />
@@ -289,7 +289,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_Attachment">
-          <End Role="Attachment" Type="Self.Attachment" Multiplicity="1" />
+          <End Role="Attachment" Type="Self.Attachment" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Attachment">
@@ -550,7 +550,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="NubiDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="NubiDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Attachments" EntityType="NubiDBModel.Attachment" />
           <EntitySet Name="BankAccounts" EntityType="NubiDBModel.BankAccount" />
           <EntitySet Name="Departments" EntityType="NubiDBModel.Department" />
           <EntitySet Name="Employees" EntityType="NubiDBModel.Employee" />
@@ -564,10 +563,6 @@
           <EntitySet Name="UserPreferences" EntityType="NubiDBModel.UserPreference" />
           <EntitySet Name="UserSessions" EntityType="NubiDBModel.UserSession" />
           <EntitySet Name="VacationTypes" EntityType="NubiDBModel.VacationType" />
-          <AssociationSet Name="FK_Employee_Attachment" Association="NubiDBModel.FK_Employee_Attachment">
-            <End Role="Attachment" EntitySet="Attachments" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
           <AssociationSet Name="FK_Employee_BankAccount" Association="NubiDBModel.FK_Employee_BankAccount">
             <End Role="BankAccount" EntitySet="BankAccounts" />
             <End Role="Employee" EntitySet="Employees" />
@@ -632,20 +627,12 @@
             <End Role="PermissionType" EntitySet="PermissionTypes" />
             <End Role="PermissionRequest" EntitySet="PermissionRequests" />
           </AssociationSet>
+          <EntitySet Name="Attachments" EntityType="NubiDBModel.Attachment" />
+          <AssociationSet Name="FK_Employee_Attachment" Association="NubiDBModel.FK_Employee_Attachment">
+            <End Role="Attachment" EntitySet="Attachments" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
           </EntityContainer>
-        <EntityType Name="Attachment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NationalId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PassportNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LastCertificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ImageUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Employees" Relationship="NubiDBModel.FK_Employee_Attachment" FromRole="Attachment" ToRole="Employee" />
-        </EntityType>
         <EntityType Name="BankAccount">
           <Key>
             <PropertyRef Name="Id" />
@@ -683,13 +670,12 @@
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DepartmentNo" Type="Int32" Nullable="false" />
           <Property Name="PositionNo" Type="Int32" Nullable="false" />
-          <Property Name="AttachmentNo" Type="Int32" Nullable="false" />
+          <Property Name="AttachmentNo" Type="Int32" />
           <Property Name="BankNo" Type="Int32" />
           <Property Name="SalaryNo" Type="Int32" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Precision="0" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Attachment" Relationship="NubiDBModel.FK_Employee_Attachment" FromRole="Employee" ToRole="Attachment" />
           <NavigationProperty Name="BankAccount" Relationship="NubiDBModel.FK_Employee_BankAccount" FromRole="Employee" ToRole="BankAccount" />
           <NavigationProperty Name="Department" Relationship="NubiDBModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
           <NavigationProperty Name="Position" Relationship="NubiDBModel.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
@@ -698,6 +684,7 @@
           <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
           <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="Employee" ToRole="VacationRequest" />
           <NavigationProperty Name="PermissionRequests" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="Employee" ToRole="PermissionRequest" />
+          <NavigationProperty Name="Attachment" Relationship="NubiDBModel.FK_Employee_Attachment" FromRole="Employee" ToRole="Attachment" />
         </EntityType>
         <EntityType Name="ExtraSalary">
           <Key>
@@ -823,18 +810,6 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationType" ToRole="VacationRequest" />
         </EntityType>
-        <Association Name="FK_Employee_Attachment">
-          <End Type="NubiDBModel.Attachment" Role="Attachment" Multiplicity="1" />
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Attachment">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="AttachmentNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Employee_BankAccount">
           <End Type="NubiDBModel.BankAccount" Role="BankAccount" Multiplicity="0..1" />
           <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
@@ -1086,25 +1061,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NationalId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastCertificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Employees" Relationship="NubiDBModel.FK_Employee_Attachment" FromRole="Attachment" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Employee_Attachment">
+          <End Type="NubiDBModel.Attachment" Role="Attachment" Multiplicity="0..1" />
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attachment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="AttachmentNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="NubiDBModelStoreContainer" CdmEntityContainer="NubiDBEntities">
-          <EntitySetMapping Name="Attachments">
-            <EntityTypeMapping TypeName="NubiDBModel.Attachment">
-              <MappingFragment StoreEntitySet="Attachment">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="LastCertificate" ColumnName="LastCertificate" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BankAccounts">
             <EntityTypeMapping TypeName="NubiDBModel.BankAccount">
               <MappingFragment StoreEntitySet="BankAccount">
@@ -1351,6 +1338,19 @@
                 <ScalarProperty Name="TimeFromHours" ColumnName="TimeFromHours" />
                 <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
                 <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attachments">
+            <EntityTypeMapping TypeName="NubiDBModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachment">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="LastCertificate" ColumnName="LastCertificate" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
