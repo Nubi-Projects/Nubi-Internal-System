@@ -98,16 +98,17 @@ namespace HRSystem.Controllers
                 TempData["vac"] = "You Did Not complete 14 Days From The Last Vacation You Took!";
                 return RedirectToAction("Index");
             }
-            ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
+            //ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type");
-            ViewBag.emp = db.AspNetUsers.ToList();
+            ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName");
+            //ViewBag.emp = db.AspNetUsers.ToList();
             return View();
         }
 
         //
         // POST: /VacationRequest/Create
         [HttpPost]
-        public ActionResult Create(VacationRequest vac)
+        public ActionResult Create(VacationRequest vac , string AlternativeEmp ="")
         {
             Manager.RequestManager mng = new Manager.RequestManager();
             var NoOfYear = mng.NoOfEmployeeYears(id: User.Identity.GetUserId());
@@ -141,7 +142,8 @@ namespace HRSystem.Controllers
              
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
 
-                    ViewBag.emp = db.AspNetUsers.ToList();
+                    ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.Employee.FirstName);
+                        //db.Employees.ToList();
 
                  
                 }
@@ -151,34 +153,34 @@ namespace HRSystem.Controllers
 
 
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-
-                        ViewBag.emp = db.AspNetUsers.ToList();
-                }
+                        ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
+                        //ViewBag.emp = db.AspNetUsers.ToList();
+                    }
                 else if (vac.VacationTypeNo == 5 && HaveTheEmpFatherDeathVacation == true)
                 {
                     TempData["CheckFatherDeathVacation"] = "You Can't Take This Vacation You Have Already Taken Father's Death Vacation";
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-
-                    ViewBag.emp = db.AspNetUsers.ToList();
-                }
+                    ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
+                        //ViewBag.emp = db.AspNetUsers.ToList();
+                    }
                 else if (vac.VacationTypeNo == 6 && HaveTheEmpMotherDeathVacation == true)
                 {
                     TempData["CheckMotherDeathVacation"] = "You Can't Take This Vacation You Have Already Taken Mother's Death Vacation";
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-
-                    ViewBag.emp = db.AspNetUsers.ToList();
-                }
+                    ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
+                        //ViewBag.emp = db.AspNetUsers.ToList();
+                    }
                 else if (vac.VacationTypeNo == 3 && (NoOfAccidentalLeaves == NoOfYear))
                     {
                         TempData["AccidentalLeave"] = "You Took 3 Accidental Leaves In Year You Can't Take Accidental Leave";
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-                        ViewBag.emp = db.AspNetUsers.ToList();
+                        ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
                     }
                 else if ((vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && (NoOfAccidentalLeaves < NoOfYear)))
                     {
                         TempData["AccLeave"]= "You are not available to take accidental leave";
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-                        ViewBag.emp = db.AspNetUsers.ToList();
+                        ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
                     }
                 else
                 {
@@ -230,6 +232,9 @@ namespace HRSystem.Controllers
                         {
                             vac.ResumeDate = NextDay;
                         }
+                      
+                        var emp = db.Employees.FirstOrDefault(p => p.Id == AlternativeEmp);
+                        vac.AlternativeEmp = emp.FirstName;
                         vac.RequestDate = DateTime.Now;
                         TempData["chec"] = "Your Request Has Been Sented";
                         db.VacationRequests.Add(vac);
@@ -259,9 +264,9 @@ namespace HRSystem.Controllers
                 //}
             }
             }
-            ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
+            //ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-            ViewBag.emp = db.AspNetUsers.ToList();       
+            ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "FirstName", vac.AlternativeEmp);
             return View();       
           
           
@@ -279,10 +284,10 @@ namespace HRSystem.Controllers
             }
             
                 ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type", vac.VacationTypeNo);
-           
+            ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "FirstName", vac.AlternativeEmp);
 
             //ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID" , "Type", vac.VacationTypeNo);
-            ViewBag.emp = db.AspNetUsers.ToList();
+            //ViewBag.emp = db.AspNetUsers.ToList();
             return View(vac);
         }
 
@@ -299,12 +304,13 @@ namespace HRSystem.Controllers
                 db.Entry(vac).State = System.Data.Entity.EntityState.Modified;
                
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type", vac.VacationTypeNo);
-                
+                ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type", vac.VacationTypeNo);
+            ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
             return View(vac);
         }
 

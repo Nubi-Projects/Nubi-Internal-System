@@ -17,6 +17,9 @@
                 @Resources.NubiHR.RequestDate
             </th>
             <th>
+                @Resources.NubiHR.VacationType
+            </th>
+            <th>
                 @Resources.NubiHR.StartDate
             </th>
 
@@ -37,7 +40,7 @@
             </th>
 
             <th>
-                @Resources.NubiHR.VacationType
+                @Resources.NubiHR.AlternativeEmp
             </th>
 
             <th>
@@ -60,7 +63,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RequestDate)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.VacationType.Type)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.StartDate)
                 </td>
@@ -82,7 +87,7 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.VacationType.Type)
+                    @Html.DisplayFor(modelItem => item.AlternativeEmp)
                 </td>
 
                 <td>

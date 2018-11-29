@@ -11,28 +11,23 @@ namespace HRSystem.Models
 {
     using System;
     using System.Collections.Generic;
+    using Resources;
     using System.ComponentModel.DataAnnotations;
-
     public partial class VacationRequest
     {
         public long Id { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.NubiHR), Name = "StartDate")]
+
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(NubiHR), Name = "StartDate")]
         [DataType(DataType.Date)]
         public System.DateTime StartDate { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.NubiHR), Name = "EndDate")]
         public System.DateTime EndDate { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
         public string Address { get; set; }
         public System.DateTime RequestDate { get; set; }
         public string Note { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.NubiHR), Name = "ResumeDate")]
         public System.DateTime ResumeDate { get; set; }
         public bool IsDeleted { get; set; }
         public string EmployeeNo { get; set; }
-        [Required(ErrorMessageResourceType = typeof(Resources.NubiHR), ErrorMessageResourceName = "Required")]
         public int Duration { get; set; }
         public Nullable<bool> LeaderApprovement { get; set; }
         public Nullable<bool> ManagerApprovement { get; set; }
@@ -41,6 +36,7 @@ namespace HRSystem.Models
         public string MedicalReport { get; set; }
         public Nullable<bool> LeaderHasSeen { get; set; }
         public Nullable<bool> ManagerHasSeen { get; set; }
+        public string AlternativeEmp { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual VacationType VacationType { get; set; }

@@ -240,6 +240,7 @@
           <Property Name="MedicalReport" Type="nvarchar(max)" />
           <Property Name="LeaderHasSeen" Type="bit" />
           <Property Name="ManagerHasSeen" Type="bit" />
+          <Property Name="AlternativeEmp" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="VacationType">
           <Key>
@@ -989,6 +990,7 @@
           <NavigationProperty Name="VacationType" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationRequest" ToRole="VacationType" />
           <Property Name="LeaderHasSeen" Type="Boolean" />
           <Property Name="ManagerHasSeen" Type="Boolean" />
+          <Property Name="AlternativeEmp" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_VacationRequest_Employee">
           <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
@@ -1300,6 +1302,7 @@
           <EntitySetMapping Name="VacationRequests">
             <EntityTypeMapping TypeName="NubiDBModel.VacationRequest">
               <MappingFragment StoreEntitySet="VacationRequest">
+                <ScalarProperty Name="AlternativeEmp" ColumnName="AlternativeEmp" />
                 <ScalarProperty Name="ManagerHasSeen" ColumnName="ManagerHasSeen" />
                 <ScalarProperty Name="LeaderHasSeen" ColumnName="LeaderHasSeen" />
                 <ScalarProperty Name="MedicalReport" ColumnName="MedicalReport" />

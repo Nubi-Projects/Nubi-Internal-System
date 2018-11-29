@@ -124,6 +124,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alternative Emp.
+        /// </summary>
+        public static string AlternativeEmp {
+            get {
+                return ResourceManager.GetString("AlternativeEmp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approve.
         /// </summary>
         public static string Approve {
