@@ -39,7 +39,9 @@
   }
 }
 body {
-  font-size: 0.9rem;
+    font-size: 0.9rem;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .page-wrapper .sidebar-wrapper,
 .sidebar-wrapper .sidebar-brand > a,

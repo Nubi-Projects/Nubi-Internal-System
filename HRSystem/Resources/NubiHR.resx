@@ -438,4 +438,7 @@
   <data name="RemoveAttachmentType" xml:space="preserve">
     <value>Remove attachment type</value>
   </data>
+  <data name="AlternativeEmp" xml:space="preserve">
+    <value>Alternative Emp</value>
+  </data>
 </root>

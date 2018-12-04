@@ -432,6 +432,9 @@
   <data name="TheAlternativeEmployeeWillBe" xml:space="preserve">
     <value>وسيكون البديل الموظف</value>
   </data>
+  <data name="AlternativeEmp" xml:space="preserve">
+    <value>الموظف البديل</value>
+  </data>
   <data name="AttachmentType" xml:space="preserve">
     <value>نوع الملف المرفق</value>
   </data>
