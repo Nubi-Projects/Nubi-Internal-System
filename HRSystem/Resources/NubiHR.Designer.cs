@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add attachment type.
+        /// </summary>
+        public static string AddAttachmentType {
+            get {
+                return ResourceManager.GetString("AddAttachmentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Employee.
         /// </summary>
         public static string AddEmployee {
@@ -147,6 +156,15 @@ namespace Resources {
         public static string Attachments {
             get {
                 return ResourceManager.GetString("Attachments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attachment Type.
+        /// </summary>
+        public static string AttachmentType {
+            get {
+                return ResourceManager.GetString("AttachmentType", resourceCulture);
             }
         }
         
@@ -759,6 +777,15 @@ namespace Resources {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove attachment type.
+        /// </summary>
+        public static string RemoveAttachmentType {
+            get {
+                return ResourceManager.GetString("RemoveAttachmentType", resourceCulture);
             }
         }
         

@@ -150,6 +150,9 @@ namespace HRSystem.Models
         public bool IsDeletedAttachment { get; set; }
         public System.DateTime DateAttachment { get; set; }
 
+        [Display(ResourceType = typeof(NubiHR), Name = "AttachmentType")]
+        public string AttachmentType { get; set; }
+
 
 
         //Department table

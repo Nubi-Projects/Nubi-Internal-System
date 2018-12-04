@@ -429,4 +429,13 @@
   <data name="TheAlternativeEmployeeWillBe" xml:space="preserve">
     <value>The Alternative Employee Will Be</value>
   </data>
+  <data name="AttachmentType" xml:space="preserve">
+    <value>Attachment Type</value>
+  </data>
+  <data name="AddAttachmentType" xml:space="preserve">
+    <value>Add attachment type</value>
+  </data>
+  <data name="RemoveAttachmentType" xml:space="preserve">
+    <value>Remove attachment type</value>
+  </data>
 </root>
