@@ -435,6 +435,15 @@
   <data name="AlternativeEmp" xml:space="preserve">
     <value>الموظف البديل</value>
   </data>
+  <data name="AttachmentType" xml:space="preserve">
+    <value>نوع الملف المرفق</value>
+  </data>
+  <data name="AddAttachmentType" xml:space="preserve">
+    <value>اضافة نوع مرفق</value>
+  </data>
+  <data name="RemoveAttachmentType" xml:space="preserve">
+    <value>حزف نوع المرفق</value>
+  </data>
   <data name="Logout" xml:space="preserve">
     <value>تسجيل خروج</value>
   </data>

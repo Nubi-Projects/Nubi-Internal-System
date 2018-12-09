@@ -19,6 +19,30 @@
         padding: 50px;
         display: none;
     }
+    .badge {
+
+        display: inline-block;
+        min-width: 10px;
+        padding: 0px 8px;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 4;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        background-color: #eea904;
+        border-radius: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        margin-right: 10px;
+    }
+    .MB {
+        margin-bottom: 23px;
+    }
+   
 </style>
 
 
@@ -192,64 +216,87 @@
             <fieldset class="the-fieldset">
                 <legend class="the-legend">@Resources.NubiHR.Attachments</legend>
 
-                @Html.LabelFor(model => Model.NationalId, htmlAttributes: new { @class = "control-label col-md-8" })
+                @Html.LabelFor(model => Model.AttachmentType, htmlAttributes: new { @class = "control-label" })
 
-                @*<input type="file" id="NationalId" onchange="return fileValidation()" class = "form-control" />*@
-                @Html.TextBoxFor(model => model.NationalId, new { type = "file", id = "file", onchange = "return fileValidation('file')", htmlAttributes = new { @class = "form-control col-md-8" } })
-                @Html.ValidationMessageFor(model => Model.NationalId, "", new { @class = "text-danger" })
+                @Html.DropDownList("AttachmentType", EnumHelper.GetSelectList(typeof(HRSystem.Manager.Enums.AttachmentType)), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px;" })
+                @Html.ValidationMessageFor(model => Model.AttachmentType, "", new { @class = "text-danger" })
+               @* <br />*@
+                <a class="btn btn-outline-success" id="AddAttachment">@Resources.NubiHR.AddAttachmentType</a>
+                <a class="btn btn-outline-danger" id="RemoveAttachment">@Resources.NubiHR.RemoveAttachmentType</a>
+                @Html.Hidden("MyAttachmentHidden")
+                
+                <div class="col-md-10" id="MyAttachmentList" style="color: #eea904;padding-bottom: 22px;padding-top: 10px;"></div>
+               
+               
+                <div id="1" class="MB" style="display:none">
+                    <br />
+                    @Html.LabelFor(model => Model.NationalId, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.TextBoxFor(model => model.NationalId, new { type = "file", id = "file", onchange = "return fileValidation('file')", htmlAttributes = new { @class = "form-control col-md-8" } })
+                    @*@Html.ValidationMessageFor(model => Model.NationalId, "", new { @class = "text-danger" })*@
+                    <br /> <br />
+                    @Html.LabelFor(model => Model.NIdTitle, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.EditorFor(model => Model.NIdTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.NIdTitle, "", new { @class = "text-danger" })
+                </div>
 
+                
+                <div id="2" class="MB" style="display:none">
+                    <br />
+                    @Html.LabelFor(model => Model.PassportNumber, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.TextBoxFor(model => model.PassportNumber, new { type = "file", id = "file1", onchange = "return fileValidation('file1')", htmlAttributes = new { @class = "form-control col-md-8" } })
+                    @*<br /> <br />*@
+                    @Html.LabelFor(model => Model.PassportTitle, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.EditorFor(model => Model.PassportTitle, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
 
-                @Html.LabelFor(model => Model.NIdTitle, htmlAttributes: new { @class = "control-label col-md-8" })
+               
+                <div id="3" class="MB" style="display:none">
+                    <br />
+                    @Html.LabelFor(model => Model.LastCertificate, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.TextBoxFor(model => model.LastCertificate, new { type = "file", id = "file2", onchange = "return fileValidation('file2')", htmlAttributes = new { @class = "form-control col-md-8" } })
+                    @*<br /> <br />*@
+                    @Html.LabelFor(model => Model.LastCertTitle, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.EditorFor(model => Model.LastCertTitle, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+               
+                
+                <div id="4" class="MB" style="display:none">
+                    <br />
+                    @Html.LabelFor(model => Model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.TextBoxFor(model => model.ImageUrl, new { type = "file", id = "file3", onchange = "return fileValidation('file3')", htmlAttributes = new { @class = "form-control col-md-8" } })
+                    @*@Html.ValidationMessageFor(model => Model.ImageUrl, "", new { @class = "text-danger" })*@
+                    @*<br /> <br />*@
+                    @Html.LabelFor(model => Model.ImageTitle, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.EditorFor(model => Model.ImageTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @*@Html.ValidationMessageFor(model => Model.ImageTitle, "", new { @class = "text-danger" })*@
+                </div>
+               
+                
+                <div id="5" class="MB" style="display:none" @*hidden*@>
+                    <br />
+                    @Html.LabelFor(model => Model.TrainingCertificateUrl, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.TextBoxFor(model => model.TrainingCertificateUrl, new { type = "file", id = "file4", onchange = "return fileValidation('file4')", htmlAttributes = new { @class = "form-control col-md-8" } })
+                    @*<br /> <br />*@
+                    @Html.LabelFor(model => Model.TrainingCertificateName, htmlAttributes: new { @class = "control-label col-md-8" })
+                    @Html.EditorFor(model => Model.TrainingCertificateName, new { htmlAttributes = new { @class = "form-control" } })
+                    @*<br /> <br />*@
+                    <div class="MB" style="padding-top: 25px;">
+                        <input id='addButton' type="button" value="@Resources.NubiHR.AddMoreCertificates" class="btn btn-outline-success" />
+                        <input id='removeButton' type="button" value="@Resources.NubiHR.RemoveCertificate" class="btn btn-outline-danger" />
 
-                @Html.EditorFor(model => Model.NIdTitle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => Model.NIdTitle, "", new { @class = "text-danger" })
+                    </div>
+                    
 
+                </div>
 
                 <br />
-                @Html.LabelFor(model => Model.PassportNumber, htmlAttributes: new { @class = "control-label col-md-8" })
-
-                @Html.TextBoxFor(model => model.PassportNumber, new { type = "file", id = "file1", onchange = "return fileValidation('file1')", htmlAttributes = new { @class = "form-control col-md-8" } })
-
-                @Html.LabelFor(model => Model.PassportTitle, htmlAttributes: new { @class = "control-label col-md-8" })
-
-                @Html.EditorFor(model => Model.PassportTitle, new { htmlAttributes = new { @class = "form-control" } })
-                <br />
-                @Html.LabelFor(model => Model.LastCertificate, htmlAttributes: new { @class = "control-label col-md-8" })
-
-                @Html.TextBoxFor(model => model.LastCertificate, new { type = "file", id = "file2", onchange = "return fileValidation('file2')", htmlAttributes = new { @class = "form-control col-md-8" } })
-
-                @Html.LabelFor(model => Model.LastCertTitle, htmlAttributes: new { @class = "control-label col-md-8" })
-
-                @Html.EditorFor(model => Model.LastCertTitle, new { htmlAttributes = new { @class = "form-control" } })
-                <br />
-                @Html.LabelFor(model => Model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-8" })
-
-                @Html.TextBoxFor(model => model.ImageUrl, new { type = "file", id = "file3", onchange = "return fileValidation('file3')", htmlAttributes = new { @class = "form-control col-md-8" } })
-                @Html.ValidationMessageFor(model => Model.ImageUrl, "", new { @class = "text-danger" })
-
-                @Html.LabelFor(model => Model.ImageTitle, htmlAttributes: new { @class = "control-label col-md-8" })
-
-                @Html.EditorFor(model => Model.ImageTitle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => Model.ImageTitle, "", new { @class = "text-danger" })
-                <br />
-                @Html.LabelFor(model => Model.TrainingCertificateUrl, htmlAttributes: new { @class = "control-label col-md-8" })
-
-                @Html.TextBoxFor(model => model.TrainingCertificateUrl, new { type = "file", id = "file4", onchange = "return fileValidation('file4')", htmlAttributes = new { @class = "form-control col-md-8" } })
-
-                @Html.LabelFor(model => Model.TrainingCertificateName, htmlAttributes: new { @class = "control-label col-md-8" })
-
-                @Html.EditorFor(model => Model.TrainingCertificateName, new { htmlAttributes = new { @class = "form-control" } })
-
+               
 
                 <div id="MainDiv">
 
 
                 </div>
-                <br />
-                <input id='addButton' type="button" value="@Resources.NubiHR.AddMoreCertificates" class="btn btn-outline-success" />
-                <input id='removeButton' type="button" value="@Resources.NubiHR.RemoveCertificate" class="btn btn-outline-danger" />
-
-
+               
 
 
             </fieldset>
@@ -432,7 +479,117 @@
         });
 
     });
+@*</script>
+
+<script type="text/javascript">*@
+   
+
+    var strMyAttachment = "";
+    
+     $("#AddAttachment").click(function () {
+
+         var value = $("#AttachmentType").val();
+        
+         if (value != "") {
+             var text = $("#AttachmentType option:selected").text();
+             $("#AttachmentType option[value='" + value + "']").remove();
+             strMyAttachment = strMyAttachment.concat(value + " ");
+             console.log(strMyAttachment);
+             $("#MyAttachmentHidden").val(strMyAttachment);
+             
+           //  $("<span id=' " + text + " ' ></span> " + text + " </span>").hide().appendTo("#MyAttachmentList").fadeIn();
+
+
+             $("<span id=' " + text + " ' >" + text + "</span>").hide().appendTo("#MyAttachmentList").fadeIn();
+             $("#MyAttachmentList").append("<br />");
+             var x = document.getElementById(value);
+             x.style.display = "block";
+             
+            // x.removeAttribute("hidden");
+         }
+        
+     });
+
+
+     //var LastID="1";
+     $("#RemoveAttachment").click(function () {
+
+         try {
+             $('br').remove();
+             var element = document.getElementById('MyAttachmentList');
+             var Lastchild = element.lastChild;
+             //var w = element.innerHTML;
+             var n = Lastchild.textContent;
+             var id = "";
+             var file = "";
+            
+
+             if (n == "National ID") {
+
+                 id = 1;
+                 file = "file";
+             }
+             else if (n == "Passport Number") {
+                 id = 2;
+                 file = "file1";
+             }
+             else if (n == "Last Certificate") {
+                 id = 3;
+                 file = "file2";
+             }
+             else if (n == "Image") {
+                 id = 4;
+                 file = "file3";
+             }
+             else if (n == "Training Certificate") {
+                 id = 5;
+                 file = "file4";
+             }
+
+             var el = document.getElementById(id);
+             $(Lastchild).remove();
+             $("\n").remove();
+
+             $('span[id^="' + n + '"]').remove();
+             
+
+             //$(" ").remove();
+             strMyAttachment = strMyAttachment.replace(n + " ", "");
+             console.log(strMyAttachment);
+             $("#MyAttachmentHidden").val(strMyAttachment);
+             $(" <option value=" + id + ">" + n + "</option>").appendTo("#AttachmentType");
+             // el.parentNode.removeChild(el);
+             el.style.display = "none";
+             document.getElementById(file).value = "";
+
+
+         }
+         catch (err) {
+             alert(err);
+         
+         }
+
+     });
+
+     //function validateForm() {
+     //    var langArabic = lang === 'ar';
+     //    var x = $("#MyAttachmentHidden").val();
+     //    var AttachmentType = $("#AttachmentType").val()
+     //    if (x == "" && AttachmentType != 'RUser' && (AttachmentType == 'Member' || AttachmentType == 'JUser' || AttachmentType != 'sysadmin')) {
+     //        swal(`Error`, (langArabic ? "الرجاء اختيار نوع المرفق بالضغط على زر اضافة مرفق" : "Please choose attachment type by clicking on Add attachment"),`error`);
+     //        return false;
+     //    }
+     //}
+ 
+
 </script>
+
+
+
+
+
+
+
 
 
 
