@@ -310,10 +310,10 @@ body {
 /*--------------------------side-footer------------------------------*/
 
 .sidebar-footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  display: flex;
+    position: fixed;
+    width: 17%;
+    bottom: 0;
+    display: flex;
 }
 
 .sidebar-footer > a {
@@ -498,4 +498,11 @@ body {
 
 .page-content {
     min-height: 500px;
+}
+
+.btnlang {
+    text-align: center;
+    font-size: 20px;
+    background-color: #eea904;
+    color: white
 }

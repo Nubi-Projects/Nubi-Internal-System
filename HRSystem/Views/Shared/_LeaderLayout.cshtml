@@ -193,15 +193,17 @@
 
                                 if (!IsArabic)
                                 {
-                                    @Html.ActionLink("العربية", "ChangeLanguage", "Base", new { lang = "ar" }, new { @class = "navbar-brand" }) <text> </text>
+                                    @Html.ActionLink("العربية", "ChangeLanguage", "Base", new { lang = "ar" }, new { @class = "btnlang" }) <text> </text>
+                                    <link rel="stylesheet" href="~/Content/style.css">
                                 }
                                 else if (IsArabic)
                                 {
-                                    @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en" }, new { @class = "navbar-brand" }) <text> </text>
+                                    @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en" }, new { @class = "btnlang" }) <text> </text>
+                                    <link rel="stylesheet" href="~/Content/StyleAr.css" />
                                 }
-                            <li>
+                            @*<li>
 
-                            </li>
+                            </li>*@
 
                             }
                         </li>
@@ -416,7 +418,7 @@
                     <span class="badge-sonar"></span>
                 </a>*@
                 <a href="@Url.Action("Login","Account")">
-                    <span>Logout</span>
+                    <span>@Resources.NubiHR.Logout</span>
                     <i class="fa fa-power-off"></i>
                 </a>
             </div>

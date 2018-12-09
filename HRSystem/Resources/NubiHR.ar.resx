@@ -435,4 +435,7 @@
   <data name="AlternativeEmp" xml:space="preserve">
     <value>الموظف البديل</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل خروج</value>
+  </data>
 </root>

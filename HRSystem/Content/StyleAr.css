@@ -130,6 +130,8 @@ body {
         list-style-type: none;
         padding: 0;
         margin: 0;
+        font-size: 18px;
+        font-weight: bolder;
     }
 
     .sidebar-wrapper a {
@@ -270,11 +272,11 @@ body {
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
+        text-align: left;
         background: 0 0;
         position: absolute;
         left: 15px;
-        top: 14px;
+        top: 10px;
     }
 
     .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu ul {
@@ -325,8 +327,8 @@ body {
 /*--------------------------side-footer------------------------------*/
 
 .sidebar-footer {
-    position: absolute;
-    width: 100%;
+    position: fixed;
+    width: 17%;
     bottom: 0;
     display: flex;
 }
@@ -499,6 +501,8 @@ body {
     background: #2b2b2b;
     box-shadow: 0px -1px 5px #131212;
     border-top: 1px solid #3a3a3a;
+    font-size: 16px;
+    font-weight: bolder;
 }
 
     .chiller-theme .sidebar-footer > a:first-child {
@@ -527,3 +531,31 @@ body {
 body{
     text-align:right;
 }
+
+.btnlang {
+    text-align: center;
+    font-size: 20px;
+    background-color: #eea904;
+    color: white
+}
+
+.input-group > .form-control:not(:last-child) {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-radius: .25rem;
+}
+
+.input-group > .input-group-append > .input-group-text, .input-group > .input-group-prepend:first-child > .btn:not(:first-child), .input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child), .input-group > .input-group-prepend:not(:first-child) > .btn, .input-group > .input-group-prepend:not(:first-child) > .input-group-text {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-radius: .25rem;
+}
+
+/*.form-control {
+    display: block;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}*/
