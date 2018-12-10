@@ -506,3 +506,11 @@ body {
     background-color: #eea904;
     color: white
 }
+
+.badge-warning {
+    color: #212529;
+    background-color: #ffc107;
+    float: right;
+    margin-top: -22px;
+    margin-right: 5px;
+}

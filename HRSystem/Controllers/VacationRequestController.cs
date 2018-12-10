@@ -108,7 +108,7 @@ namespace HRSystem.Controllers
         //
         // POST: /VacationRequest/Create
         [HttpPost]
-        public ActionResult Create(VacationRequest vac , string AlternativeEmp ="")
+        public ActionResult Create(VacationRequest vac , string AlternativeEmp = "")
         {
             Manager.RequestManager mng = new Manager.RequestManager();
             var NoOfYear = mng.NoOfEmployeeYears(id: User.Identity.GetUserId());
@@ -119,7 +119,7 @@ namespace HRSystem.Controllers
             var NoOfAccidentalLeaves = mng.NoOfAccidentalLeave(id: User.Identity.GetUserId());
             string CurrentUser = User.Identity.GetUserId();
             vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
-            if((vac.StartDate < DateTime.Today && vac.VacationTypeNo == 1) ||(vac.StartDate < DateTime.Today && vac.VacationTypeNo == 3) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 5) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 6))
+            if ((vac.StartDate < DateTime.Today && vac.VacationTypeNo == 1) ||(vac.StartDate < DateTime.Today && vac.VacationTypeNo == 3) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 5) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 6))
             {
                 ModelState.AddModelError("StartDate", "Start date not valid");
             }
@@ -141,7 +141,6 @@ namespace HRSystem.Controllers
 
              
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-
                     ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.Employee.FirstName);
                         //db.Employees.ToList();
 
@@ -266,7 +265,7 @@ namespace HRSystem.Controllers
             }
             //ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-            ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "FirstName", vac.AlternativeEmp);
+            ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(),"Id", "FirstName", vac.AlternativeEmp);
             return View();       
           
           

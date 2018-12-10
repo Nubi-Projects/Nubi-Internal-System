@@ -130,7 +130,7 @@ body {
         list-style-type: none;
         padding: 0;
         margin: 0;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bolder;
     }
 
@@ -304,7 +304,7 @@ body {
 
     .sidebar-wrapper .sidebar-menu ul li a span.label,
     .sidebar-wrapper .sidebar-menu ul li a span.badge {
-        float: right;
+        float: left;
         margin-top: 8px;
         margin-left: 5px;
     }
@@ -321,7 +321,7 @@ body {
 
     .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a:after {
         transform: rotate(-90deg);
-        left: 17px;
+        right: 221px;
     }
 
 /*--------------------------side-footer------------------------------*/
@@ -549,6 +549,24 @@ body{
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     border-radius: .25rem;
+}
+
+.btn-Back {
+    background-color: #3a4651;
+    color: white;
+    padding: 15px 236px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.badge-warning {
+    color: #212529;
+    background-color: #ffc107;
+    float: left;
+    margin-top: -22px;
+    margin-left: 5px;
 }
 
 /*.form-control {
