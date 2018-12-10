@@ -12,19 +12,11 @@ namespace HRSystem.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Attachment
+    public partial class AspNetUserClaim
     {
         public int Id { get; set; }
-        public string EmpNo { get; set; }
-        public string Name { get; set; }
-        public string Path { get; set; }
-        public int TypeOfAttachmentNo { get; set; }
-        public Nullable<System.DateTime> ExpirationDate { get; set; }
-        public Nullable<bool> IsExpired { get; set; }
-        public bool IsDeleted { get; set; }
-        public System.DateTime Date { get; set; }
-    
-        public virtual Employee Employee { get; set; }
-        public virtual TypesOfAttachment TypesOfAttachment { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     }
 }

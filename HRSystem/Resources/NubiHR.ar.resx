@@ -438,10 +438,49 @@
   <data name="AttachmentType" xml:space="preserve">
     <value>نوع الملف المرفق</value>
   </data>
-  <data name="AddAttachmentType" xml:space="preserve">
-    <value>اضافة نوع مرفق</value>
+  <data name="AddAttachment" xml:space="preserve">
+    <value>اضافة مرفق</value>
   </data>
-  <data name="RemoveAttachmentType" xml:space="preserve">
-    <value>حزف نوع المرفق</value>
+  <data name="RemoveAttachment" xml:space="preserve">
+    <value>حذف مرفق</value>
+  </data>
+  <data name="EmergencyContact" xml:space="preserve">
+    <value>بيانات اخرى</value>
+  </data>
+  <data name="RelationshipType" xml:space="preserve">
+    <value>نوع العلاقة</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>تاريخ الانتهاء</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>ملاحظة: تقوم عملية الحذف بحذف اخر اضافة </value>
+  </data>
+  <data name="MobileValidation" xml:space="preserve">
+    <value>يرجى البدء ب 0 و مكون من 10 ارقام</value>
+  </data>
+  <data name="AddSiblings" xml:space="preserve">
+    <value>اضافة اشخاص</value>
+  </data>
+  <data name="RemoveSiblings" xml:space="preserve">
+    <value>حذف اشخاص</value>
+  </data>
+  <data name="IsExpired" xml:space="preserve">
+    <value>هل تاريخ الانتهاء منتهي؟s</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>اضافة</value>
+  </data>
+  <data name="NoRecordsFound" xml:space="preserve">
+    <value>لا يوجد سجل</value>
+  </data>
+  <data name="DateIsExpired" xml:space="preserve">
+    <value>تم انتهاء الصلاحية</value>
   </data>
 </root>

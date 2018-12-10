@@ -432,13 +432,52 @@
   <data name="AttachmentType" xml:space="preserve">
     <value>Attachment Type</value>
   </data>
-  <data name="AddAttachmentType" xml:space="preserve">
-    <value>Add attachment type</value>
+  <data name="AddAttachment" xml:space="preserve">
+    <value>Add attachment</value>
   </data>
-  <data name="RemoveAttachmentType" xml:space="preserve">
-    <value>Remove attachment type</value>
+  <data name="RemoveAttachment" xml:space="preserve">
+    <value>Remove attachment</value>
   </data>
   <data name="AlternativeEmp" xml:space="preserve">
     <value>Alternative Emp</value>
+  </data>
+  <data name="EmergencyContact" xml:space="preserve">
+    <value>Emergency Contact</value>
+  </data>
+  <data name="RelationshipType" xml:space="preserve">
+    <value>Relationship Type</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>Expiration Date</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>NOTE: 'Remove' operation will remove the last thing you added</value>
+  </data>
+  <data name="MobileValidation" xml:space="preserve">
+    <value>Please start with 0 (Length must be 10 digits)</value>
+  </data>
+  <data name="AddSiblings" xml:space="preserve">
+    <value>Add siblings</value>
+  </data>
+  <data name="RemoveSiblings" xml:space="preserve">
+    <value>Remove siblings</value>
+  </data>
+  <data name="IsExpired" xml:space="preserve">
+    <value>Is expired?</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="NoRecordsFound" xml:space="preserve">
+    <value>NoRecordsFound</value>
+  </data>
+  <data name="DateIsExpired" xml:space="preserve">
+    <value>Date is expired</value>
   </data>
 </root>

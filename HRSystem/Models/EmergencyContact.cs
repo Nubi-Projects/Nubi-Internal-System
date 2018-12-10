@@ -12,19 +12,16 @@ namespace HRSystem.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Attachment
+    public partial class EmergencyContact
     {
         public int Id { get; set; }
         public string EmpNo { get; set; }
         public string Name { get; set; }
-        public string Path { get; set; }
-        public int TypeOfAttachmentNo { get; set; }
-        public Nullable<System.DateTime> ExpirationDate { get; set; }
-        public Nullable<bool> IsExpired { get; set; }
-        public bool IsDeleted { get; set; }
-        public System.DateTime Date { get; set; }
+        public string Mobile { get; set; }
+        public int RelationshipTypeNo { get; set; }
+        public string Type { get; set; }
     
+        public virtual RelationshipType RelationshipType { get; set; }
         public virtual Employee Employee { get; set; }
-        public virtual TypesOfAttachment TypesOfAttachment { get; set; }
     }
 }

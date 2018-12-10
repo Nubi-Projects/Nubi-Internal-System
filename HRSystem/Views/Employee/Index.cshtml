@@ -19,22 +19,16 @@
             <div class="panel-body">
                 <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
                     
-
-
-
                     <thead>
                         <tr>
-                            <th>@Resources.NubiHR.FirstName</th>
-                            <th>@Resources.NubiHR.LastName</th>
-                            @*<th>@Resources.NubiHR.Username</th>*@
+                            <th>@Resources.NubiHR.EmployeeName </th>
+                            @*<th>@Resources.NubiHR.LastName</th>*@
+                            @*<th>@Resources.NubiHR.LastName</th>*@
                             <th>@Resources.NubiHR.StartDate</th>
                             <th>@Resources.NubiHR.Actions</th>
                             
                         </tr>
                     </thead>
-
-
-
 
                     <tbody>
                         
@@ -42,17 +36,12 @@
                         {
                             <tr>
                                 <td>
-                                    @item.FirstName
-                                </td>
-
-                                <td>
-                                    @item.LastName
+                                    @item.FirstName  @item.LastName
                                 </td>
 
                                 @*<td>
-                                    @item.Attachment.Employee .Select(x => x.UserName)
+                                    @item.LastName
                                 </td>*@
-
 
                                 <td>
                                     @item.StartDate

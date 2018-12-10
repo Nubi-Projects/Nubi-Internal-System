@@ -25,23 +25,27 @@ namespace HRSystem.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Attachment> Attachments { get; set; }
         public virtual DbSet<BankAccount> BankAccounts { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<EmergencyContact> EmergencyContacts { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<ExtraSalary> ExtraSalaries { get; set; }
+        public virtual DbSet<PermissionRequest> PermissionRequests { get; set; }
         public virtual DbSet<PermissionType> PermissionTypes { get; set; }
         public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
+        public virtual DbSet<RelationshipType> RelationshipTypes { get; set; }
         public virtual DbSet<Salary> Salaries { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
-        public virtual DbSet<TrainingCertificate> TrainingCertificates { get; set; }
+        public virtual DbSet<TypesOfAttachment> TypesOfAttachments { get; set; }
         public virtual DbSet<UserPreference> UserPreferences { get; set; }
         public virtual DbSet<UserSession> UserSessions { get; set; }
-        public virtual DbSet<VacationType> VacationTypes { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<VacationRequest> VacationRequests { get; set; }
-        public virtual DbSet<PermissionRequest> PermissionRequests { get; set; }
-        public virtual DbSet<Attachment> Attachments { get; set; }
+        public virtual DbSet<VacationType> VacationTypes { get; set; }
     }
 }

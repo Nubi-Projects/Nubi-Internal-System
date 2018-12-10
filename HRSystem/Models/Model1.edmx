@@ -13,6 +13,25 @@
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="NameAr" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
             <PropertyRef Name="UserId" />
@@ -45,10 +64,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NationalId" Type="nvarchar(max)" />
-          <Property Name="PassportNumber" Type="nvarchar(max)" />
-          <Property Name="LastCertificate" Type="nvarchar(max)" />
-          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="EmpNo" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TypeOfAttachmentNo" Type="int" Nullable="false" />
+          <Property Name="ExpirationDate" Type="date" />
+          <Property Name="IsExpired" Type="bit" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
         </EntityType>
@@ -71,6 +92,17 @@
           <Property Name="DepartmentNameEn" Type="nvarchar" MaxLength="75" Nullable="false" />
           <Property Name="DepartmentNameAr" Type="nvarchar" MaxLength="75" Nullable="false" />
         </EntityType>
+        <EntityType Name="EmergencyContact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpNo" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="RelationshipTypeNo" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="80" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Id" />
@@ -86,7 +118,6 @@
           <Property Name="StartDate" Type="date" Nullable="false" />
           <Property Name="DepartmentNo" Type="int" Nullable="false" />
           <Property Name="PositionNo" Type="int" Nullable="false" />
-          <Property Name="AttachmentNo" Type="int" />
           <Property Name="BankNo" Type="int" />
           <Property Name="SalaryNo" Type="int" Nullable="false" />
           <Property Name="EndDate" Type="date" />
@@ -154,6 +185,14 @@
           <Property Name="PositionNameEn" Type="nvarchar" MaxLength="75" Nullable="false" />
           <Property Name="PositionNameAr" Type="nvarchar" MaxLength="75" Nullable="false" />
         </EntityType>
+        <EntityType Name="RelationshipType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RelationEn" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="RelationAr" Type="nvarchar" MaxLength="80" Nullable="false" />
+        </EntityType>
         <EntityType Name="Salary">
           <Key>
             <PropertyRef Name="Id" />
@@ -175,16 +214,13 @@
           <Property Name="VacationPerMonth" Type="float" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="TrainingCertificate">
+        <EntityType Name="TypesOfAttachment">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmployeeNo" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="TrainingCertificateName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="TrainingCertificateUrl" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="AttachmentTypeEn" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="AttachmentTypeAr" Type="nvarchar" MaxLength="80" Nullable="false" />
         </EntityType>
         <EntityType Name="UserPreferences">
           <Key>
@@ -275,6 +311,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Attachment_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Attachment" Type="Self.Attachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attachment">
+              <PropertyRef Name="EmpNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attachment_TypesOfAttachment">
+          <End Role="TypesOfAttachment" Type="Self.TypesOfAttachment" Multiplicity="1" />
+          <End Role="Attachment" Type="Self.Attachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesOfAttachment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attachment">
+              <PropertyRef Name="TypeOfAttachmentNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -289,15 +349,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_Attachment">
-          <End Role="Attachment" Type="Self.Attachment" Multiplicity="0..1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+        <Association Name="FK_EmergencyContact_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmergencyContact" Type="Self.EmergencyContact" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Attachment">
+            <Principal Role="Employee">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="AttachmentNo" />
+            <Dependent Role="EmergencyContact">
+              <PropertyRef Name="EmpNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmergencyContact_RelationshipType">
+          <End Role="RelationshipType" Type="Self.RelationshipType" Multiplicity="1" />
+          <End Role="EmergencyContact" Type="Self.EmergencyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelationshipType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmergencyContact">
+              <PropertyRef Name="RelationshipTypeNo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -397,18 +469,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TrainingCertificate_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="TrainingCertificate" Type="Self.TrainingCertificate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TrainingCertificate">
-              <PropertyRef Name="EmployeeNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserPreferences_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="UserPreferences" Type="Self.UserPreferences" Multiplicity="*" />
@@ -459,20 +519,24 @@
         </Association>
         <EntityContainer Name="NubiDBModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attachment" EntityType="Self.Attachment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankAccount" EntityType="Self.BankAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmergencyContact" EntityType="Self.EmergencyContact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtraSalary" EntityType="Self.ExtraSalary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PermissionRequest" EntityType="Self.PermissionRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PermissionType" EntityType="Self.PermissionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneNumbers" EntityType="Self.PhoneNumbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelationshipType" EntityType="Self.RelationshipType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TrainingCertificate" EntityType="Self.TrainingCertificate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypesOfAttachment" EntityType="Self.TypesOfAttachment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPreferences" EntityType="Self.UserPreferences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSessions" EntityType="Self.UserSessions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VacationRequest" EntityType="Self.VacationRequest" Schema="dbo" store:Type="Tables" />
@@ -485,13 +549,25 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_Attachment_Employee" Association="Self.FK_Attachment_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Attachment" EntitySet="Attachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attachment_TypesOfAttachment" Association="Self.FK_Attachment_TypesOfAttachment">
+            <End Role="TypesOfAttachment" EntitySet="TypesOfAttachment" />
+            <End Role="Attachment" EntitySet="Attachment" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_Attachment" Association="Self.FK_Employee_Attachment">
-            <End Role="Attachment" EntitySet="Attachment" />
+          <AssociationSet Name="FK_EmergencyContact_Employee" Association="Self.FK_EmergencyContact_Employee">
             <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmergencyContact" EntitySet="EmergencyContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmergencyContact_RelationshipType" Association="Self.FK_EmergencyContact_RelationshipType">
+            <End Role="RelationshipType" EntitySet="RelationshipType" />
+            <End Role="EmergencyContact" EntitySet="EmergencyContact" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_BankAccount" Association="Self.FK_Employee_BankAccount">
             <End Role="BankAccount" EntitySet="BankAccount" />
@@ -525,10 +601,6 @@
             <End Role="Department" EntitySet="Department" />
             <End Role="Position" EntitySet="Position" />
           </AssociationSet>
-          <AssociationSet Name="FK_TrainingCertificate_Employee" Association="Self.FK_TrainingCertificate_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="TrainingCertificate" EntitySet="TrainingCertificate" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserPreferences_AspNetUsers" Association="Self.FK_UserPreferences_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserPreferences" EntitySet="UserPreferences" />
@@ -551,48 +623,28 @@
     <edmx:ConceptualModels>
       <Schema Namespace="NubiDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="NubiDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="NubiDBModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="NubiDBModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="NubiDBModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="NubiDBModel.AspNetUser" />
+          <EntitySet Name="Attachments" EntityType="NubiDBModel.Attachment" />
           <EntitySet Name="BankAccounts" EntityType="NubiDBModel.BankAccount" />
           <EntitySet Name="Departments" EntityType="NubiDBModel.Department" />
+          <EntitySet Name="EmergencyContacts" EntityType="NubiDBModel.EmergencyContact" />
           <EntitySet Name="Employees" EntityType="NubiDBModel.Employee" />
           <EntitySet Name="ExtraSalaries" EntityType="NubiDBModel.ExtraSalary" />
+          <EntitySet Name="PermissionRequests" EntityType="NubiDBModel.PermissionRequest" />
           <EntitySet Name="PermissionTypes" EntityType="NubiDBModel.PermissionType" />
           <EntitySet Name="PhoneNumbers" EntityType="NubiDBModel.PhoneNumber" />
           <EntitySet Name="Positions" EntityType="NubiDBModel.Position" />
+          <EntitySet Name="RelationshipTypes" EntityType="NubiDBModel.RelationshipType" />
           <EntitySet Name="Salaries" EntityType="NubiDBModel.Salary" />
           <EntitySet Name="Settings" EntityType="NubiDBModel.Setting" />
-          <EntitySet Name="TrainingCertificates" EntityType="NubiDBModel.TrainingCertificate" />
+          <EntitySet Name="TypesOfAttachments" EntityType="NubiDBModel.TypesOfAttachment" />
           <EntitySet Name="UserPreferences" EntityType="NubiDBModel.UserPreference" />
           <EntitySet Name="UserSessions" EntityType="NubiDBModel.UserSession" />
+          <EntitySet Name="VacationRequests" EntityType="NubiDBModel.VacationRequest" />
           <EntitySet Name="VacationTypes" EntityType="NubiDBModel.VacationType" />
-          <AssociationSet Name="FK_Employee_BankAccount" Association="NubiDBModel.FK_Employee_BankAccount">
-            <End Role="BankAccount" EntitySet="BankAccounts" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Department" Association="NubiDBModel.FK_Employee_Department">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Position_Department" Association="NubiDBModel.FK_Position_Department">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Position" EntitySet="Positions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Position" Association="NubiDBModel.FK_Employee_Position">
-            <End Role="Position" EntitySet="Positions" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Salary" Association="NubiDBModel.FK_Employee_Salary">
-            <End Role="Salary" EntitySet="Salaries" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrainingCertificate_Employee" Association="NubiDBModel.FK_TrainingCertificate_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="TrainingCertificate" EntitySet="TrainingCertificates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExtraSalary_Salary" Association="NubiDBModel.FK_ExtraSalary_Salary">
-            <End Role="Salary" EntitySet="Salaries" />
-            <End Role="ExtraSalary" EntitySet="ExtraSalaries" />
-          </AssociationSet>
-          <EntitySet Name="AspNetUsers" EntityType="NubiDBModel.AspNetUser" />
           <AssociationSet Name="FK_AspNetUsers_Employee" Association="NubiDBModel.FK_AspNetUsers_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -605,35 +657,134 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="UserSession" EntitySet="UserSessions" />
           </AssociationSet>
-          <EntitySet Name="AspNetRoles" EntityType="NubiDBModel.AspNetRole" />
-          <AssociationSet Name="AspNetUserRoles" Association="NubiDBModel.AspNetUserRoles">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+          <AssociationSet Name="FK_Attachment_Employee" Association="NubiDBModel.FK_Attachment_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Attachment" EntitySet="Attachments" />
           </AssociationSet>
-          <EntitySet Name="VacationRequests" EntityType="NubiDBModel.VacationRequest" />
+          <AssociationSet Name="FK_Employee_BankAccount" Association="NubiDBModel.FK_Employee_BankAccount">
+            <End Role="BankAccount" EntitySet="BankAccounts" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="NubiDBModel.FK_Employee_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Position_Department" Association="NubiDBModel.FK_Position_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Position" EntitySet="Positions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmergencyContact_RelationshipType" Association="NubiDBModel.FK_EmergencyContact_RelationshipType">
+            <End Role="RelationshipType" EntitySet="RelationshipTypes" />
+            <End Role="EmergencyContact" EntitySet="EmergencyContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Position" Association="NubiDBModel.FK_Employee_Position">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Salary" Association="NubiDBModel.FK_Employee_Salary">
+            <End Role="Salary" EntitySet="Salaries" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PermissionRequest_Employee" Association="NubiDBModel.FK_PermissionRequest_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="PermissionRequest" EntitySet="PermissionRequests" />
+          </AssociationSet>
           <AssociationSet Name="FK_VacationRequest_Employee" Association="NubiDBModel.FK_VacationRequest_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="VacationRequest" EntitySet="VacationRequests" />
           </AssociationSet>
-          <AssociationSet Name="FK_VacationRequest_VacationType" Association="NubiDBModel.FK_VacationRequest_VacationType">
-            <End Role="VacationType" EntitySet="VacationTypes" />
-            <End Role="VacationRequest" EntitySet="VacationRequests" />
-          </AssociationSet>
-          <EntitySet Name="PermissionRequests" EntityType="NubiDBModel.PermissionRequest" />
-          <AssociationSet Name="FK_PermissionRequest_Employee" Association="NubiDBModel.FK_PermissionRequest_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="PermissionRequest" EntitySet="PermissionRequests" />
+          <AssociationSet Name="FK_ExtraSalary_Salary" Association="NubiDBModel.FK_ExtraSalary_Salary">
+            <End Role="Salary" EntitySet="Salaries" />
+            <End Role="ExtraSalary" EntitySet="ExtraSalaries" />
           </AssociationSet>
           <AssociationSet Name="FK_PermissionRequest_PermissionType" Association="NubiDBModel.FK_PermissionRequest_PermissionType">
             <End Role="PermissionType" EntitySet="PermissionTypes" />
             <End Role="PermissionRequest" EntitySet="PermissionRequests" />
           </AssociationSet>
-          <EntitySet Name="Attachments" EntityType="NubiDBModel.Attachment" />
-          <AssociationSet Name="FK_Employee_Attachment" Association="NubiDBModel.FK_Employee_Attachment">
-            <End Role="Attachment" EntitySet="Attachments" />
-            <End Role="Employee" EntitySet="Employees" />
+          <AssociationSet Name="FK_VacationRequest_VacationType" Association="NubiDBModel.FK_VacationRequest_VacationType">
+            <End Role="VacationType" EntitySet="VacationTypes" />
+            <End Role="VacationRequest" EntitySet="VacationRequests" />
           </AssociationSet>
-          </EntityContainer>
+          <AssociationSet Name="AspNetUserRoles" Association="NubiDBModel.AspNetUserRoles">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmergencyContact_Employee" Association="NubiDBModel.FK_EmergencyContact_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmergencyContact" EntitySet="EmergencyContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attachment_TypesOfAttachment" Association="NubiDBModel.FK_Attachment_TypesOfAttachment">
+            <End Role="TypesOfAttachment" EntitySet="TypesOfAttachments" />
+            <End Role="Attachment" EntitySet="Attachments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NameAr" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="EmpNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" />
+          <Property Name="AccessFailedCount" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="AspNetUser" ToRole="Employee" />
+          <NavigationProperty Name="UserPreferences" Relationship="NubiDBModel.FK_UserPreferences_AspNetUsers" FromRole="AspNetUser" ToRole="UserPreference" />
+          <NavigationProperty Name="UserSessions" Relationship="NubiDBModel.FK_UserSessions_Users" FromRole="AspNetUser" ToRole="UserSession" />
+          <NavigationProperty Name="AspNetRoles" Relationship="NubiDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TypeOfAttachmentNo" Type="Int32" Nullable="false" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="0" />
+          <Property Name="IsExpired" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_Attachment_Employee" FromRole="Attachment" ToRole="Employee" />
+          <NavigationProperty Name="TypesOfAttachment" Relationship="NubiDBModel.FK_Attachment_TypesOfAttachment" FromRole="Attachment" ToRole="TypesOfAttachment" />
+        </EntityType>
         <EntityType Name="BankAccount">
           <Key>
             <PropertyRef Name="Id" />
@@ -656,6 +807,19 @@
           <NavigationProperty Name="Employees" Relationship="NubiDBModel.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
           <NavigationProperty Name="Positions" Relationship="NubiDBModel.FK_Position_Department" FromRole="Department" ToRole="Position" />
         </EntityType>
+        <EntityType Name="EmergencyContact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="RelationshipTypeNo" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RelationshipType" Relationship="NubiDBModel.FK_EmergencyContact_RelationshipType" FromRole="EmergencyContact" ToRole="RelationshipType" />
+          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_EmergencyContact_Employee" FromRole="EmergencyContact" ToRole="Employee" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Id" />
@@ -671,21 +835,20 @@
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DepartmentNo" Type="Int32" Nullable="false" />
           <Property Name="PositionNo" Type="Int32" Nullable="false" />
-          <Property Name="AttachmentNo" Type="Int32" />
           <Property Name="BankNo" Type="Int32" />
           <Property Name="SalaryNo" Type="Int32" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Precision="0" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
+          <NavigationProperty Name="Attachments" Relationship="NubiDBModel.FK_Attachment_Employee" FromRole="Employee" ToRole="Attachment" />
           <NavigationProperty Name="BankAccount" Relationship="NubiDBModel.FK_Employee_BankAccount" FromRole="Employee" ToRole="BankAccount" />
           <NavigationProperty Name="Department" Relationship="NubiDBModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
           <NavigationProperty Name="Position" Relationship="NubiDBModel.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
           <NavigationProperty Name="Salary" Relationship="NubiDBModel.FK_Employee_Salary" FromRole="Employee" ToRole="Salary" />
-          <NavigationProperty Name="TrainingCertificates" Relationship="NubiDBModel.FK_TrainingCertificate_Employee" FromRole="Employee" ToRole="TrainingCertificate" />
-          <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
-          <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="Employee" ToRole="VacationRequest" />
           <NavigationProperty Name="PermissionRequests" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="Employee" ToRole="PermissionRequest" />
-          <NavigationProperty Name="Attachment" Relationship="NubiDBModel.FK_Employee_Attachment" FromRole="Employee" ToRole="Attachment" />
+          <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="Employee" ToRole="VacationRequest" />
+          <NavigationProperty Name="EmergencyContacts" Relationship="NubiDBModel.FK_EmergencyContact_Employee" FromRole="Employee" ToRole="EmergencyContact" />
         </EntityType>
         <EntityType Name="ExtraSalary">
           <Key>
@@ -698,6 +861,29 @@
           <Property Name="IsDeleted" Type="Int64" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Salary" Relationship="NubiDBModel.FK_ExtraSalary_Salary" FromRole="ExtraSalary" ToRole="Salary" />
+        </EntityType>
+        <EntityType Name="PermissionRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeFromHours" Type="Int32" Nullable="false" />
+          <Property Name="TimeFromMinutes" Type="Int32" />
+          <Property Name="TimeToHours" Type="Int32" Nullable="false" />
+          <Property Name="TimeToMinutes" Type="Int32" />
+          <Property Name="PermissionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LeaderApprovement" Type="Boolean" />
+          <Property Name="ManagerApprovement" Type="Boolean" />
+          <Property Name="IsRejected" Type="Boolean" />
+          <Property Name="PermissionTypeNo" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="LeaderHasSeen" Type="Boolean" />
+          <Property Name="ManagerHasSeen" Type="Boolean" />
+          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="PermissionRequest" ToRole="Employee" />
+          <NavigationProperty Name="PermissionType" Relationship="NubiDBModel.FK_PermissionRequest_PermissionType" FromRole="PermissionRequest" ToRole="PermissionType" />
         </EntityType>
         <EntityType Name="PermissionType">
           <Key>
@@ -731,6 +917,15 @@
           <NavigationProperty Name="Department" Relationship="NubiDBModel.FK_Position_Department" FromRole="Position" ToRole="Department" />
           <NavigationProperty Name="Employees" Relationship="NubiDBModel.FK_Employee_Position" FromRole="Position" ToRole="Employee" />
         </EntityType>
+        <EntityType Name="RelationshipType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RelationEn" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="RelationAr" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmergencyContacts" Relationship="NubiDBModel.FK_EmergencyContact_RelationshipType" FromRole="RelationshipType" ToRole="EmergencyContact" />
+        </EntityType>
         <EntityType Name="Salary">
           <Key>
             <PropertyRef Name="Id" />
@@ -754,17 +949,14 @@
           <Property Name="VacationPerMonth" Type="Double" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="TrainingCertificate">
+        <EntityType Name="TypesOfAttachment">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="TrainingCertificateName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TrainingCertificateUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_TrainingCertificate_Employee" FromRole="TrainingCertificate" ToRole="Employee" />
+          <Property Name="AttachmentTypeEn" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentTypeAr" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Attachments" Relationship="NubiDBModel.FK_Attachment_TypesOfAttachment" FromRole="TypesOfAttachment" ToRole="Attachment" />
         </EntityType>
         <EntityType Name="UserPreference">
           <Key>
@@ -801,6 +993,31 @@
           <Property Name="CurrentRoleJpcId" Type="Int64" />
           <NavigationProperty Name="AspNetUser" Relationship="NubiDBModel.FK_UserSessions_Users" FromRole="UserSession" ToRole="AspNetUser" />
         </EntityType>
+        <EntityType Name="VacationRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResumeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="LeaderApprovement" Type="Boolean" />
+          <Property Name="ManagerApprovement" Type="Boolean" />
+          <Property Name="IsRejected" Type="Boolean" />
+          <Property Name="VacationTypeNo" Type="Int32" Nullable="false" />
+          <Property Name="MedicalReport" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LeaderHasSeen" Type="Boolean" />
+          <Property Name="ManagerHasSeen" Type="Boolean" />
+          <Property Name="AlternativeEmp" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="VacationRequest" ToRole="Employee" />
+          <NavigationProperty Name="VacationType" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationRequest" ToRole="VacationType" />
+        </EntityType>
         <EntityType Name="VacationType">
           <Key>
             <PropertyRef Name="ID" />
@@ -810,113 +1027,6 @@
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationType" ToRole="VacationRequest" />
-        </EntityType>
-        <Association Name="FK_Employee_BankAccount">
-          <End Type="NubiDBModel.BankAccount" Role="BankAccount" Multiplicity="0..1" />
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BankAccount">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="BankNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Department">
-          <End Type="NubiDBModel.Department" Role="Department" Multiplicity="1" />
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="DepartmentNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Position_Department">
-          <End Type="NubiDBModel.Department" Role="Department" Multiplicity="1" />
-          <End Type="NubiDBModel.Position" Role="Position" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Position">
-              <PropertyRef Name="DepartmentNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Position">
-          <End Type="NubiDBModel.Position" Role="Position" Multiplicity="1" />
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Position">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="PositionNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Salary">
-          <End Type="NubiDBModel.Salary" Role="Salary" Multiplicity="1" />
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Salary">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="SalaryNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TrainingCertificate_Employee">
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="NubiDBModel.TrainingCertificate" Role="TrainingCertificate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TrainingCertificate">
-              <PropertyRef Name="EmployeeNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExtraSalary_Salary">
-          <End Type="NubiDBModel.Salary" Role="Salary" Multiplicity="1" />
-          <End Type="NubiDBModel.ExtraSalary" Role="ExtraSalary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Salary">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ExtraSalary">
-              <PropertyRef Name="SalaryNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="AspNetUser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="EmpNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" />
-          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" />
-          <Property Name="AccessFailedCount" Type="Int32" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_AspNetUsers_Employee" FromRole="AspNetUser" ToRole="Employee" />
-          <NavigationProperty Name="UserPreferences" Relationship="NubiDBModel.FK_UserPreferences_AspNetUsers" FromRole="AspNetUser" ToRole="UserPreference" />
-          <NavigationProperty Name="UserSessions" Relationship="NubiDBModel.FK_UserSessions_Users" FromRole="AspNetUser" ToRole="UserSession" />
-          <NavigationProperty Name="AspNetRoles" Relationship="NubiDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
         <Association Name="FK_AspNetUsers_Employee">
           <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
@@ -954,44 +1064,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="AspNetRole">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="NameAr" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="NubiDBModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
-        </EntityType>
-        <Association Name="AspNetUserRoles">
-          <End Type="NubiDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-          <End Type="NubiDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+        <Association Name="FK_Attachment_Employee">
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="NubiDBModel.Attachment" Role="Attachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attachment">
+              <PropertyRef Name="EmpNo" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <EntityType Name="VacationRequest">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ResumeDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Duration" Type="Int32" Nullable="false" />
-          <Property Name="LeaderApprovement" Type="Boolean" />
-          <Property Name="ManagerApprovement" Type="Boolean" />
-          <Property Name="IsRejected" Type="Boolean" />
-          <Property Name="VacationTypeNo" Type="Int32" Nullable="false" />
-          <Property Name="MedicalReport" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="VacationRequest" ToRole="Employee" />
-          <NavigationProperty Name="VacationType" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationRequest" ToRole="VacationType" />
-          <Property Name="LeaderHasSeen" Type="Boolean" />
-          <Property Name="ManagerHasSeen" Type="Boolean" />
-          <Property Name="AlternativeEmp" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-        </EntityType>
+        <Association Name="FK_Employee_BankAccount">
+          <End Type="NubiDBModel.BankAccount" Role="BankAccount" Multiplicity="0..1" />
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="BankNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Type="NubiDBModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DepartmentNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Position_Department">
+          <End Type="NubiDBModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="NubiDBModel.Position" Role="Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Position">
+              <PropertyRef Name="DepartmentNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmergencyContact_RelationshipType">
+          <End Type="NubiDBModel.RelationshipType" Role="RelationshipType" Multiplicity="1" />
+          <End Type="NubiDBModel.EmergencyContact" Role="EmergencyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelationshipType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmergencyContact">
+              <PropertyRef Name="RelationshipTypeNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Position">
+          <End Type="NubiDBModel.Position" Role="Position" Multiplicity="1" />
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PositionNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Salary">
+          <End Type="NubiDBModel.Salary" Role="Salary" Multiplicity="1" />
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salary">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="SalaryNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermissionRequest_Employee">
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="NubiDBModel.PermissionRequest" Role="PermissionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PermissionRequest">
+              <PropertyRef Name="EmployeeNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VacationRequest_Employee">
           <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
           <End Type="NubiDBModel.VacationRequest" Role="VacationRequest" Multiplicity="*" />
@@ -1004,50 +1172,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VacationRequest_VacationType">
-          <End Type="NubiDBModel.VacationType" Role="VacationType" Multiplicity="1" />
-          <End Type="NubiDBModel.VacationRequest" Role="VacationRequest" Multiplicity="*" />
+        <Association Name="FK_ExtraSalary_Salary">
+          <End Type="NubiDBModel.Salary" Role="Salary" Multiplicity="1" />
+          <End Type="NubiDBModel.ExtraSalary" Role="ExtraSalary" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="VacationType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VacationRequest">
-              <PropertyRef Name="VacationTypeNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="PermissionRequest">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TimeFromHours" Type="Int32" Nullable="false" />
-          <Property Name="TimeFromMinutes" Type="Int32" />
-          <Property Name="TimeToHours" Type="Int32" Nullable="false" />
-          <Property Name="TimeToMinutes" Type="Int32" />
-          <Property Name="PermissionDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LeaderApprovement" Type="Boolean" />
-          <Property Name="ManagerApprovement" Type="Boolean" />
-          <Property Name="IsRejected" Type="Boolean" />
-          <Property Name="PermissionTypeNo" Type="Int32" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="LeaderHasSeen" Type="Boolean" />
-          <Property Name="ManagerHasSeen" Type="Boolean" />
-          <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="PermissionRequest" ToRole="Employee" />
-          <NavigationProperty Name="PermissionType" Relationship="NubiDBModel.FK_PermissionRequest_PermissionType" FromRole="PermissionRequest" ToRole="PermissionType" />
-        </EntityType>
-        <Association Name="FK_PermissionRequest_Employee">
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="NubiDBModel.PermissionRequest" Role="PermissionRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
+            <Principal Role="Salary">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="PermissionRequest">
-              <PropertyRef Name="EmployeeNo" />
+            <Dependent Role="ExtraSalary">
+              <PropertyRef Name="SalaryNo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1063,28 +1196,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Attachment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NationalId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PassportNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LastCertificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Employees" Relationship="NubiDBModel.FK_Employee_Attachment" FromRole="Attachment" ToRole="Employee" />
-        </EntityType>
-        <Association Name="FK_Employee_Attachment">
-          <End Type="NubiDBModel.Attachment" Role="Attachment" Multiplicity="0..1" />
-          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="*" />
+        <Association Name="FK_VacationRequest_VacationType">
+          <End Type="NubiDBModel.VacationType" Role="VacationType" Multiplicity="1" />
+          <End Type="NubiDBModel.VacationRequest" Role="VacationRequest" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Attachment">
+            <Principal Role="VacationType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VacationRequest">
+              <PropertyRef Name="VacationTypeNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="NubiDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <End Type="NubiDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_EmergencyContact_Employee">
+          <End Type="NubiDBModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="NubiDBModel.EmergencyContact" Role="EmergencyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="AttachmentNo" />
+            <Dependent Role="EmergencyContact">
+              <PropertyRef Name="EmpNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attachment_TypesOfAttachment">
+          <End Type="NubiDBModel.TypesOfAttachment" Role="TypesOfAttachment" Multiplicity="1" />
+          <End Type="NubiDBModel.Attachment" Role="Attachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesOfAttachment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Attachment">
+              <PropertyRef Name="TypeOfAttachmentNo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1094,6 +1242,69 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="NubiDBModelStoreContainer" CdmEntityContainer="NubiDBEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="NubiDBModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="NameAr" ColumnName="NameAr" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="NubiDBModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="NubiDBModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="NubiDBModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attachments">
+            <EntityTypeMapping TypeName="NubiDBModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachment">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsExpired" ColumnName="IsExpired" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="TypeOfAttachmentNo" ColumnName="TypeOfAttachmentNo" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="BankAccounts">
             <EntityTypeMapping TypeName="NubiDBModel.BankAccount">
               <MappingFragment StoreEntitySet="BankAccount">
@@ -1115,6 +1326,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EmergencyContacts">
+            <EntityTypeMapping TypeName="NubiDBModel.EmergencyContact">
+              <MappingFragment StoreEntitySet="EmergencyContact">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="RelationshipTypeNo" ColumnName="RelationshipTypeNo" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="NubiDBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
@@ -1123,7 +1346,6 @@
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="SalaryNo" ColumnName="SalaryNo" />
                 <ScalarProperty Name="BankNo" ColumnName="BankNo" />
-                <ScalarProperty Name="AttachmentNo" ColumnName="AttachmentNo" />
                 <ScalarProperty Name="PositionNo" ColumnName="PositionNo" />
                 <ScalarProperty Name="DepartmentNo" ColumnName="DepartmentNo" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
@@ -1146,6 +1368,28 @@
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="ExtraHours" ColumnName="ExtraHours" />
                 <ScalarProperty Name="SalaryNo" ColumnName="SalaryNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermissionRequests">
+            <EntityTypeMapping TypeName="NubiDBModel.PermissionRequest">
+              <MappingFragment StoreEntitySet="PermissionRequest">
+                <ScalarProperty Name="ManagerHasSeen" ColumnName="ManagerHasSeen" />
+                <ScalarProperty Name="LeaderHasSeen" ColumnName="LeaderHasSeen" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PermissionTypeNo" ColumnName="PermissionTypeNo" />
+                <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />
+                <ScalarProperty Name="ManagerApprovement" ColumnName="ManagerApprovement" />
+                <ScalarProperty Name="LeaderApprovement" ColumnName="LeaderApprovement" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="PermissionDate" ColumnName="PermissionDate" />
+                <ScalarProperty Name="TimeToMinutes" ColumnName="TimeToMinutes" />
+                <ScalarProperty Name="TimeToHours" ColumnName="TimeToHours" />
+                <ScalarProperty Name="TimeFromMinutes" ColumnName="TimeFromMinutes" />
+                <ScalarProperty Name="TimeFromHours" ColumnName="TimeFromHours" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1182,6 +1426,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RelationshipTypes">
+            <EntityTypeMapping TypeName="NubiDBModel.RelationshipType">
+              <MappingFragment StoreEntitySet="RelationshipType">
+                <ScalarProperty Name="RelationAr" ColumnName="RelationAr" />
+                <ScalarProperty Name="RelationEn" ColumnName="RelationEn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Salaries">
             <EntityTypeMapping TypeName="NubiDBModel.Salary">
               <MappingFragment StoreEntitySet="Salary">
@@ -1205,14 +1458,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TrainingCertificates">
-            <EntityTypeMapping TypeName="NubiDBModel.TrainingCertificate">
-              <MappingFragment StoreEntitySet="TrainingCertificate">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="TrainingCertificateUrl" ColumnName="TrainingCertificateUrl" />
-                <ScalarProperty Name="TrainingCertificateName" ColumnName="TrainingCertificateName" />
-                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
+          <EntitySetMapping Name="TypesOfAttachments">
+            <EntityTypeMapping TypeName="NubiDBModel.TypesOfAttachment">
+              <MappingFragment StoreEntitySet="TypesOfAttachment">
+                <ScalarProperty Name="AttachmentTypeAr" ColumnName="AttachmentTypeAr" />
+                <ScalarProperty Name="AttachmentTypeEn" ColumnName="AttachmentTypeEn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1252,53 +1502,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VacationTypes">
-            <EntityTypeMapping TypeName="NubiDBModel.VacationType">
-              <MappingFragment StoreEntitySet="VacationType">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="NubiDBModel.AspNetUser">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="NubiDBModel.AspNetRole">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="NameAr" ColumnName="NameAr" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="NubiDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRole">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="VacationRequests">
             <EntityTypeMapping TypeName="NubiDBModel.VacationRequest">
               <MappingFragment StoreEntitySet="VacationRequest">
@@ -1323,41 +1526,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PermissionRequests">
-            <EntityTypeMapping TypeName="NubiDBModel.PermissionRequest">
-              <MappingFragment StoreEntitySet="PermissionRequest">
-                <ScalarProperty Name="ManagerHasSeen" ColumnName="ManagerHasSeen" />
-                <ScalarProperty Name="LeaderHasSeen" ColumnName="LeaderHasSeen" />
+          <EntitySetMapping Name="VacationTypes">
+            <EntityTypeMapping TypeName="NubiDBModel.VacationType">
+              <MappingFragment StoreEntitySet="VacationType">
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="PermissionTypeNo" ColumnName="PermissionTypeNo" />
-                <ScalarProperty Name="IsRejected" ColumnName="IsRejected" />
-                <ScalarProperty Name="ManagerApprovement" ColumnName="ManagerApprovement" />
-                <ScalarProperty Name="LeaderApprovement" ColumnName="LeaderApprovement" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="PermissionDate" ColumnName="PermissionDate" />
-                <ScalarProperty Name="TimeToMinutes" ColumnName="TimeToMinutes" />
-                <ScalarProperty Name="TimeToHours" ColumnName="TimeToHours" />
-                <ScalarProperty Name="TimeFromMinutes" ColumnName="TimeFromMinutes" />
-                <ScalarProperty Name="TimeFromHours" ColumnName="TimeFromHours" />
-                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Attachments">
-            <EntityTypeMapping TypeName="NubiDBModel.Attachment">
-              <MappingFragment StoreEntitySet="Attachment">
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="LastCertificate" ColumnName="LastCertificate" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="NubiDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

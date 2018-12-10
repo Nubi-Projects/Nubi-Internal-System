@@ -36,9 +36,10 @@ namespace HRSystem.Controllers
         Salary salaryObj = new Salary();
         Attachment AttachObj = new Attachment();
         BankAccount BankObj = new BankAccount();
-        TrainingCertificate TCertificateObj = new TrainingCertificate();
         Department DeptObj = new Department();
         AspNetRole RoleObj = new AspNetRole();
+        EmergencyContact EmgObj = new EmergencyContact();
+        
 
 
        
@@ -86,7 +87,11 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
             ViewBag.Department = Db.Departments.ToList();
+            ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
+            ViewBag.RelationshipType = Db.RelationshipTypes/*.OrderBy(x => (IsArabic == true ? x.RelationAr : x.RelationEn))*/.ToList();
+
             return View();
 
         }
@@ -98,7 +103,7 @@ namespace HRSystem.Controllers
             {
                 try
                 {
-                 
+
                     //insert into salary table
                     double BasicSalaryString = Convert.ToDouble(model.BasicSalary);
                     salaryObj.BasicSalary = BasicSalaryString;
@@ -107,11 +112,9 @@ namespace HRSystem.Controllers
                     Db.Salaries.Add(salaryObj);
                     Db.SaveChanges();
 
-                   
-
-
+                    
                     //if condtion to check if user has account
-                    if(model.BankName !=  null)
+                    if (model.BankName != null)
                     {
                         //make fileds required in runtime
                         //insert into bank account
@@ -122,80 +125,6 @@ namespace HRSystem.Controllers
 
                         Db.BankAccounts.Add(BankObj);
                         Db.SaveChanges();
-                    }
-
-
-
-                    //insert into attachment table
-
-
-                    
-                    if (model.NationalId != null)
-                    {
-                        string filenameNId = model.NIdTitle;
-                        string extensionNId = Path.GetExtension(model.NationalId.FileName);
-                        filenameNId = Path.Combine(Server.MapPath("~/Attachments/"), filenameNId + extensionNId);
-                        model.NationalId.SaveAs(filenameNId);
-                        filenameNId = model.NIdTitle + extensionNId;
-                        AttachObj.NationalId = filenameNId;
-
-                        AttachObj.Date = DateTime.Now.Date;
-
-                        Db.Attachments.Add(AttachObj);
-                        Db.SaveChanges();
-                    }
-                                      
-                    
-
-                    if (model.PassportNumber != null)
-                    {
-                        string filenamePassport = model.PassportTitle;
-                        string extensionPassport = Path.GetExtension(model.PassportNumber.FileName);
-                        filenamePassport = Path.Combine(Server.MapPath("~/Attachments/"), filenamePassport + extensionPassport);
-                        model.PassportNumber.SaveAs(filenamePassport);
-                        filenamePassport = model.PassportTitle + extensionPassport;
-                        AttachObj.PassportNumber = filenamePassport;
-
-                        AttachObj.Date = DateTime.Now.Date;
-
-                        Db.Attachments.Add(AttachObj);
-                        Db.SaveChanges();
-                    }
-
-                    if (model.LastCertificate != null)
-                    {
-                        string filenameLastCertificate = model.LastCertTitle;
-                        string extensionLastCertificate = Path.GetExtension(model.LastCertificate.FileName);
-                        filenameLastCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameLastCertificate + extensionLastCertificate);
-                        model.LastCertificate.SaveAs(filenameLastCertificate);
-                        filenameLastCertificate = model.LastCertTitle + extensionLastCertificate;
-                        AttachObj.LastCertificate = filenameLastCertificate;
-
-                        AttachObj.Date = DateTime.Now.Date;
-
-                        Db.Attachments.Add(AttachObj);
-                        Db.SaveChanges();
-
-                    }
-
-                    if (model.ImageUrl != null)
-                    {
-                        string filenameImage = model.ImageTitle;
-                        string extensionImage = Path.GetExtension(model.ImageUrl.FileName);
-                        filenameImage = Path.Combine(Server.MapPath("~/Attachments/"), filenameImage + extensionImage);
-                        model.ImageUrl.SaveAs(filenameImage);
-                        filenameImage = model.ImageTitle + extensionImage;
-                        AttachObj.ImageUrl = filenameImage;
-
-                        AttachObj.Date = DateTime.Now.Date;
-
-                        Db.Attachments.Add(AttachObj);
-                        Db.SaveChanges();
-                    }
-                    
-                    if (model.NationalId != null || model.PassportNumber != null || model.LastCertificate != null || model.ImageUrl != null)
-                    {
-                        
                     }
 
                     
@@ -211,11 +140,8 @@ namespace HRSystem.Controllers
                     empObj.DepartmentNo = model.IdDepartment;
                     empObj.PositionNo = model.IdPosition;
                     empObj.FunctionalNumber = Convert.ToInt32(model.FunctionalNumber);
-                    if (model.NationalId != null || model.PassportNumber != null || model.LastCertificate != null || model.ImageUrl != null)
-                    {
-                        empObj.AttachmentNo = AttachObj.Id;
-                    }
-                      
+                    
+
                     if (model.BankName != null)
                     {
                         empObj.BankNo = BankObj.Id;
@@ -228,65 +154,113 @@ namespace HRSystem.Controllers
                     Db.Employees.Add(empObj);
                     Db.SaveChanges();
 
+                    //insert into emergency contact table
                     /*
-                    //insert into users
-                    UserObj.Email = model.EmailAspNetUser;
-                    UserObj.UserName = null; // "null";
-                     serObj.PasswordHash = Encrypt(model.PasswordHash);
-                    Guid GuIdObj = Guid.NewGuid();
-                    UserObj.Id = GuIdObj.ToString();
-                    UserObj.IsDeleted = false;
-                    UserObj.EmpNo = empObj.Id;
+                    EmgObj.EmpNo = empObj.Id;
+                    EmgObj.Name = model.NameOfSibling;
+                    EmgObj.Mobile = model.MobileEmergencyContact;
+                    EmgObj.RelationshipTypeNo = model.IdRelationship;
+                    EmgObj.Type = model.Other;
 
-                    Db.AspNetUsers.Add(UserObj);
-                    Db.SaveChanges();
-                    */
+                    Db.EmergencyContacts.Add(EmgObj);
+                    Db.SaveChanges();*/
 
-                    if (model.TrainingCertificateUrl != null)
+                    if (Request.Form["MySiblingsHidden"] != "")
                     {
-                        //insert into training certificate table
 
-                        string filenameTrainingCertificate = model.TrainingCertificateName;
-                        string extensionTrainingCertificate = Path.GetExtension(model.TrainingCertificateUrl.FileName);
-                        filenameTrainingCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameTrainingCertificate + extensionTrainingCertificate);
-                        model.TrainingCertificateUrl.SaveAs(filenameTrainingCertificate);
-                        filenameTrainingCertificate = model.TrainingCertificateName + extensionTrainingCertificate;
-
-
-                        TCertificateObj.EmployeeNo = empObj.Id;
-                        TCertificateObj.TrainingCertificateName = model.TrainingCertificateName;
-                        TCertificateObj.TrainingCertificateUrl = filenameTrainingCertificate;
-                        TCertificateObj.Date = DateTime.Now.Date;
-
-                        Db.TrainingCertificates.Add(TCertificateObj);
-                        Db.SaveChanges();
-
-                        //upload multiple training certificate
+                        //insert into attachment table
                         var counter = Convert.ToInt32(Request.Form["count"]);
 
-                        TrainingCertificate tc = new TrainingCertificate();
+                        //Attachment tc = new Attachment();
                         if (counter != 1)
                         {
                             for (int i = 1; i < counter; i++)
                             {
-                                string AdditionalFilenameTrainingCertificate = Request.Form["InputText" + i];
-                                HttpPostedFileBase AdditionalUploadedFileTrainingCertificate = Request.Files["UploadFile" + i];
-                                string AdditonalExtensionTrainingCertificate = Path.GetExtension(AdditionalUploadedFileTrainingCertificate.FileName);
-                                AdditionalFilenameTrainingCertificate = Path.Combine(Server.MapPath("~/Attachments/"), AdditionalFilenameTrainingCertificate + AdditonalExtensionTrainingCertificate);
+                                string NameOfSibling = Request.Form["NameOfSibling" + i];
+                                int ValueOfSibling = Convert.ToInt32(Request.Form["ValueOfSibling" + i]);
+                                string MobileEmergencyContact = Request.Form["MobileEmergencyContact" + i];
+                                string Other = "";
 
-                                AdditionalUploadedFileTrainingCertificate.SaveAs(AdditionalFilenameTrainingCertificate);
-                                AdditionalFilenameTrainingCertificate = Request.Form["InputText" + i] + AdditonalExtensionTrainingCertificate;
-
-
-
-                                Db.TrainingCertificates.Add(new TrainingCertificate
+                                if (ValueOfSibling == 7)
                                 {
-                                    EmployeeNo = empObj.Id,
-                                    TrainingCertificateName = Request.Form["InputText" + i],
-                                    TrainingCertificateUrl = AdditionalFilenameTrainingCertificate,
-
+                                    Other = Request.Form["Other" + i];
+                                }
+                               else
+                                {
+                                    Other = null;
+                                }
+                                
+                                Db.EmergencyContacts.Add(new EmergencyContact
+                                {
+                                    EmpNo = empObj.Id,
+                                    Name = NameOfSibling,
+                                    Mobile = MobileEmergencyContact,
+                                    RelationshipTypeNo = ValueOfSibling,
+                                    Type = Other,
                                 });
                                 Db.SaveChanges();
+
+                            }
+                        }
+                    }
+
+
+
+                    if (Request.Form["MyAttachmentHidden"] != "")
+                    {
+                        
+                        //insert into attachment table
+                        var counter = Convert.ToInt32(Request.Form["count"]);
+
+                        //Attachment tc = new Attachment();
+                        if (counter != 1)
+                        {
+                            for (int i = 1; i < counter; i++)
+                            {
+                                var Expirationdate = Request.Form["InputText" + i];
+                                var x = Convert.ToDateTime(Expirationdate);
+                                int ValueOfAttachment = Convert.ToInt32(Request.Form["ValueOfAttachment" + i]) ;
+                                HttpPostedFileBase UploadedFile = Request.Files["UploadFile" + i];
+                                //string UploadedFileExtension = Path.GetExtension(UploadedFile.FileName);
+                                var path = Path.Combine(Server.MapPath("~/Attachments/"), UploadedFile.FileName);
+
+                                UploadedFile.SaveAs(path);
+                                // AdditionalFilenameTrainingCertificate = Request.Form["InputText" + i] + AdditonalExtensionTrainingCertificate;
+
+                                if (Expirationdate == null)
+                                {
+                                    Db.Attachments.Add(new Attachment
+                                    {
+                                        EmpNo = empObj.Id,
+                                        Name = UploadedFile.FileName,
+                                        Path = path,
+                                        TypeOfAttachmentNo = ValueOfAttachment,
+                                        ExpirationDate = null,
+                                        IsExpired = null,
+                                        IsDeleted = false,
+                                        Date = DateTime.Now.Date
+
+                                    });
+                                    Db.SaveChanges();
+                                }
+
+                                else
+                                {
+                                    Db.Attachments.Add(new Attachment
+                                    {
+                                        EmpNo = empObj.Id,
+                                        Name = UploadedFile.FileName,
+                                        Path = path,
+                                        TypeOfAttachmentNo = ValueOfAttachment,
+                                        ExpirationDate = x,
+                                        IsExpired = null,
+                                        IsDeleted = false,
+                                        Date = DateTime.Now.Date
+
+                                    });
+                                    Db.SaveChanges();
+                                }
+                                
 
                             }
                         }
@@ -314,18 +288,25 @@ namespace HRSystem.Controllers
                     // throw raise;
                     ModelState.Clear();
                     ViewBag.Department = Db.Departments.ToList();
+                    ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
+                    ViewBag.RelationshipType = Db.RelationshipTypes/*.OrderBy(x => (IsArabic == true ? x.RelationAr : x.RelationEn))*/.ToList();
+
                     return View();
                 }
-                
+
             }
-           
+
+            ModelState.Clear();
             ViewBag.Department = Db.Departments.ToList();
+            ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
+            ViewBag.RelationshipType = Db.RelationshipTypes.OrderBy(x => x.Id).ToList();
+
             return View();
 
 
         }
 
-        // GET: Edit/
+        //GET: Edit/
         public ActionResult Edit(string id, string employee, FormCollection Fc)
         {
 
@@ -335,322 +316,320 @@ namespace HRSystem.Controllers
                 return RedirectToAction("Index");
             }
             VMAddEmployee model = new VMAddEmployee();
-           
+            ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
+            ViewBag.RelationshipType = Db.RelationshipTypes/*.OrderBy(x => (IsArabic == true ? x.RelationAr : x.RelationEn))*/.ToList();
             ViewBag.Department = Db.Departments.ToList();
             var depno = Db.Employees.Where(e => e.Id == id).Select(s => s.DepartmentNo).FirstOrDefault();
             ViewBag.Position = Db.Positions.Where(p => p.DepartmentNo == depno);
-            ViewBag.TrainingCertificate = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
-            var AttachmentNo = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
-            ViewBag.Attachment = Db.Attachments.Where(x => x.Id == AttachmentNo).ToList();
-            ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo).Count();
-            ViewBag.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
+           // ViewBag.TrainingCertificate = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
+           // var AttachmentNo = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
+            ViewBag.Attachment = Db.Attachments.Where(x => x.EmpNo == id).ToList();
+            ViewBag.att = Db.Attachments.Where(x => x.EmpNo == id).Count();
+          //  ViewBag.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
             string empname = Request.QueryString["employee"];
             ViewBag.EmployeeName = empname;
             Fc[model.FirstName] = empObj.FirstName;
+
+           
+                model = Db.Employees.Where(x => x.Id == id)
+               .Select(y => new VMAddEmployee
+               {
+                   FirstName = y.FirstName,
+                   LastName = y.LastName,
+                   EmailEmployee = y.Email,
+                   Address = y.Address,
+                   FunctionalNumber = y.FunctionalNumber,
+                   Mobile1 = y.Mobile1,
+                   EmergencyContactList = y.EmergencyContacts.ToList(),
+                   AttachmentList = y.Attachments.ToList(),
+                   StartDate = y.StartDate,
+                   IdDepartment = y.Department.Id,
+                   IdPosition = y.Position.Id,
+                   BasicSalary = y.Salary.BasicSalary,
+                   AccountNumber = y.BankAccount.AccountNumber,
+                   BankName = y.BankAccount.BankName,
+                   BankBranch = y.BankAccount.BankBranch,
+
+               }).FirstOrDefault();
+
             
-            if (AttachmentNo == null)
-            {
-                model = Db.Employees.Where(x => x.Id == id)
-               .Select(y => new VMAddEmployee
-               {
-                   FirstName = y.FirstName,
-                   LastName = y.LastName,
-                   EmailEmployee = y.Email,
-                   Address = y.Address,
-                   FunctionalNumber = y.FunctionalNumber,
-                   Mobile1 = y.Mobile1,
-                  // EmpAttachment = y.Attachment,
-                   TrainingCertificateList = y.TrainingCertificates.ToList(),
-                   StartDate = y.StartDate,
-                   IdDepartment = y.Department.Id,
-                   IdPosition = y.Position.Id,
-                   BasicSalary = y.Salary.BasicSalary,
-                   AccountNumber = y.BankAccount.AccountNumber,
-                   BankName = y.BankAccount.BankName,
-                   BankBranch = y.BankAccount.BankBranch,
-
-               }).FirstOrDefault();
-            }
-            else
-            {
-                model = Db.Employees.Where(x => x.Id == id)
-               .Select(y => new VMAddEmployee
-               {
-                   FirstName = y.FirstName,
-                   LastName = y.LastName,
-                   EmailEmployee = y.Email,
-                   Address = y.Address,
-                   FunctionalNumber = y.FunctionalNumber,
-                   Mobile1 = y.Mobile1,
-                   EmpAttachment = y.Attachment,
-                   TrainingCertificateList = y.TrainingCertificates.ToList(),
-                   StartDate = y.StartDate,
-                   IdDepartment = y.Department.Id,
-                   IdPosition = y.Position.Id,
-                   BasicSalary = y.Salary.BasicSalary,
-                   AccountNumber = y.BankAccount.AccountNumber,
-                   BankName = y.BankAccount.BankName,
-                   BankBranch = y.BankAccount.BankBranch,
-
-               }).FirstOrDefault();
-            }
-
 
             return View(model);
         }
 
 
-        // POST: /Edit/
+        //POST: /Edit/
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(string id, VMAddEmployee model)
-        {
-            model.IdEmployee = id;
-            
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    ViewBag.Department = Db.Departments.ToList();
-                    ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
-                    var BankNo = Db.Employees.Where(e => e.Id == id).Select(x => x.BankNo).FirstOrDefault();
-                    model.SalaryNoEmployee = Db.Employees.Where(e => e.Id == id).Select(x => x.SalaryNo).FirstOrDefault();
-                    // model.PhoneNo = Db.Employees.Where(e => e.Id == id).Select(x => x.PhoneNo).FirstOrDefault();
-                    model.AttachmentNo = Db.Employees.Where(e => e.Id == id).Select(x => (int)x.AttachmentNo).FirstOrDefault();
-                    ViewBag.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
-                    var tr = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
-                    model.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
-                   // var HasBankAccount = Db.Employees.Where(b => b.BankNo == BankNo).ToList();
-                    ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
-                    var b = Db.BankAccounts.Where(x => x.Id == BankNo);
+        //  more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(string id, VMAddEmployee model)
+        //{
+        //    model.IdEmployee = id;
 
-                    int NoOfRowsInBankTable = Db.BankAccounts.Count();
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            ViewBag.Department = Db.Departments.ToList();
+        //            ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
+        //            var BankNo = Db.Employees.Where(e => e.Id == id).Select(x => x.BankNo).FirstOrDefault();
+        //            model.SalaryNoEmployee = Db.Employees.Where(e => e.Id == id).Select(x => x.SalaryNo).FirstOrDefault();
+        //            // model.PhoneNo = Db.Employees.Where(e => e.Id == id).Select(x => x.PhoneNo).FirstOrDefault();
+        //            model.AttachmentNo = Db.Employees.Where(e => e.Id == id).Select(x => (int)x.AttachmentNo).FirstOrDefault();
+        //            ViewBag.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
+        //            var tr = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
+        //            model.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
+        //            // var HasBankAccount = Db.Employees.Where(b => b.BankNo == BankNo).ToList();
+        //            ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
+        //            var b = Db.BankAccounts.Where(x => x.Id == BankNo);
 
-                    Salary salary = new Salary()
-                    {
-                        Id = (int)model.SalaryNoEmployee,
-                        BasicSalary = model.BasicSalary,
+        //            int NoOfRowsInBankTable = Db.BankAccounts.Count();
 
-                    };
-                    if (BankNo != null && model.AccountNumber == null)
-                    {
-                        /*
-                        BankAccount bank = new BankAccount()
-                        {
-                            
-                           // Id = (int)BankNo,
-                           // BankBranch = b.BankBranch,
-                           // BankName = model.BankName,
-                           // AccountNumber = model.AccountNumber,
-                           IsDeleted = true
-                        };
-                        Db.Entry(bank).State = EntityState.Modified;b*/
-                        ViewBag.MessageException = string.Format("YOU CANNOT DELETE BANK ACCOUNT!", "Index");
-                        return View(model);
-                    }
-                    else if (model.AccountNumber != null)
-                    {
-                        BankAccount bank = new BankAccount()
-                        {
-                            //Id = (int)/*model.*/BankNo, NoOfRowsInBankTable++,
-                            Id = NoOfRowsInBankTable++,
-                            BankBranch = model.BankBranch,
-                            BankName = model.BankName,
-                            AccountNumber = model.AccountNumber,
-                        };
-                        Db.Entry(bank).State = EntityState.Modified;
+        //            Salary salary = new Salary()
+        //            {
+        //                Id = (int)model.SalaryNoEmployee,
+        //                BasicSalary = model.BasicSalary,
 
-                        Employee employee = new Employee()
-                        {
-                            Id = model.IdEmployee,
-                            FirstName = model.FirstName,
-                            LastName = model.LastName,
-                            Email = model.EmailEmployee,
-                            Mobile1 = model.Mobile1,
-                            Address = model.Address,
-                            DepartmentNo = model.IdDepartment,
-                            PositionNo = model.IdPosition,
-                            FunctionalNumber = model.FunctionalNumber,
-                            AttachmentNo = model.AttachmentNo,
-                            BankNo = bank.Id,
-                            SalaryNo = salary.Id,
-                            StartDate = model.StartDate,
+        //            };
+        //            if (BankNo != null && model.AccountNumber == null)
+        //            {
+        //                /*
+        //                BankAccount bank = new BankAccount()
+        //                {
 
-                        };
-                        Db.Entry(employee).State = EntityState.Modified;
-                    }
-                    else
-                    {
-                        Employee employee = new Employee()
-                        {
-                            Id = model.IdEmployee,
-                            FirstName = model.FirstName,
-                            LastName = model.LastName,
-                            Email = model.EmailEmployee,
-                            Mobile1 = model.Mobile1,
-                            Address = model.Address,
-                            DepartmentNo = model.IdDepartment,
-                            PositionNo = model.IdPosition,
-                            FunctionalNumber = model.FunctionalNumber,
-                            AttachmentNo = model.AttachmentNo,
-                            // BankNo = bank.Id,
-                            SalaryNo = salary.Id,
-                            StartDate = model.StartDate,
+        //                   // Id = (int)BankNo,
+        //                   // BankBranch = b.BankBranch,
+        //                   // BankName = model.BankName,
+        //                   // AccountNumber = model.AccountNumber,
+        //                   IsDeleted = true
+        //                };
+        //                Db.Entry(bank).State = EntityState.Modified;b*/
+        //                ViewBag.MessageException = string.Format("YOU CANNOT DELETE BANK ACCOUNT!", "Index");
+        //                return View(model);
+        //            }
+        //            else if (model.AccountNumber != null)
+        //            {
+        //                BankAccount bank = new BankAccount()
+        //                {
+        //                    //Id = (int)/*model.*/BankNo, NoOfRowsInBankTable++,
+        //                    Id = NoOfRowsInBankTable++,
+        //                    BankBranch = model.BankBranch,
+        //                    BankName = model.BankName,
+        //                    AccountNumber = model.AccountNumber,
+        //                };
+        //                Db.Entry(bank).State = EntityState.Modified;
 
-                        };
-                        Db.Entry(employee).State = EntityState.Modified;
-                    }
-                    
+        //                Employee employee = new Employee()
+        //                {
+        //                    Id = model.IdEmployee,
+        //                    FirstName = model.FirstName,
+        //                    LastName = model.LastName,
+        //                    Email = model.EmailEmployee,
+        //                    Mobile1 = model.Mobile1,
+        //                    Address = model.Address,
+        //                    DepartmentNo = model.IdDepartment,
+        //                    PositionNo = model.IdPosition,
+        //                    FunctionalNumber = model.FunctionalNumber,
+        //                    AttachmentNo = model.AttachmentNo,
+        //                    BankNo = bank.Id,
+        //                    SalaryNo = salary.Id,
+        //                    StartDate = model.StartDate,
 
-                    string filenameNId = Request.Form["NIdTitle"];
+        //                };
+        //                Db.Entry(employee).State = EntityState.Modified;
+        //            }
+        //            else
+        //            {
+        //                Employee employee = new Employee()
+        //                {
+        //                    Id = model.IdEmployee,
+        //                    FirstName = model.FirstName,
+        //                    LastName = model.LastName,
+        //                    Email = model.EmailEmployee,
+        //                    Mobile1 = model.Mobile1,
+        //                    Address = model.Address,
+        //                    DepartmentNo = model.IdDepartment,
+        //                    PositionNo = model.IdPosition,
+        //                    FunctionalNumber = model.FunctionalNumber,
+        //                    AttachmentNo = model.AttachmentNo,
+        //                    // BankNo = bank.Id,
+        //                    SalaryNo = salary.Id,
+        //                    StartDate = model.StartDate,
 
-                    if (!Request.Files["NIDFile"].FileName.Equals(""))
-                    {
-                        HttpPostedFileBase NationalIdFile = Request.Files["NIDFile"];
-                        string extensionNId = Path.GetExtension(NationalIdFile.FileName);
-                        filenameNId = Path.Combine(Server.MapPath("~/Attachments/"), filenameNId + extensionNId);
-                        NationalIdFile.SaveAs(filenameNId);
-                        filenameNId = Request.Form["NIdTitle"] + extensionNId;
-                        model.EmpAttachment.NationalId = Request.Form["NIdTitle"] + extensionNId;
-                    }
-
-                    string filenamePassport = Request.Form["PassportTitle"];
-
-                    if (!Request.Files["PassportFile"].FileName.Equals(""))
-                    {
-                        HttpPostedFileBase PassportNumberFile = Request.Files["PassportFile"];
-                        string extensionPassport = Path.GetExtension(PassportNumberFile.FileName);
-                        filenamePassport = Path.Combine(Server.MapPath("~/Attachments/"), filenamePassport + extensionPassport);
-                        PassportNumberFile.SaveAs(filenamePassport);
-                        filenamePassport = Request.Form["PassportTitle"] + extensionPassport;
-                        model.EmpAttachment.PassportNumber = Request.Form["PassportTitle"] + extensionPassport;
-                    }
-                    string filenameLastCertificate = Request.Form["LastCertificateTitle"];
-
-                    if (!Request.Files["LastCertificateFile"].FileName.Equals(""))
-                    {
-                        HttpPostedFileBase LastCertificateFile = Request.Files["LastCertificateFile"];
-                        string extensionLastCertificate = Path.GetExtension(LastCertificateFile.FileName);
-                        filenameLastCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameLastCertificate + extensionLastCertificate);
-                        LastCertificateFile.SaveAs(filenameLastCertificate);
-                        filenameLastCertificate = Request.Form["LastCertificateTitle"] + extensionLastCertificate;
-                        model.EmpAttachment.LastCertificate = Request.Form["LastCertificateTitle"] + extensionLastCertificate;
-                    }
-                    string filenameImageUrl = Request.Form["ImageTitle"];
-
-                    if (!Request.Files["ImageFile"].FileName.Equals(""))
-                    {
-                        HttpPostedFileBase ImageFile = Request.Files["ImageFile"];
-                        string extensionImageUrl = Path.GetExtension(ImageFile.FileName);
-                        filenameImageUrl = Path.Combine(Server.MapPath("~/Attachments/"), filenameImageUrl + extensionImageUrl);
-                        ImageFile.SaveAs(filenameImageUrl);
-                        filenameImageUrl = Request.Form["ImageTitle"] + extensionImageUrl;
-                        model.EmpAttachment.ImageUrl = Request.Form["ImageTitle"] + extensionImageUrl;
-                    }
-                    Attachment attach = new Attachment()
-                    {
-                        Id = (int)model.AttachmentNo,
-                        NationalId = model.EmpAttachment.NationalId,
-                        PassportNumber = model.EmpAttachment.PassportNumber,
-                        LastCertificate = model.EmpAttachment.LastCertificate,
-                        ImageUrl = model.EmpAttachment.ImageUrl,
-                    };
-
-                    Db.Entry(salary).State = EntityState.Modified;
-                    Db.Entry(attach).State = EntityState.Modified;
-                    Db.Entry(salary).State = EntityState.Modified;
-                    Db.Entry(attach).State = EntityState.Modified;
-                    Db.SaveChanges();
-
-                    // var counter = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).Count();
-
-                    TrainingCertificate tc = new TrainingCertificate();
-                    int i = 1;
-                    foreach (var item in tr)
-                    {
-
-                        string filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i];
-                        if (!Request.Files["TrainingCertificateFile" + i].FileName.Equals(""))
-                        {
-                            HttpPostedFileBase AdditionalUploadedFileTrainingCertificate = Request.Files["TrainingCertificateFile" + i];
-                            string AdditonalExtensionTrainingCertificate = Path.GetExtension(AdditionalUploadedFileTrainingCertificate.FileName);
-                            filenameTrainingCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameTrainingCertificate + AdditonalExtensionTrainingCertificate);
-                            AdditionalUploadedFileTrainingCertificate.SaveAs(filenameTrainingCertificate);
-                            filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i] + AdditonalExtensionTrainingCertificate;
-                            model.TrainingCertificateName = filenameTrainingCertificate;
+        //                };
+        //                Db.Entry(employee).State = EntityState.Modified;
+        //            }
 
 
-                            tc = Db.TrainingCertificates.Find(item.Id);
-                            tc.TrainingCertificateName = model.TrainingCertificateName;
-                            tc.TrainingCertificateUrl = model.TrainingCertificateName;
+        //            string filenameNId = Request.Form["NIdTitle"];
 
-                            Db.Entry(tc).State = EntityState.Modified;
-                            Db.SaveChanges();
+        //            if (!Request.Files["NIDFile"].FileName.Equals(""))
+        //            {
+        //                HttpPostedFileBase NationalIdFile = Request.Files["NIDFile"];
+        //                string extensionNId = Path.GetExtension(NationalIdFile.FileName);
+        //                filenameNId = Path.Combine(Server.MapPath("~/Attachments/"), filenameNId + extensionNId);
+        //                NationalIdFile.SaveAs(filenameNId);
+        //                filenameNId = Request.Form["NIdTitle"] + extensionNId;
+        //                model.EmpAttachment.NationalId = Request.Form["NIdTitle"] + extensionNId;
+        //            }
 
-                            i++;
+        //            string filenamePassport = Request.Form["PassportTitle"];
 
-                        };
-                    }
-                    //Db.SaveChanges();
+        //            if (!Request.Files["PassportFile"].FileName.Equals(""))
+        //            {
+        //                HttpPostedFileBase PassportNumberFile = Request.Files["PassportFile"];
+        //                string extensionPassport = Path.GetExtension(PassportNumberFile.FileName);
+        //                filenamePassport = Path.Combine(Server.MapPath("~/Attachments/"), filenamePassport + extensionPassport);
+        //                PassportNumberFile.SaveAs(filenamePassport);
+        //                filenamePassport = Request.Form["PassportTitle"] + extensionPassport;
+        //                model.EmpAttachment.PassportNumber = Request.Form["PassportTitle"] + extensionPassport;
+        //            }
+        //            string filenameLastCertificate = Request.Form["LastCertificateTitle"];
 
-                    ViewBag.Department = Db.Departments.ToList();
-                    ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
-                    ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
+        //            if (!Request.Files["LastCertificateFile"].FileName.Equals(""))
+        //            {
+        //                HttpPostedFileBase LastCertificateFile = Request.Files["LastCertificateFile"];
+        //                string extensionLastCertificate = Path.GetExtension(LastCertificateFile.FileName);
+        //                filenameLastCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameLastCertificate + extensionLastCertificate);
+        //                LastCertificateFile.SaveAs(filenameLastCertificate);
+        //                filenameLastCertificate = Request.Form["LastCertificateTitle"] + extensionLastCertificate;
+        //                model.EmpAttachment.LastCertificate = Request.Form["LastCertificateTitle"] + extensionLastCertificate;
+        //            }
+        //            string filenameImageUrl = Request.Form["ImageTitle"];
 
-                    ViewBag.Message = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
-                    ModelState.Clear();
-                    return View(model);
-                }
-                
-                catch (DbEntityValidationException ee)
-                {
-                    Exception raise = ee;
-                    foreach (var eve in ee.EntityValidationErrors)
-                    {
+        //            if (!Request.Files["ImageFile"].FileName.Equals(""))
+        //            {
+        //                HttpPostedFileBase ImageFile = Request.Files["ImageFile"];
+        //                string extensionImageUrl = Path.GetExtension(ImageFile.FileName);
+        //                filenameImageUrl = Path.Combine(Server.MapPath("~/Attachments/"), filenameImageUrl + extensionImageUrl);
+        //                ImageFile.SaveAs(filenameImageUrl);
+        //                filenameImageUrl = Request.Form["ImageTitle"] + extensionImageUrl;
+        //                model.EmpAttachment.ImageUrl = Request.Form["ImageTitle"] + extensionImageUrl;
+        //            }
+        //            Attachment attach = new Attachment()
+        //            {
+        //                Id = (int)model.AttachmentNo,
+        //                NationalId = model.EmpAttachment.NationalId,
+        //                PassportNumber = model.EmpAttachment.PassportNumber,
+        //                LastCertificate = model.EmpAttachment.LastCertificate,
+        //                ImageUrl = model.EmpAttachment.ImageUrl,
+        //            };
 
-                        string message = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            message += string.Format("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                        
-                        // raise a new exception nesting
-                        // the current instance as InnerException
-                        raise = new InvalidOperationException(message, raise);
+        //            Db.Entry(salary).State = EntityState.Modified;
+        //            Db.Entry(attach).State = EntityState.Modified;
+        //            Db.Entry(salary).State = EntityState.Modified;
+        //            Db.Entry(attach).State = EntityState.Modified;
+        //            Db.SaveChanges();
 
-                    }
-                    ViewBag.MessageError = raise.Message;
-                    ViewBag.Department = Db.Departments.ToList();
-                    ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
-                    var AttachmentNo = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
-                    ViewBag.Attachment = Db.Attachments.Where(x => x.Id == AttachmentNo).ToList();
-                    ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo).Count();
-                    //return RedirectToAction("Edit");
-                    return View(model);
-                }
-               
+        //            // var counter = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).Count();
 
-            }
-            ViewBag.Department = Db.Departments.ToList();
-            ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
-            var AttachmentNo1 = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
-            ViewBag.Attachment = Db.Attachments.Where(x => x.Id == AttachmentNo1).ToList();
-            ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo1).Count();
-            //return RedirectToAction("Edit");
-            return View(model);
+        //            TrainingCertificate tc = new TrainingCertificate();
+        //            int i = 1;
+        //            foreach (var item in tr)
+        //            {
 
-        }
+        //                string filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i];
+        //                if (!Request.Files["TrainingCertificateFile" + i].FileName.Equals(""))
+        //                {
+        //                    HttpPostedFileBase AdditionalUploadedFileTrainingCertificate = Request.Files["TrainingCertificateFile" + i];
+        //                    string AdditonalExtensionTrainingCertificate = Path.GetExtension(AdditionalUploadedFileTrainingCertificate.FileName);
+        //                    filenameTrainingCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameTrainingCertificate + AdditonalExtensionTrainingCertificate);
+        //                    AdditionalUploadedFileTrainingCertificate.SaveAs(filenameTrainingCertificate);
+        //                    filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i] + AdditonalExtensionTrainingCertificate;
+        //                    model.TrainingCertificateName = filenameTrainingCertificate;
 
-        // GET: /Details/
+
+        //                    tc = Db.TrainingCertificates.Find(item.Id);
+        //                    tc.TrainingCertificateName = model.TrainingCertificateName;
+        //                    tc.TrainingCertificateUrl = model.TrainingCertificateName;
+
+        //                    Db.Entry(tc).State = EntityState.Modified;
+        //                    Db.SaveChanges();
+
+        //                    i++;
+
+        //                };
+        //            }
+        //            //Db.SaveChanges();
+
+        //            ViewBag.Department = Db.Departments.ToList();
+        //            ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
+        //            ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
+
+        //            ViewBag.Message = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
+        //            ModelState.Clear();
+        //            return View(model);
+        //        }
+
+        //        catch (DbEntityValidationException ee)
+        //        {
+        //            Exception raise = ee;
+        //            foreach (var eve in ee.EntityValidationErrors)
+        //            {
+
+        //                string message = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+        //                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+        //                foreach (var ve in eve.ValidationErrors)
+        //                {
+        //                    message += string.Format("- Property: \"{0}\", Error: \"{1}\"",
+        //                        ve.PropertyName, ve.ErrorMessage);
+        //                }
+
+        //                // raise a new exception nesting
+        //                // the current instance as InnerException
+        //                raise = new InvalidOperationException(message, raise);
+
+        //            }
+        //            ViewBag.MessageError = raise.Message;
+        //            ViewBag.Department = Db.Departments.ToList();
+        //            ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
+        //            var AttachmentNo = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
+        //            ViewBag.Attachment = Db.Attachments.Where(x => x.Id == AttachmentNo).ToList();
+        //            ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo).Count();
+        //            //return RedirectToAction("Edit");
+        //            return View(model);
+        //        }
+
+
+        //    }
+        //    ViewBag.Department = Db.Departments.ToList();
+        //    ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
+        //    var AttachmentNo1 = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
+        //    ViewBag.Attachment = Db.Attachments.Where(x => x.Id == AttachmentNo1).ToList();
+        //    ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo1).Count();
+        //    //return RedirectToAction("Edit");
+        //    return View(model);
+
+        //}
+
+        //GET: /Details/
         [HttpGet]
         public ActionResult Details(string id)
         {
+            VMAddEmployee model = new VMAddEmployee();
+            var attachments = Db.Attachments.Where(x => x.EmpNo == id).ToList();
 
-            ViewBag.TC = Db.TrainingCertificates.Where(x => x.EmployeeNo == id).ToList();
+            model = Db.Employees.Where(x => x.Id == id)
+             .Select(y => new VMAddEmployee
+             {
+                 FirstName = y.FirstName,
+                 LastName = y.LastName,
+                 EmailEmployee = y.Email,
+                 Address = y.Address,
+                 FunctionalNumber = y.FunctionalNumber,
+                 Mobile1 = y.Mobile1,
+                 AttachmentList = y.Attachments.ToList(),
+                 StartDate = y.StartDate,
+                 IdDepartment = y.Department.Id,
+                 IdPosition = y.Position.Id,
+                 BasicSalary = y.Salary.BasicSalary,
+                 AccountNumber = y.BankAccount.AccountNumber,
+                 BankName = y.BankAccount.BankName,
+                 BankBranch = y.BankAccount.BankBranch,
+                 EmergencyContactList = y.EmergencyContacts.ToList()
+
+             }).FirstOrDefault();
 
             if (id == null)
             {
@@ -658,7 +637,7 @@ namespace HRSystem.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(Db.Employees.Where(x => x.Id == id));
+            return View(model);
         }
        
         [HttpPost]

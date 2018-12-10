@@ -25,10 +25,14 @@ namespace HRSystem.Models
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "Mobile")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?((0){1})\)?[-. ]?((1|9){1})[-. ]?([0-9]{8})$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "MobileValidation")]
         public string Mobile1 { get; set; }
 
         
         [Display(ResourceType = typeof(NubiHR), Name = "Mobile2")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?((0){1})\)?[-. ]?((1|9){1})[-. ]?([0-9]{8})$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "MobileValidation")]
         public string Mobile2 { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
@@ -91,67 +95,27 @@ namespace HRSystem.Models
 
 
 
-        //training certificate table
-        
-        
-        public int IdTrainingCertificate { get; set; }
-        public List<TrainingCertificate> TrainingCertificateList { get; set; }
-        public string EmployeeNoTrainingCertificate { get; set; }
-
-
-        [Display(ResourceType = typeof(NubiHR), Name = "TrainingCertificateTitle")]
-        public string TrainingCertificateName { get; set; }
-
-        [Display(ResourceType = typeof(NubiHR), Name = "TrainingCertificate")]
-        public HttpPostedFileBase TrainingCertificateUrl { get; set; }
-
-        public System.DateTime DateTrainingCertificate { get; set; }
-        public bool IsDeletedTrainingCertificate { get; set; }
-
-
-       
         //attachment table
-
+        
+        public List<Attachment> AttachmentList { get; set; }
         public int IdAttachment { get; set; }
         public Attachment EmpAttachment { get; set; }
-
-        [Display(ResourceType = typeof(NubiHR), Name = "NationalIDTitle")]
-
-        //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
-        public string NIdTitle { get; set; }
-
-        //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(NubiHR), Name = "NationalID")]
+        [Display(ResourceType = typeof(NubiHR), Name = "Name")]
         //[FileExtensions("jpg,jpeg,png")]
-       // [DataType(DataType.Upload)]
-        public HttpPostedFileBase NationalId { get; set; }
+        // [DataType(DataType.Upload)]
+        public HttpPostedFileBase Name { get; set; }
+        
 
-
-        [Display(ResourceType = typeof(NubiHR), Name = "PassportTitle")]
-        public string PassportTitle { get; set; }
-
-        [Display(ResourceType = typeof(NubiHR), Name = "PassportNumber")]
-        public HttpPostedFileBase PassportNumber { get; set; }
-
-        [Display(ResourceType = typeof(NubiHR), Name = "LastCertificateTitle")]
-        public string LastCertTitle { get; set; }
-
-        [Display(ResourceType = typeof(NubiHR), Name = "LastCertificate")]
-        public HttpPostedFileBase LastCertificate { get; set; }
+        [Display(ResourceType = typeof(NubiHR), Name = "ExpirationDate")]
 
         //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(NubiHR), Name = "ImageTitle")]
-        public string ImageTitle { get; set; }
-
-        [Display(ResourceType = typeof(NubiHR), Name = "Image")]
-        //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
-        public HttpPostedFileBase ImageUrl { get; set; }
+        public System.DateTime ExpirationDate { get; set; }
+        public Nullable<bool> IsExpired { get; set; }
         
         public bool IsDeletedAttachment { get; set; }
         public System.DateTime DateAttachment { get; set; }
 
-        [Display(ResourceType = typeof(NubiHR), Name = "AttachmentType")]
-        public string AttachmentType { get; set; }
+        
 
 
 
@@ -184,8 +148,30 @@ namespace HRSystem.Models
         public int DepartmentNoPosition { get; set; }
         public string PositionNameEn { get; set; }
         public string PositionNameAr { get; set; }
-           
+
+
+        //TypesOfAttachment table
+
         
+        [Display(ResourceType = typeof(NubiHR), Name = "AttachmentType")]
+        public string AttachmentType { get; set; }
+
+        //emergency contact table
+        public List<EmergencyContact> EmergencyContactList { get; set; }
+
+        [Display(ResourceType = typeof(NubiHR), Name = "RelationshipType")]
+        public string IdRelationship { get; set; }
+
+        [Display(ResourceType = typeof(NubiHR), Name = "Name")]
+        public string NameOfSibling { get; set; }
+
+        [Display(ResourceType = typeof(NubiHR), Name = "Mobile")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?((0){1})\)?[-. ]?((1|9){1})[-. ]?([0-9]{8})$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "MobileValidation")]
+        public string MobileEmergencyContact { get; set; }
+
+        [Display(ResourceType = typeof(NubiHR), Name = "RelationshipType")]
+        public string Other { get; set; }
 
     }
 }

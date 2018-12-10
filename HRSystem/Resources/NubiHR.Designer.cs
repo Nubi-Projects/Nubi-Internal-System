@@ -79,11 +79,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add attachment type.
+        ///   Looks up a localized string similar to Add.
         /// </summary>
-        public static string AddAttachmentType {
+        public static string Add {
             get {
-                return ResourceManager.GetString("AddAttachmentType", resourceCulture);
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add attachment.
+        /// </summary>
+        public static string AddAttachment {
+            get {
+                return ResourceManager.GetString("AddAttachment", resourceCulture);
             }
         }
         
@@ -120,6 +129,15 @@ namespace Resources {
         public static string Address {
             get {
                 return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add siblings.
+        /// </summary>
+        public static string AddSiblings {
+            get {
+                return ResourceManager.GetString("AddSiblings", resourceCulture);
             }
         }
         
@@ -295,6 +313,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date is expired.
+        /// </summary>
+        public static string DateIsExpired {
+            get {
+                return ResourceManager.GetString("DateIsExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -363,6 +390,15 @@ namespace Resources {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emergency Contact.
+        /// </summary>
+        public static string EmergencyContact {
+            get {
+                return ResourceManager.GetString("EmergencyContact", resourceCulture);
             }
         }
         
@@ -439,6 +475,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expiration Date.
+        /// </summary>
+        public static string ExpirationDate {
+            get {
+                return ResourceManager.GetString("ExpirationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string FirstName {
@@ -498,6 +543,15 @@ namespace Resources {
         public static string ImageTitle {
             get {
                 return ResourceManager.GetString("ImageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is expired?.
+        /// </summary>
+        public static string IsExpired {
+            get {
+                return ResourceManager.GetString("IsExpired", resourceCulture);
             }
         }
         
@@ -592,11 +646,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please start with 0 (Length must be 10 digits).
+        /// </summary>
+        public static string MobileValidation {
+            get {
+                return ResourceManager.GetString("MobileValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Address During Vacation.
         /// </summary>
         public static string MyAddressDuringVacation {
             get {
                 return ResourceManager.GetString("MyAddressDuringVacation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -646,11 +718,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note.
+        ///   Looks up a localized string similar to NoRecordsFound.
+        /// </summary>
+        public static string NoRecordsFound {
+            get {
+                return ResourceManager.GetString("NoRecordsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NOTE: &apos;Remove&apos; operation will remove the last thing you added.
         /// </summary>
         public static string Note {
             get {
                 return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notes.
+        /// </summary>
+        public static string Notes {
+            get {
+                return ResourceManager.GetString("Notes", resourceCulture);
             }
         }
         
@@ -781,6 +871,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Relationship Type.
+        /// </summary>
+        public static string RelationshipType {
+            get {
+                return ResourceManager.GetString("RelationshipType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remember me?.
         /// </summary>
         public static string RememberMe {
@@ -790,11 +889,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove attachment type.
+        ///   Looks up a localized string similar to Remove attachment.
         /// </summary>
-        public static string RemoveAttachmentType {
+        public static string RemoveAttachment {
             get {
-                return ResourceManager.GetString("RemoveAttachmentType", resourceCulture);
+                return ResourceManager.GetString("RemoveAttachment", resourceCulture);
             }
         }
         
@@ -804,6 +903,15 @@ namespace Resources {
         public static string RemoveCertificate {
             get {
                 return ResourceManager.GetString("RemoveCertificate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove siblings.
+        /// </summary>
+        public static string RemoveSiblings {
+            get {
+                return ResourceManager.GetString("RemoveSiblings", resourceCulture);
             }
         }
         

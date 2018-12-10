@@ -12,15 +12,10 @@ namespace HRSystem.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TrainingCertificate
+    public partial class AspNetUserLogin
     {
-        public int Id { get; set; }
-        public string EmployeeNo { get; set; }
-        public string TrainingCertificateName { get; set; }
-        public string TrainingCertificateUrl { get; set; }
-        public System.DateTime Date { get; set; }
-        public bool IsDeleted { get; set; }
-    
-        public virtual Employee Employee { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     }
 }
