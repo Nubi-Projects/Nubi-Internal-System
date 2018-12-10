@@ -483,4 +483,7 @@
   <data name="DateIsExpired" xml:space="preserve">
     <value>تم انتهاء الصلاحية</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل خروج</value>
+  </data>
 </root>

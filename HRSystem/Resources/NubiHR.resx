@@ -435,8 +435,8 @@
   <data name="AddAttachment" xml:space="preserve">
     <value>Add attachment</value>
   </data>
-  <data name="RemoveAttachment" xml:space="preserve">
-    <value>Remove attachment</value>
+  <data name="RemoveAttachmentType" xml:space="preserve">
+    <value>Remove attachment type</value>
   </data>
   <data name="AlternativeEmp" xml:space="preserve">
     <value>Alternative Emp</value>

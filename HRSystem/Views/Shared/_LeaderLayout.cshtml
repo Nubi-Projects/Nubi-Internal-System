@@ -193,15 +193,17 @@
 
                                 if (!IsArabic)
                                 {
-                                    @Html.ActionLink("العربية", "ChangeLanguage", "Base", new { lang = "ar" }, new { @class = "navbar-brand" }) <text> </text>
+                                    @Html.ActionLink("العربية", "ChangeLanguage", "Base", new { lang = "ar" }, new { @class = "btnlang" }) <text> </text>
+                                    <link rel="stylesheet" href="~/Content/style.css">
                                 }
                                 else if (IsArabic)
                                 {
-                                    @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en" }, new { @class = "navbar-brand" }) <text> </text>
+                                    @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en" }, new { @class = "btnlang" }) <text> </text>
+                                    <link rel="stylesheet" href="~/Content/StyleAr.css" />
                                 }
-                            <li>
+                            @*<li>
 
-                            </li>
+                            </li>*@
 
                             }
                         </li>
@@ -230,34 +232,70 @@
                             </div>*@
                         </li>
                         <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>@Resources.NubiHR.EmployeeRequests</span>
-                                @if ((ViewBag.LeaderHasSeenVac == true && ViewBag.LeaderHasSeenPer == true) || (VacRequests == 0 && PerRequests == 0))
+                            @{
+                                if (IsArabic)
                                 {
+                                    <a href="#">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span>@Resources.NubiHR.EmployeeRequests</span>
+                                        @if ((ViewBag.LeaderHasSeenVac == true && ViewBag.LeaderHasSeenPer == true) || (VacRequests == 0 && PerRequests == 0))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-warning notification">
+                                                @if (ViewBag.LeaderHasSeenVac == false && ViewBag.LeaderHasSeenPer == false)
+                                                {
+                                                    @Sum
+                                                }
+                                                else if (ViewBag.LeaderHasSeenVac == false && ViewBag.LeaderHasSeenPer == true)
+                                                {
+                                                    @VacRequests
+                                                }
+                                                else if (ViewBag.LeaderHasSeenVac == true && ViewBag.LeaderHasSeenPer == false)
+                                                {
+                                                    @PerRequests
+                                                }
+
+                                            </span>
+                                        }
+                                    </a>
 
                                 }
                                 else
                                 {
-                                    <span class="badge badge-pill badge-warning notification">
-                                @if (ViewBag.LeaderHasSeenVac == false && ViewBag.LeaderHasSeenPer == false)
-                                {
-                                    @Sum
-                                }
-                                else if(ViewBag.LeaderHasSeenVac == false && ViewBag.LeaderHasSeenPer == true)
-                                {
-                                    @VacRequests
-                                }
-                                else if(ViewBag.LeaderHasSeenVac == true && ViewBag.LeaderHasSeenPer == false)
-                                {
-                                    @PerRequests
-                                }
+                                    <a href="#">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span>@Resources.NubiHR.EmployeeRequests</span>
+                                        @if ((ViewBag.LeaderHasSeenVac == true && ViewBag.LeaderHasSeenPer == true) || (VacRequests == 0 && PerRequests == 0))
+                                        {
 
-                                    </span>
-                                }
-                                
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-pill badge-warning notification">
+                                                @if (ViewBag.LeaderHasSeenVac == false && ViewBag.LeaderHasSeenPer == false)
+                                                {
+                                                    @Sum
+                                                }
+                                                else if (ViewBag.LeaderHasSeenVac == false && ViewBag.LeaderHasSeenPer == true)
+                                                {
+                                                    @VacRequests
+                                                }
+                                                else if (ViewBag.LeaderHasSeenVac == true && ViewBag.LeaderHasSeenPer == false)
+                                                {
+                                                    @PerRequests
+                                                }
 
-                            </a>
+                                            </span>
+                                        }
+
+
+                                    </a>
+                                }
+                            }
+                            
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
@@ -416,7 +454,7 @@
                     <span class="badge-sonar"></span>
                 </a>*@
                 <a href="@Url.Action("Login","Account")">
-                    <span>Logout</span>
+                    <span>@Resources.NubiHR.Logout</span>
                     <i class="fa fa-power-off"></i>
                 </a>
             </div>
