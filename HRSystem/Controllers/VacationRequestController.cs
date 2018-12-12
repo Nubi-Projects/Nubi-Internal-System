@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HRSystem.Models;
 using Microsoft.AspNet.Identity;
+using System.Globalization;
 
 namespace HRSystem.Controllers
 {
@@ -108,8 +109,10 @@ namespace HRSystem.Controllers
         //
         // POST: /VacationRequest/Create
         [HttpPost]
-        public ActionResult Create(VacationRequest vac , string AlternativeEmp = "")
+        public ActionResult Create(VacationRequest vac , string StartDateAr, string AlternativeEmp = "")
         {
+
+            ModelState.Remove("StartDate");
             Manager.RequestManager mng = new Manager.RequestManager();
             var NoOfYear = mng.NoOfEmployeeYears(id: User.Identity.GetUserId());
             var total = mng.totalVacationDuration(id: User.Identity.GetUserId());
@@ -119,6 +122,19 @@ namespace HRSystem.Controllers
             var NoOfAccidentalLeaves = mng.NoOfAccidentalLeave(id: User.Identity.GetUserId());
             string CurrentUser = User.Identity.GetUserId();
             vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
+            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+            if(IsArabic)
+            {
+                CultureInfo MyCultureInfo = new CultureInfo("en-US");
+                DateTime.Parse(StartDateAr, MyCultureInfo); 
+                //DateTime.Now.ToString("dd dddd , MMMM, yyyy", new CultureInfo("ar-AE"));
+                 /*vac.StartDate =new DateTime(2018,12,12);*//* DateTime.Parse(StartDateAr, MyCultureInfo);*/
+                //vac.StartDate = Convert.ToDateTime(StartDateAr,);
+                //vac.StartDate.ToString("dd dddd , MMMM, yyyy", new CultureInfo("en-US"));
+                vac.StartDate = DateTime.Parse(StartDateAr, MyCultureInfo);
+                //vac.StartDate.ToString("dd dddd , MMMM, yyyy", new CultureInfo("en-US"));
+            }
+
             if ((vac.StartDate < DateTime.Today && vac.VacationTypeNo == 1) ||(vac.StartDate < DateTime.Today && vac.VacationTypeNo == 3) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 5) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 6))
             {
                 ModelState.AddModelError("StartDate", "Start date not valid");
