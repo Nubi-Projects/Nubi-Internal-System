@@ -90,13 +90,13 @@ namespace HRSystem.Controllers
             var chk = mng.CheckFivedaysVaction(id: User.Identity.GetUserId());
             if (chk == false)
             {
-                TempData["check"] = "You did not complete Month Yet!";
+                TempData["check"] = Resources.NubiHR.YouDidNotCompleteMonthYet;
                 return RedirectToAction("Index");
             }
             var vac = mng.AvailableVacation(id: User.Identity.GetUserId());
             if (vac== false)
             {
-                TempData["vac"] = "You Did Not complete 14 Days From The Last Vacation You Took!";
+                TempData["vac"] = Resources.NubiHR.YouDidNotComplete14DaysFromTheLastVacationYouTook;
                 return RedirectToAction("Index");
             }
             //ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
@@ -145,7 +145,7 @@ namespace HRSystem.Controllers
             //}
             else if (vac.VacationTypeNo == 3 && vac.Duration > 1)
             {
-                ModelState.AddModelError("Duration", "Just one day allowed for accidental leave");
+                ModelState.AddModelError("Duration", Resources.NubiHR.JustOneDayAllowedForAccidentalLeave);
             }
             else
             { 
@@ -153,7 +153,7 @@ namespace HRSystem.Controllers
             {
                 if (vac.VacationTypeNo == 1 && vac.Duration > 5 && (total <= NoOfYear))
                 {
-                    TempData["checkk"] = "You Can't Take More Than 5 Days Until Complete one Year!";
+                    TempData["checkk"] = Resources.NubiHR.YouCantTakeMoreThan5DaysUntilCompleteOneYear;
 
              
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
@@ -164,7 +164,7 @@ namespace HRSystem.Controllers
                 }
                 else if (vac.VacationTypeNo == 1 && (total >= NoOfYear) || vac.VacationTypeNo == 1 && NoOfYear < 0.25)
                 {
-                        TempData["normal"] = "You Can't Take normal leave!";
+                        TempData["normal"] = Resources.NubiHR.YouCantTakeNormalLeave;
 
 
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
@@ -173,27 +173,27 @@ namespace HRSystem.Controllers
                     }
                 else if (vac.VacationTypeNo == 5 && HaveTheEmpFatherDeathVacation == true)
                 {
-                    TempData["CheckFatherDeathVacation"] = "You Can't Take This Vacation You Have Already Taken Father's Death Vacation";
+                    TempData["CheckFatherDeathVacation"] = Resources.NubiHR.YouCantTakeThisVacationYouAlreadyTakeFatherDeathVacation;
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
                     ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
                         //ViewBag.emp = db.AspNetUsers.ToList();
                     }
                 else if (vac.VacationTypeNo == 6 && HaveTheEmpMotherDeathVacation == true)
                 {
-                    TempData["CheckMotherDeathVacation"] = "You Can't Take This Vacation You Have Already Taken Mother's Death Vacation";
+                    TempData["CheckMotherDeathVacation"] = Resources.NubiHR.YouCantTakeThisVacationYouAlreadyTakeFatherDeathVacation;
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
                     ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
                         //ViewBag.emp = db.AspNetUsers.ToList();
                     }
                 else if (vac.VacationTypeNo == 3 && (NoOfAccidentalLeaves == NoOfYear))
                     {
-                        TempData["AccidentalLeave"] = "You Took 3 Accidental Leaves In Year You Can't Take Accidental Leave";
+                        TempData["AccidentalLeave"] = Resources.NubiHR.YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave;
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
                         ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
                     }
                 else if ((vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && (NoOfAccidentalLeaves < NoOfYear)))
                     {
-                        TempData["AccLeave"]= "You are not available to take accidental leave";
+                        TempData["AccLeave"]= Resources.NubiHR.YouAreNotAvailableToTakeAccidentalLeave;
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
                         ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
                     }
@@ -251,7 +251,7 @@ namespace HRSystem.Controllers
                         var emp = db.Employees.FirstOrDefault(p => p.Id == AlternativeEmp);
                         vac.AlternativeEmp = emp.FirstName;
                         vac.RequestDate = DateTime.Now;
-                        TempData["chec"] = "Your Request Has Been Sented";
+                        TempData["chec"] = Resources.NubiHR.YourRequestHasBeenSented;
                         db.VacationRequests.Add(vac);
                         db.SaveChanges();
                         return RedirectToAction("index");

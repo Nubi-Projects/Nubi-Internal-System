@@ -340,7 +340,7 @@
     <value>نوع الإذن</value>
   </data>
   <data name="Note" xml:space="preserve">
-    <value>ملاحظة</value>
+    <value>ملاحظة: تقوم عملية الحذف بحذف اخر اضافة </value>
   </data>
   <data name="Duration" xml:space="preserve">
     <value>المدة</value>
@@ -456,9 +456,6 @@
   <data name="ExpirationDate" xml:space="preserve">
     <value>تاريخ الانتهاء</value>
   </data>
-  <data name="Note" xml:space="preserve">
-    <value>ملاحظة: تقوم عملية الحذف بحذف اخر اضافة </value>
-  </data>
   <data name="MobileValidation" xml:space="preserve">
     <value>يرجى البدء ب 0 و مكون من 10 ارقام</value>
   </data>
@@ -485,5 +482,32 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>تسجيل خروج</value>
+  </data>
+  <data name="JustOneDayAllowedForAccidentalLeave" xml:space="preserve">
+    <value>مسموح لك بأخذ يوم واحد فقط</value>
+  </data>
+  <data name="YouAreNotAvailableToTakeAccidentalLeave" xml:space="preserve">
+    <value>غير مسموح لك بأخذ اجازة عرضية</value>
+  </data>
+  <data name="YouCantTakeMoreThan5DaysUntilCompleteOneYear" xml:space="preserve">
+    <value>غير مسموح لك بأخذ أكثر من 5 ايام حتى تكمل سنة</value>
+  </data>
+  <data name="YouCantTakeNormalLeave" xml:space="preserve">
+    <value>غير مسموح لك بأخذ إجازة اعتيادية</value>
+  </data>
+  <data name="YouCantTakeThisVacationYouAlreadyTakeFatherDeathVacation" xml:space="preserve">
+    <value>لا يمكنك أخذ إجازة الوفاة لقد أخذتها مسبقا</value>
+  </data>
+  <data name="YouDidNotComplete14DaysFromTheLastVacationYouTook" xml:space="preserve">
+    <value>لم تُكمل 14 يوما من آخر إجازة تم أخذها</value>
+  </data>
+  <data name="YouDidNotCompleteMonthYet" xml:space="preserve">
+    <value>لم تُكمل شهر بعد!</value>
+  </data>
+  <data name="YourRequestHasBeenSented" xml:space="preserve">
+    <value>تم ارسال طلبك</value>
+  </data>
+  <data name="YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave" xml:space="preserve">
+    <value>غير مسموح لك باجازة عرضية, لقد تم استنفاذ جميع إجازاتك العرضية في هذه السنة</value>
   </data>
 </root>
