@@ -504,4 +504,10 @@
   <data name="YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave" xml:space="preserve">
     <value>You Took 3 Accidental Leaves In Year You Can't Take Accidental Leave</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="RemoveAttachment" xml:space="preserve">
+    <value>Remove Attachment</value>
+  </data>
 </root>

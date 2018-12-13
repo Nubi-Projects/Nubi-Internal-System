@@ -510,4 +510,7 @@
   <data name="YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave" xml:space="preserve">
     <value>غير مسموح لك باجازة عرضية, لقد تم استنفاذ جميع إجازاتك العرضية في هذه السنة</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
 </root>

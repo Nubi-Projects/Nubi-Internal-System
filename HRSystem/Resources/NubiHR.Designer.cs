@@ -619,6 +619,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Medical Report.
         /// </summary>
         public static string MedicalReport {
@@ -894,6 +903,15 @@ namespace Resources {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Attachment.
+        /// </summary>
+        public static string RemoveAttachment {
+            get {
+                return ResourceManager.GetString("RemoveAttachment", resourceCulture);
             }
         }
         
