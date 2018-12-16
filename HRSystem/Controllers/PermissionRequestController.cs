@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using HRSystem.Models;
 using Microsoft.AspNet.Identity;
+using System.Globalization;
+
 namespace HRSystem.Controllers
 {
     public class PermissionRequestController : BaseController
@@ -16,6 +18,9 @@ namespace HRSystem.Controllers
         {
             Manager.RequestManager mng = new Manager.RequestManager();
             ViewBag.per = mng.GetPermission(id: User.Identity.GetUserId());
+
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(db.PermissionRequests.ToList());
         }
         public ActionResult LeaderRequests()
@@ -31,6 +36,8 @@ namespace HRSystem.Controllers
 
             }
             db.SaveChanges();
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(db.PermissionRequests.OrderBy(e => e.RequestDate));
         }
         public ActionResult LeaderApprove(int id)
@@ -70,6 +77,8 @@ namespace HRSystem.Controllers
 
             }
             db.SaveChanges();
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(db.PermissionRequests.OrderBy(e => e.RequestDate));
         }
 
@@ -97,12 +106,36 @@ namespace HRSystem.Controllers
         
         // POST: /PermissionRequest/Create
         [HttpPost]
-        public ActionResult Create(PermissionRequest per)
+        public ActionResult Create(PermissionRequest per, string PerDateAr)
         {
+            ModelState.Remove("PermissionDate");
             Manager.RequestManager mng = new Manager.RequestManager();
             ViewBag.per = mng.GetPermission(id: User.Identity.GetUserId());
             var CurrentUser = User.Identity.GetUserId();
             per.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
+            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+            if (IsArabic)
+            {
+
+
+                CultureInfo MyCultureInfo = new CultureInfo("en-US");
+                DateTime.Parse(PerDateAr, MyCultureInfo);
+                per.PermissionDate = DateTime.Parse(PerDateAr, MyCultureInfo);
+
+                //DateTime.Now.ToString("dd dddd , MMMM, yyyy", new CultureInfo("ar-AE"));
+                /*vac.StartDate =new DateTime(2018,12,12);*//* DateTime.Parse(StartDateAr, MyCultureInfo);*/
+                //vac.StartDate = Convert.ToDateTime(StartDateAr,);
+                //vac.StartDate.ToString("dd dddd , MMMM, yyyy", new CultureInfo("en-US"));
+
+                //CultureInfo MyCultureInfo = new CultureInfo("en-US");
+                //MyCultureInfo.DateTimeFormat.Calendar = new HijriCalendar();
+                //vac.StartDate = DateTime.Parse(StartDateAr, MyCultureInfo);
+
+                //CultureInfo arSA = new CultureInfo("ar-SA");
+                //arSA.DateTimeFormat.Calendar = new HijriCalendar();
+                //vac.StartDate = DateTime.ParseExact(StartDateAr, "dd/MM/yyyy", arSA);
+
+            }
             if (per.PermissionDate < DateTime.Today)
             {
                 ModelState.AddModelError("PermissionDate", "Permission date not valid");

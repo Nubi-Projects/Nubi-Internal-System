@@ -15,6 +15,8 @@ namespace HRSystem.Controllers
         // GET: VacationRequest
         public ActionResult Index()
         {
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(db.VacationRequests.ToList());
         }
         public ActionResult LeaderRequests()
@@ -31,6 +33,8 @@ namespace HRSystem.Controllers
 
             }
             db.SaveChanges();
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(db.VacationRequests.OrderBy(e => e.RequestDate));
         }
         public ActionResult LeaderApprove(int id)
@@ -70,6 +74,8 @@ namespace HRSystem.Controllers
 
             }
             db.SaveChanges();
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(db.VacationRequests.OrderBy(e => e.RequestDate));
         }
         public ActionResult ManagerApprove(int id)
@@ -125,15 +131,30 @@ namespace HRSystem.Controllers
             var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
             if(IsArabic)
             {
+
+
                 CultureInfo MyCultureInfo = new CultureInfo("en-US");
-                DateTime.Parse(StartDateAr, MyCultureInfo); 
+                DateTime.Parse(StartDateAr, MyCultureInfo);
+                vac.StartDate = DateTime.Parse(StartDateAr, MyCultureInfo);
+
                 //DateTime.Now.ToString("dd dddd , MMMM, yyyy", new CultureInfo("ar-AE"));
-                 /*vac.StartDate =new DateTime(2018,12,12);*//* DateTime.Parse(StartDateAr, MyCultureInfo);*/
+                /*vac.StartDate =new DateTime(2018,12,12);*//* DateTime.Parse(StartDateAr, MyCultureInfo);*/
                 //vac.StartDate = Convert.ToDateTime(StartDateAr,);
                 //vac.StartDate.ToString("dd dddd , MMMM, yyyy", new CultureInfo("en-US"));
-                vac.StartDate = DateTime.Parse(StartDateAr, MyCultureInfo);
-                //vac.StartDate.ToString("dd dddd , MMMM, yyyy", new CultureInfo("en-US"));
+
+                //CultureInfo MyCultureInfo = new CultureInfo("en-US");
+                //MyCultureInfo.DateTimeFormat.Calendar = new HijriCalendar();
+                //vac.StartDate = DateTime.Parse(StartDateAr, MyCultureInfo);
+
+                //CultureInfo arSA = new CultureInfo("ar-SA");
+                //arSA.DateTimeFormat.Calendar = new HijriCalendar();
+                //vac.StartDate = DateTime.ParseExact(StartDateAr, "dd/MM/yyyy", arSA);
+
             }
+
+            //CultureInfo arSA = new CultureInfo("ar-SA");
+            //arSA.DateTimeFormat.Calendar = new HijriCalendar();
+            //var dateValue = DateTime.ParseExact("29/08/1434", "dd/MM/yyyy", arSA);
 
             if ((vac.StartDate < DateTime.Today && vac.VacationTypeNo == 1) ||(vac.StartDate < DateTime.Today && vac.VacationTypeNo == 3) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 5) || (vac.StartDate < DateTime.Today && vac.VacationTypeNo == 6))
             {

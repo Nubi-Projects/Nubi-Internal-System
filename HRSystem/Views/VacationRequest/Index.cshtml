@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 
 
@@ -66,10 +67,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.VacationType.Type)
                 </td>
-                <td>
+                <td id="startdate">
                     @Html.DisplayFor(modelItem => item.StartDate)
                 </td>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>

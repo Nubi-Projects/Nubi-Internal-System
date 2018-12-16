@@ -18,6 +18,7 @@ namespace HRSystem.Models
     {
         public long Id { get; set; }
         public string EmployeeNo { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime RequestDate { get; set; }
         public int TimeFromHours { get; set; }
         public Nullable<int> TimeFromMinutes { get; set; }
@@ -25,7 +26,7 @@ namespace HRSystem.Models
         public Nullable<int> TimeToMinutes { get; set; }
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "PermissionDate")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime PermissionDate { get; set; }
         public string Note { get; set; }
         public Nullable<bool> LeaderApprovement { get; set; }
