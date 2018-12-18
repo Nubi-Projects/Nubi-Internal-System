@@ -20,6 +20,7 @@ namespace HRSystem.Models
         public string Mobile { get; set; }
         public int RelationshipTypeNo { get; set; }
         public string Type { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual RelationshipType RelationshipType { get; set; }
         public virtual Employee Employee { get; set; }

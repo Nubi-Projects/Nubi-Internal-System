@@ -475,9 +475,75 @@
     <value>Add</value>
   </data>
   <data name="NoRecordsFound" xml:space="preserve">
-    <value>NoRecordsFound</value>
+    <value>No Records Found</value>
   </data>
   <data name="DateIsExpired" xml:space="preserve">
     <value>Date is expired</value>
+  </data>
+  <data name="RemoveAttachment" xml:space="preserve">
+    <value>Remove Attachment</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Nubi" xml:space="preserve">
+    <value>Nubi IT Service</value>
+  </data>
+  <data name="Successfull" xml:space="preserve">
+    <value>Successfull</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="UploadAllowedExcelExtensions" xml:space="preserve">
+    <value>Please upload an Excel file </value>
+  </data>
+  <data name="Exclude" xml:space="preserve">
+    <value>Exclude Friday and Saturday</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>Automatic</value>
+  </data>
+  <data name="FileExists" xml:space="preserve">
+    <value>there is already a file with the same name! please change the upload file name!</value>
+  </data>
+  <data name="DoneFiltering" xml:space="preserve">
+    <value>Done filtering</value>
+  </data>
+  <data name="WrongExcelSheet" xml:space="preserve">
+    <value>Wrong excel sheet</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading.. </value>
+  </data>
+  <data name="PunchTime" xml:space="preserve">
+    <value>Punch Time</value>
+  </data>
+  <data name="WorkState" xml:space="preserve">
+    <value>WorkState</value>
+  </data>
+  <data name="NoOfHours" xml:space="preserve">
+    <value>No of Hours</value>
+  </data>
+  <data name="RemainingHours" xml:space="preserve">
+    <value>Remaining hours</value>
+  </data>
+  <data name="AllAttendanceSheets" xml:space="preserve">
+    <value>All attendance sheets</value>
+  </data>
+  <data name="AttendanceSheets" xml:space="preserve">
+    <value>Attendance sheets</value>
+  </data>
+  <data name="NoOfRow" xml:space="preserve">
+    <value>No of row</value>
   </data>
 </root>

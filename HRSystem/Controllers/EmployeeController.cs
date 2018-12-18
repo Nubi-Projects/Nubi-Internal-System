@@ -20,6 +20,7 @@ using System.Data.Entity;
 using HRSystem.Manager;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System.ComponentModel.DataAnnotations;
 
 namespace HRSystem.Controllers
 {
@@ -83,7 +84,8 @@ namespace HRSystem.Controllers
             return View(Db.Employees.ToList());
         }
 
-      
+
+     
         [HttpGet]
         public ActionResult Create()
         {
@@ -154,17 +156,6 @@ namespace HRSystem.Controllers
                     Db.Employees.Add(empObj);
                     Db.SaveChanges();
 
-                    //insert into emergency contact table
-                    /*
-                    EmgObj.EmpNo = empObj.Id;
-                    EmgObj.Name = model.NameOfSibling;
-                    EmgObj.Mobile = model.MobileEmergencyContact;
-                    EmgObj.RelationshipTypeNo = model.IdRelationship;
-                    EmgObj.Type = model.Other;
-
-                    Db.EmergencyContacts.Add(EmgObj);
-                    Db.SaveChanges();*/
-
                     if (Request.Form["MySiblingsHidden"] != "")
                     {
 
@@ -197,7 +188,8 @@ namespace HRSystem.Controllers
                                     Mobile = MobileEmergencyContact,
                                     RelationshipTypeNo = ValueOfSibling,
                                     Type = Other,
-                                });
+                                    Date = DateTime.Now.Date,
+                            });
                                 Db.SaveChanges();
 
                             }
@@ -361,247 +353,347 @@ namespace HRSystem.Controllers
         //POST: /Edit/
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //  more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(string id, VMAddEmployee model)
-        //{
-        //    model.IdEmployee = id;
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(string id, VMAddEmployee model)
+        {
+            model.IdEmployee = id;
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            ViewBag.Department = Db.Departments.ToList();
-        //            ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
-        //            var BankNo = Db.Employees.Where(e => e.Id == id).Select(x => x.BankNo).FirstOrDefault();
-        //            model.SalaryNoEmployee = Db.Employees.Where(e => e.Id == id).Select(x => x.SalaryNo).FirstOrDefault();
-        //            // model.PhoneNo = Db.Employees.Where(e => e.Id == id).Select(x => x.PhoneNo).FirstOrDefault();
-        //            model.AttachmentNo = Db.Employees.Where(e => e.Id == id).Select(x => (int)x.AttachmentNo).FirstOrDefault();
-        //            ViewBag.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
-        //            var tr = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
-        //            model.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
-        //            // var HasBankAccount = Db.Employees.Where(b => b.BankNo == BankNo).ToList();
-        //            ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
-        //            var b = Db.BankAccounts.Where(x => x.Id == BankNo);
+            if (ModelState.IsValid)
+            {
+                try
+                {
 
-        //            int NoOfRowsInBankTable = Db.BankAccounts.Count();
+                    
+                    ViewBag.Department = Db.Departments.ToList();
+                    ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
+                    var BankNo = Db.Employees.Where(e => e.Id == id).Select(x => x.BankNo).FirstOrDefault();
+                    model.SalaryNoEmployee = Db.Employees.Where(e => e.Id == id).Select(x => x.SalaryNo).FirstOrDefault();
+                    // model.PhoneNo = Db.Employees.Where(e => e.Id == id).Select(x => x.PhoneNo).FirstOrDefault();
+                    //model.AttachmentNo = Db.Employees.Where(e => e.Id == id).Select(x => (int)x.AttachmentNo).FirstOrDefault();
+                    //ViewBag.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
+                    var tr = Db.Attachments.Where(e => e.EmpNo == id).ToList();
+                    //model.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
+                    // var HasBankAccount = Db.Employees.Where(b => b.BankNo == BankNo).ToList();
+                    ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
+                    var b = Db.BankAccounts.Where(x => x.Id == BankNo);
+                    ViewBag.RelationshipType = Db.RelationshipTypes.ToList();
 
-        //            Salary salary = new Salary()
-        //            {
-        //                Id = (int)model.SalaryNoEmployee,
-        //                BasicSalary = model.BasicSalary,
+                    int NoOfRowsInBankTable = Db.BankAccounts.Count();
 
-        //            };
-        //            if (BankNo != null && model.AccountNumber == null)
-        //            {
-        //                /*
-        //                BankAccount bank = new BankAccount()
-        //                {
+                    Salary salary = new Salary()
+                    {
+                        Id = (int)model.SalaryNoEmployee,
+                        BasicSalary = model.BasicSalary,
 
-        //                   // Id = (int)BankNo,
-        //                   // BankBranch = b.BankBranch,
-        //                   // BankName = model.BankName,
-        //                   // AccountNumber = model.AccountNumber,
-        //                   IsDeleted = true
-        //                };
-        //                Db.Entry(bank).State = EntityState.Modified;b*/
-        //                ViewBag.MessageException = string.Format("YOU CANNOT DELETE BANK ACCOUNT!", "Index");
-        //                return View(model);
-        //            }
-        //            else if (model.AccountNumber != null)
-        //            {
-        //                BankAccount bank = new BankAccount()
-        //                {
-        //                    //Id = (int)/*model.*/BankNo, NoOfRowsInBankTable++,
-        //                    Id = NoOfRowsInBankTable++,
-        //                    BankBranch = model.BankBranch,
-        //                    BankName = model.BankName,
-        //                    AccountNumber = model.AccountNumber,
-        //                };
-        //                Db.Entry(bank).State = EntityState.Modified;
+                    };
+                    if (BankNo != null && model.AccountNumber == null)
+                    {
+                        /*
+                        BankAccount bank = new BankAccount()
+                        {
 
-        //                Employee employee = new Employee()
-        //                {
-        //                    Id = model.IdEmployee,
-        //                    FirstName = model.FirstName,
-        //                    LastName = model.LastName,
-        //                    Email = model.EmailEmployee,
-        //                    Mobile1 = model.Mobile1,
-        //                    Address = model.Address,
-        //                    DepartmentNo = model.IdDepartment,
-        //                    PositionNo = model.IdPosition,
-        //                    FunctionalNumber = model.FunctionalNumber,
-        //                    AttachmentNo = model.AttachmentNo,
-        //                    BankNo = bank.Id,
-        //                    SalaryNo = salary.Id,
-        //                    StartDate = model.StartDate,
+                           // Id = (int)BankNo,
+                           // BankBranch = b.BankBranch,
+                           // BankName = model.BankName,
+                           // AccountNumber = model.AccountNumber,
+                           IsDeleted = true
+                        };
+                        Db.Entry(bank).State = EntityState.Modified;b*/
+                        ViewBag.MessageException = string.Format("YOU CANNOT DELETE BANK ACCOUNT!", "Index");
+                        return View(model);
+                    }
+                    else if (model.AccountNumber != null)
+                    {
+                        BankAccount bank = new BankAccount()
+                        {
+                            //Id = (int)/*model.*/BankNo, NoOfRowsInBankTable++,
+                            Id = NoOfRowsInBankTable++,
+                            BankBranch = model.BankBranch,
+                            BankName = model.BankName,
+                            AccountNumber = model.AccountNumber,
+                        };
+                        Db.Entry(bank).State = EntityState.Modified;
 
-        //                };
-        //                Db.Entry(employee).State = EntityState.Modified;
-        //            }
-        //            else
-        //            {
-        //                Employee employee = new Employee()
-        //                {
-        //                    Id = model.IdEmployee,
-        //                    FirstName = model.FirstName,
-        //                    LastName = model.LastName,
-        //                    Email = model.EmailEmployee,
-        //                    Mobile1 = model.Mobile1,
-        //                    Address = model.Address,
-        //                    DepartmentNo = model.IdDepartment,
-        //                    PositionNo = model.IdPosition,
-        //                    FunctionalNumber = model.FunctionalNumber,
-        //                    AttachmentNo = model.AttachmentNo,
-        //                    // BankNo = bank.Id,
-        //                    SalaryNo = salary.Id,
-        //                    StartDate = model.StartDate,
+                        Employee employee = new Employee()
+                        {
+                            Id = model.IdEmployee,
+                            FirstName = model.FirstName,
+                            LastName = model.LastName,
+                            Email = model.EmailEmployee,
+                            Mobile1 = model.Mobile1,
+                            Address = model.Address,
+                            DepartmentNo = model.IdDepartment,
+                            PositionNo = model.IdPosition,
+                            FunctionalNumber = model.FunctionalNumber,
+                            
+                            BankNo = bank.Id,
+                            SalaryNo = salary.Id,
+                            StartDate = model.StartDate,
 
-        //                };
-        //                Db.Entry(employee).State = EntityState.Modified;
-        //            }
+                        };
+                        Db.Entry(employee).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        Employee employee = new Employee()
+                        {
+                            Id = model.IdEmployee,
+                            FirstName = model.FirstName,
+                            LastName = model.LastName,
+                            Email = model.EmailEmployee,
+                            Mobile1 = model.Mobile1,
+                            Address = model.Address,
+                            DepartmentNo = model.IdDepartment,
+                            PositionNo = model.IdPosition,
+                            FunctionalNumber = model.FunctionalNumber,
+                            
+                            // BankNo = bank.Id,
+                            SalaryNo = salary.Id,
+                            StartDate = model.StartDate,
 
+                        };
+                        Db.Entry(employee).State = EntityState.Modified;
+                    }
+                    
+                    List<EmergencyContact> EmergencyContactList = new List<EmergencyContact>();
+                    EmergencyContact EC = new EmergencyContact()
+                    {
+                        Name = model.NameOfSibling,
+                        Mobile = model.MobileEmergencyContact,
+                        RelationshipTypeNo = Convert.ToInt32(model.IdRelationshipType),
+                        Type = model.Other,
+                        Date = model.DateEmergencyContact,
+                        
 
-        //            string filenameNId = Request.Form["NIdTitle"];
+                    };
+                    EmergencyContactList.Add(EC);
+                    foreach (var item in EmergencyContactList)
+                    {
+                        if (model.IdRelationshipType == 7)
+                        {
+                            model.IdEmergencyContact = Db.EmergencyContacts.Where(o => o.EmpNo == id && o.Name == model.NameOfSibling).Select(p => p.Id).FirstOrDefault();
+                            EmergencyContact emegrency = new EmergencyContact()
+                            {
+                                Id = model.IdEmergencyContact,
+                                EmpNo = model.IdEmployee,
+                                Name = model.NameOfSibling,
+                                Mobile = model.MobileEmergencyContact,
+                                RelationshipTypeNo = Convert.ToInt32(model.IdRelationshipType),
+                                Type = model.Other,
+                                Date = model.DateEmergencyContact,
+                            };
+                            Db.Entry(emegrency).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            model.IdEmergencyContact = Db.EmergencyContacts.Where(o => o.EmpNo == id && o.Name == model.NameOfSibling).Select(p => p.Id).FirstOrDefault();
+                            EmergencyContact emegrency = new EmergencyContact()
+                            {
+                                Id = model.IdEmergencyContact,
+                                EmpNo = model.IdEmployee,
+                                Name = model.NameOfSibling,
+                                Mobile = model.MobileEmergencyContact,
+                                RelationshipTypeNo = Convert.ToInt32(model.IdRelationshipType),
+                                Type = null,
+                            };
+                            Db.Entry(emegrency).State = EntityState.Modified;
+                        }
 
-        //            if (!Request.Files["NIDFile"].FileName.Equals(""))
-        //            {
-        //                HttpPostedFileBase NationalIdFile = Request.Files["NIDFile"];
-        //                string extensionNId = Path.GetExtension(NationalIdFile.FileName);
-        //                filenameNId = Path.Combine(Server.MapPath("~/Attachments/"), filenameNId + extensionNId);
-        //                NationalIdFile.SaveAs(filenameNId);
-        //                filenameNId = Request.Form["NIdTitle"] + extensionNId;
-        //                model.EmpAttachment.NationalId = Request.Form["NIdTitle"] + extensionNId;
-        //            }
+                    }
 
-        //            string filenamePassport = Request.Form["PassportTitle"];
+                    Db.Entry(salary).State = EntityState.Modified;
+                    //Db.Entry(attach).State = EntityState.Modified;
+                    
+                    
+                    
+                    if (Request.Form["MySiblingsHidden"] != "")
+                    {
 
-        //            if (!Request.Files["PassportFile"].FileName.Equals(""))
-        //            {
-        //                HttpPostedFileBase PassportNumberFile = Request.Files["PassportFile"];
-        //                string extensionPassport = Path.GetExtension(PassportNumberFile.FileName);
-        //                filenamePassport = Path.Combine(Server.MapPath("~/Attachments/"), filenamePassport + extensionPassport);
-        //                PassportNumberFile.SaveAs(filenamePassport);
-        //                filenamePassport = Request.Form["PassportTitle"] + extensionPassport;
-        //                model.EmpAttachment.PassportNumber = Request.Form["PassportTitle"] + extensionPassport;
-        //            }
-        //            string filenameLastCertificate = Request.Form["LastCertificateTitle"];
+                        //insert into attachment table
+                        var counter = Convert.ToInt32(Request.Form["count"]);
 
-        //            if (!Request.Files["LastCertificateFile"].FileName.Equals(""))
-        //            {
-        //                HttpPostedFileBase LastCertificateFile = Request.Files["LastCertificateFile"];
-        //                string extensionLastCertificate = Path.GetExtension(LastCertificateFile.FileName);
-        //                filenameLastCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameLastCertificate + extensionLastCertificate);
-        //                LastCertificateFile.SaveAs(filenameLastCertificate);
-        //                filenameLastCertificate = Request.Form["LastCertificateTitle"] + extensionLastCertificate;
-        //                model.EmpAttachment.LastCertificate = Request.Form["LastCertificateTitle"] + extensionLastCertificate;
-        //            }
-        //            string filenameImageUrl = Request.Form["ImageTitle"];
+                        //Attachment tc = new Attachment();
+                        if (counter != 1)
+                        {
+                            for (int i = 1; i < counter; i++)
+                            {
+                                string NameOfSibling = Request.Form["NameOfSibling" + i];
+                                int ValueOfSibling = Convert.ToInt32(Request.Form["ValueOfSibling" + i]);
+                                string MobileEmergencyContact = Request.Form["MobileEmergencyContact" + i];
+                                string Other = "";
 
-        //            if (!Request.Files["ImageFile"].FileName.Equals(""))
-        //            {
-        //                HttpPostedFileBase ImageFile = Request.Files["ImageFile"];
-        //                string extensionImageUrl = Path.GetExtension(ImageFile.FileName);
-        //                filenameImageUrl = Path.Combine(Server.MapPath("~/Attachments/"), filenameImageUrl + extensionImageUrl);
-        //                ImageFile.SaveAs(filenameImageUrl);
-        //                filenameImageUrl = Request.Form["ImageTitle"] + extensionImageUrl;
-        //                model.EmpAttachment.ImageUrl = Request.Form["ImageTitle"] + extensionImageUrl;
-        //            }
-        //            Attachment attach = new Attachment()
-        //            {
-        //                Id = (int)model.AttachmentNo,
-        //                NationalId = model.EmpAttachment.NationalId,
-        //                PassportNumber = model.EmpAttachment.PassportNumber,
-        //                LastCertificate = model.EmpAttachment.LastCertificate,
-        //                ImageUrl = model.EmpAttachment.ImageUrl,
-        //            };
+                                if (ValueOfSibling == 7)
+                                {
+                                    Other = Request.Form["Other" + i];
+                                }
+                                else
+                                {
+                                    Other = null;
+                                }
 
-        //            Db.Entry(salary).State = EntityState.Modified;
-        //            Db.Entry(attach).State = EntityState.Modified;
-        //            Db.Entry(salary).State = EntityState.Modified;
-        //            Db.Entry(attach).State = EntityState.Modified;
-        //            Db.SaveChanges();
+                                Db.EmergencyContacts.Add(new EmergencyContact
+                                {
+                                    EmpNo = model.IdEmployee,
+                                    Name = NameOfSibling,
+                                    Mobile = MobileEmergencyContact,
+                                    RelationshipTypeNo = ValueOfSibling,
+                                    Type = Other,
+                                });
+                                Db.SaveChanges();
 
-        //            // var counter = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).Count();
-
-        //            TrainingCertificate tc = new TrainingCertificate();
-        //            int i = 1;
-        //            foreach (var item in tr)
-        //            {
-
-        //                string filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i];
-        //                if (!Request.Files["TrainingCertificateFile" + i].FileName.Equals(""))
-        //                {
-        //                    HttpPostedFileBase AdditionalUploadedFileTrainingCertificate = Request.Files["TrainingCertificateFile" + i];
-        //                    string AdditonalExtensionTrainingCertificate = Path.GetExtension(AdditionalUploadedFileTrainingCertificate.FileName);
-        //                    filenameTrainingCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameTrainingCertificate + AdditonalExtensionTrainingCertificate);
-        //                    AdditionalUploadedFileTrainingCertificate.SaveAs(filenameTrainingCertificate);
-        //                    filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i] + AdditonalExtensionTrainingCertificate;
-        //                    model.TrainingCertificateName = filenameTrainingCertificate;
-
-
-        //                    tc = Db.TrainingCertificates.Find(item.Id);
-        //                    tc.TrainingCertificateName = model.TrainingCertificateName;
-        //                    tc.TrainingCertificateUrl = model.TrainingCertificateName;
-
-        //                    Db.Entry(tc).State = EntityState.Modified;
-        //                    Db.SaveChanges();
-
-        //                    i++;
-
-        //                };
-        //            }
-        //            //Db.SaveChanges();
-
-        //            ViewBag.Department = Db.Departments.ToList();
-        //            ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
-        //            ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
-
-        //            ViewBag.Message = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
-        //            ModelState.Clear();
-        //            return View(model);
-        //        }
-
-        //        catch (DbEntityValidationException ee)
-        //        {
-        //            Exception raise = ee;
-        //            foreach (var eve in ee.EntityValidationErrors)
-        //            {
-
-        //                string message = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-        //                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-        //                foreach (var ve in eve.ValidationErrors)
-        //                {
-        //                    message += string.Format("- Property: \"{0}\", Error: \"{1}\"",
-        //                        ve.PropertyName, ve.ErrorMessage);
-        //                }
-
-        //                // raise a new exception nesting
-        //                // the current instance as InnerException
-        //                raise = new InvalidOperationException(message, raise);
-
-        //            }
-        //            ViewBag.MessageError = raise.Message;
-        //            ViewBag.Department = Db.Departments.ToList();
-        //            ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
-        //            var AttachmentNo = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
-        //            ViewBag.Attachment = Db.Attachments.Where(x => x.Id == AttachmentNo).ToList();
-        //            ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo).Count();
-        //            //return RedirectToAction("Edit");
-        //            return View(model);
-        //        }
+                            }
+                        }
+                    }
 
 
-        //    }
-        //    ViewBag.Department = Db.Departments.ToList();
-        //    ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
-        //    var AttachmentNo1 = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
-        //    ViewBag.Attachment = Db.Attachments.Where(x => x.Id == AttachmentNo1).ToList();
-        //    ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo1).Count();
-        //    //return RedirectToAction("Edit");
-        //    return View(model);
 
-        //}
+                    if (Request.Form["MyAttachmentHidden"] != "")
+                    {
+
+                        //insert into attachment table
+                        var counter = Convert.ToInt32(Request.Form["count"]);
+
+                        //Attachment tc = new Attachment();
+                        if (counter != 1)
+                        {
+                            for (int i = 1; i < counter; i++)
+                            {
+                                var Expired = Request.Form["IsExpired" +" "+ i];
+                                var Expirationdate = Request.Form["InputText" + i];
+                                var x = Convert.ToDateTime(Expirationdate);
+                                int ValueOfAttachment = Convert.ToInt32(Request.Form["ValueOfAttachment" + i]);
+                                HttpPostedFileBase UploadedFile = Request.Files["UploadFile" + i];
+                                //string UploadedFileExtension = Path.GetExtension(UploadedFile.FileName);
+                                var path = Path.Combine(Server.MapPath("~/Attachments/"), UploadedFile.FileName);
+                                bool bb = false;
+                                if(Expired == "on")
+                                {
+                                    bb = true;
+                                }
+                                UploadedFile.SaveAs(path);
+                                // AdditionalFilenameTrainingCertificate = Request.Form["InputText" + i] + AdditonalExtensionTrainingCertificate;
+
+                                if (Expirationdate == null)
+                                {
+                                    Db.Attachments.Add(new Attachment
+                                    {
+                                        EmpNo = model.IdEmployee,
+                                        Name = UploadedFile.FileName,
+                                        Path = path,
+                                        TypeOfAttachmentNo = ValueOfAttachment,
+                                        ExpirationDate = null,
+                                        IsExpired = null,
+                                        IsDeleted = false,
+                                        Date = DateTime.Now.Date
+
+                                    });
+                                    Db.SaveChanges();
+                                }
+
+                                else
+                                {
+                                    Db.Attachments.Add(new Attachment
+                                    {
+                                        EmpNo = model.IdEmployee,
+                                        Name = UploadedFile.FileName,
+                                        Path = path,
+                                        TypeOfAttachmentNo = ValueOfAttachment,
+                                        ExpirationDate = x,
+                                        IsExpired = null,
+                                        IsDeleted = false,
+                                        Date = DateTime.Now.Date
+
+                                    });
+                                    Db.SaveChanges();
+                                }
+
+
+                            }
+                        }
+                    }
+                    Db.SaveChanges();
+                    // var counter = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).Count();
+
+                    /*Attachment tc = new Attachment();
+                    int i = 1;
+                    foreach (var item in tr)
+                    {
+
+                        string filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i];
+                        if (!Request.Files["TrainingCertificateFile" + i].FileName.Equals(""))
+                        {
+                            HttpPostedFileBase AdditionalUploadedFileTrainingCertificate = Request.Files["TrainingCertificateFile" + i];
+                            string AdditonalExtensionTrainingCertificate = Path.GetExtension(AdditionalUploadedFileTrainingCertificate.FileName);
+                            filenameTrainingCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameTrainingCertificate + AdditonalExtensionTrainingCertificate);
+                            AdditionalUploadedFileTrainingCertificate.SaveAs(filenameTrainingCertificate);
+                            filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i] + AdditonalExtensionTrainingCertificate;
+                            model.TrainingCertificateName = filenameTrainingCertificate;
+
+
+                            tc = Db.TrainingCertificates.Find(item.Id);
+                            tc.TrainingCertificateName = model.TrainingCertificateName;
+                            tc.TrainingCertificateUrl = model.TrainingCertificateName;
+
+                            Db.Entry(tc).State = EntityState.Modified;
+                            Db.SaveChanges();
+
+                            i++;
+
+                        };
+                    } */
+                    //Db.SaveChanges();
+
+                    ViewBag.Department = Db.Departments.ToList();
+                    ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
+                    ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
+                    model.EmergencyContactList = EmergencyContactList;
+                    
+                    ViewBag.Message = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
+                    ModelState.Clear();
+                    return View(model);
+                }
+
+                catch (DbEntityValidationException ee)
+                {
+                    Exception raise = ee;
+                    foreach (var eve in ee.EntityValidationErrors)
+                    {
+
+                        string message = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            message += string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+
+                    }
+                    ViewBag.MessageError = raise.Message;
+                    ViewBag.Department = Db.Departments.ToList();
+                    ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
+                    //var AttachmentNo = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
+                    ViewBag.Attachment = Db.Attachments.Where(x => x.EmpNo == id).ToList();
+                    //ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo).Count();
+                    //return RedirectToAction("Edit");
+                    return View(model);
+                }
+
+
+            }
+            ViewBag.Department = Db.Departments.ToList();
+            ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
+            //var AttachmentNo1 = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
+            ViewBag.Attachment = Db.Attachments.Where(x => x.EmpNo == id).ToList();
+            //ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo1).Count();
+            //return RedirectToAction("Edit");
+            return View(model);
+
+        }
 
         //GET: /Details/
         [HttpGet]
@@ -640,53 +732,7 @@ namespace HRSystem.Controllers
             return View(model);
         }
        
-        [HttpPost]
-        static public string Encrypt(string password)
-        {
-            string strmsg = string.Empty;
-            byte[] encode = new byte[password.Length];
-            encode = Encoding.UTF8.GetBytes(password);
-            strmsg = Convert.ToBase64String(encode);
-            return strmsg;
-        }
-        //[HttpPost]
-        public string Decrypt(string id)
-        {
-
-            string cipher = "";
-
-            AspNetUser model = new AspNetUser();
-
-            model = Db.AspNetUsers.Where(x => x.Id == id)
-              .Select(y => new AspNetUser
-              {
-                  PasswordHash = y.PasswordHash,
-                  
-              }).FirstOrDefault();
-
-            cipher = model.PasswordHash;
-            string decryptpwd;
-            if (cipher == null)
-            {
-                decryptpwd = "";
-                return decryptpwd;
-            }
-
-            decryptpwd = string.Empty;
-            UTF8Encoding encodepwd = new UTF8Encoding();
-            Decoder Decode = encodepwd.GetDecoder();
-            byte[] todecode_byte = Convert.FromBase64String(cipher);
-            int charCount = Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
-            char[] decoded_char = new char[charCount];
-            Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
-            decryptpwd = new String(decoded_char);
-            ViewBag.ForgetPassword = "Password is: " + decryptpwd;
-
-            return decryptpwd;
-
-        }
-
-
+        
         [HttpPost]
         public JsonResult IsAlreadySigned(string UserName)
         {

@@ -7,9 +7,6 @@
 }
 
 
-
-
-
 <h2> @Resources.NubiHR.EditEmployee</h2>
 
 
@@ -90,23 +87,38 @@
                             <legend class="the-legend">@Resources.NubiHR.EmergencyContact</legend>
                             @foreach (var item1 in Model.EmergencyContactList)
                             {
-                                var xx = item1.RelationshipTypeNo;
-                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(Model => item1.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                Model.NameOfSibling = item1.Name;
+                                @Html.LabelFor(model => model.NameOfSibling, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(Model => Model.NameOfSibling, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
-
+                                Model.MobileEmergencyContact = item1.Mobile;
                                 @Html.LabelFor(Model => Model.MobileEmergencyContact, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(Model => item1.Mobile, new { htmlAttributes = new { @class = "form-control" } })
-
-                                @Html.LabelFor(Model => Model.IdRelationship, htmlAttributes: new { @class = "control-label" })
-                                if (xx == 7)
+                                @Html.EditorFor(Model => Model.MobileEmergencyContact, new { htmlAttributes = new { @class = "form-control" } })
+                                
+                                @Html.LabelFor(Model => Model.IdRelationshipType, htmlAttributes: new { @class = "control-label" })
+                                Model.IdRelationshipType = item1.RelationshipTypeNo;
+                                @Html.HiddenFor(Model => Model.IdRelationshipType, htmlAttributes: new { @class = "control-label" })
+                                if (item1.RelationshipTypeNo == 7)
                                 {
-                                    @Html.EditorFor(Model => item1.Type, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                    Model.Other = item1.Type;
+                                    @Html.EditorFor(Model => Model.Other, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
 
                                 }
                                 else
                                 {
-                                    @Html.EditorFor(Model => item1.RelationshipType.RelationEn, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                                   
+                                    if (IsArabic)
+                                    {
+                                        Model.RelationAr = item1.RelationshipType.RelationAr;
+                                        @Html.EditorFor(Model => Model.RelationAr, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                                    }
+                                    else
+                                    {
+                                        Model.RelationEn = item1.RelationshipType.RelationEn;
+                                        @Html.EditorFor(Model => Model.RelationEn, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+
+                                    }
 
                                 }
                                <br/><br />
@@ -125,8 +137,8 @@
                     <fieldset class="the-fieldset">
                         <legend class="the-legend">@Resources.NubiHR.Add @Resources.NubiHR.EmergencyContact</legend>
 
-                        @Html.LabelFor(model => Model.IdRelationship, htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownListFor(model => model.IdRelationship, new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px; " })
+                        @Html.LabelFor(model => Model.IdRelationshipType, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.IdRelationshipType, new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px; " })
                       
 
                         <input id='addButton1' type="button" value="@Resources.NubiHR.AddSiblings" class="btn btn-outline-success" />
@@ -258,10 +270,10 @@
                     <div class="panel panel-primary list-panel" id="list-panel">
                         @*<div class="panel-heading list-panel-heading">*@
 
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <div class="form-group">
-                                <fieldset class="the-fieldset">
-                                    <legend class="the-legend">@Resources.NubiHR.Attachments</legend>
+                                <fieldset class="">
+                                    <legend class="" style="color: #eea904;">@Resources.NubiHR.Attachments</legend>
                                     <div class="panel-body">
                                         <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
 
@@ -291,19 +303,33 @@
                                                                     @*<a href="~/Attachments/@Model.TrainingCertificateUrl">*@
                                                                     <i class="glyphicon glyphicon-file"></i>
                                                                 </a>
-                                                                @item.Path
-                                                                @Html.Hidden("TrainingCertificateUrl" + count, item.Path, new { id = "TCHiddenFile" + count })
+                                                                @item.Name
+                                                                @Html.Hidden("Path" + count, item.Path, new { id = "HiddenPath" + count })
                                                                 @*@Html.TextBox("TrainingCertificateFile" + count, null, new { type = "file", id = "file4" + count, onchange = "return fileValidation('file4" + count + "', 'TCHiddenFile" + count + "')", htmlAttributes = new { @class = "form-control" } })
                                                                     @Html.Editor("TrainingCertificateName" + count, new { htmlAttributes = new { @class = "form-control" } })*@
 
 
                                                             </td>
 
+                                                            @if (IsArabic)
+                                                            {
+                                                                <td>@item.TypesOfAttachment.AttachmentTypeAr</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>@item.TypesOfAttachment.AttachmentTypeEn</td>
+                                                            }
 
-                                                            <td>@item.TypesOfAttachment.AttachmentTypeEn</td>
                                                             <td>@item.ExpirationDate</td>
-                                                            <td>@Html.CheckBox("IsExpired", false)</td>
-                                                            @if (item.ExpirationDate >= DateTime.Now.Date)
+                                                            @if (@item.TypesOfAttachment.Id == 1 || @item.TypesOfAttachment.Id == 2)
+                                                            {
+                                                                <td><input type="checkbox" id="IsExpired @count" /></td>
+                                                            }
+                                                            else
+                                                            {
+
+                                                            }
+                                                             @if (item.ExpirationDate >= DateTime.Now.Date)
                                                             {
 
                                                                 <td>@Resources.NubiHR.DateIsExpired</td>
@@ -378,7 +404,7 @@
                 {
                     <script type="text/javascript">
             window.onload = function () {
-      swal(`Oops!`,`@ViewBag.MessageException`,`error`);
+      swal(`@Resources.NubiHR.Warning`,`@ViewBag.MessageException`,`error`);
                                            };
                     </script>
 
@@ -391,7 +417,7 @@
                     <script type="text/javascript">
             window.onload = function () {
              //alert("@ViewBag.Message");
-             swal(`Great! :)`,`@ViewBag.Message`,`success`);
+             swal(`@Resources.NubiHR.Successfull`,`@ViewBag.Message`,`success`);
             };
                     </script>
                 }
@@ -415,7 +441,7 @@
 
             }
             else if (value == "") {
-                swal(`Error!`, `Please select type of attachment !`, `error`)
+                swal(`@Resources.NubiHR.Error`, `Please select type of attachment !`, `error`)
                 return false;
 
             }
@@ -483,7 +509,7 @@
 
         $("#removeButton").click(function () {
             if (counter == 1) {
-                swal(`Oops!`, `No attachment was found to remove`, `info`);
+                swal(`@Resources.NubiHR.Warning`, `No attachment was found to remove`, `info`);
                 return false;
             }
             else {
@@ -516,8 +542,8 @@
           var strMySibling = "";
 
         $("#addButton1").click(function () {
-            var value = $("#IdRelationship").val();
-            var text = $("#IdRelationship option:selected").text();
+            var value = $("#IdRelationshipType").val();
+            var text = $("#IdRelationshipType option:selected").text();
 
 
             $("<span id='" + text + "' >" + text + "</span>").hide().appendTo("#MySibglingsList");
@@ -528,7 +554,7 @@
 
             }
             else if (value == "") {
-                swal(`Error!`, `Please select type of relationship !`, `error`)
+                swal(`@Resources.NubiHR.Error`, `Please select type of relationship !`, `error`)
                 return false;
 
             }
@@ -559,7 +585,7 @@
                     '</div>'
                 );
 
-                $("#IdRelationship option[value='" + value + "']").remove();
+                $("#IdRelationshipType option[value='" + value + "']").remove();
                 strMySibling = strMySibling.concat(value + " ");
                 console.log(strMySibling);
                 $("#MySiblingHidden").val(strMySibling);
@@ -591,7 +617,7 @@
                     '</div>'
                 );
 
-                $("#IdRelationship option[value='" + value + "']").remove();
+                $("#IdRelationshipType option[value='" + value + "']").remove();
                 strMySibling = strMySibling.concat(value + " ");
                 console.log(strMySibling);
                 $("#MySiblingsHidden").val(strMySibling);
@@ -607,7 +633,7 @@
 
         $("#removeButton1").click(function () {
             if (counter == 1) {
-                swal(`Oops!`, `No sibling was found to remove`, `info`);
+                swal(`@Resources.NubiHR.Warning`, `No sibling was found to remove`, `info`);
                 return false;
             }
             else {
@@ -656,7 +682,7 @@
                 strMySibling = strMySibling.replace(n + " ", "");
                 console.log(strMySibling);
                 $("#MySiblingsHidden").val(strMySibling);
-                $(" <option value=" + id + ">" + n + "</option>").appendTo("#IdRelationship");
+                $(" <option value=" + id + ">" + n + "</option>").appendTo("#IdRelationshipType");
                 $('legend[id^="' + n + '"]').remove();
                 $('span[id^="' + n + '"]').remove();
 
@@ -821,7 +847,7 @@
         var allowedExtensions = /(\.jfif|\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx)$/i;
         if (!allowedExtensions.exec(filePath)) {
             // alert('Please upload file having extensions .jpeg/.jpg/.png/.gif/ .doc/ .docx/ .pdf only.');
-            swal(`Error!`, '@Resources.NubiHR.UploadAllowedExtensions', `error`);
+            swal(`@Resources.NubiHR.Error`, '@Resources.NubiHR.UploadAllowedExtensions', `error`);
             fileInput.value = '';
             return false;
         } else {

@@ -42,6 +42,7 @@
     .MB {
         margin-bottom: 23px;
     }
+ 
    
 </style>
 
@@ -64,10 +65,6 @@
 
     <input name="count" id='count' type="hidden" value="1" />
 
-    @*<div id="flip">
-            User Information
-        </div> */
-        <div id="panel">*@
     <div class="col-md-8">
         <div class="form-group">
             <fieldset class="the-fieldset">
@@ -120,9 +117,9 @@
                 @Html.ValidationMessageFor(model => Model.MobileEmergencyContact, "", new { @class = "text-danger" })*@
 
 
-                @Html.LabelFor(model => Model.IdRelationship, htmlAttributes: new { @class = "control-label" })
-                @Html.DropDownListFor(model => model.IdRelationship, new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px; " })
-                @*@Html.ValidationMessageFor(model => model.IdRelationship, "", new { @class = "text-danger" })*@
+                @Html.LabelFor(model => Model.IdRelationshipType, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.IdRelationshipType, new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px; " })
+                @*@Html.ValidationMessageFor(model => model.IdRelationshipType, "", new { @class = "text-danger" })*@
 
                 @*<div id="TOR" style= "display:none;">
 
@@ -188,18 +185,14 @@
             <fieldset class="the-fieldset">
                 <legend class="the-legend">@Resources.NubiHR.BankInfo</legend>
 
-                @*<div id="flip">
-                        Bank Information
-                    </div>*@
-
-                @*<div id="panel">*@
-
 
                 @Html.LabelFor(model => Model.AccountNumber, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => Model.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.AccountNumber, "", new { @class = "text-danger" })
 
                 @Html.LabelFor(model => Model.BankName, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => Model.BankName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.BankName, "", new { @class = "text-danger" })
 
                 @Html.LabelFor(model => Model.BankBranch, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => Model.BankBranch, new { htmlAttributes = new { @class = "form-control" } })
@@ -218,7 +211,7 @@
                 @Html.LabelFor(model => Model.AttachmentType, htmlAttributes: new { @class = "control-label" })
 
                 @Html.DropDownListFor(model => model.AttachmentType, new SelectList(@ViewBag.AttachmentType, "Id", (IsArabic == true ? "AttachmentTypeAr" : "AttachmentTypeEn")), Resources.NubiHR.Select, new { @class = "form-control" , @style = "margin-bottom: 23px; " })
-                 @Html.ValidationMessageFor(model => Model.AttachmentType, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => Model.AttachmentType, "", new { @class = "text-danger" })
 
                 @*@Html.LabelFor(model => Model.Name, htmlAttributes: new { @class = "control-label col-md-8" })
                 @Html.TextBoxFor(model => model.Name, new { type = "file", id = "file", onchange = "return fileValidation('file')", htmlAttributes = new { @class = "form-control col-md-8" } })
@@ -339,7 +332,7 @@
     <script type="text/javascript">
             window.onload = function () {
                 //alert("@ViewBag.Message");
-                swal(`Great! :)`,`@ViewBag.Message`,`success`);
+                swal(`@Resources.NubiHR.Successfull`,`@ViewBag.Message`,`success`);
             };
     </script>
 
@@ -351,7 +344,7 @@
     <script type="text/javascript">
             window.onload = function () {
                 //alert("@ViewBag.MessageError");
-                swal(`Ops!`,`@ViewBag.MessageError`,`info`);
+                swal(`@Resources.NubiHR.Warning`,`@ViewBag.MessageError`,`info`);
             };
     </script>
 }
@@ -367,14 +360,14 @@
 
 @*  validation for upload files *@
 
-<script>
+<script type="text/javascript">
             function fileValidation(element) {
                 try {
                     var fileInput = document.getElementById(element);
                     var filePath = fileInput.value;
                     var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx)$/i;
                     if (!allowedExtensions.exec(filePath)) {
-                        swal(`Error!`, '@Resources.NubiHR.UploadAllowedExtensions', `error`);
+                        swal(`@Resources.NubiHR.Error`, '@Resources.NubiHR.UploadAllowedExtensions', `error`);
                         fileInput.value = '';
                         return false;
                     } else {
@@ -382,7 +375,7 @@
                         if (fileInput.files && fileInput.files[0]) {
                             var reader = new FileReader();
                             reader.onload = function (e) {
-                                document.getElementById('imagePreview').innerHTML = '<img src="' + e.target.result + '"/>';
+                                //document.getElementById('imagePreview').innerHTML = '<img src="' + e.target.result + '"/>';
                             };
                             reader.readAsDataURL(fileInput.files[0]);
                         }
@@ -438,8 +431,8 @@
     $(document).ready(function () {
 
 
-        $("#IdRelationship").change(function () {
-            var value = $("#IdRelationship").val();
+        $("#IdRelationshipType").change(function () {
+            var value = $("#IdRelationshipType").val();
             if (value == 8) {
                 $("#Other").removeAttr('disabled');
                 var x = document.getElementById('TOR');
@@ -470,12 +463,12 @@
             $("<span id='" + value + "' >" + text + "</span>").hide().appendTo("#MyAttachmentList");
 
             if (value == "" && counter > 5) {
-                swal(`Ops!`, `You've selected all types of attachment !`, `info`)
+                swal(`@Resources.NubiHR.Warning`, `You've selected all types of attachment !`, `info`)
                 return false;
 
             }
             else if (value == "") {
-                swal(`Error!`, `Please select type of attachment !`, `error`)
+                swal(`@Resources.NubiHR.Error`, `Please select type of attachment !`, `error`)
                 return false;
 
             }
@@ -487,7 +480,7 @@
                     ' <div class="form-group">' +
                     '<label id="name' + value + ' " name="name' + value + '" class="control-label col-md-8" >' + text + '</label>' +
                     '<div class="col-md-10">' +
-                    '<input id="' + counter + '" name="UploadFile' + counter + '" type="file"  onchange = "return fileValidation(' + counter + ')" />' +
+                    '<input id="' + (counter + 100) + '" name="UploadFile' + counter + '" type="file"  onchange = "return fileValidation(' + (counter + 100) + ')" required />' +
                     '</div>' +
                     '</div>' +
                     '<div class="form-group">' +
@@ -498,7 +491,9 @@
                     '</div>' +
                     '</div>'
                 );
-
+                    
+                $("#InputText" + counter).attr('required', '');
+            
                 
                 $("#AttachmentType option[value='" + value + "']").remove();
                 strMyAttachment = strMyAttachment.concat(value + " ");
@@ -520,7 +515,7 @@
                     ' <div class="form-group">' +
                     '<label id="name' + value + ' " name="name' + value + '" class="control-label col-md-8" >' + text + '</label>' +
                     '<div class="col-md-10">' +
-                    '<input id="' + counter + '" name="UploadFile' + counter + '" type="file"  onchange = "return fileValidation(' + counter + ')" />' +
+                    '<input id="' + (counter + 100) + '" name="UploadFile' + counter + '" type="file"  onchange = "return fileValidation(' + (counter + 100) + ')" required/>' +
                     '</div>' +
                     '</div>' +
                     '</div>'
@@ -543,7 +538,7 @@
 
         $("#removeButton").click(function () {
             if (counter == 1) {
-                swal(`Oops!`, `No attachment was found to remove`, `info`);
+                swal(`@Resources.NubiHR.Warning`, `No attachment was found to remove`, `info`);
                 return false;
             }
             else {
@@ -619,19 +614,19 @@
           var strMySibling = "";
 
         $("#addButton1").click(function () {
-            var value = $("#IdRelationship").val();
-            var text = $("#IdRelationship option:selected").text();
+            var value = $("#IdRelationshipType").val();
+            var text = $("#IdRelationshipType option:selected").text();
 
 
             $("<span id='" + text + "' >" + text + "</span>").hide().appendTo("#MySibglingsList");
 
             if (value == "" && counter > 7) {
-                swal(`Ops!`, `You've selected all types of relations !`, `info`)
+                swal(`@Resources.NubiHR.Warning`, `You've selected all types of relations !`, `info`)
                 return false;
 
             }
             else if (value == "") {
-                swal(`Error!`, `Please select type of relationship !`, `error`)
+                swal(`@Resources.NubiHR.Error`, `Please select type of relationship !`, `error`)
                 return false;
 
             }
@@ -662,7 +657,11 @@
                     '</div>'
                 );
 
-                $("#IdRelationship option[value='" + value + "']").remove();
+                $("#Other" + counter).attr('required', '');
+                $("#MobileEmergencyContact" + counter).attr('required', '');
+                $("#NameOfSibling" + counter).attr('required', '');
+
+                $("#IdRelationshipType option[value='" + value + "']").remove();
                 strMySibling = strMySibling.concat(value + " ");
                 console.log(strMySibling);
                 $("#MySiblingHidden").val(strMySibling);
@@ -693,8 +692,11 @@
                     '</div>' +
                     '</div>'
                 );
+                $("#MobileEmergencyContact" + counter).attr('required', '');
+                $("#NameOfSibling" + counter).attr('required', '');
 
-                $("#IdRelationship option[value='" + value + "']").remove();
+
+                $("#IdRelationshipType option[value='" + value + "']").remove();
                 strMySibling = strMySibling.concat(value + " ");
                 console.log(strMySibling);
                 $("#MySiblingsHidden").val(strMySibling);
@@ -710,7 +712,7 @@
 
         $("#removeButton1").click(function () {
             if (counter == 1) {
-                swal(`Oops!`, `No sibling was found to remove`, `info`);
+                swal(`@Resources.NubiHR.Warning`, `No sibling was found to remove`, `info`);
                 return false;
             }
             else {
@@ -759,7 +761,7 @@
                 strMySibling = strMySibling.replace(n + " ", "");
                 console.log(strMySibling);
                 $("#MySiblingsHidden").val(strMySibling);
-                $(" <option value=" + id + ">" + n + "</option>").appendTo("#IdRelationship");
+                $(" <option value=" + id + ">" + n + "</option>").appendTo("#IdRelationshipType");
                 $('legend[id^="' + n + '"]').remove();
                 $('span[id^="' + n + '"]').remove();
 

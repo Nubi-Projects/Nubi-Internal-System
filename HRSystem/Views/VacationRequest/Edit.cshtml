@@ -144,7 +144,7 @@
                 var filePath = fileInput.value;
                 var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf)$/i;
                 if (!allowedExtensions.exec(filePath)) {
-                    swal(`Error!`, '@Resources.NubiHR.UploadAllowedMedicalExtensions', `error`);
+                    swal(`@Resources.NubiHR.Error`, '@Resources.NubiHR.UploadAllowedMedicalExtensions', `error`);
                     fileInput.value = '';
                     return false;
                 } else {

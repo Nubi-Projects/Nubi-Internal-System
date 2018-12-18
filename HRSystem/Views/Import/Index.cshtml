@@ -1,0 +1,166 @@
+﻿@model IEnumerable< HRSystem.Models.AttendanceViewModel>
+@{
+    ViewBag.Title = Resources.NubiHR.Import + " " + Resources.NubiHR.File;
+    var i = 1;
+}
+
+@using (Html.BeginForm("Index", "Import", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+   
+    <div class="col-md-8">
+        <div class="form-group">
+            <fieldset class="the-fieldset">
+                <legend class="the-legend">@Resources.NubiHR.Import  @Resources.NubiHR.File</legend>
+
+                @Html.Label(Resources.NubiHR.File, htmlAttributes: new { @class = "control-label" })
+                <br />
+                <input id="file" name="ExcelFile" type="file" class="form-control" onchange="return fileValidation('file')" required/>
+                @*@Html.TextBox("ExcelFile", new { type = "file", id = "file", onchange = "return fileValidation('file')", htmlAttributes = new { @class = "form-control" } })*@
+               @* @Html.ValidationMessage("ExcelFile", "", new { @class = "text-danger" })*@
+               
+                <br/>
+                @Html.CheckBox("Automatic", false)
+                @Html.Label(Resources.NubiHR.Automatic, htmlAttributes: new { @class = "control-label" })
+                <br />
+                @Html.CheckBox("Exclude", false)
+                @Html.Label(Resources.NubiHR.Exclude, htmlAttributes: new { @class = "control-label" })
+               
+                <br /><br />
+                <label id="Loading" style="display:none"> @Resources.NubiHR.Loading </label>
+
+                <br />
+                <input type="submit" id="sub" value="@Resources.NubiHR.Filter" class="btn btn-default" />
+
+            </fieldset>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <fieldset class="">
+                <legend class="" style="color: #eea904;">@Resources.NubiHR.AllEmployees</legend>
+                <div class="panel-body">
+                    <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+
+
+                        
+                            @if (Model == null)
+                            {
+                                <tr>@Resources.NubiHR.NoRecordsFound</tr>
+                            }
+                            else
+                            {
+                                <thead>
+                                    <tr>
+                                        <th>@Resources.NubiHR.NoOfRow</th>
+                                        <th>@Resources.NubiHR.FunctionalNumber</th>
+                                        <th>@Resources.NubiHR.EmployeeName</th>
+                                        <th>@Resources.NubiHR.PunchTime</th>
+                                        <th>@Resources.NubiHR.WorkState</th>
+                                        <th>@Resources.NubiHR.NoOfHours</th>
+                                        <th>@Resources.NubiHR.RemainingHours</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model)
+                                    {
+
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>  @item.Number </td>
+
+                                        <td> @item.Name </td>
+
+                                        <td>  @item.PunchTime </td>
+
+                                        <td> @item.WorkState </td>
+
+                                        <td> @item.NoOfHours </td>
+
+                                        <td> @item.RemainingHours </td>
+
+                                    </tr>
+                                    i++;
+
+                                    }
+
+
+                                </tbody>
+                            }
+                       
+                       
+</table>
+                </div>
+            </fieldset>
+
+        </div>
+    </div>
+
+
+
+
+
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                //alert("@ViewBag.Message");
+                swal(`@Resources.NubiHR.Successfull`,`@ViewBag.Message`,`success`);
+            };
+    </script>
+
+
+}
+
+@if (ViewBag.MessageError != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                //alert("@ViewBag.MessageError");
+                swal(`@Resources.NubiHR.Warning`,`@ViewBag.MessageError`,`info`);
+            };
+    </script>
+}
+
+<script type="text/javascript">
+    
+    $("#sub").click(function () {
+        document.getElementById("Loading").style.display = "block";
+    });
+
+
+</script>
+<script>
+    function fileValidation(element1, element2) {
+        var fileInput = document.getElementById(element1);
+        var HiddenFile = document.getElementById(element2);
+        var filePath = fileInput.value;
+        var allowedExtensions = /(\.xls|\.xlm|\.xlsx|\.xlsm|\.xlt)$/i;
+        if (!allowedExtensions.exec(filePath)) {
+            // alert('Please upload file having extensions .jpeg/.jpg/.png/.gif/ .doc/ .docx/ .pdf only.');
+            swal(`@Resources.NubiHR.Error`, '@Resources.NubiHR.UploadAllowedExcelExtensions', `error`);
+            fileInput.value = '';
+            return false;
+        } else {
+            //Image preview
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('imagePreview').innerHTML = '<img src="' + e.target.result + '"/>';
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+
+                $(HiddenFile).val(fileInput.value.split(/(\\|\/)/g).pop());
+
+
+            }
+        }
+    }
+
+</script>

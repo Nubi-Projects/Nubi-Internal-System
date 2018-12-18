@@ -314,6 +314,35 @@
                                 </ul>
                             </div>*@
                         </li>
+                     
+
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>@Resources.NubiHR.AttendanceSheets</span>
+
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Index","Import")">
+                                            <span>@Resources.NubiHR.Import</span>
+                                        </a>
+                                       
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Details","Import")">
+                                            @Resources.NubiHR.AllAttendanceSheets
+                                        </a>
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                       
+
+                      
                         @*<li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-chart-line"></i>
@@ -436,7 +465,7 @@
             <div class="container">
                 @RenderBody()
             </div>
-            <footer>
+            <footer class="col-md-8">
                 <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
             </footer>
             </main>
@@ -447,7 +476,9 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/index.js"></script>  
-    
+    <script src="~/Client Scripts/mvcfoolproof.unobtrusive.js"></script>
+    <script src="~/Client Scripts/MvcFoolproofValidation.js"></script>
+    <script src="~/Client Scripts/MvcFoolproofJQueryValidation.js"></script>
     <script>
         $(document).ready(function () {
     var IsArabic = '@Request.Cookies["culture"].Value';

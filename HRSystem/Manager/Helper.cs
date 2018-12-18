@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HRSystem.Models;
+using OfficeOpenXml;
 
 namespace HRSystem.Manager
 {
@@ -32,6 +33,26 @@ namespace HRSystem.Manager
             }
 
             return "This Employee Does Not Have A Position";
+        }
+
+        public static List<ExcelWorksheet> GetWorksheets(ExcelPackage package)
+        {
+            var attempts = 0;
+            while (attempts < 3)
+            {
+                try
+                {
+                    return package.Workbook.Worksheets.Select(s => s).ToList();
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+
+                attempts++;
+            }
+
+            return new List<ExcelWorksheet>();
         }
     }
 }

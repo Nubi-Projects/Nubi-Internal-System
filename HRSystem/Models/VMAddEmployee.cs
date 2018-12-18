@@ -1,4 +1,5 @@
-﻿using Resources;
+﻿using Foolproof;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -79,15 +80,16 @@ namespace HRSystem.Models
         //bank table
         public int IdBank { get; set; }
 
-        //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [RequiredIfNotEmpty("BankBranch", DependentPropertyDisplayName = "BankName", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "AccountNumber")]
         public string AccountNumber { get; set; }
 
-        //[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        
+        [RequiredIfNotEmpty("AccountNumber", DependentPropertyDisplayName = "AccountNumber", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "BankName")]
         public string BankName { get; set; }
 
-        //[Required]
+        [RequiredIfNotEmpty("BankName", DependentPropertyDisplayName = "BankName", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "BankBranch")]
         public string BankBranch { get; set; }
         public Nullable<bool> IsDeletedBank { get; set; }
@@ -159,8 +161,7 @@ namespace HRSystem.Models
         //emergency contact table
         public List<EmergencyContact> EmergencyContactList { get; set; }
 
-        [Display(ResourceType = typeof(NubiHR), Name = "RelationshipType")]
-        public string IdRelationship { get; set; }
+        public int IdEmergencyContact { get; set; }
 
         [Display(ResourceType = typeof(NubiHR), Name = "Name")]
         public string NameOfSibling { get; set; }
@@ -172,6 +173,13 @@ namespace HRSystem.Models
 
         [Display(ResourceType = typeof(NubiHR), Name = "RelationshipType")]
         public string Other { get; set; }
+        public System.DateTime DateEmergencyContact { get; set; }
 
+        //RelationshipType table
+
+        [Display(ResourceType = typeof(NubiHR), Name = "RelationshipType")]
+        public int? IdRelationshipType { get; set; }
+        public string RelationEn { get; set; }
+        public string RelationAr { get; set; }
     }
 }

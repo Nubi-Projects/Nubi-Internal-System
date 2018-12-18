@@ -102,6 +102,7 @@
           <Property Name="Mobile" Type="nvarchar" MaxLength="80" Nullable="false" />
           <Property Name="RelationshipTypeNo" Type="int" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="80" />
+          <Property Name="Date" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -819,6 +820,7 @@
           <Property Name="Type" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RelationshipType" Relationship="NubiDBModel.FK_EmergencyContact_RelationshipType" FromRole="EmergencyContact" ToRole="RelationshipType" />
           <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_EmergencyContact_Employee" FromRole="EmergencyContact" ToRole="Employee" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1329,6 +1331,7 @@
           <EntitySetMapping Name="EmergencyContacts">
             <EntityTypeMapping TypeName="NubiDBModel.EmergencyContact">
               <MappingFragment StoreEntitySet="EmergencyContact">
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="RelationshipTypeNo" ColumnName="RelationshipTypeNo" />
                 <ScalarProperty Name="Mobile" ColumnName="Mobile" />

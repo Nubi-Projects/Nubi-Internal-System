@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All attendance sheets.
+        /// </summary>
+        public static string AllAttendanceSheets {
+            get {
+                return ResourceManager.GetString("AllAttendanceSheets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Employees.
         /// </summary>
         public static string AllEmployees {
@@ -192,6 +201,24 @@ namespace Resources {
         public static string AttachmentType {
             get {
                 return ResourceManager.GetString("AttachmentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attendance sheets.
+        /// </summary>
+        public static string AttendanceSheets {
+            get {
+                return ResourceManager.GetString("AttendanceSheets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic.
+        /// </summary>
+        public static string Automatic {
+            get {
+                return ResourceManager.GetString("Automatic", resourceCulture);
             }
         }
         
@@ -349,6 +376,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Done filtering.
+        /// </summary>
+        public static string DoneFiltering {
+            get {
+                return ResourceManager.GetString("DoneFiltering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
         public static string Duration {
@@ -475,11 +511,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exclude Friday and Saturday.
+        /// </summary>
+        public static string Exclude {
+            get {
+                return ResourceManager.GetString("Exclude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expiration Date.
         /// </summary>
         public static string ExpirationDate {
             get {
                 return ResourceManager.GetString("ExpirationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to there is already a file with the same name! please change the upload file name!.
+        /// </summary>
+        public static string FileExists {
+            get {
+                return ResourceManager.GetString("FileExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
             }
         }
         
@@ -547,6 +619,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        public static string Import {
+            get {
+                return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is expired?.
         /// </summary>
         public static string IsExpired {
@@ -597,6 +678,15 @@ namespace Resources {
         public static string LeaderRequests {
             get {
                 return ResourceManager.GetString("LeaderRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading.. .
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
             }
         }
         
@@ -727,7 +817,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NoRecordsFound.
+        ///   Looks up a localized string similar to No of Hours.
+        /// </summary>
+        public static string NoOfHours {
+            get {
+                return ResourceManager.GetString("NoOfHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No of row.
+        /// </summary>
+        public static string NoOfRow {
+            get {
+                return ResourceManager.GetString("NoOfRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Records Found.
         /// </summary>
         public static string NoRecordsFound {
             get {
@@ -750,6 +858,15 @@ namespace Resources {
         public static string Notes {
             get {
                 return ResourceManager.GetString("Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nubi IT Service.
+        /// </summary>
+        public static string Nubi {
+            get {
+                return ResourceManager.GetString("Nubi", resourceCulture);
             }
         }
         
@@ -862,6 +979,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Punch Time.
+        /// </summary>
+        public static string PunchTime {
+            get {
+                return ResourceManager.GetString("PunchTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string Register {
@@ -889,6 +1015,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remaining hours.
+        /// </summary>
+        public static string RemainingHours {
+            get {
+                return ResourceManager.GetString("RemainingHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remember me?.
         /// </summary>
         public static string RememberMe {
@@ -898,11 +1033,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove attachment.
+        ///   Looks up a localized string similar to Remove Attachment.
         /// </summary>
         public static string RemoveAttachment {
             get {
                 return ResourceManager.GetString("RemoveAttachment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove attachment type.
+        /// </summary>
+        public static string RemoveAttachmentType {
+            get {
+                return ResourceManager.GetString("RemoveAttachmentType", resourceCulture);
             }
         }
         
@@ -1033,6 +1177,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Successfull.
+        /// </summary>
+        public static string Successfull {
+            get {
+                return ResourceManager.GetString("Successfull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Alternative Employee Will Be.
         /// </summary>
         public static string TheAlternativeEmployeeWillBe {
@@ -1096,6 +1249,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please upload an Excel file .
+        /// </summary>
+        public static string UploadAllowedExcelExtensions {
+            get {
+                return ResourceManager.GetString("UploadAllowedExcelExtensions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please upload file having extensions .jpeg , .jpg , .png , .gif , .doc , .docx , .pdf only.
         /// </summary>
         public static string UploadAllowedExtensions {
@@ -1141,11 +1303,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Work Number.
         /// </summary>
         public static string WorkNumber {
             get {
                 return ResourceManager.GetString("WorkNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WorkState.
+        /// </summary>
+        public static string WorkState {
+            get {
+                return ResourceManager.GetString("WorkState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong excel sheet.
+        /// </summary>
+        public static string WrongExcelSheet {
+            get {
+                return ResourceManager.GetString("WrongExcelSheet", resourceCulture);
             }
         }
     }
