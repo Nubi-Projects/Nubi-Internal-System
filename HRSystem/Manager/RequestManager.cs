@@ -101,9 +101,9 @@ namespace HRSystem.Manager
         public bool AvailableVacation(string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
-            var VacReq = db.VacationRequests.Where(e => e.VacationTypeNo != 3).OrderByDescending(f=>f.Id).FirstOrDefault(e => e.EmployeeNo == emp.Id);
+            var VacReq = db.VacationRequests.Where(e => e.VacationTypeNo == 1 && e.IsDeleted != true).OrderByDescending(f=>f.Id).FirstOrDefault(e => e.EmployeeNo == emp.Id);
 
-            if (VacReq != null && VacReq.ResumeDate.AddDays(14) <= DateTime.Today && VacReq.IsDeleted == false && VacReq.IsDeleted == false || VacReq == null)
+            if (VacReq != null && VacReq.ResumeDate.AddDays(14) <= DateTime.Today || VacReq == null)
             {
                 return true;
             }

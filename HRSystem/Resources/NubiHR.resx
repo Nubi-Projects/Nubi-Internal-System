@@ -337,7 +337,7 @@
     <value>Permission Type</value>
   </data>
   <data name="Note" xml:space="preserve">
-    <value>Note</value>
+    <value>NOTE: 'Remove' operation will remove the last thing you added</value>
   </data>
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
@@ -453,9 +453,6 @@
   <data name="ExpirationDate" xml:space="preserve">
     <value>Expiration Date</value>
   </data>
-  <data name="Note" xml:space="preserve">
-    <value>NOTE: 'Remove' operation will remove the last thing you added</value>
-  </data>
   <data name="MobileValidation" xml:space="preserve">
     <value>Please start with 0 (Length must be 10 digits)</value>
   </data>
@@ -545,5 +542,38 @@
   </data>
   <data name="NoOfRow" xml:space="preserve">
     <value>No of row</value>
+  </data>
+  <data name="JustOneDayAllowedForAccidentalLeave" xml:space="preserve">
+    <value>Just One Day Allowed For Accidental Leave!</value>
+  </data>
+  <data name="YouAreNotAvailableToTakeAccidentalLeave" xml:space="preserve">
+    <value>You Are Not Available To Take Accidental Leave!</value>
+  </data>
+  <data name="YouCantTakeMoreThan5DaysUntilCompleteOneYear" xml:space="preserve">
+    <value>You Can't Take More Than 5 Days Until Complete one Year!</value>
+  </data>
+  <data name="YouCantTakeNormalLeave" xml:space="preserve">
+    <value>You Can't Take Normal Leave!</value>
+  </data>
+  <data name="YouCantTakeThisVacationYouAlreadyTakeFatherDeathVacation" xml:space="preserve">
+    <value>You Cant Take This Vacation You Already Take This Vacation!</value>
+  </data>
+  <data name="YouDidNotComplete14DaysFromTheLastVacationYouTook" xml:space="preserve">
+    <value>You Did Not Complete 14 Days From The Last Vacation You Took!</value>
+  </data>
+  <data name="YouDidNotCompleteMonthYet" xml:space="preserve">
+    <value>You did not complete Month Yet!</value>
+  </data>
+  <data name="YourRequestHasBeenSented" xml:space="preserve">
+    <value>Your Request Has Been Sented</value>
+  </data>
+  <data name="YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave" xml:space="preserve">
+    <value>You Took 3 Accidental Leaves In Year You Can't Take Accidental Leave</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="RemoveAttachment" xml:space="preserve">
+    <value>Remove Attachment</value>
   </data>
 </root>

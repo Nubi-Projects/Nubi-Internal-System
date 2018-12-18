@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using HRSystem.Models;
 using Microsoft.AspNet.Identity;
+using System.Globalization;
+
 namespace HRSystem.Controllers
 {
     public class PermissionRequestController : BaseController
@@ -16,6 +18,9 @@ namespace HRSystem.Controllers
         {
             Manager.RequestManager mng = new Manager.RequestManager();
             ViewBag.per = mng.GetPermission(id: User.Identity.GetUserId());
+
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(db.PermissionRequests.ToList());
         }
         public ActionResult LeaderRequests()
@@ -31,6 +36,8 @@ namespace HRSystem.Controllers
 
             }
             db.SaveChanges();
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(db.PermissionRequests.OrderBy(e => e.RequestDate));
         }
         public ActionResult LeaderApprove(int id)
@@ -70,6 +77,8 @@ namespace HRSystem.Controllers
 
             }
             db.SaveChanges();
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(db.PermissionRequests.OrderBy(e => e.RequestDate));
         }
 
@@ -97,58 +106,86 @@ namespace HRSystem.Controllers
         
         // POST: /PermissionRequest/Create
         [HttpPost]
-        public ActionResult Create(PermissionRequest per)
+        public ActionResult Create(PermissionRequest per, string PerDateAr)
         {
+            ModelState.Remove("PermissionDate");
             Manager.RequestManager mng = new Manager.RequestManager();
             ViewBag.per = mng.GetPermission(id: User.Identity.GetUserId());
             var CurrentUser = User.Identity.GetUserId();
             per.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
-            if (ModelState.IsValid)
+            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+            if (IsArabic)
             {
-                //const int maxTimesAsSeconds = 14400;
-                //int timeto = Convert.ToInt32(per.TimeTo);
-                //int timefrom = Convert.ToInt32(per.TimeFrom);
-                //var difference = Math.Abs(timeto - timefrom);
 
-                //var hf = 17;
-                //var mf = 20;
-                //per.TimeFrom = new TimeSpan(hours: , minutes: , 0);
 
-                //var ht = 20;
-                //var mt = 40;
-                //per.TimeTo = new TimeSpan(hours:, minutes:, 0);
+                CultureInfo MyCultureInfo = new CultureInfo("en-US");
+                DateTime.Parse(PerDateAr, MyCultureInfo);
+                per.PermissionDate = DateTime.Parse(PerDateAr, MyCultureInfo);
 
-                //var differnceAs = per.TimeTo.Subtract(per.TimeFrom);
-                //var differnceAs_time = TimeSpan.FromMilliseconds(differnceAs_s);
+                //DateTime.Now.ToString("dd dddd , MMMM, yyyy", new CultureInfo("ar-AE"));
+                /*vac.StartDate =new DateTime(2018,12,12);*//* DateTime.Parse(StartDateAr, MyCultureInfo);*/
+                //vac.StartDate = Convert.ToDateTime(StartDateAr,);
+                //vac.StartDate.ToString("dd dddd , MMMM, yyyy", new CultureInfo("en-US"));
 
-                //var TimeFromHours = per.TimeFromHours;
-                //var TimeFromMinutes = per.TimeFromMinutes;
-                //var TimeToHours = per.TimeToHours;
-                //var TimeToMinutes = per.TimeToMinutes;
+                //CultureInfo MyCultureInfo = new CultureInfo("en-US");
+                //MyCultureInfo.DateTimeFormat.Calendar = new HijriCalendar();
+                //vac.StartDate = DateTime.Parse(StartDateAr, MyCultureInfo);
 
-                TimeSpan timeFrom = new TimeSpan(0, per.TimeFromHours, per.TimeFromMinutes??0, 0);
-                TimeSpan timeTo = new TimeSpan(0, per.TimeToHours, per.TimeToMinutes ?? 0, 0);
+                //CultureInfo arSA = new CultureInfo("ar-SA");
+                //arSA.DateTimeFormat.Calendar = new HijriCalendar();
+                //vac.StartDate = DateTime.ParseExact(StartDateAr, "dd/MM/yyyy", arSA);
 
-                //var differnce = timeTo - timeFrom;
+            }
+            if (per.PermissionDate < DateTime.Today)
+            {
+                ModelState.AddModelError("PermissionDate", "Permission date not valid");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    //const int maxTimesAsSeconds = 14400;
+                    //int timeto = Convert.ToInt32(per.TimeTo);
+                    //int timefrom = Convert.ToInt32(per.TimeFrom);
+                    //var difference = Math.Abs(timeto - timefrom);
 
-                //if (differnce.TotalHours > 4 )
-                //{
-                //    TempData["checkHours"] = "You Can Not Take More Than 4 Hours!";
-                //    ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
-                //}
-                //else
-                //{
-                per.RequestDate = DateTime.Now;
-                per.TimeToHours = timeFrom.Hours + 4;
-                TempData["chec"] = "Your Request Has Been Sented";
+                    //var hf = 17;
+                    //var mf = 20;
+                    //per.TimeFrom = new TimeSpan(hours: , minutes: , 0);
+
+                    //var ht = 20;
+                    //var mt = 40;
+                    //per.TimeTo = new TimeSpan(hours:, minutes:, 0);
+
+                    //var differnceAs = per.TimeTo.Subtract(per.TimeFrom);
+                    //var differnceAs_time = TimeSpan.FromMilliseconds(differnceAs_s);
+
+                    //var TimeFromHours = per.TimeFromHours;
+                    //var TimeFromMinutes = per.TimeFromMinutes;
+                    //var TimeToHours = per.TimeToHours;
+                    //var TimeToMinutes = per.TimeToMinutes;
+                    ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
+                    TimeSpan timeFrom = new TimeSpan(0, per.TimeFromHours, per.TimeFromMinutes ?? 0, 0);
+                    TimeSpan timeTo = new TimeSpan(0, per.TimeToHours, per.TimeToMinutes ?? 0, 0);
+
+                    //var differnce = timeTo - timeFrom;
+
+                    //if (differnce.TotalHours > 4 )
+                    //{
+                    //    TempData["checkHours"] = "You Can Not Take More Than 4 Hours!";
+                    //    ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
+                    //}
+                    //else
+                    //{
+                    per.RequestDate = DateTime.Now;
+                    per.TimeToHours = timeFrom.Hours + 4;
+                    TempData["chec"] = "Your Request Has Been Sented";
                     db.PermissionRequests.Add(per);
                     db.SaveChanges();
                     return RedirectToAction("Index");
-                //}
+                    //}
+                }
             }
-            
-                
-            
             ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
             return View();
         }

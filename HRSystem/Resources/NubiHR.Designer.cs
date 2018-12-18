@@ -646,6 +646,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Just One Day Allowed For Accidental Leave!.
+        /// </summary>
+        public static string JustOneDayAllowedForAccidentalLeave {
+            get {
+                return ResourceManager.GetString("JustOneDayAllowedForAccidentalLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Certificate.
         /// </summary>
         public static string LastCertificate {
@@ -700,7 +709,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Logout.
+        ///   Looks up a localized string similar to Log out.
         /// </summary>
         public static string Logout {
             get {
@@ -1317,6 +1326,78 @@ namespace Resources {
         public static string WorkNumber {
             get {
                 return ResourceManager.GetString("WorkNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Are Not Available To Take Accidental Leave!.
+        /// </summary>
+        public static string YouAreNotAvailableToTakeAccidentalLeave {
+            get {
+                return ResourceManager.GetString("YouAreNotAvailableToTakeAccidentalLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Can&apos;t Take More Than 5 Days Until Complete one Year!.
+        /// </summary>
+        public static string YouCantTakeMoreThan5DaysUntilCompleteOneYear {
+            get {
+                return ResourceManager.GetString("YouCantTakeMoreThan5DaysUntilCompleteOneYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Can&apos;t Take Normal Leave!.
+        /// </summary>
+        public static string YouCantTakeNormalLeave {
+            get {
+                return ResourceManager.GetString("YouCantTakeNormalLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Cant Take This Vacation You Already Take This Vacation!.
+        /// </summary>
+        public static string YouCantTakeThisVacationYouAlreadyTakeFatherDeathVacation {
+            get {
+                return ResourceManager.GetString("YouCantTakeThisVacationYouAlreadyTakeFatherDeathVacation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Did Not Complete 14 Days From The Last Vacation You Took!.
+        /// </summary>
+        public static string YouDidNotComplete14DaysFromTheLastVacationYouTook {
+            get {
+                return ResourceManager.GetString("YouDidNotComplete14DaysFromTheLastVacationYouTook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You did not complete Month Yet!.
+        /// </summary>
+        public static string YouDidNotCompleteMonthYet {
+            get {
+                return ResourceManager.GetString("YouDidNotCompleteMonthYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Request Has Been Sented.
+        /// </summary>
+        public static string YourRequestHasBeenSented {
+            get {
+                return ResourceManager.GetString("YourRequestHasBeenSented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Took 3 Accidental Leaves In Year You Can&apos;t Take Accidental Leave.
+        /// </summary>
+        public static string YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave {
+            get {
+                return ResourceManager.GetString("YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave", resourceCulture);
             }
         }
         
