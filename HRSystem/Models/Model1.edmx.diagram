@@ -45,6 +45,9 @@
         <AssociationConnector Association="NubiDBModel.AspNetUserRoles" />
         <AssociationConnector Association="NubiDBModel.FK_EmergencyContact_Employee" />
         <AssociationConnector Association="NubiDBModel.FK_Attachment_TypesOfAttachment" />
+        <EntityTypeShape EntityType="NubiDBModel.AttendanceSheet" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="NubiDBModel.ImportLog" Width="1.5" PointX="0.75" PointY="19.5" />
+        <AssociationConnector Association="NubiDBModel.FK_AttendanceSheet_ImportLog" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

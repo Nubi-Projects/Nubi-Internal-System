@@ -47,5 +47,7 @@ namespace HRSystem.Models
         public virtual DbSet<UserSession> UserSessions { get; set; }
         public virtual DbSet<VacationRequest> VacationRequests { get; set; }
         public virtual DbSet<VacationType> VacationTypes { get; set; }
+        public virtual DbSet<AttendanceSheet> AttendanceSheets { get; set; }
+        public virtual DbSet<ImportLog> ImportLogs { get; set; }
     }
 }

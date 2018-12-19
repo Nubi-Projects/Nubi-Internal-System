@@ -73,6 +73,22 @@
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="AttendanceSheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PunchTime" Type="datetime" Nullable="false" />
+          <Property Name="WorkState" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Terminal" Type="nvarchar" MaxLength="128" />
+          <Property Name="PunchType" Type="nvarchar" MaxLength="128" />
+          <Property Name="NoOfHours" Type="nvarchar" MaxLength="50" />
+          <Property Name="RemainingHours" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImportLogNo" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="BankAccount">
           <Key>
             <PropertyRef Name="Id" />
@@ -134,6 +150,15 @@
           <Property Name="ExtraHours" Type="float" Nullable="false" />
           <Property Name="Amount" Type="float" Nullable="false" />
           <Property Name="IsDeleted" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ImportLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="PermissionRequest">
@@ -336,6 +361,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AttendanceSheet_ImportLog">
+          <End Role="ImportLog" Type="Self.ImportLog" Multiplicity="1" />
+          <End Role="AttendanceSheet" Type="Self.AttendanceSheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportLog">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttendanceSheet">
+              <PropertyRef Name="ImportLogNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -525,11 +562,13 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attachment" EntityType="Self.Attachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttendanceSheet" EntityType="Self.AttendanceSheet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankAccount" EntityType="Self.BankAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmergencyContact" EntityType="Self.EmergencyContact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExtraSalary" EntityType="Self.ExtraSalary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportLog" EntityType="Self.ImportLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PermissionRequest" EntityType="Self.PermissionRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PermissionType" EntityType="Self.PermissionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhoneNumbers" EntityType="Self.PhoneNumbers" Schema="dbo" store:Type="Tables" />
@@ -557,6 +596,10 @@
           <AssociationSet Name="FK_Attachment_TypesOfAttachment" Association="Self.FK_Attachment_TypesOfAttachment">
             <End Role="TypesOfAttachment" EntitySet="TypesOfAttachment" />
             <End Role="Attachment" EntitySet="Attachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttendanceSheet_ImportLog" Association="Self.FK_AttendanceSheet_ImportLog">
+            <End Role="ImportLog" EntitySet="ImportLog" />
+            <End Role="AttendanceSheet" EntitySet="AttendanceSheet" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -717,6 +760,12 @@
           <AssociationSet Name="FK_Attachment_TypesOfAttachment" Association="NubiDBModel.FK_Attachment_TypesOfAttachment">
             <End Role="TypesOfAttachment" EntitySet="TypesOfAttachments" />
             <End Role="Attachment" EntitySet="Attachments" />
+          </AssociationSet>
+          <EntitySet Name="AttendanceSheets" EntityType="NubiDBModel.AttendanceSheet" />
+          <EntitySet Name="ImportLogs" EntityType="NubiDBModel.ImportLog" />
+          <AssociationSet Name="FK_AttendanceSheet_ImportLog" Association="NubiDBModel.FK_AttendanceSheet_ImportLog">
+            <End Role="ImportLog" EntitySet="ImportLogs" />
+            <End Role="AttendanceSheet" EntitySet="AttendanceSheets" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
@@ -1238,6 +1287,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AttendanceSheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PunchTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WorkState" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Terminal" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PunchType" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="NoOfHours" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RemainingHours" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImportLogNo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ImportLog" Relationship="NubiDBModel.FK_AttendanceSheet_ImportLog" FromRole="AttendanceSheet" ToRole="ImportLog" />
+        </EntityType>
+        <EntityType Name="ImportLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AttendanceSheets" Relationship="NubiDBModel.FK_AttendanceSheet_ImportLog" FromRole="ImportLog" ToRole="AttendanceSheet" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <Association Name="FK_AttendanceSheet_ImportLog">
+          <End Type="NubiDBModel.ImportLog" Role="ImportLog" Multiplicity="1" />
+          <End Type="NubiDBModel.AttendanceSheet" Role="AttendanceSheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportLog">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttendanceSheet">
+              <PropertyRef Name="ImportLogNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1547,6 +1635,33 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="AttendanceSheets">
+            <EntityTypeMapping TypeName="NubiDBModel.AttendanceSheet">
+              <MappingFragment StoreEntitySet="AttendanceSheet">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ImportLogNo" ColumnName="ImportLogNo" />
+                <ScalarProperty Name="RemainingHours" ColumnName="RemainingHours" />
+                <ScalarProperty Name="NoOfHours" ColumnName="NoOfHours" />
+                <ScalarProperty Name="PunchType" ColumnName="PunchType" />
+                <ScalarProperty Name="Terminal" ColumnName="Terminal" />
+                <ScalarProperty Name="WorkState" ColumnName="WorkState" />
+                <ScalarProperty Name="PunchTime" ColumnName="PunchTime" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportLogs">
+            <EntityTypeMapping TypeName="NubiDBModel.ImportLog">
+              <MappingFragment StoreEntitySet="ImportLog">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
