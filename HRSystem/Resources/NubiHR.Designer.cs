@@ -709,7 +709,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log out.
+        ///   Looks up a localized string similar to Logout.
         /// </summary>
         public static string Logout {
             get {
@@ -1330,6 +1330,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WorkState.
+        /// </summary>
+        public static string WorkState {
+            get {
+                return ResourceManager.GetString("WorkState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong excel sheet.
+        /// </summary>
+        public static string WrongExcelSheet {
+            get {
+                return ResourceManager.GetString("WrongExcelSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You Are Not Available To Take Accidental Leave!.
         /// </summary>
         public static string YouAreNotAvailableToTakeAccidentalLeave {
@@ -1398,24 +1416,6 @@ namespace Resources {
         public static string YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave {
             get {
                 return ResourceManager.GetString("YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WorkState.
-        /// </summary>
-        public static string WorkState {
-            get {
-                return ResourceManager.GetString("WorkState", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wrong excel sheet.
-        /// </summary>
-        public static string WrongExcelSheet {
-            get {
-                return ResourceManager.GetString("WrongExcelSheet", resourceCulture);
             }
         }
     }

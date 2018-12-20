@@ -23,6 +23,9 @@ namespace HRSystem.Controllers
         DatabaseManager DBMObj = new DatabaseManager();
 
         NubiDBEntities Db = new NubiDBEntities();
+
+        AttendanceSheet AttendanceObj = new AttendanceSheet();
+        ImportLog ImportLogObj = new ImportLog();
         // GET: Import
         [HttpGet]
         public ActionResult Index()
@@ -196,6 +199,34 @@ namespace HRSystem.Controllers
                                                 obj.WorkState = WorkStateCell;
 
                                                 list.Add(obj);
+
+                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r =>r.Id == AttendanceObj.ImportLogNo).Any();
+                                                if(!HasBeenInsertedBefore)
+                                                {
+                                                    Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                    ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                    ImportLogObj.Path = curFile;
+                                                    ImportLogObj.FileName = fileName;
+                                                    ImportLogObj.Date = DateTime.Now.Date;
+                                                    Db.ImportLogs.Add(ImportLogObj);
+                                                    Db.SaveChanges();
+                                                }
+                                               
+
+                                                AttendanceObj.Number = Convert.ToInt32( NumberCell);
+                                                AttendanceObj.Name = NameCell.ToString();
+                                                AttendanceObj.PunchTime = Convert.ToDateTime(PunchTimeCell);
+                                                AttendanceObj.WorkState = WorkStateCell;
+                                                AttendanceObj.Terminal = TerminalCell;
+                                                AttendanceObj.PunchType = PunchTypeCell;
+                                                AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                AttendanceObj.Date = DateTime.Now.Date;
+                                                AttendanceObj.NoOfHours = null;
+                                                AttendanceObj.RemainingHours = null;
+
+                                                Db.AttendanceSheets.Add(AttendanceObj);
+                                                Db.SaveChanges();
                                             }
 
 
@@ -256,6 +287,33 @@ namespace HRSystem.Controllers
 
                                                             list.Add(obj);
 
+                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                            if (!HasBeenInsertedBefore)
+                                                            {
+                                                                Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                ImportLogObj.Path = curFile;
+                                                                ImportLogObj.FileName = fileName;
+                                                                ImportLogObj.Date = DateTime.Now.Date;
+                                                                Db.ImportLogs.Add(ImportLogObj);
+                                                                Db.SaveChanges();
+                                                            }
+
+                                                            AttendanceObj.Number = Convert.ToInt32(item.Number);
+                                                            AttendanceObj.Name = item.Name.ToString();
+                                                            AttendanceObj.PunchTime = Convert.ToDateTime(item.PunchTime);
+                                                            AttendanceObj.WorkState = item.WorkState;
+                                                            AttendanceObj.Terminal = item.Terminal;
+                                                            AttendanceObj.PunchType = item.PunchType;
+                                                            AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                            AttendanceObj.Date = DateTime.Now.Date;
+                                                            AttendanceObj.NoOfHours = null;
+                                                            AttendanceObj.RemainingHours = null;
+
+                                                            Db.AttendanceSheets.Add(AttendanceObj);
+                                                            Db.SaveChanges();
+
                                                             break;
                                                         }
 
@@ -289,6 +347,33 @@ namespace HRSystem.Controllers
                                                             obj.WorkState = item.WorkState;
 
                                                             list.Add(obj);
+
+                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                            if (!HasBeenInsertedBefore)
+                                                            {
+                                                                Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                ImportLogObj.Path = curFile;
+                                                                ImportLogObj.FileName = fileName;
+                                                                ImportLogObj.Date = DateTime.Now.Date;
+                                                                Db.ImportLogs.Add(ImportLogObj);
+                                                                Db.SaveChanges();
+                                                            }
+
+                                                            AttendanceObj.Number = Convert.ToInt32(item.Number);
+                                                            AttendanceObj.Name = item.Name.ToString();
+                                                            AttendanceObj.PunchTime = Convert.ToDateTime(item.PunchTime);
+                                                            AttendanceObj.WorkState = item.WorkState;
+                                                            AttendanceObj.Terminal = item.Terminal;
+                                                            AttendanceObj.PunchType = item.PunchType;
+                                                            AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                            AttendanceObj.Date = DateTime.Now.Date;
+                                                            AttendanceObj.NoOfHours = null;
+                                                            AttendanceObj.RemainingHours = null;
+
+                                                            Db.AttendanceSheets.Add(AttendanceObj);
+                                                            Db.SaveChanges();
 
                                                             break;
                                                         }
@@ -325,6 +410,33 @@ namespace HRSystem.Controllers
                                                     obj.WorkState = "Checkin";
 
                                                     list.Add(obj);
+
+                                                    var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                    if (!HasBeenInsertedBefore)
+                                                    {
+                                                        Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                        ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                        ImportLogObj.Path = curFile;
+                                                        ImportLogObj.FileName = fileName;
+                                                        ImportLogObj.Date = DateTime.Now.Date;
+                                                        Db.ImportLogs.Add(ImportLogObj);
+                                                        Db.SaveChanges();
+                                                    }
+
+                                                    AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                    AttendanceObj.Name = NameCell.ToString();
+                                                    AttendanceObj.PunchTime = Convert.ToDateTime(PunchTimeCell);
+                                                    AttendanceObj.WorkState = "Checkin";
+                                                    AttendanceObj.Terminal = TerminalCell;
+                                                    AttendanceObj.PunchType = PunchTypeCell;
+                                                    AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                    AttendanceObj.Date = DateTime.Now.Date;
+                                                    AttendanceObj.NoOfHours = null;
+                                                    AttendanceObj.RemainingHours = null;
+
+                                                    Db.AttendanceSheets.Add(AttendanceObj);
+                                                    Db.SaveChanges();
                                                 }
                                                 else if (NextDate != CurrentDate)
                                                 {
@@ -362,14 +474,54 @@ namespace HRSystem.Controllers
                                                             worksheet.Cells[NoOfRow, 6].Value = item.PunchType;
 
 
+                                                            obj = new AttendanceViewModel();
+                                                            obj.Number = NumberCell;
+                                                            obj.Name = NameCell;
+                                                            obj.PunchTime = item.PunchTime;
+                                                            obj.WorkState = item.WorkState;
+
+                                                            
+
+
+                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                            if (!HasBeenInsertedBefore)
+                                                            {
+                                                                Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                ImportLogObj.Path = curFile;
+                                                                ImportLogObj.FileName = fileName;
+                                                                ImportLogObj.Date = DateTime.Now.Date;
+                                                                Db.ImportLogs.Add(ImportLogObj);
+                                                                Db.SaveChanges();
+                                                            }
+
+                                                            AttendanceObj.Number = Convert.ToInt32(item.Number);
+                                                            AttendanceObj.Name = item.Name.ToString();
+                                                            AttendanceObj.PunchTime = Convert.ToDateTime(item.PunchTime);
+                                                            AttendanceObj.WorkState = item.WorkState;
+                                                            AttendanceObj.Terminal = item.Terminal;
+                                                            AttendanceObj.PunchType = item.PunchType;
+                                                            AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                            AttendanceObj.Date = DateTime.Now.Date;
+
+                                                            
+
                                                             if (CheckInTime.Equals(NoCheckInFound))
                                                             {
-                                                                worksheet.Cells[NoOfRow, 7].Value = "0";
-                                                                worksheet.Cells[NoOfRow, 8].Value = "0";
+                                                                worksheet.Cells[NoOfRow, 7].Value = "00:00:00";
+                                                                worksheet.Cells[NoOfRow, 8].Value = "00:00:00";
                                                                 worksheet.Cells[NoOfRow, 9].Value = "No Check In Found";
 
-                                                                obj.NoOfHours = "0";
-                                                                obj.RemainingHours = "0";
+                                                                obj.NoOfHours = "00:00:00";
+                                                                obj.RemainingHours = "00:00:00";
+                                                                list.Add(obj);
+
+                                                                AttendanceObj.NoOfHours = "00:00:00";
+                                                                AttendanceObj.RemainingHours = "00:00:00";
+
+                                                                Db.AttendanceSheets.Add(AttendanceObj);
+                                                                Db.SaveChanges();
                                                             }
                                                             else
                                                             {
@@ -378,18 +530,18 @@ namespace HRSystem.Controllers
 
                                                                 obj.NoOfHours = (now - CheckInTime).ToString();
                                                                 obj.RemainingHours = ((now - CheckInTime) - Eight).ToString();
+                                                                list.Add(obj);
+
+                                                                AttendanceObj.NoOfHours = (now - CheckInTime).ToString();
+                                                                AttendanceObj.RemainingHours = ((now - CheckInTime) - Eight).ToString();
+
+                                                                Db.AttendanceSheets.Add(AttendanceObj);
+                                                                Db.SaveChanges();
                                                             }
                                                             package.Save();
                                                             NoOfRow++;
 
 
-                                                            obj = new AttendanceViewModel();
-                                                            obj.Number = NumberCell;
-                                                            obj.Name = NameCell;
-                                                            obj.PunchTime = item.PunchTime;
-                                                            obj.WorkState = item.WorkState;
-
-                                                            list.Add(obj);
 
                                                             break;
                                                         }
@@ -412,15 +564,45 @@ namespace HRSystem.Controllers
                                                                 obj.PunchTime = CurrentDate + " " + "6:00:00 PM";
                                                                 obj.WorkState = item.WorkState;
 
-                                                               
+
+                                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                                if (!HasBeenInsertedBefore)
+                                                                {
+                                                                    Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                    ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                    ImportLogObj.Path = curFile;
+                                                                    ImportLogObj.FileName = fileName;
+                                                                    ImportLogObj.Date = DateTime.Now.Date;
+                                                                    Db.ImportLogs.Add(ImportLogObj);
+                                                                    Db.SaveChanges();
+                                                                }
+
+                                                                AttendanceObj.Number = Convert.ToInt32(item.Number);
+                                                                AttendanceObj.Name = item.Name.ToString();
+                                                                AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + "6:00:00 PM");
+                                                                AttendanceObj.WorkState = item.WorkState;
+                                                                AttendanceObj.Terminal = item.Terminal;
+                                                                AttendanceObj.PunchType = item.PunchType;
+                                                                AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                                AttendanceObj.Date = DateTime.Now.Date;
+
+                                                                
                                                                 if (CheckInTime.Equals(NoCheckInFound))
                                                                 {
-                                                                    worksheet.Cells[NoOfRow, 7].Value = "0";
-                                                                    worksheet.Cells[NoOfRow, 8].Value = "0";
+                                                                    worksheet.Cells[NoOfRow, 7].Value = "00:00:00";
+                                                                    worksheet.Cells[NoOfRow, 8].Value = "00:00:00";
                                                                     worksheet.Cells[NoOfRow, 9].Value = "No Check In Found";
 
-                                                                    obj.NoOfHours = "0";
-                                                                    obj.RemainingHours = "0";
+                                                                    obj.NoOfHours = "00:00:00";
+                                                                    obj.RemainingHours = "00:00:00";
+                                                                    list.Add(obj);
+
+                                                                    AttendanceObj.NoOfHours = "00:00:00";
+                                                                    AttendanceObj.RemainingHours = "00:00:00";
+
+                                                                    Db.AttendanceSheets.Add(AttendanceObj);
+                                                                    Db.SaveChanges();
 
                                                                 }
                                                                 else
@@ -430,13 +612,19 @@ namespace HRSystem.Controllers
 
                                                                     obj.NoOfHours = (Six - CheckInTime).ToString();
                                                                     obj.RemainingHours = ((Six - CheckInTime) - Eight).ToString();
+                                                                    list.Add(obj);
+
+                                                                    AttendanceObj.NoOfHours = (Six - CheckInTime).ToString();
+                                                                    AttendanceObj.RemainingHours = ((Six - CheckInTime) - Eight).ToString();
+
+                                                                    Db.AttendanceSheets.Add(AttendanceObj);
+                                                                    Db.SaveChanges();
                                                                 }
                                                                 package.Save();
                                                                 NoOfRow++;
 
-                                                                list.Add(obj);
-
-
+                                                                
+                                                                
                                                                 break;
                                                             }
                                                         }
@@ -526,6 +714,35 @@ namespace HRSystem.Controllers
                                                 
                                                 list.Add(obj);
 
+
+                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                if (!HasBeenInsertedBefore)
+                                                {
+                                                    Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                    ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                    ImportLogObj.Path = curFile;
+                                                    ImportLogObj.FileName = fileName;
+                                                    ImportLogObj.Date = DateTime.Now.Date;
+                                                    Db.ImportLogs.Add(ImportLogObj);
+                                                    Db.SaveChanges();
+                                                }
+
+
+                                                AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                AttendanceObj.Name = NameCell.ToString();
+                                                AttendanceObj.PunchTime = Convert.ToDateTime(PunchTimeCell);
+                                                AttendanceObj.WorkState = WorkStateCell;
+                                                AttendanceObj.Terminal = TerminalCell;
+                                                AttendanceObj.PunchType = PunchTypeCell;
+                                                AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                AttendanceObj.Date = DateTime.Now.Date;
+                                                AttendanceObj.NoOfHours = null;
+                                                AttendanceObj.RemainingHours = null;
+
+                                                Db.AttendanceSheets.Add(AttendanceObj);
+                                                Db.SaveChanges();
+
                                                 if (ListOfCheckOuts.Count == 0)
                                                 {
                                                     TimeSpan CheckInTime = Convert.ToDateTime(worksheet.Cells[NoOfRow - 1, 3].Value).TimeOfDay;
@@ -556,6 +773,34 @@ namespace HRSystem.Controllers
                                                         obj.NoOfHours = (now - CheckInTime).ToString();
                                                         obj.RemainingHours = ((now - CheckInTime) - Eight).ToString();
                                                         list.Add(obj);
+
+
+                                                        if (!HasBeenInsertedBefore)
+                                                        {
+                                                            Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                            ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                            ImportLogObj.Path = curFile;
+                                                            ImportLogObj.FileName = fileName;
+                                                            ImportLogObj.Date = DateTime.Now.Date;
+                                                            Db.ImportLogs.Add(ImportLogObj);
+                                                            Db.SaveChanges();
+                                                        }
+
+
+                                                        AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                        AttendanceObj.Name = NameCell.ToString();
+                                                        AttendanceObj.PunchTime = Convert.ToDateTime(PunchTimeCell);
+                                                        AttendanceObj.WorkState = WorkStateCell;
+                                                        AttendanceObj.Terminal = TerminalCell;
+                                                        AttendanceObj.PunchType = PunchTypeCell;
+                                                        AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                        AttendanceObj.Date = DateTime.Now.Date;
+                                                        AttendanceObj.NoOfHours = (now - CheckInTime).ToString();
+                                                        AttendanceObj.RemainingHours = ((now - CheckInTime) - Eight).ToString();
+
+                                                        Db.AttendanceSheets.Add(AttendanceObj);
+                                                        Db.SaveChanges();
                                                     }
                                                     else
                                                     {
@@ -573,7 +818,37 @@ namespace HRSystem.Controllers
                                                         obj.Name = NameCell;
                                                         obj.PunchTime = CurrentDate + " " + ((CheckInTime + Eight) - Twelve) + " " + "PM"; ;
                                                         obj.WorkState = "Checkout";
+                                                        obj.NoOfHours = "8:00:00";
+                                                        obj.RemainingHours = "00:00:00";
                                                         list.Add(obj);
+
+                                                        AttendanceObj.NoOfHours = "8:00:00";
+                                                        AttendanceObj.RemainingHours = "00:00:00";
+
+                                                        if (!HasBeenInsertedBefore)
+                                                        {
+                                                            Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                            ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                            ImportLogObj.Path = curFile;
+                                                            ImportLogObj.FileName = fileName;
+                                                            ImportLogObj.Date = DateTime.Now.Date;
+                                                            Db.ImportLogs.Add(ImportLogObj);
+                                                            Db.SaveChanges();
+                                                        }
+
+
+                                                        AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                        AttendanceObj.Name = NameCell.ToString();
+                                                        AttendanceObj.PunchTime = Convert.ToDateTime(PunchTimeCell);
+                                                        AttendanceObj.WorkState = WorkStateCell;
+                                                        AttendanceObj.Terminal = TerminalCell;
+                                                        AttendanceObj.PunchType = PunchTypeCell;
+                                                        AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                        AttendanceObj.Date = DateTime.Now.Date;
+                                                        
+                                                        Db.AttendanceSheets.Add(AttendanceObj);
+                                                        Db.SaveChanges();
                                                     }
 
                                                 }
@@ -637,6 +912,33 @@ namespace HRSystem.Controllers
                                                             obj.WorkState = item.WorkState;
                                                             list.Add(obj);
 
+                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                            if (!HasBeenInsertedBefore)
+                                                            {
+                                                                Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                ImportLogObj.Path = curFile;
+                                                                ImportLogObj.FileName = fileName;
+                                                                ImportLogObj.Date = DateTime.Now.Date;
+                                                                Db.ImportLogs.Add(ImportLogObj);
+                                                                Db.SaveChanges();
+                                                            }
+
+                                                            AttendanceObj.Number = Convert.ToInt32(item.Number);
+                                                            AttendanceObj.Name = item.Name.ToString();
+                                                            AttendanceObj.PunchTime = Convert.ToDateTime(item.PunchTime);
+                                                            AttendanceObj.WorkState = item.WorkState;
+                                                            AttendanceObj.Terminal = item.Terminal;
+                                                            AttendanceObj.PunchType = item.PunchType;
+                                                            AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                            AttendanceObj.Date = DateTime.Now.Date;
+                                                            AttendanceObj.NoOfHours = null;
+                                                            AttendanceObj.RemainingHours = null;
+
+                                                            Db.AttendanceSheets.Add(AttendanceObj);
+                                                            Db.SaveChanges();
+
                                                             if (ListOfCheckOuts.Count == 0)
                                                             {
                                                                 TimeSpan CheckInTime = Convert.ToDateTime(worksheet.Cells[NoOfRow - 1, 3].Value).TimeOfDay;
@@ -646,7 +948,36 @@ namespace HRSystem.Controllers
                                                                 worksheet.Cells[NoOfRow, 1].Value = item.Number;
                                                                 worksheet.Cells[NoOfRow, 2].Value = item.Name;
 
-                                                                if (CO.Hours > 6)
+
+                                                                obj = new AttendanceViewModel();
+                                                                obj.Number = NumberCell;
+                                                                obj.Name = NameCell;
+                                                                obj.WorkState = "Checkout";
+                                                                
+
+                                                                if (!HasBeenInsertedBefore)
+                                                                {
+                                                                    Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                    ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                    ImportLogObj.Path = curFile;
+                                                                    ImportLogObj.FileName = fileName;
+                                                                    ImportLogObj.Date = DateTime.Now.Date;
+                                                                    Db.ImportLogs.Add(ImportLogObj);
+                                                                    Db.SaveChanges();
+                                                                }
+
+                                                                AttendanceObj.Number = Convert.ToInt32(item.Number);
+                                                                AttendanceObj.Name = item.Name.ToString();
+                                                                AttendanceObj.WorkState = "Checkout";
+                                                                AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                                AttendanceObj.Date = DateTime.Now.Date;
+                                                                AttendanceObj.Terminal = item.Terminal;
+                                                                AttendanceObj.PunchType = item.PunchType;
+
+
+
+                                                                if (CO.Hours >= 6)
                                                                 {
                                                                     TimeSpan noww = Convert.ToDateTime("18:00:00").TimeOfDay;
 
@@ -654,9 +985,18 @@ namespace HRSystem.Controllers
                                                                     worksheet.Cells[NoOfRow, 7].Value = (noww - CheckInTime).ToString();
                                                                     worksheet.Cells[NoOfRow, 8].Value = ((noww - CheckInTime) - Eight).ToString();
                                                                     worksheet.Cells[NoOfRow, 9].Value = "No Checkout Found (generated and became after 6)";
+
                                                                     obj.PunchTime = CurrentDate + " " + "6:00:00" + " " + "PM";
                                                                     obj.NoOfHours = (noww - CheckInTime).ToString();
                                                                     obj.RemainingHours = ((noww - CheckInTime) - Eight).ToString();
+                                                                    list.Add(obj);
+
+                                                                    AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + "6:00:00" + " " + "PM");
+                                                                    AttendanceObj.NoOfHours = (noww - CheckInTime).ToString();
+                                                                    AttendanceObj.RemainingHours = ((noww - CheckInTime) - Eight).ToString();
+
+                                                                    Db.AttendanceSheets.Add(AttendanceObj);
+                                                                    Db.SaveChanges();
                                                                 }
                                                                 else
                                                                 {
@@ -664,11 +1004,26 @@ namespace HRSystem.Controllers
                                                                     worksheet.Cells[NoOfRow, 7].Value = "8:00:00";
                                                                     worksheet.Cells[NoOfRow, 8].Value = "00:00:00";
                                                                     worksheet.Cells[NoOfRow, 9].Value = "No Checkout Found (generated)";
+
                                                                     obj.PunchTime = CurrentDate + " " + CO + " " + "PM";
                                                                     obj.NoOfHours = "8:00:00";
                                                                     obj.RemainingHours = "00:00:00";
+                                                                    list.Add(obj);
+
+                                                                    AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + CO + " " + "PM");
+                                                                    AttendanceObj.NoOfHours = "8:00:00";
+                                                                    AttendanceObj.RemainingHours = "00:00:00";
+
+                                                                    Db.AttendanceSheets.Add(AttendanceObj);
+                                                                    Db.SaveChanges();
+
+
+
                                                                 }
 
+                                                                
+                                                                
+                                                                
                                                                 worksheet.Cells[NoOfRow, 4].Value = "Checkout";
                                                                 worksheet.Cells[NoOfRow, 5].Value = item.Terminal;
                                                                 worksheet.Cells[NoOfRow, 6].Value = item.PunchType;
@@ -676,12 +1031,6 @@ namespace HRSystem.Controllers
                                                                 package.Save();
                                                                 NoOfRow++;
 
-                                                                obj = new AttendanceViewModel();
-                                                                obj.Number = NumberCell;
-                                                                obj.Name = NameCell;
-                                                                
-                                                                obj.WorkState = "Checkout";
-                                                                list.Add(obj);
                                                             }
 
 
@@ -721,6 +1070,34 @@ namespace HRSystem.Controllers
                                                             obj.WorkState = item.WorkState;
                                                             list.Add(obj);
 
+                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                            if (!HasBeenInsertedBefore)
+                                                            {
+                                                                Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                ImportLogObj.Path = curFile;
+                                                                ImportLogObj.FileName = fileName;
+                                                                ImportLogObj.Date = DateTime.Now.Date;
+                                                                Db.ImportLogs.Add(ImportLogObj);
+                                                                Db.SaveChanges();
+                                                            }
+
+
+                                                            AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                            AttendanceObj.Name = NameCell.ToString();
+                                                            AttendanceObj.PunchTime = Convert.ToDateTime(item.PunchTime);
+                                                            AttendanceObj.WorkState = item.WorkState;
+                                                            AttendanceObj.Terminal = item.Terminal;
+                                                            AttendanceObj.PunchType = item.PunchType;
+                                                            AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                            AttendanceObj.Date = DateTime.Now.Date;
+                                                            AttendanceObj.NoOfHours = null;
+                                                            AttendanceObj.RemainingHours = null;
+
+                                                            Db.AttendanceSheets.Add(AttendanceObj);
+                                                            Db.SaveChanges();
+
                                                             if (ListOfCheckOuts.Count == 0)
                                                             {
                                                                 TimeSpan CheckInTime = Convert.ToDateTime(worksheet.Cells[NoOfRow - 1, 3].Value).TimeOfDay;
@@ -745,6 +1122,33 @@ namespace HRSystem.Controllers
                                                                 obj.NoOfHours = "8:00:00";
                                                                 obj.RemainingHours = "00:00:00";
                                                                 list.Add(obj);
+
+                                                                if (!HasBeenInsertedBefore)
+                                                                {
+                                                                    Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                    ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                    ImportLogObj.Path = curFile;
+                                                                    ImportLogObj.FileName = fileName;
+                                                                    ImportLogObj.Date = DateTime.Now.Date;
+                                                                    Db.ImportLogs.Add(ImportLogObj);
+                                                                    Db.SaveChanges();
+                                                                }
+
+
+                                                                AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                                AttendanceObj.Name = NameCell.ToString();
+                                                                AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + ((CheckInTime + Eight) - Twelve) + " " + "PM");
+                                                                AttendanceObj.WorkState = "Checkout";
+                                                                AttendanceObj.Terminal = item.Terminal;
+                                                                AttendanceObj.PunchType = item.PunchType;
+                                                                AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                                AttendanceObj.Date = DateTime.Now.Date;
+                                                                AttendanceObj.NoOfHours = "8:00:00";
+                                                                AttendanceObj.RemainingHours = "00:00:00";
+
+                                                                Db.AttendanceSheets.Add(AttendanceObj);
+                                                                Db.SaveChanges();
 
                                                             }
 
@@ -785,6 +1189,35 @@ namespace HRSystem.Controllers
                                                     obj.WorkState = "Checkinnnnnn";
                                                     list.Add(obj);
 
+
+                                                    var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                    if (!HasBeenInsertedBefore)
+                                                    {
+                                                        Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                        ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                        ImportLogObj.Path = curFile;
+                                                        ImportLogObj.FileName = fileName;
+                                                        ImportLogObj.Date = DateTime.Now.Date;
+                                                        Db.ImportLogs.Add(ImportLogObj);
+                                                        Db.SaveChanges();
+                                                    }
+
+
+                                                    AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                    AttendanceObj.Name = NameCell.ToString();
+                                                    AttendanceObj.PunchTime = Convert.ToDateTime(PunchTimeCell);
+                                                    AttendanceObj.WorkState = "Checkinnnnnn";
+                                                    AttendanceObj.Terminal = TerminalCell;
+                                                    AttendanceObj.PunchType = PunchTypeCell;
+                                                    AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                    AttendanceObj.Date = DateTime.Now.Date;
+                                                    AttendanceObj.NoOfHours = null;
+                                                    AttendanceObj.RemainingHours = null;
+
+                                                    Db.AttendanceSheets.Add(AttendanceObj);
+                                                    Db.SaveChanges();
+
                                                     var o = ListOfCheckOuts.Where(xx => (Convert.ToDateTime(xx.PunchTime)).TimeOfDay.Hours <= 11).ToList();
                                                     var oo = ListOfCheckOuts.Where(xx => (Convert.ToDateTime(xx.PunchTime)).TimeOfDay.Hours > 11).ToList();
 
@@ -798,15 +1231,47 @@ namespace HRSystem.Controllers
                                                         worksheet.Cells[NoOfRow, 1].Value = NumberCell;
                                                         worksheet.Cells[NoOfRow, 2].Value = NameCell;
 
-                                                        if (CO.Hours > 6)
+                                                        obj = new AttendanceViewModel();
+                                                        obj.Number = NumberCell;
+                                                        obj.Name = NameCell;
+
+                                                        obj.WorkState = "Checkout";
+                                                        
+
+                                                        if (!HasBeenInsertedBefore)
+                                                        {
+                                                            Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                            ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                            ImportLogObj.Path = curFile;
+                                                            ImportLogObj.FileName = fileName;
+                                                            ImportLogObj.Date = DateTime.Now.Date;
+                                                            Db.ImportLogs.Add(ImportLogObj);
+                                                            Db.SaveChanges();
+                                                        }
+
+
+                                                        AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                        AttendanceObj.Name = NameCell.ToString();
+                                                        AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                        AttendanceObj.Date = DateTime.Now.Date;
+
+                                                       
+
+                                                        if (CO.Hours >= 6)
                                                         {
                                                             worksheet.Cells[NoOfRow, 3].Value = CurrentDate + " " + "6:00:00" + " " + "PM";
                                                             worksheet.Cells[NoOfRow, 7].Value = (Eighteen - CheckInTime).ToString();
                                                             worksheet.Cells[NoOfRow, 8].Value = ((Eighteen - CheckInTime) - Eight).ToString();
                                                             worksheet.Cells[NoOfRow, 9].Value = "Checkout was too early and new checkout was after 6";
+
                                                             obj.PunchTime = CurrentDate + " " + "6:00:00" + " " + "PM";
                                                             obj.NoOfHours = (Eighteen - CheckInTime).ToString();
                                                             obj.RemainingHours = ((Eighteen - CheckInTime) - Eight).ToString();
+
+                                                            AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + "6:00:00" + " " + "PM");
+                                                            AttendanceObj.NoOfHours = (Eighteen - CheckInTime).ToString();
+                                                            AttendanceObj.RemainingHours = ((Eighteen - CheckInTime) - Eight).ToString();
                                                         }
                                                         else
                                                         {
@@ -814,9 +1279,16 @@ namespace HRSystem.Controllers
                                                             worksheet.Cells[NoOfRow, 7].Value = "8:00:00";
                                                             worksheet.Cells[NoOfRow, 8].Value = "00:00:00";
                                                             worksheet.Cells[NoOfRow, 9].Value = "Checkout was too early and checkinnnnnnn";
+
                                                             obj.PunchTime = CurrentDate + " " + CO + " " + "PM";
                                                             obj.NoOfHours = "8:00:00";
                                                             obj.RemainingHours = "00:00:00";
+
+                                                            AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + CO + " " + "PM");
+                                                            AttendanceObj.NoOfHours = "8:00:00";
+                                                            AttendanceObj.RemainingHours = "00:00:00";
+
+
                                                         }
 
                                                         worksheet.Cells[NoOfRow, 4].Value = "Checkout";
@@ -826,12 +1298,15 @@ namespace HRSystem.Controllers
                                                         package.Save();
                                                         NoOfRow++;
 
-                                                        obj = new AttendanceViewModel();
-                                                        obj.Number = NumberCell;
-                                                        obj.Name = NameCell;
-                                                        
-                                                        obj.WorkState = "Checkout";
                                                         list.Add(obj);
+
+                                                        AttendanceObj.WorkState = "Checkout";
+                                                        AttendanceObj.Terminal = TerminalCell;
+                                                        AttendanceObj.PunchType = PunchTypeCell;
+
+                                                        Db.AttendanceSheets.Add(AttendanceObj);
+                                                        Db.SaveChanges();
+
                                                     }
 
                                                 }
@@ -880,18 +1355,7 @@ namespace HRSystem.Controllers
 
                                                                 TimeSpan CheckoutTime = Convert.ToDateTime(worksheet.Cells[NoOfRow + 1, 3].Value).TimeOfDay;
 
-                                                                obj = new AttendanceViewModel();
-                                                                obj.Number = NumberCell;
-                                                                obj.Name = NameCell;
-                                                                obj.PunchTime = item.PunchTime;
-                                                                obj.WorkState = item.WorkState;
-                                                                obj.NoOfHours = "8:00:00";
-                                                                obj.RemainingHours = "00:00:00";
-                                                                list.Add(obj);
-
-
-
-
+                                                                
                                                                 worksheet.Cells[NoOfRow, 1].Value = NumberCell;
                                                                 worksheet.Cells[NoOfRow, 2].Value = NameCell;
                                                                 worksheet.Cells[NoOfRow, 3].Value = CurrentDate + " " + (CheckoutTime - Eight) + " " + "AM";
@@ -910,8 +1374,71 @@ namespace HRSystem.Controllers
                                                                 obj.PunchTime = CurrentDate + " " + (CheckoutTime - Eight) + " " + "AM";
                                                                 obj.WorkState = "Checkin";
                                                                 list.Add(obj);
-                                                                
 
+                                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                                if (!HasBeenInsertedBefore)
+                                                                {
+                                                                    Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                    ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                    ImportLogObj.Path = curFile;
+                                                                    ImportLogObj.FileName = fileName;
+                                                                    ImportLogObj.Date = DateTime.Now.Date;
+                                                                    Db.ImportLogs.Add(ImportLogObj);
+                                                                    Db.SaveChanges();
+                                                                }
+
+
+                                                                AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                                AttendanceObj.Name = NameCell.ToString();
+                                                                AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + (CheckoutTime - Eight) + " " + "AM");
+                                                                AttendanceObj.WorkState = "Checkin";
+                                                                AttendanceObj.Terminal = TerminalCell;
+                                                                AttendanceObj.PunchType = PunchTypeCell;
+                                                                AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                                AttendanceObj.Date = DateTime.Now.Date;
+                                                                AttendanceObj.NoOfHours = null;
+                                                                AttendanceObj.RemainingHours = null;
+
+                                                                Db.AttendanceSheets.Add(AttendanceObj);
+                                                                Db.SaveChanges();
+
+                                                                obj = new AttendanceViewModel();
+                                                                obj.Number = NumberCell;
+                                                                obj.Name = NameCell;
+                                                                obj.PunchTime = item.PunchTime;
+                                                                obj.WorkState = item.WorkState;
+                                                                obj.NoOfHours = "8:00:00";
+                                                                obj.RemainingHours = "00:00:00";
+                                                                list.Add(obj);
+
+
+                                                               if (!HasBeenInsertedBefore)
+                                                                {
+                                                                    Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                    ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                    ImportLogObj.Path = curFile;
+                                                                    ImportLogObj.FileName = fileName;
+                                                                    ImportLogObj.Date = DateTime.Now.Date;
+                                                                    Db.ImportLogs.Add(ImportLogObj);
+                                                                    Db.SaveChanges();
+                                                                }
+
+
+                                                                AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                                AttendanceObj.Name = NameCell.ToString();
+                                                                AttendanceObj.PunchTime = Convert.ToDateTime(item.PunchTime);
+                                                                AttendanceObj.WorkState = item.WorkState;
+                                                                AttendanceObj.Terminal = item.Terminal;
+                                                                AttendanceObj.PunchType = item.PunchType;
+                                                                AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                                AttendanceObj.Date = DateTime.Now.Date;
+                                                                AttendanceObj.NoOfHours = "8:00:00";
+                                                                AttendanceObj.RemainingHours = "00:00:00";
+
+                                                                Db.AttendanceSheets.Add(AttendanceObj);
+                                                                Db.SaveChanges();
 
                                                                 break;
 
@@ -938,6 +1465,34 @@ namespace HRSystem.Controllers
                                                                 obj.NoOfHours = (now - CheckInTime).ToString();
                                                                 obj.RemainingHours = ((now - CheckInTime) - Eight).ToString();
                                                                 list.Add(obj);
+
+                                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                                if (!HasBeenInsertedBefore)
+                                                                {
+                                                                    Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                    ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                    ImportLogObj.Path = curFile;
+                                                                    ImportLogObj.FileName = fileName;
+                                                                    ImportLogObj.Date = DateTime.Now.Date;
+                                                                    Db.ImportLogs.Add(ImportLogObj);
+                                                                    Db.SaveChanges();
+                                                                }
+
+
+                                                                AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                                AttendanceObj.Name = NameCell.ToString();
+                                                                AttendanceObj.PunchTime = Convert.ToDateTime(item.PunchTime);
+                                                                AttendanceObj.WorkState = item.WorkState;
+                                                                AttendanceObj.Terminal = item.Terminal;
+                                                                AttendanceObj.PunchType = item.PunchType;
+                                                                AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                                AttendanceObj.Date = DateTime.Now.Date;
+                                                                AttendanceObj.NoOfHours = (now - CheckInTime).ToString();
+                                                                AttendanceObj.RemainingHours = ((now - CheckInTime) - Eight).ToString();
+
+                                                                Db.AttendanceSheets.Add(AttendanceObj);
+                                                                Db.SaveChanges();
 
                                                                 break;
                                                             }
@@ -966,14 +1521,8 @@ namespace HRSystem.Controllers
                                                                     worksheet.Cells[NoOfRow + 1, 9].Value = "Checkout was after 6 and no checkin found";
                                                                     package.Save();
 
-                                                                    obj = new AttendanceViewModel();
-                                                                    obj.Number = NumberCell;
-                                                                    obj.Name = NameCell;
-                                                                    obj.PunchTime = CurrentDate + " " + "6:00:00 PM";
-                                                                    obj.WorkState = item.WorkState;
-                                                                    obj.NoOfHours = "8:00:00";
-                                                                    obj.RemainingHours = "00:00:00";
-                                                                    list.Add(obj);
+                                                                   
+
 
                                                                     TimeSpan CheckoutTime = new TimeSpan(18, 0, 0);
 
@@ -994,18 +1543,74 @@ namespace HRSystem.Controllers
                                                                     obj.PunchTime = CurrentDate + " " + (CheckoutTime - Eight) + " " + "AM";
                                                                     obj.WorkState = "Checkin";
                                                                     list.Add(obj);
+                                                                    var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
+                                                                    if (!HasBeenInsertedBefore)
+                                                                    {
+                                                                        Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                        ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                        ImportLogObj.Path = curFile;
+                                                                        ImportLogObj.FileName = fileName;
+                                                                        ImportLogObj.Date = DateTime.Now.Date;
+                                                                        Db.ImportLogs.Add(ImportLogObj);
+                                                                        Db.SaveChanges();
+                                                                    }
+
+
+                                                                    AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                                    AttendanceObj.Name = NameCell.ToString();
+                                                                    AttendanceObj.PunchTime = Convert.ToDateTime( CurrentDate + " " + (CheckoutTime - Eight) + " " + "AM");
+                                                                    AttendanceObj.WorkState = "Checkin";
+                                                                    AttendanceObj.Terminal = item.Terminal;
+                                                                    AttendanceObj.PunchType = item.PunchType;
+                                                                    AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                                    AttendanceObj.Date = DateTime.Now.Date;
+                                                                    AttendanceObj.NoOfHours = null;
+                                                                    AttendanceObj.RemainingHours = null;
+
+                                                                    Db.AttendanceSheets.Add(AttendanceObj);
+                                                                    Db.SaveChanges();
+
+                                                                    obj = new AttendanceViewModel();
+                                                                    obj.Number = NumberCell;
+                                                                    obj.Name = NameCell;
+                                                                    obj.PunchTime = CurrentDate + " " + "6:00:00 PM";
+                                                                    obj.WorkState = item.WorkState;
+                                                                    obj.NoOfHours = "8:00:00";
+                                                                    obj.RemainingHours = "00:00:00";
+                                                                    list.Add(obj);
+
+                                                                    if (!HasBeenInsertedBefore)
+                                                                    {
+                                                                        Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                        ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                        ImportLogObj.Path = curFile;
+                                                                        ImportLogObj.FileName = fileName;
+                                                                        ImportLogObj.Date = DateTime.Now.Date;
+                                                                        Db.ImportLogs.Add(ImportLogObj);
+                                                                        Db.SaveChanges();
+                                                                    }
+
+
+                                                                    AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                                    AttendanceObj.Name = NameCell.ToString();
+                                                                    AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + "6:00:00 PM");
+                                                                    AttendanceObj.WorkState = item.WorkState;
+                                                                    AttendanceObj.Terminal = item.Terminal;
+                                                                    AttendanceObj.PunchType = item.PunchType;
+                                                                    AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                                    AttendanceObj.Date = DateTime.Now.Date;
+                                                                    AttendanceObj.NoOfHours = "8:00:00";
+                                                                    AttendanceObj.RemainingHours = "00:00:00";
+
+                                                                    Db.AttendanceSheets.Add(AttendanceObj);
+                                                                    Db.SaveChanges();
 
                                                                     break;
 
                                                                 }
-                                                                /*
-                                                                else if(o.Count != 0)
-                                                                {
-                                                                    worksheet.Cells[NoOfRow, 1].Value = "heelllloooooooooo";
-                                                                    package.Save();
-                                                                    NoOfRow++;
-                                                                    break;
-                                                                } */
+                                                            
                                                                 else
                                                                 {
                                                                     worksheet.Cells[NoOfRow, 1].Value = item.Number;
@@ -1029,6 +1634,21 @@ namespace HRSystem.Controllers
                                                                     obj.RemainingHours = ((Six - CheckInTime) - Eight).ToString();
                                                                     list.Add(obj);
 
+
+                                                                    AttendanceObj.Number = Convert.ToInt32(NumberCell);
+                                                                    AttendanceObj.Name = NameCell.ToString();
+                                                                    AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + "6:00:00 PM");
+                                                                    AttendanceObj.WorkState = item.WorkState;
+                                                                    AttendanceObj.Terminal = item.Terminal;
+                                                                    AttendanceObj.PunchType = item.PunchType;
+                                                                    AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                                    AttendanceObj.Date = DateTime.Now.Date;
+                                                                    AttendanceObj.NoOfHours = (Six - CheckInTime).ToString();
+                                                                    AttendanceObj.RemainingHours = ((Six - CheckInTime) - Eight).ToString();
+
+                                                                    Db.AttendanceSheets.Add(AttendanceObj);
+                                                                    Db.SaveChanges();
+
                                                                     break;
                                                                 }
 
@@ -1050,10 +1670,10 @@ namespace HRSystem.Controllers
 
                                     }
                                 }
-
+                                
                                 xlWorkbook.Close();
                                 package.Dispose();
-                                
+                               
                                 ViewBag.Message = string.Format(Resources.NubiHR.DoneFiltering, "Index", "Import");
                                 
                                 return View(list);
@@ -1081,7 +1701,8 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Details()
         {
-            return View(Db.Employees.ToList());
+            return View(Db.AttendanceSheets.ToList());
+         
         }
 
 
