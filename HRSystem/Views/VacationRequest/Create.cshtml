@@ -241,19 +241,23 @@
 
 
               
-                if (last_ed.format('dddd') == "Friday")
-                {
-                 
-                      last_ed= moment(last_ed).add(1, 'day');
-                }
+                //if (last_ed.format('dddd') == "Friday")
+                //{
+                //      last_ed= moment(last_ed).add(1, 'day');
+                //}
+
+
                 //else if (last_ed.format('dddd') == "Saturday")
                 //{
                 //    last_ed=  moment(last_ed).add(1, 'day');
                 //}
 
                 var resume_date = moment(last_ed).add(1, 'days');
-                if (resume_date.format('dddd D MMM YYYY') == "Friday") {
-                    moment(resume_date).add(2, 'day');
+                if (resume_date.format('dddd') == "Friday") {
+                    resume_date = moment(resume_date).add(2, 'day');
+                }
+                else if (resume_date.format('dddd') == "Saturday") {
+                    resume_date = moment(resume_date).add(1, 'day');
                 }
                 //else if (resume_date.format('dddd D MMM YYYY') == "Saturday") {
                 //    moment(resume_date).add(1, 'day');
