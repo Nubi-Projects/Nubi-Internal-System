@@ -223,35 +223,43 @@ namespace HRSystem.Controllers
                         List<DateTime> VacationsDate = new List<DateTime>();
                         var date = vac.StartDate;
                         var duration = vac.Duration;
-                            while(VacationsDate.Count < vac.Duration)
-                            {
-                                var day = date.DayOfWeek;
-                                if (day == DayOfWeek.Friday)
-                                {
-                                VacationsDate.Add(date);
-                                vac.Duration = vac.Duration + 1;
-                                date = date.AddDays(1);
-                                   
-                                
-                            }
-                                else if (day == DayOfWeek.Saturday)
-                                {
-                                VacationsDate.Add(date);
-                                //vac.Duration = vac.Duration + 1;
-                                //date = date.AddDays(1);
-                                    
-                                
-                            }
-                                else
-                                {
-                                    VacationsDate.Add(date);
-                                    date = date.AddDays(1);
 
-                                }
-                            }
+                        while (vac.VacationTypeNo == 1 && VacationsDate.Count < vac.Duration )
+                            {
+                            //var day = date.DayOfWeek;
+                            //if (day == DayOfWeek.Friday)
+                            //{
+                            //    VacationsDate.Add(date);
+                            //    vac.Duration = vac.Duration + 1;
+                            //    date = date.AddDays(1);
+
+
+                            //}
+                            //else if (day == DayOfWeek.Saturday)
+                            //{
+                            //    VacationsDate.Add(date);
+                            //    vac.Duration = vac.Duration + 1;
+                            //    date = date.AddDays(1);
+
+
+                            //}
+                            //else
+                            //{
+                            //    VacationsDate.Add(date);
+                            //    date = date.AddDays(1);
+
+                            //}
+                            VacationsDate.Add(date);
+                            date = date.AddDays(1);
+                        }
                             
                        
                         vac.EndDate = VacationsDate.LastOrDefault();
+                        //if(vac.EndDate.DayOfWeek == DayOfWeek.Friday)
+                        //{
+                        //    vac.EndDate = vac.EndDate.AddDays(1);
+                        //}
+                       
                        
                         //vac.EndDate = vac.StartDate.AddDays((vac.Duration) - 1);
                         //vac.EndDate = end_date.Subtract(end_date.Day);
