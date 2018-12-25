@@ -139,7 +139,7 @@
                     <div class="user-info">
                         @helperx.GetName(User.Identity.GetUserId()).Employee.FirstName
                         <strong>@helperx.GetName(User.Identity.GetUserId()).Employee.LastName</strong>
-                        </span>
+                        
                         <span class="user-role">@helperx.GetUserRole(User.Identity.GetUserId())</span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
@@ -173,7 +173,7 @@
                                 }
                                 else if (IsArabic)
                                 {
-                                    @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en" }, new { @class = "btnlang" }) <text> </text>
+                                    @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en-GB" }, new { @class = "btnlang" }) <text> </text>
                                     <link rel="stylesheet" href="~/Content/StyleAr.css" />
                                 }
                             @*<li>

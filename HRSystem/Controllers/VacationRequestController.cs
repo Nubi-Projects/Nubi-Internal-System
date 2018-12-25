@@ -128,12 +128,12 @@ namespace HRSystem.Controllers
             var NoOfAccidentalLeaves = mng.NoOfAccidentalLeave(id: User.Identity.GetUserId());
             string CurrentUser = User.Identity.GetUserId();
             vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
-            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+            var IsArabic = Request.Cookies["culture"].Value == "ar-SA" ? true : false;
             if(IsArabic)
             {
 
 
-                CultureInfo MyCultureInfo = new CultureInfo("en-US");
+                CultureInfo MyCultureInfo = new CultureInfo("en-GB");
                 DateTime.Parse(StartDateAr, MyCultureInfo);
                 vac.StartDate = DateTime.Parse(StartDateAr, MyCultureInfo);
 

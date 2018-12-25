@@ -15,6 +15,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using COLOR = System.Drawing;
 using System.Web.UI.WebControls;
 using System.Text;
+using System.Globalization;
 
 namespace HRSystem.Controllers
 {
@@ -30,6 +31,9 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
+
             return View();
         }
         [HttpPost]
@@ -1701,6 +1705,8 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Details()
         {
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             return View(Db.AttendanceSheets.ToList());
          
         }

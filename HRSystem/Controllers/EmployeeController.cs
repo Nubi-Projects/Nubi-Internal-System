@@ -21,6 +21,7 @@ using HRSystem.Manager;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace HRSystem.Controllers
 {
@@ -70,7 +71,8 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             ViewBag.Department = Db.Departments.ToList();
 
             return View(Db.Employees.ToList());

@@ -118,7 +118,7 @@ namespace HRSystem.Controllers
             {
 
 
-                CultureInfo MyCultureInfo = new CultureInfo("en-US");
+                CultureInfo MyCultureInfo = new CultureInfo("en-GB");
                 DateTime.Parse(PerDateAr, MyCultureInfo);
                 per.PermissionDate = DateTime.Parse(PerDateAr, MyCultureInfo);
 

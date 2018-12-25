@@ -11,7 +11,7 @@ namespace HRSystem.Manager
     {
         public static List<Languages> AvailableLanguages = new List<Languages> {
             new Languages {
-                LanguageFullName = "English", LanguageCultureName = "en"
+                LanguageFullName = "English", LanguageCultureName = "en-GB"
             },
             new Languages {
                 LanguageFullName = "العربية", LanguageCultureName = "ar"
