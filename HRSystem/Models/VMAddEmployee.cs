@@ -177,6 +177,7 @@ namespace HRSystem.Models
 
         //RelationshipType table
 
+       // [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "RelationshipType")]
         public int? IdRelationshipType { get; set; }
         public string RelationEn { get; set; }
