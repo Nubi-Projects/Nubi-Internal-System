@@ -763,6 +763,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Must add one sibling at least.
+        /// </summary>
+        public static string MustAddOneSiblingAtLeast {
+            get {
+                return ResourceManager.GetString("MustAddOneSiblingAtLeast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Address During Vacation.
         /// </summary>
         public static string MyAddressDuringVacation {
@@ -867,6 +876,15 @@ namespace Resources {
         public static string Notes {
             get {
                 return ResourceManager.GetString("Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not yet.
+        /// </summary>
+        public static string NotYet {
+            get {
+                return ResourceManager.GetString("NotYet", resourceCulture);
             }
         }
         

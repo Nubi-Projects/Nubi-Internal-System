@@ -573,4 +573,10 @@
   <data name="RemoveAttachment" xml:space="preserve">
     <value>Remove Attachment</value>
   </data>
+  <data name="NotYet" xml:space="preserve">
+    <value>Not yet</value>
+  </data>
+  <data name="MustAddOneSiblingAtLeast" xml:space="preserve">
+    <value>Must add one sibling at least</value>
+  </data>
 </root>

@@ -64,3 +64,13 @@
 
 
 
+@if (ViewBag.MessageException != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+      swal(`@Resources.NubiHR.Warning`,`@ViewBag.MessageException`,`error`);
+                                           };
+    </script>
+
+
+}

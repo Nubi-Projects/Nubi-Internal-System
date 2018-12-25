@@ -4,6 +4,7 @@
     ViewBag.Title = Resources.NubiHR.EditEmployee;
     var count = 1;
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+    var count1 = 1;
 }
 
 
@@ -28,6 +29,8 @@
             <br />
             @Html.ValidationSummary(true)
             @Html.HiddenFor(model => model.IdEmployee)
+            <input name="countSib" id='countSib' type="hidden" value="1" />
+            <input name="countAtt" id='countAtt' type="hidden" value="1" />
             <div class="col-md-8">
                 <div class="form-group">
                     <fieldset class="the-fieldset">
@@ -78,6 +81,7 @@
 
                 </div>
             </div>
+            <input name="countSib" id='countSibModel' type="hidden" value= @Model.EmergencyContactList.Count() />
             @if (Model.EmergencyContactList.Count() > 0)
             {
             <div class="col-md-8">
@@ -93,8 +97,10 @@
 
                                 Model.MobileEmergencyContact = item1.Mobile;
                                 @Html.LabelFor(Model => Model.MobileEmergencyContact, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(Model => Model.MobileEmergencyContact, new { htmlAttributes = new { @class = "form-control" } })
-                                
+                                @*@Html.EditorFor(Model => Model.MobileEmergencyContact, new { htmlAttributes = new { @class = "form-control" } })*@
+                                <input name="@count1 MobileEmergencyContact" value="@Model.MobileEmergencyContact" class="form-control"/>
+
+
                                 @Html.LabelFor(Model => Model.IdRelationshipType, htmlAttributes: new { @class = "control-label" })
                                 Model.IdRelationshipType = item1.RelationshipTypeNo;
                                 @Html.HiddenFor(Model => Model.IdRelationshipType, htmlAttributes: new { @class = "control-label" })
@@ -123,7 +129,7 @@
                                 }
                                <br/><br />
 
-
+                                count1++;
                             }
                         
 
@@ -270,6 +276,8 @@
                     <div class="panel panel-primary list-panel" id="list-panel">
                         @*<div class="panel-heading list-panel-heading">*@
 
+
+                        <input name="countAttTable" id='count' type="hidden" value= @count />
                         <div class="col-md-8">
                             <div class="form-group">
                                 <fieldset class="">
@@ -323,17 +331,35 @@
                                                             <td>@item.ExpirationDate</td>
                                                             @if (@item.TypesOfAttachment.Id == 1 || @item.TypesOfAttachment.Id == 2)
                                                             {
-                                                                <td><input type="checkbox" id="IsExpired @count" /></td>
+                                                                if (DateTime.Now.Date >= item.ExpirationDate)
+                                                                {
+                                                                    if (item.IsExpired == true)
+                                                                    {
+                                                                        <td><input type="checkbox" id="IsExpired @count" name="IsExpired @count" value=@item.IsExpired checked disabled /></td>
+                                                                        <td>@Resources.NubiHR.DateIsExpired</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td><input type="checkbox" id="IsExpired @count" name="IsExpired @count" /></td>
+                                                                    }
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>@Resources.NubiHR.NotYet</td>
+                                                                    <td> </td>
+                                                                }
+
                                                             }
                                                             else
                                                             {
 
                                                             }
-                                                             @if (item.ExpirationDate >= DateTime.Now.Date)
-                                                            {
+                                                             @*@if (DateTime.Now.Date >= item.ExpirationDate)
+                                                             {
 
                                                                 <td>@Resources.NubiHR.DateIsExpired</td>
-                                                            }
+                                                            }*@
 
                                                         </tr>
 
@@ -472,7 +498,7 @@
                 $("#MyAttachmentHidden").val(strMyAttachment);
 
                 counter++;
-                $('#count').val(counter);
+                $('#countAtt').val(counter);
                 var button = $("<input />").attr("type", "hidden").attr("value", "1").attr("name", "count");
                 button.val(value);
 
@@ -499,7 +525,7 @@
                 $("#MyAttachmentHidden").val(strMyAttachment);
 
                 counter++;
-                $('#count').val(counter);
+                $('#countAtt').val(counter);
                 var button = $("<input />").attr("type", "hidden").attr("value", "1").attr("name", "count");
                 button.val(value);
 
@@ -514,7 +540,7 @@
             }
             else {
                 counter--;
-                $('#count').val(counter);
+                $('#countAtt').val(counter);
 
                 $("#BigDiv" + counter).remove();
                 //strMyAttachment = strMyAttachment.replace(n +" ", "");
@@ -567,13 +593,13 @@
                     '<div class="form-group">' +
                     '<label id="Sibling' + value + '" name="Sibling' + value + '" class="control-label col-md-8">@Resources.NubiHR.Name ' + "" + '</label>' +
                     '<div class="col-md-8">' +
-                    '<input type="text" id="NameOfSibling' + counter + '" name="NameOfSibling' + counter + '" class="form-control" />' +
+                    '<input type="text" id="NameOfSiblingg' + counter + '" name="NameOfSiblingg' + counter + '" class="form-control" />' +
                     '</div>' +
                     '</div>' +
                      '<div class="form-group">' +
                     '<label id="NoOfSibling' + value + '" name="NoOfSibling' + value + '" class="control-label col-md-8">@Resources.NubiHR.Mobile ' + "" + '</label>' +
                     '<div class="col-md-8">' +
-                    '<input type="text" id="MobileEmergencyContact' + counter + '" name="MobileEmergencyContact' + counter + '" class="form-control" />' +
+                    '<input type="text" id="MobileEmergencyContactt' + counter + '" name="MobileEmergencyContactt' + counter + '" class="form-control" />' +
                     '</div>' +
                     '</div>' +
                     '<div class="form-group">' +
@@ -591,7 +617,7 @@
                 $("#MySiblingHidden").val(strMySibling);
 
                 counter++;
-                $('#count').val(counter);
+                $('#countSib').val(counter);
                 var button = $("<input />").attr("type", "hidden").attr("value", "1").attr("name", "count");
                 button.val(value);
 
@@ -605,13 +631,13 @@
                     '<div class="form-group">' +
                     '<label id="Sibling' + value + '" name="Sibling' + value + '" class="control-label col-md-8">@Resources.NubiHR.Name ' + "" + '</label>' +
                     '<div class="col-md-8">' +
-                    '<input type="text" id="NameOfSibling' + counter + '" name="NameOfSibling' + counter + '" class="form-control" />' +
+                    '<input type="text" id="NameOfSiblingg' + counter + '" name="NameOfSiblingg' + counter + '" class="form-control" />' +
                     '</div>' +
                     '</div>' +
                      '<div class="form-group">' +
                     '<label id="NoOfSibling' + value + '" name="NoOfSibling' + value + '" class="control-label col-md-8">@Resources.NubiHR.Mobile ' + "" + '</label>' +
                     '<div class="col-md-8">' +
-                    '<input type="text" id="MobileEmergencyContact' + counter + '" name="MobileEmergencyContact' + counter + '" class="form-control" />' +
+                    '<input type="text" id="MobileEmergencyContactt' + counter + '" name="MobileEmergencyContactt' + counter + '" class="form-control" />' +
                     '</div>' +
                     '</div>' +
                     '</div>'
@@ -623,7 +649,7 @@
                 $("#MySiblingsHidden").val(strMySibling);
 
                 counter++;
-                $('#count').val(counter);
+                $('#countSib').val(counter);
                 var button = $("<input />").attr("type", "hidden").attr("value", "1").attr("name", "count");
                 button.val(value);
 
@@ -638,7 +664,7 @@
             }
             else {
                 counter--;
-                $('#count').val(counter);
+                $('#countSib').val(counter);
 
                 $("#BigDiv1" + counter).remove();
 

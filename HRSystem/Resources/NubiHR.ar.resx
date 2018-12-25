@@ -573,4 +573,10 @@
   <data name="Logout" xml:space="preserve">
     <value>تسجيل الخروج</value>
   </data>
+  <data name="NotYet" xml:space="preserve">
+    <value>ليس بعد</value>
+  </data>
+  <data name="MustAddOneSiblingAtLeast" xml:space="preserve">
+    <value>قم باضافة صلة قرابة واحدة عالاقل</value>
+  </data>
 </root>

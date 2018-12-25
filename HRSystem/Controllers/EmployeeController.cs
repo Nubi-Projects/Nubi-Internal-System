@@ -101,7 +101,7 @@ namespace HRSystem.Controllers
         public ActionResult Create(VMAddEmployee model)
         {
             //model.NationalId = model.EmpAttachment.NationalId;
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Request.Form["MySiblingsHidden"] != "")
             {
                 try
                 {
@@ -286,14 +286,35 @@ namespace HRSystem.Controllers
                     return View();
                 }
 
+                ModelState.Clear();
+                ViewBag.Department = Db.Departments.ToList();
+                ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
+                ViewBag.RelationshipType = Db.RelationshipTypes.OrderBy(x => x.Id).ToList();
+
+                return View();
+
+            }
+            else
+            {
+                
+                if(Request.Form["MySiblingsHidden"] == "")
+                {
+                    TempData["check"] = Resources.NubiHR.MustAddOneSiblingAtLeast;
+                    ModelState.AddModelError(string.Empty, TempData["check"].ToString());
+                }
+                else
+                {
+                    TempData["check"] = Resources.NubiHR.Error;
+                }
+                ModelState.Clear();
+                ViewBag.Department = Db.Departments.ToList();
+                ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
+                ViewBag.RelationshipType = Db.RelationshipTypes.OrderBy(x => x.Id).ToList();
+
+                return View();
             }
 
-            ModelState.Clear();
-            ViewBag.Department = Db.Departments.ToList();
-            ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
-            ViewBag.RelationshipType = Db.RelationshipTypes.OrderBy(x => x.Id).ToList();
-
-            return View();
+            
 
 
         }
@@ -313,11 +334,8 @@ namespace HRSystem.Controllers
             ViewBag.Department = Db.Departments.ToList();
             var depno = Db.Employees.Where(e => e.Id == id).Select(s => s.DepartmentNo).FirstOrDefault();
             ViewBag.Position = Db.Positions.Where(p => p.DepartmentNo == depno);
-           // ViewBag.TrainingCertificate = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
-           // var AttachmentNo = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
             ViewBag.Attachment = Db.Attachments.Where(x => x.EmpNo == id).ToList();
             ViewBag.att = Db.Attachments.Where(x => x.EmpNo == id).Count();
-          //  ViewBag.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
             string empname = Request.QueryString["employee"];
             ViewBag.EmployeeName = empname;
             Fc[model.FirstName] = empObj.FirstName;
@@ -369,15 +387,12 @@ namespace HRSystem.Controllers
                     ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
                     var BankNo = Db.Employees.Where(e => e.Id == id).Select(x => x.BankNo).FirstOrDefault();
                     model.SalaryNoEmployee = Db.Employees.Where(e => e.Id == id).Select(x => x.SalaryNo).FirstOrDefault();
-                    // model.PhoneNo = Db.Employees.Where(e => e.Id == id).Select(x => x.PhoneNo).FirstOrDefault();
-                    //model.AttachmentNo = Db.Employees.Where(e => e.Id == id).Select(x => (int)x.AttachmentNo).FirstOrDefault();
-                    //ViewBag.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
                     var tr = Db.Attachments.Where(e => e.EmpNo == id).ToList();
-                    //model.TrainingCertificateList = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).ToList();
-                    // var HasBankAccount = Db.Employees.Where(b => b.BankNo == BankNo).ToList();
                     ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
                     var b = Db.BankAccounts.Where(x => x.Id == BankNo);
                     ViewBag.RelationshipType = Db.RelationshipTypes.ToList();
+                    model.AttachmentList = Db.Attachments.Where(x => x.EmpNo == id).ToList();
+                    
 
                     int NoOfRowsInBankTable = Db.BankAccounts.Count();
 
@@ -389,17 +404,6 @@ namespace HRSystem.Controllers
                     };
                     if (BankNo != null && model.AccountNumber == null)
                     {
-                        /*
-                        BankAccount bank = new BankAccount()
-                        {
-
-                           // Id = (int)BankNo,
-                           // BankBranch = b.BankBranch,
-                           // BankName = model.BankName,
-                           // AccountNumber = model.AccountNumber,
-                           IsDeleted = true
-                        };
-                        Db.Entry(bank).State = EntityState.Modified;b*/
                         ViewBag.MessageException = string.Format("YOU CANNOT DELETE BANK ACCOUNT!", "Index");
                         return View(model);
                     }
@@ -455,7 +459,24 @@ namespace HRSystem.Controllers
                         };
                         Db.Entry(employee).State = EntityState.Modified;
                     }
-                    
+                   
+                    model.EmergencyContactList = Db.EmergencyContacts.Where(x => x.EmpNo == id).ToList();
+                    int ii = 1;
+                    foreach (var item in model.EmergencyContactList)
+                    {
+                        
+                        var emegrency = Db.EmergencyContacts.Find(item.Id);
+
+                        string MobileEmergencyContact = Request.Form[ii + " " +"MobileEmergencyContact"];
+                        
+                        emegrency.Mobile = MobileEmergencyContact;
+                        Db.Entry(emegrency).State = EntityState.Modified;
+                        ii++;
+                    }
+
+
+
+                    /*
                     List<EmergencyContact> EmergencyContactList = new List<EmergencyContact>();
                     EmergencyContact EC = new EmergencyContact()
                     {
@@ -496,31 +517,46 @@ namespace HRSystem.Controllers
                                 Mobile = model.MobileEmergencyContact,
                                 RelationshipTypeNo = Convert.ToInt32(model.IdRelationshipType),
                                 Type = null,
+                                Date = model.DateEmergencyContact,
                             };
                             Db.Entry(emegrency).State = EntityState.Modified;
                         }
 
-                    }
+                    } 
+                    */
 
                     Db.Entry(salary).State = EntityState.Modified;
-                    //Db.Entry(attach).State = EntityState.Modified;
+                   
+
+                    var countAttTable = Convert.ToInt32(Request.Form["countAttTable"]);
+                    foreach (var item in model.AttachmentList)
+                    {
+                        var Expired = Request.Form["IsExpired" + " " + countAttTable];
+
+                        var attach = Db.Attachments.Find(item.Id);
+
+                        if (Expired == "on" && item.IsExpired == false)
+                        {
+                            attach.IsExpired = true;
+                            Db.Entry(attach).State = EntityState.Modified;
+                            
+                        }
+                    }
                     
-                    
-                    
+
                     if (Request.Form["MySiblingsHidden"] != "")
                     {
 
-                        //insert into attachment table
-                        var counter = Convert.ToInt32(Request.Form["count"]);
-
-                        //Attachment tc = new Attachment();
+                        
+                        var counter = Convert.ToInt32(Request.Form["countSib"]);
+                        
                         if (counter != 1)
                         {
                             for (int i = 1; i < counter; i++)
                             {
-                                string NameOfSibling = Request.Form["NameOfSibling" + i];
+                                string NameOfSibling = Request.Form["NameOfSiblingg" + i];
                                 int ValueOfSibling = Convert.ToInt32(Request.Form["ValueOfSibling" + i]);
-                                string MobileEmergencyContact = Request.Form["MobileEmergencyContact" + i];
+                                string MobileEmergencyContact = Request.Form["MobileEmergencyContactt" + i];
                                 string Other = "";
 
                                 if (ValueOfSibling == 7)
@@ -539,38 +575,32 @@ namespace HRSystem.Controllers
                                     Mobile = MobileEmergencyContact,
                                     RelationshipTypeNo = ValueOfSibling,
                                     Type = Other,
+                                    Date = model.DateEmergencyContact,
                                 });
-                                Db.SaveChanges();
+                                //Db.SaveChanges();
 
                             }
                         }
                     }
 
-
-
+                    
                     if (Request.Form["MyAttachmentHidden"] != "")
                     {
-
-                        //insert into attachment table
-                        var counter = Convert.ToInt32(Request.Form["count"]);
-
-                        //Attachment tc = new Attachment();
+                        
+                        var counter = Convert.ToInt32(Request.Form["countAtt"]);
+                        
                         if (counter != 1)
                         {
                             for (int i = 1; i < counter; i++)
                             {
-                                var Expired = Request.Form["IsExpired" +" "+ i];
+                                
                                 var Expirationdate = Request.Form["InputText" + i];
                                 var x = Convert.ToDateTime(Expirationdate);
                                 int ValueOfAttachment = Convert.ToInt32(Request.Form["ValueOfAttachment" + i]);
                                 HttpPostedFileBase UploadedFile = Request.Files["UploadFile" + i];
                                 //string UploadedFileExtension = Path.GetExtension(UploadedFile.FileName);
                                 var path = Path.Combine(Server.MapPath("~/Attachments/"), UploadedFile.FileName);
-                                bool bb = false;
-                                if(Expired == "on")
-                                {
-                                    bb = true;
-                                }
+                                
                                 UploadedFile.SaveAs(path);
                                 // AdditionalFilenameTrainingCertificate = Request.Form["InputText" + i] + AdditonalExtensionTrainingCertificate;
 
@@ -588,7 +618,7 @@ namespace HRSystem.Controllers
                                         Date = DateTime.Now.Date
 
                                     });
-                                    Db.SaveChanges();
+                                   // Db.SaveChanges();
                                 }
 
                                 else
@@ -605,7 +635,7 @@ namespace HRSystem.Controllers
                                         Date = DateTime.Now.Date
 
                                     });
-                                    Db.SaveChanges();
+                                   // Db.SaveChanges();
                                 }
 
 
@@ -613,45 +643,16 @@ namespace HRSystem.Controllers
                         }
                     }
                     Db.SaveChanges();
-                    // var counter = Db.TrainingCertificates.Where(e => e.EmployeeNo == id).Count();
-
-                    /*Attachment tc = new Attachment();
-                    int i = 1;
-                    foreach (var item in tr)
-                    {
-
-                        string filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i];
-                        if (!Request.Files["TrainingCertificateFile" + i].FileName.Equals(""))
-                        {
-                            HttpPostedFileBase AdditionalUploadedFileTrainingCertificate = Request.Files["TrainingCertificateFile" + i];
-                            string AdditonalExtensionTrainingCertificate = Path.GetExtension(AdditionalUploadedFileTrainingCertificate.FileName);
-                            filenameTrainingCertificate = Path.Combine(Server.MapPath("~/Attachments/"), filenameTrainingCertificate + AdditonalExtensionTrainingCertificate);
-                            AdditionalUploadedFileTrainingCertificate.SaveAs(filenameTrainingCertificate);
-                            filenameTrainingCertificate = Request.Form["TrainingCertificateName" + i] + AdditonalExtensionTrainingCertificate;
-                            model.TrainingCertificateName = filenameTrainingCertificate;
-
-
-                            tc = Db.TrainingCertificates.Find(item.Id);
-                            tc.TrainingCertificateName = model.TrainingCertificateName;
-                            tc.TrainingCertificateUrl = model.TrainingCertificateName;
-
-                            Db.Entry(tc).State = EntityState.Modified;
-                            Db.SaveChanges();
-
-                            i++;
-
-                        };
-                    } */
-                    //Db.SaveChanges();
-
+                   
                     ViewBag.Department = Db.Departments.ToList();
                     ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
                     ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
-                    model.EmergencyContactList = EmergencyContactList;
-                    
-                    ViewBag.Message = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
+                    //model.EmergencyContactList = EmergencyContactList;
+
+                    TempData["chec"] = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
                     ModelState.Clear();
-                    return View(model);
+                    //return View(model);
+                    return RedirectToAction("Index","Employee");
                 }
 
                 catch (DbEntityValidationException ee)
@@ -673,14 +674,16 @@ namespace HRSystem.Controllers
                         raise = new InvalidOperationException(message, raise);
 
                     }
-                    ViewBag.MessageError = raise.Message;
+                   // ViewBag.MessageException = raise.Message;
+                    TempData["check"] = raise.Message;
                     ViewBag.Department = Db.Departments.ToList();
                     ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
                     //var AttachmentNo = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
                     ViewBag.Attachment = Db.Attachments.Where(x => x.EmpNo == id).ToList();
                     //ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo).Count();
                     //return RedirectToAction("Edit");
-                    return View(model);
+                    // return View(model);
+                    return RedirectToAction("Index", "Employee");
                 }
 
 
