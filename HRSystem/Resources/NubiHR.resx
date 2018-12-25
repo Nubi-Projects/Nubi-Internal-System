@@ -579,4 +579,19 @@
   <data name="MustAddOneSiblingAtLeast" xml:space="preserve">
     <value>Must add one sibling at least</value>
   </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>This email is used by another user</value>
+  </data>
+  <data name="PersonalEmail" xml:space="preserve">
+    <value>Personal email</value>
+  </data>
+  <data name="AspEmail" xml:space="preserve">
+    <value>Company's email</value>
+  </data>
+  <data name="DidntCreateUserYet" xml:space="preserve">
+    <value>You didnt create user account yet</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
 </root>

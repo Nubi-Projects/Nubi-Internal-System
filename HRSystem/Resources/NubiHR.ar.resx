@@ -579,4 +579,19 @@
   <data name="MustAddOneSiblingAtLeast" xml:space="preserve">
     <value>قم باضافة صلة قرابة واحدة عالاقل</value>
   </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>هذا البريد الاكتروني مستخدم من قبل  مستخدم اخر</value>
+  </data>
+  <data name="PersonalEmail" xml:space="preserve">
+    <value>البريد الالكتروني الشخصي</value>
+  </data>
+  <data name="AspEmail" xml:space="preserve">
+    <value>البريد الالكتروني الخاص بالشركة</value>
+  </data>
+  <data name="DidntCreateUserYet" xml:space="preserve">
+    <value>لم يتم انشاء حساب للموظف بعد</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
 </root>

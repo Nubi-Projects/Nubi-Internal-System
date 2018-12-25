@@ -73,6 +73,8 @@ namespace HRSystem.Controllers
         {
             var current = System.Globalization.CultureInfo.CurrentCulture;
             current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+
             ViewBag.Department = Db.Departments.ToList();
 
             return View(Db.Employees.ToList());
@@ -81,6 +83,10 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Report()
         {
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+
             ViewBag.Departments = Db.Departments.ToList();
 
             return View(Db.Employees.ToList());
@@ -91,6 +97,10 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+
             var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
             ViewBag.Department = Db.Departments.ToList();
             ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
@@ -102,7 +112,10 @@ namespace HRSystem.Controllers
         [HttpPost]
         public ActionResult Create(VMAddEmployee model)
         {
-            //model.NationalId = model.EmpAttachment.NationalId;
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+
             if (ModelState.IsValid && Request.Form["MySiblingsHidden"] != "")
             {
                 try
@@ -215,7 +228,7 @@ namespace HRSystem.Controllers
                                 var x = Convert.ToDateTime(Expirationdate);
                                 int ValueOfAttachment = Convert.ToInt32(Request.Form["ValueOfAttachment" + i]) ;
                                 HttpPostedFileBase UploadedFile = Request.Files["UploadFile" + i];
-                                //string UploadedFileExtension = Path.GetExtension(UploadedFile.FileName);
+                               //string UploadedFileExtension = Path.GetExtension(UploadedFile.FileName);
                                 var path = Path.Combine(Server.MapPath("~/Attachments/"), UploadedFile.FileName);
 
                                 UploadedFile.SaveAs(path);
@@ -330,6 +343,10 @@ namespace HRSystem.Controllers
             {
                 return RedirectToAction("Index");
             }
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+
             VMAddEmployee model = new VMAddEmployee();
             ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
             ViewBag.RelationshipType = Db.RelationshipTypes/*.OrderBy(x => (IsArabic == true ? x.RelationAr : x.RelationEn))*/.ToList();
@@ -364,8 +381,8 @@ namespace HRSystem.Controllers
 
                }).FirstOrDefault();
 
-            
 
+           
             return View(model);
         }
 
@@ -378,6 +395,9 @@ namespace HRSystem.Controllers
         public ActionResult Edit(string id, VMAddEmployee model)
         {
             model.IdEmployee = id;
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 
             if (ModelState.IsValid)
             {
@@ -394,7 +414,7 @@ namespace HRSystem.Controllers
                     var b = Db.BankAccounts.Where(x => x.Id == BankNo);
                     ViewBag.RelationshipType = Db.RelationshipTypes.ToList();
                     model.AttachmentList = Db.Attachments.Where(x => x.EmpNo == id).ToList();
-                    
+                    model.EmergencyContactList = Db.EmergencyContacts.Where(x => x.EmpNo == id).ToList();
 
                     int NoOfRowsInBankTable = Db.BankAccounts.Count();
 
@@ -462,7 +482,7 @@ namespace HRSystem.Controllers
                         Db.Entry(employee).State = EntityState.Modified;
                     }
                    
-                    model.EmergencyContactList = Db.EmergencyContacts.Where(x => x.EmpNo == id).ToList();
+                    
                     int ii = 1;
                     foreach (var item in model.EmergencyContactList)
                     {
@@ -476,56 +496,7 @@ namespace HRSystem.Controllers
                         ii++;
                     }
 
-
-
-                    /*
-                    List<EmergencyContact> EmergencyContactList = new List<EmergencyContact>();
-                    EmergencyContact EC = new EmergencyContact()
-                    {
-                        Name = model.NameOfSibling,
-                        Mobile = model.MobileEmergencyContact,
-                        RelationshipTypeNo = Convert.ToInt32(model.IdRelationshipType),
-                        Type = model.Other,
-                        Date = model.DateEmergencyContact,
-                        
-
-                    };
-                    EmergencyContactList.Add(EC);
-                    foreach (var item in EmergencyContactList)
-                    {
-                        if (model.IdRelationshipType == 7)
-                        {
-                            model.IdEmergencyContact = Db.EmergencyContacts.Where(o => o.EmpNo == id && o.Name == model.NameOfSibling).Select(p => p.Id).FirstOrDefault();
-                            EmergencyContact emegrency = new EmergencyContact()
-                            {
-                                Id = model.IdEmergencyContact,
-                                EmpNo = model.IdEmployee,
-                                Name = model.NameOfSibling,
-                                Mobile = model.MobileEmergencyContact,
-                                RelationshipTypeNo = Convert.ToInt32(model.IdRelationshipType),
-                                Type = model.Other,
-                                Date = model.DateEmergencyContact,
-                            };
-                            Db.Entry(emegrency).State = EntityState.Modified;
-                        }
-                        else
-                        {
-                            model.IdEmergencyContact = Db.EmergencyContacts.Where(o => o.EmpNo == id && o.Name == model.NameOfSibling).Select(p => p.Id).FirstOrDefault();
-                            EmergencyContact emegrency = new EmergencyContact()
-                            {
-                                Id = model.IdEmergencyContact,
-                                EmpNo = model.IdEmployee,
-                                Name = model.NameOfSibling,
-                                Mobile = model.MobileEmergencyContact,
-                                RelationshipTypeNo = Convert.ToInt32(model.IdRelationshipType),
-                                Type = null,
-                                Date = model.DateEmergencyContact,
-                            };
-                            Db.Entry(emegrency).State = EntityState.Modified;
-                        }
-
-                    } 
-                    */
+                    
 
                     Db.Entry(salary).State = EntityState.Modified;
                    
@@ -649,7 +620,7 @@ namespace HRSystem.Controllers
                     ViewBag.Department = Db.Departments.ToList();
                     ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
                     ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
-                    //model.EmergencyContactList = EmergencyContactList;
+                    model.EmergencyContactList = Db.EmergencyContacts.Where(x => x.EmpNo == id).ToList();
 
                     TempData["chec"] = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
                     ModelState.Clear();
@@ -694,9 +665,12 @@ namespace HRSystem.Controllers
             ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
             //var AttachmentNo1 = Db.Employees.Where(x => x.Id == id).Select(e => e.AttachmentNo).FirstOrDefault();
             ViewBag.Attachment = Db.Attachments.Where(x => x.EmpNo == id).ToList();
-            //ViewBag.att = Db.Attachments.Where(x => x.Id == AttachmentNo1).Count();
-            //return RedirectToAction("Edit");
+            model.EmergencyContactList = Db.EmergencyContacts.Where(x => x.EmpNo == id).ToList();
+            ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
+            ViewBag.RelationshipType = Db.RelationshipTypes/*.OrderBy(x => (IsArabic == true ? x.RelationAr : x.RelationEn))*/.ToList();
+            TempData["check"] = Resources.NubiHR.Error;
             return View(model);
+            //return RedirectToAction("Index", "Employee");
 
         }
 
@@ -704,12 +678,17 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Details(string id)
         {
+            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
             VMAddEmployee model = new VMAddEmployee();
             var attachments = Db.Attachments.Where(x => x.EmpNo == id).ToList();
+            var current = System.Globalization.CultureInfo.CurrentCulture;
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 
+            current.DateTimeFormat.Calendar = new GregorianCalendar();
             model = Db.Employees.Where(x => x.Id == id)
              .Select(y => new VMAddEmployee
              {
+                 IdEmployee = id,
                  FirstName = y.FirstName,
                  LastName = y.LastName,
                  EmailEmployee = y.Email,
@@ -728,6 +707,10 @@ namespace HRSystem.Controllers
 
              }).FirstOrDefault();
 
+            ViewBag.dept = Db.Departments.Where(x => x.Id == model.IdDepartment).Select( x=> (IsArabic == true ? x.DepartmentNameAr : x.DepartmentNameEn)).FirstOrDefault();
+            ViewBag.pos = Db.Positions.Where(x => x.Id == model.IdPosition).Select(x => (IsArabic == true ? x.PositionNameAr : x.PositionNameEn)).FirstOrDefault();
+            ViewBag.AspEmail = Db.AspNetUsers.Where(x => x.EmpNo == model.IdEmployee).Select(x => x.Email).FirstOrDefault();
+
             if (id == null)
             {
                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -739,32 +722,19 @@ namespace HRSystem.Controllers
        
         
         [HttpPost]
-        public JsonResult IsAlreadySigned(string UserName)
+        public JsonResult IsAlreadySigned(RegisterViewModel model)
         {
-
+            string UserName = model.Email;
             return Json(IsUserAvailable(UserName));
 
         }
 
-        public bool IsUserAvailable(string uname)
+        public bool IsUserAvailable(string Email)
         {
-            AspNetUser model = new AspNetUser();
-            model = Db.AspNetUsers
-              .Select(y => new AspNetUser
-              {
-                 
-                  UserName = y.UserName//.Position.AspNetUsers.Select(u => u.UserName).FirstOrDefault(),
-                  
-              }).FirstOrDefault();
-
-
-
-            var result = (from u in Db.AspNetUsers
-                              where u.UserName == uname
-                              select new { uname }).FirstOrDefault();
-
+            var result = Db.AspNetUsers.Where(x => x.Email == Email || x.UserName == Email).Any();
+            
             bool status;
-            if (result != null)
+            if (result)
             {
                 //Already registered  
                 status = false;
@@ -777,43 +747,6 @@ namespace HRSystem.Controllers
 
             return status;
         }
-
-        /*
-        [HttpPost]
-        public ActionResult DownloadFile(int? id)
-        {
-
-          
-            string filenamePassport = model.PassportTitle;
-            string extensionPassport = Path.GetExtension(model.PassportNumber.FileName);
-            filenamePassport = Path.Combine(Server.MapPath("~/Attachments/"), filenamePassport + extensionPassport);
-            model.PassportNumber.SaveAs(filenamePassport);
-            
-            List<Attachment> AttachmentList = new List<Attachment>;
-
-
-            //identify the virtual path
-            string filePath = "~/Attachments/";
-
-            //map the virtual path to a "local" path since GetFiles() can't use URI paths
-            DirectoryInfo dir = new DirectoryInfo(Server.MapPath(filePath+ fkfdkhfdkg));
-
-            //Get all files (but not any subdirectories) in the folder specified above
-            FileInfo[] files = dir.GetFiles();
-
-//iterate through each file, get its name and set its path, and add to my VM
-            foreach (FileInfo file in files)
-            {
-                AttachmentList newFile = new AttachmentList();
-                newFile.FileName = Path.GetFileNameWithoutExtension(file.FullName);     //remove the file extension for the name
-                newFile.Path = filePath + file.Name;                        //set path to virtual directory + file name
-                vm.FileList.Add(newFile);                                       //add each file to the right list in the Viewmodel
-            }
-
-            return (vm);
-           
-        }
-        */
         
 
     }

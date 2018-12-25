@@ -287,11 +287,7 @@
 
 
                                             <tbody>
-                                                @if (Model.AttachmentList.Count == 0)
-                                                {
-                                                    <tr>@Resources.NubiHR.NoRecordsFound</tr>
-                                                }
-                                                else if (Model.AttachmentList != null)
+                                                @if (Model.AttachmentList != null)
                                                 {
                                                     <tr>
                                                         @*<th> @Resources.NubiHR.TrainingCertificate @count</th>*@
@@ -308,15 +304,11 @@
                                                             <td>
 
                                                                 <a href="~/Attachments/@item.Name">
-                                                                    @*<a href="~/Attachments/@Model.TrainingCertificateUrl">*@
-                                                                    <i class="glyphicon glyphicon-file"></i>
+                                                                   <i class="glyphicon glyphicon-file"></i>
                                                                 </a>
                                                                 @item.Name
                                                                 @Html.Hidden("Path" + count, item.Path, new { id = "HiddenPath" + count })
-                                                                @*@Html.TextBox("TrainingCertificateFile" + count, null, new { type = "file", id = "file4" + count, onchange = "return fileValidation('file4" + count + "', 'TCHiddenFile" + count + "')", htmlAttributes = new { @class = "form-control" } })
-                                                                    @Html.Editor("TrainingCertificateName" + count, new { htmlAttributes = new { @class = "form-control" } })*@
-
-
+                                                              
                                                             </td>
 
                                                             @if (IsArabic)
@@ -336,12 +328,14 @@
                                                                     if (item.IsExpired == true)
                                                                     {
                                                                         <td><input type="checkbox" id="IsExpired @count" name="IsExpired @count" value=@item.IsExpired checked disabled /></td>
-                                                                        <td>@Resources.NubiHR.DateIsExpired</td>
+                                                                    
                                                                     }
                                                                     else
                                                                     {
                                                                         <td><input type="checkbox" id="IsExpired @count" name="IsExpired @count" /></td>
+
                                                                     }
+                                                                    <td>@Resources.NubiHR.DateIsExpired</td>
 
                                                                 }
                                                                 else

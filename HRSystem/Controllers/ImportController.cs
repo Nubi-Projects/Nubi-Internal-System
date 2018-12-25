@@ -33,6 +33,7 @@ namespace HRSystem.Controllers
         {
             var current = System.Globalization.CultureInfo.CurrentCulture;
             current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 
             return View();
         }
@@ -46,6 +47,15 @@ namespace HRSystem.Controllers
                 HttpPostedFileBase UploadedFile = Request.Files["ExcelFile"];
                 var FN = UploadedFile.FileName;
                 var path = Path.Combine(Server.MapPath("~/Attendance/"), FN);
+
+                if (System.IO.File.Exists("~/Attendance/"))
+                {
+                    ///create folder
+
+                }
+
+
+                   
                 if (System.IO.File.Exists(path))
                 {
                     Random generator = new Random();
@@ -1707,6 +1717,8 @@ namespace HRSystem.Controllers
         {
             var current = System.Globalization.CultureInfo.CurrentCulture;
             current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "yyyy-MM-dd";
+            
             return View(Db.AttendanceSheets.ToList());
          
         }

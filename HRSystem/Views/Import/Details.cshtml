@@ -87,22 +87,20 @@
     </div>
 </div>
 
-<script src="~/Scripts/moment.min.js"></script>
+@*<script src="~/Scripts/moment.min.js"></script>*@
 
 <script type="text/javascript">
-
-
-    /* Custom filtering function which will search data in column four between two values */
+    
     $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
+
             try {
                 var min = $('#StartDate').val();
                 var max = $('#EndDate').val();
-                var DateOfCurrentRow = data[3].substring(0, 9); // use data for the punch time column
+                
 
-                //moment().format("MM dd yyyy");  
-                var ii = moment(min, 'l');
-
+                // use data for the punch time column
+                var DateOfCurrentRow = data[3].substring(0, 10); 
 
                 if ((min == "" && max == "") ||
                     (min == "" && DateOfCurrentRow <= max) ||
@@ -118,36 +116,12 @@
                 $('#EndDate').val() = "";
 
             }
-           
+          
         }
     );
 
-
     $(document).ready(function () {
-
-
-        //$('#IdDepartment').on('change', function () {
-
-        //    var GetElement = document.getElementById("IdDepartment");
-        //    var ValueOfCurrentSelectedItem = GetElement.options[GetElement.selectedIndex].value;
-        //    if (ValueOfCurrentSelectedItem != "") {
-
-        //        var SelectedText = GetElement.options[ValueOfCurrentSelectedItem].textContent;
-        //        $('#assets-data-table').DataTable()
-        //            .columns(3)
-        //            .search(SelectedText)
-        //            .draw();
-        //    }
-        //    else {
-
-        //        $('#assets-data-table').DataTable().columns(3).search("").draw();
-
-        //    }
-
-
-        //});
-
-
+        
         // Event listener to the two range filtering inputs to redraw on input
 
         $('#StartDate, #EndDate').change(function () {

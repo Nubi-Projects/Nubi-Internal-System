@@ -187,6 +187,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company&apos;s email.
+        /// </summary>
+        public static string AspEmail {
+            get {
+                return ResourceManager.GetString("AspEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attachments.
         /// </summary>
         public static string Attachments {
@@ -376,11 +385,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You didnt create user account yet.
+        /// </summary>
+        public static string DidntCreateUserYet {
+            get {
+                return ResourceManager.GetString("DidntCreateUserYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done filtering.
         /// </summary>
         public static string DoneFiltering {
             get {
                 return ResourceManager.GetString("DoneFiltering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string Download {
+            get {
+                return ResourceManager.GetString("Download", resourceCulture);
             }
         }
         
@@ -426,6 +453,15 @@ namespace Resources {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This email is used by another user.
+        /// </summary>
+        public static string EmailAlreadyExists {
+            get {
+                return ResourceManager.GetString("EmailAlreadyExists", resourceCulture);
             }
         }
         
@@ -975,6 +1011,15 @@ namespace Resources {
         public static string PermissionType {
             get {
                 return ResourceManager.GetString("PermissionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal email.
+        /// </summary>
+        public static string PersonalEmail {
+            get {
+                return ResourceManager.GetString("PersonalEmail", resourceCulture);
             }
         }
         

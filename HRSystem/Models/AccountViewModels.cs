@@ -1,6 +1,7 @@
 ﻿using Resources;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace HRSystem.Models
 {
@@ -67,6 +68,8 @@ namespace HRSystem.Models
     {
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [EmailAddress]
+        [DataType(DataType.EmailAddress)]
+        [Remote("IsAlreadySigned", "Employee", HttpMethod = "POST", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "EmailAlreadyExists")]
         [Display(ResourceType = typeof(NubiHR), Name = "Email")]
         public string Email { get; set; }
 
@@ -78,7 +81,7 @@ namespace HRSystem.Models
 
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(NubiHR), Name = "ConfirmPassword")]
-        [Compare("Password", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "ComparePassword")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "ComparePassword")]
         public string ConfirmPassword { get; set; }
 
         [Required]
@@ -105,7 +108,7 @@ namespace HRSystem.Models
 
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(NubiHR), Name = "ConfirmPassword")]
-        [Compare("Password", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "ComparePassword")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "ComparePassword")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
