@@ -200,8 +200,8 @@ namespace HRSystem.Controllers
 
                                                 list.Add(obj);
 
-                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r =>r.Id == AttendanceObj.ImportLogNo).Any();
-                                                if(!HasBeenInsertedBefore)
+                                                 
+                                                if(!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                 {
                                                     Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -287,8 +287,8 @@ namespace HRSystem.Controllers
 
                                                             list.Add(obj);
 
-                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                            if (!HasBeenInsertedBefore)
+                                                             
+                                                            if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                             {
                                                                 Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -348,8 +348,8 @@ namespace HRSystem.Controllers
 
                                                             list.Add(obj);
 
-                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                            if (!HasBeenInsertedBefore)
+                                                             
+                                                            if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                             {
                                                                 Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -411,8 +411,8 @@ namespace HRSystem.Controllers
 
                                                     list.Add(obj);
 
-                                                    var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                    if (!HasBeenInsertedBefore)
+                                                     
+                                                    if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                     {
                                                         Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -483,8 +483,8 @@ namespace HRSystem.Controllers
                                                             
 
 
-                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                            if (!HasBeenInsertedBefore)
+                                                             
+                                                            if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                             {
                                                                 Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -565,8 +565,8 @@ namespace HRSystem.Controllers
                                                                 obj.WorkState = item.WorkState;
 
 
-                                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                                if (!HasBeenInsertedBefore)
+                                                                 
+                                                                if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                                 {
                                                                     Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -715,8 +715,8 @@ namespace HRSystem.Controllers
                                                 list.Add(obj);
 
 
-                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                if (!HasBeenInsertedBefore)
+                                                 
+                                                if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                 {
                                                     Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -775,7 +775,7 @@ namespace HRSystem.Controllers
                                                         list.Add(obj);
 
 
-                                                        if (!HasBeenInsertedBefore)
+                                                        if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                         {
                                                             Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -825,7 +825,7 @@ namespace HRSystem.Controllers
                                                         AttendanceObj.NoOfHours = "8:00:00";
                                                         AttendanceObj.RemainingHours = "00:00:00";
 
-                                                        if (!HasBeenInsertedBefore)
+                                                        if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                         {
                                                             Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -912,8 +912,8 @@ namespace HRSystem.Controllers
                                                             obj.WorkState = item.WorkState;
                                                             list.Add(obj);
 
-                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                            if (!HasBeenInsertedBefore)
+                                                             
+                                                            if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                             {
                                                                 Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -955,7 +955,7 @@ namespace HRSystem.Controllers
                                                                 obj.WorkState = "Checkout";
                                                                 
 
-                                                                if (!HasBeenInsertedBefore)
+                                                                if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                                 {
                                                                     Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -1070,8 +1070,8 @@ namespace HRSystem.Controllers
                                                             obj.WorkState = item.WorkState;
                                                             list.Add(obj);
 
-                                                            var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                            if (!HasBeenInsertedBefore)
+                                                             
+                                                            if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                             {
                                                                 Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -1123,7 +1123,7 @@ namespace HRSystem.Controllers
                                                                 obj.RemainingHours = "00:00:00";
                                                                 list.Add(obj);
 
-                                                                if (!HasBeenInsertedBefore)
+                                                                if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                                 {
                                                                     Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -1190,8 +1190,8 @@ namespace HRSystem.Controllers
                                                     list.Add(obj);
 
 
-                                                    var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                    if (!HasBeenInsertedBefore)
+                                                     
+                                                    if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                     {
                                                         Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -1238,7 +1238,7 @@ namespace HRSystem.Controllers
                                                         obj.WorkState = "Checkout";
                                                         
 
-                                                        if (!HasBeenInsertedBefore)
+                                                        if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                         {
                                                             Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -1375,8 +1375,8 @@ namespace HRSystem.Controllers
                                                                 obj.WorkState = "Checkin";
                                                                 list.Add(obj);
 
-                                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                                if (!HasBeenInsertedBefore)
+                                                                 
+                                                                if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                                 {
                                                                     Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -1413,7 +1413,7 @@ namespace HRSystem.Controllers
                                                                 list.Add(obj);
 
 
-                                                               if (!HasBeenInsertedBefore)
+                                                               if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                                 {
                                                                     Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -1466,8 +1466,8 @@ namespace HRSystem.Controllers
                                                                 obj.RemainingHours = ((now - CheckInTime) - Eight).ToString();
                                                                 list.Add(obj);
 
-                                                                var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                                if (!HasBeenInsertedBefore)
+                                                                 
+                                                                if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                                 {
                                                                     Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -1543,8 +1543,8 @@ namespace HRSystem.Controllers
                                                                     obj.PunchTime = CurrentDate + " " + (CheckoutTime - Eight) + " " + "AM";
                                                                     obj.WorkState = "Checkin";
                                                                     list.Add(obj);
-                                                                    var HasBeenInsertedBefore = Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any();
-                                                                    if (!HasBeenInsertedBefore)
+                                                                     
+                                                                    if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                                     {
                                                                         Guid GuIdObjEmp = Guid.NewGuid();
 
@@ -1580,7 +1580,7 @@ namespace HRSystem.Controllers
                                                                     obj.RemainingHours = "00:00:00";
                                                                     list.Add(obj);
 
-                                                                    if (!HasBeenInsertedBefore)
+                                                                    if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
                                                                     {
                                                                         Guid GuIdObjEmp = Guid.NewGuid();
 
