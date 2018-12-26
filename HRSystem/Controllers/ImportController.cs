@@ -16,6 +16,8 @@ using COLOR = System.Drawing;
 using System.Web.UI.WebControls;
 using System.Text;
 using System.Globalization;
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace HRSystem.Controllers
 {
@@ -31,11 +33,29 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var current = System.Globalization.CultureInfo.CurrentCulture;
-            current.DateTimeFormat.Calendar = new GregorianCalendar();
-            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+           // var current = System.Globalization.CultureInfo.CurrentCulture;
+           // current.DateTimeFormat.Calendar = new GregorianCalendar();
+           // current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 
             return View();
+        }
+        public static void AddDirectorySecurity(string FileName, string Account, FileSystemRights Rights, AccessControlType ControlType)
+        {
+            // Create a new DirectoryInfo object.
+            DirectoryInfo dInfo = new DirectoryInfo(FileName);
+
+            // Get a DirectorySecurity object that represents the 
+            // current security settings.
+            DirectorySecurity dSecurity = dInfo.GetAccessControl();
+
+            // Add the FileSystemAccessRule to the security settings. 
+            dSecurity.AddAccessRule(new FileSystemAccessRule(Account,
+                                                            Rights,
+                                                            ControlType));
+
+            // Set the new access settings.
+            dInfo.SetAccessControl(dSecurity);
+
         }
         [HttpPost]
         public ActionResult Index(AttendanceViewModel model)
@@ -47,11 +67,26 @@ namespace HRSystem.Controllers
                 HttpPostedFileBase UploadedFile = Request.Files["ExcelFile"];
                 var FN = UploadedFile.FileName;
                 var path = Path.Combine(Server.MapPath("~/Attendance/"), FN);
-
-                if (System.IO.File.Exists("~/Attendance/"))
+                var mypath = "~/Attendance/";
+                if (!Directory.Exists(Path.Combine(Server.MapPath("~/Attendance/"))))
                 {
-                    ///create folder
-
+                    try
+                    {
+                        
+                        String dir = Path.Combine(Server.MapPath("~/Attendance/"));
+                        Directory.CreateDirectory(dir);
+                        DirectoryInfo dirInfo = new DirectoryInfo(dir);
+                        DirectorySecurity dirSec = dirInfo.GetAccessControl();
+                        var sid = new SecurityIdentifier(WellKnownSidType.AuthenticatedUserSid, null);
+                        dirSec.AddAccessRule(new FileSystemAccessRule(sid, FileSystemRights.Modify, AccessCo‌ntrolType.Allow));
+                        dirInfo.SetAccessControl(dirSec);
+                    }
+                    catch (Exception e)
+                    {
+                        
+                        ViewBag.MessageError = string.Format(e.Message, "Index", "Import");
+                        return View();
+                    }
                 }
 
 

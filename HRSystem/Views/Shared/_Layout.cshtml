@@ -10,9 +10,13 @@
     ViewBag.ManagerHasSeenPer = mngr.HasManagerSeenPermissionRequests();
     var Sum = VacRequests + PerRequests;
 
+    var current = System.Globalization.CultureInfo.CurrentCulture;
+    current.DateTimeFormat.Calendar = new System.Globalization.GregorianCalendar();
+    current.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+
 }
 <!DOCTYPE html>
-<html dir=" @(Request.Cookies["culture"].Value == "ar"? "rtl" : "ltr" )">
+<html dir=" @(IsArabic? "rtl" : "ltr" )">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +39,7 @@
     <script src="~/Scripts/jquery-3.0.0.js"></script>
     <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/moment.min.js"></script>
   
     <script src="~/Scripts/sweetalert2.1.0.min.js"></script>
     <script src="~/Scripts/DataTables/Buttons-1.5.1/js/dataTables.buttons.js"></script>

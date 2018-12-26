@@ -71,9 +71,9 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var current = System.Globalization.CultureInfo.CurrentCulture;
-            current.DateTimeFormat.Calendar = new GregorianCalendar();
-            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+            //var current = System.Globalization.CultureInfo.CurrentCulture;
+            //current.DateTimeFormat.Calendar = new GregorianCalendar();
+            //current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 
             ViewBag.Department = Db.Departments.ToList();
 
@@ -97,9 +97,9 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var current = System.Globalization.CultureInfo.CurrentCulture;
-            current.DateTimeFormat.Calendar = new GregorianCalendar();
-            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+            //var current = System.Globalization.CultureInfo.CurrentCulture;
+            //current.DateTimeFormat.Calendar = new GregorianCalendar();
+            //current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 
             var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
             ViewBag.Department = Db.Departments.ToList();
@@ -112,9 +112,9 @@ namespace HRSystem.Controllers
         [HttpPost]
         public ActionResult Create(VMAddEmployee model)
         {
-            var current = System.Globalization.CultureInfo.CurrentCulture;
-            current.DateTimeFormat.Calendar = new GregorianCalendar();
-            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+           // var current = System.Globalization.CultureInfo.CurrentCulture;
+          //  current.DateTimeFormat.Calendar = new GregorianCalendar();
+           // current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 
             if (ModelState.IsValid && Request.Form["MySiblingsHidden"] != "")
             {
@@ -343,9 +343,9 @@ namespace HRSystem.Controllers
             {
                 return RedirectToAction("Index");
             }
-            var current = System.Globalization.CultureInfo.CurrentCulture;
-            current.DateTimeFormat.Calendar = new GregorianCalendar();
-            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+           // var current = System.Globalization.CultureInfo.CurrentCulture;
+           // current.DateTimeFormat.Calendar = new GregorianCalendar();
+           // current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 
             VMAddEmployee model = new VMAddEmployee();
             ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
@@ -395,9 +395,9 @@ namespace HRSystem.Controllers
         public ActionResult Edit(string id, VMAddEmployee model)
         {
             model.IdEmployee = id;
-            var current = System.Globalization.CultureInfo.CurrentCulture;
-            current.DateTimeFormat.Calendar = new GregorianCalendar();
-            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+           // var current = System.Globalization.CultureInfo.CurrentCulture;
+          //  current.DateTimeFormat.Calendar = new GregorianCalendar();
+          //  current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
 
             if (ModelState.IsValid)
             {
@@ -678,13 +678,19 @@ namespace HRSystem.Controllers
         [HttpGet]
         public ActionResult Details(string id)
         {
+            if (id == null)
+            {
+                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
+            }
+
             var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
             VMAddEmployee model = new VMAddEmployee();
             var attachments = Db.Attachments.Where(x => x.EmpNo == id).ToList();
-            var current = System.Globalization.CultureInfo.CurrentCulture;
-            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+           // var current = System.Globalization.CultureInfo.CurrentCulture;
+            //current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+           // current.DateTimeFormat.Calendar = new GregorianCalendar();
 
-            current.DateTimeFormat.Calendar = new GregorianCalendar();
             model = Db.Employees.Where(x => x.Id == id)
              .Select(y => new VMAddEmployee
              {
@@ -710,12 +716,6 @@ namespace HRSystem.Controllers
             ViewBag.dept = Db.Departments.Where(x => x.Id == model.IdDepartment).Select( x=> (IsArabic == true ? x.DepartmentNameAr : x.DepartmentNameEn)).FirstOrDefault();
             ViewBag.pos = Db.Positions.Where(x => x.Id == model.IdPosition).Select(x => (IsArabic == true ? x.PositionNameAr : x.PositionNameEn)).FirstOrDefault();
             ViewBag.AspEmail = Db.AspNetUsers.Where(x => x.EmpNo == model.IdEmployee).Select(x => x.Email).FirstOrDefault();
-
-            if (id == null)
-            {
-               // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                return RedirectToAction("Index");
-            }
 
             return View(model);
         }

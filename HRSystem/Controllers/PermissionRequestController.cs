@@ -21,6 +21,8 @@ namespace HRSystem.Controllers
 
             var current = System.Globalization.CultureInfo.CurrentCulture;
             current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+
             return View(db.PermissionRequests.ToList());
         }
         public ActionResult LeaderRequests()
@@ -38,6 +40,8 @@ namespace HRSystem.Controllers
             db.SaveChanges();
             var current = System.Globalization.CultureInfo.CurrentCulture;
             current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+
             return View(db.PermissionRequests.OrderBy(e => e.RequestDate));
         }
         public ActionResult LeaderApprove(int id)
@@ -79,6 +83,8 @@ namespace HRSystem.Controllers
             db.SaveChanges();
             var current = System.Globalization.CultureInfo.CurrentCulture;
             current.DateTimeFormat.Calendar = new GregorianCalendar();
+            current.DateTimeFormat.ShortDatePattern = "MM/dd/yyyy";
+
             return View(db.PermissionRequests.OrderBy(e => e.RequestDate));
         }
 
