@@ -14,7 +14,7 @@
             @Resources.NubiHR.EmployeeName
         </div>
         <div>
-            <label> @Html.DisplayFor(modelItem => Model.Employee.FirstName)</label>
+            <label> @Html.DisplayFor(modelItem => Model.Employee.FirstName) @Html.DisplayFor(modelItem => Model.Employee.LastName)</label>
         </div>
         <br />
         <div>
@@ -100,7 +100,7 @@
         </div>
         <br />
         <div>
-            @Resources.NubiHR.Note
+            @Resources.NubiHR.Notes
         </div>
         <div>
             @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })

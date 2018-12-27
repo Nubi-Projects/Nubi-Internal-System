@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<HRSystem.Models.PermissionRequest>
 @using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "ManagerRequests";
+    ViewBag.Title = Resources.NubiHR.ManagerRequests;
     HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
@@ -48,7 +48,7 @@
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Employee.FirstName + item.Employee.LastName)
+                    @Html.DisplayFor(modelItem => item.Employee.FirstName) @Html.DisplayFor(modelItem => item.Employee.LastName)
                 </td>
                 @if (IsArabic)
                 {
