@@ -46,17 +46,16 @@
         <div>
             @Resources.NubiHR.TimeFrom
         </div>
-
         <br />
         <div class="row">
             <label>@Resources.NubiHR.Hour</label>
             <div class="col-md-4">
-                @Html.DisplayFor(model => model.TimeFromHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TimeFromHours, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeFromHours, "", new { @class = "text-danger" })
             </div>
             <label>@Resources.NubiHR.Minute</label>
             <div class="col-md-4">
-                @Html.DisplayFor(model => model.TimeFromMinutes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TimeFromMinutes, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeFromMinutes, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,12 +66,12 @@
         <br />
         <div class="row">
             <label>@Resources.NubiHR.Hour</label>
-            <div class="col-md-4">
+            <div class="col-md-4" id="TimeTo">
                 @Html.DisplayFor(model => model.TimeToHours, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeToHours, "", new { @class = "text-danger" })
             </div>
             <label>@Resources.NubiHR.Minute</label>
-            <div class="col-md-4">
+            <div class="col-md-4" id="TimeToMinute">
                 @Html.DisplayFor(model => model.TimeToMinutes, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeToMinutes, "", new { @class = "text-danger" })
             </div>
@@ -117,3 +116,40 @@
         </div>
     </div>
 }
+<script>
+    $("#TimeFromHours").change(function () {
+        var date = new Date($("#PermissionDate").val());
+        var hours = parseInt($("#TimeFromHours").val());
+        //$("#TimeToMinute") = $("#TimeFromMinutes").val();
+        var minute = parseInt($("#TimeFromMinutes").val());
+
+        $("#TimeToMinute").show();
+        $("#TimeToMinute").text($("#TimeFromMinutes").val());
+
+        var inchours = hours + 4;
+        if (inchours >= 16)
+        {
+            $("#TimeTo").text("Rest of the day");
+            $("#TimeToMinute").hide();
+        }
+        else if (inchours <= 16 && minute === "")
+        {
+            $("#TimeTo").text(hours + 4);
+            $("#TimeToMinute").hide();
+        }
+
+
+       else
+            $("#TimeTo").text(hours + 4);
+        $("#TimeFromMinutes").change(function () {
+            $("#TimeToMinute").show();
+            $("#TimeToMinute").text($("#TimeFromMinutes").val());
+            //$("#TimeToMinute").text(minute);
+        })
+
+    })
+
+    $("#PermissionDate").change(function () {
+        $("#PerDateAr").val($("#PermissionDate").val());
+    })
+</script>
