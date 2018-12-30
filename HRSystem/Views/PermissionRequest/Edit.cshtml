@@ -37,6 +37,7 @@
         </div>
         <div>
             @Html.DisplayFor(model => model.PermissionType.Type, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.PermissionTypeNo)
             @*@Html.DropDownList("PermissionTypeNo", null,"Select", new { @class = "form-control" })*@
         </div>
         <br />
@@ -96,6 +97,9 @@
         <div>
             @Html.DisplayFor(model => model.PermissionDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.PermissionDate, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.PermissionDate)
+            @Html.HiddenFor(model => model.RequestDate)
+         
         </div>
         <br />
         <div>

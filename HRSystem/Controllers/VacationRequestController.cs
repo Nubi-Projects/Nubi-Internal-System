@@ -327,7 +327,7 @@ namespace HRSystem.Controllers
                 HttpNotFound();
             }
             
-                ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type", vac.VacationTypeNo);
+                ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type");
             ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "FirstName", vac.AlternativeEmp);
 
             //ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID" , "Type", vac.VacationTypeNo);
@@ -337,23 +337,28 @@ namespace HRSystem.Controllers
 
         // POST: /VacationRequest/Edit
         [HttpPost]
-        public ActionResult Edit(int id, VacationRequest vac)
+        public ActionResult Edit(int id, VacationRequest vac, string StartDateAr)
         {
             vac.Id = id;
-            vac.RequestDate = DateTime.Now;
             string CurrentUser = User.Identity.GetUserId();
             vac.EmployeeNo = db.AspNetUsers.Where(a => a.Id == CurrentUser).FirstOrDefault().EmpNo;
+            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+            if (IsArabic)
+            {
+                CultureInfo MyCultureInfo = new CultureInfo("en-GB");
+                DateTime.Parse(StartDateAr, MyCultureInfo);
+                vac.StartDate = DateTime.Parse(StartDateAr, MyCultureInfo);
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(vac).State = System.Data.Entity.EntityState.Modified;
-               
-                    ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type", vac.VacationTypeNo);
+                ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type");
                 ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type", vac.VacationTypeNo);
+            ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type");
             ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
             return View(vac);
         }
