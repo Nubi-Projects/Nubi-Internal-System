@@ -754,6 +754,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manager Requests.
+        /// </summary>
+        public static string ManagerRequests {
+            get {
+                return ResourceManager.GetString("ManagerRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Medical Report.
         /// </summary>
         public static string MedicalReport {

@@ -594,4 +594,7 @@
   <data name="Download" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="ManagerRequests" xml:space="preserve">
+    <value>Manager Requests</value>
+  </data>
 </root>
