@@ -69,6 +69,11 @@
                 @Html.EditorFor(model => model.TimeFromHours, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeFromHours, "", new { @class = "text-danger" })
             </div>
+            <label>@Resources.NubiHR.Minute</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.TimeFromMinutes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeFromMinutes, "", new { @class = "text-danger" })
+            </div>
         </div>
         <br />
         <div>
@@ -77,9 +82,13 @@
         <br />
         <div class="row">
             <label>@Resources.NubiHR.Hour</label>
-            <div class="col-md-4" id="TimeTo">
+            <div class="col-md-4" id="TimeTo" style="color: #de340d">
                 @*@Html.EditorFor(model => model.TimeToHours, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TimeToHours, "", new { @class = "text-danger" })*@
+            </div>
+            <label>@Resources.NubiHR.Minute</label>
+            <div class="col-md-4" id="TimeToMinute" style="color: #de340d">
+
             </div>
         </div>
         <br />
@@ -98,7 +107,7 @@
                 }
                 else
                 {
-                    <input type="submit" value=@Resources.NubiHR.Send class="btn2disabled" disabled />
+                    <input type="submit" value=@Resources.NubiHR.Send class="btn2disabled" disabled style="cursor:not-allowed"/>
                 }
                 
    
@@ -115,13 +124,39 @@
     $("#TimeFromHours").change(function () {
         var date = new Date($("#PermissionDate").val());
         var hours = parseInt($("#TimeFromHours").val());
+        //$("#TimeToMinute") = $("#TimeFromMinutes").val();
+        var minute = parseInt($("#TimeFromMinutes").val());
+
+        $("#TimeToMinute").show();
+        $("#TimeToMinute").text($("#TimeFromMinutes").val());
+
         var inchours = hours + 4;
         if (inchours >= 16)
         {
             $("#TimeTo").text("Rest of the day");
+            $("#TimeToMinute").hide();
         }
-        else
+        else if (inchours <= 16 && minute === "")
+        {
             $("#TimeTo").text(hours + 4);
+            $("#TimeToMinute").hide();
+        }
+            
+
+       else 
+            $("#TimeTo").text(hours + 4);
+        $("#TimeFromMinutes").change(function () {
+            $("#TimeToMinute").show();
+            $("#TimeToMinute").text($("#TimeFromMinutes").val());
+            //$("#TimeToMinute").text(minute);
+        })
+         
+
+        //else
+        //    $("#TimeTo").text(hours + 4);
+        //    $("#TimeToMinute").text(minute);
+
+
         //var timefrom = new Date(date.getFullYear, date.getMonth, date.getDay, $("#TimeFromHours").val(), $("#TimeFromMinutes").val());
         //var hours = date.getHours();
         //var incrHours = hours + 4;

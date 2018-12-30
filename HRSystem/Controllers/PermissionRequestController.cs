@@ -216,20 +216,34 @@ namespace HRSystem.Controllers
 
         // POST: /PermissionRequest/Edit
         [HttpPost]
-        public ActionResult Edit(int id, PermissionRequest per)
+        public ActionResult Edit(int id, PermissionRequest per, string PerDateAr)
         {
             per.Id = id;
-            per.RequestDate = DateTime.Now;
+            //per.RequestDate = DateTime.Now;
             string CurrentUser = User.Identity.GetUserId();
             per.EmployeeNo = db.AspNetUsers.Where(e => e.Id == CurrentUser).FirstOrDefault().EmpNo;
+            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+            if (IsArabic)
+            {
+
+
+                CultureInfo MyCultureInfo = new CultureInfo("en-GB");
+                DateTime.Parse(PerDateAr, MyCultureInfo);
+                per.PermissionDate = DateTime.Parse(PerDateAr, MyCultureInfo);
+            }
             if (ModelState.IsValid)
             {
+                ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
+                TimeSpan timeFrom = new TimeSpan(0, per.TimeFromHours, per.TimeFromMinutes ?? 0, 0);
+                TimeSpan timeTo = new TimeSpan(0, per.TimeToHours, per.TimeToMinutes ?? 0, 0);
+                per.TimeToHours = timeFrom.Hours + 4;
+                per.TimeToMinutes = timeFrom.Minutes;
                 db.Entry(per).State = System.Data.Entity.EntityState.Modified;
-                ViewBag.permission = new SelectList(db.PermissionTypes.ToList(), "ID","Type", per.PermissionTypeNo);
+                ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.permission = new SelectList(db.PermissionTypes.ToList(), "ID", "Type", per.PermissionTypeNo);
+            ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "ID", "Type");
             return View(per);
         }
 
