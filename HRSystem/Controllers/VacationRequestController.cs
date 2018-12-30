@@ -281,6 +281,7 @@ namespace HRSystem.Controllers
                         var emp = db.Employees.FirstOrDefault(p => p.Id == AlternativeEmp);
                         vac.AlternativeEmp = emp.FirstName;
                         vac.RequestDate = DateTime.Now;
+                        vac.LeaderApprovement = true;
                         TempData["chec"] = Resources.NubiHR.YourRequestHasBeenSented;
                         db.VacationRequests.Add(vac);
                         db.SaveChanges();
@@ -352,6 +353,7 @@ namespace HRSystem.Controllers
             }
             if (ModelState.IsValid)
             {
+                TempData["Edit"] = "Your Request Has Been Modified";
                 db.Entry(vac).State = System.Data.Entity.EntityState.Modified;
                 ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type");
                 ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);

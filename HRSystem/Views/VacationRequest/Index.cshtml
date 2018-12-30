@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<HRSystem.Models.VacationRequest>
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Index";
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
+    HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 
@@ -55,7 +57,7 @@
     </thead>
     <tbody>
        
-        @foreach (var item in Model.Where(e => e.IsDeleted == false).ToList())
+        @foreach (var item in Model.Where(e => e.IsDeleted == false && e.EmployeeNo == helperx.GetName(User.Identity.GetUserId()).Employee.Id).ToList())
             {
             <tr onclick="Edit('@item.Id')">
                 <td>

@@ -463,7 +463,7 @@ namespace HRSystem.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "VacationRequest");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

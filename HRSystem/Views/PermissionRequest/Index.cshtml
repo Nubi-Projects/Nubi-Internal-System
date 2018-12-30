@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
+    HRSystem.Manager.Helper helperx = new HRSystem.Manager.Helper();
 }
 
 <h2>@Resources.NubiHR.Permissions</h2>
@@ -56,7 +57,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Where(e => e.IsDeleted == false).ToList())
+            @foreach (var item in Model.Where(e => e.IsDeleted == false && e.EmployeeNo == helperx.GetName(User.Identity.GetUserId()).Employee.Id).ToList())
             {
                 <tr onclick="Edit('@item.Id')">
                     <td>

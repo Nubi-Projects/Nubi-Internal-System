@@ -6,6 +6,32 @@
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
 }
 
+<style>
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+    }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: red;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+            top: -3px;
+            left: 103%;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+</style>
 <h2>@Resources.NubiHR.CreatePermissionRequest</h2>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form" }))
@@ -60,7 +86,7 @@
             @Resources.NubiHR.Period:
         </div>
         <div>
-            @Resources.NubiHR.TimeFrom
+            @Resources.NubiHR.TimeFrom  <label style="color:red ; font-weight:bold">24 Hour system</label>
         </div>
         <br />
         <div class="row">
@@ -107,7 +133,15 @@
                 }
                 else
                 {
-                    <input type="submit" value=@Resources.NubiHR.Send class="btn2disabled" disabled style="cursor:not-allowed" placeholder="u cant take vacation"/>
+                    <button class="btn2disabled tooltip text-center" disabled style="cursor:not-allowed; font-weight: 500; font-size: medium;">
+                        @Resources.NubiHR.Send
+                        <span class="tooltiptext">You cant take permission</span>
+                        </button>
+                    @*<button class="tooltip btn2disabled" disabled style="cursor:not-allowed" value=@Resources.NubiHR.Send>*@
+                        @*<input type="submit" value=@Resources.NubiHR.Send class="btn2disabled tooltip" disabled style="cursor:not-allowed" />*@
+                        @*<span class="tooltiptext">Tooltip text</span>*@
+                    @*</button>*@
+                    
                 }
                 
    
