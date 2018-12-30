@@ -67,7 +67,6 @@ namespace HRSystem.Controllers
                 HttpPostedFileBase UploadedFile = Request.Files["ExcelFile"];
                 var FN = UploadedFile.FileName;
                 var path = Path.Combine(Server.MapPath("~/Attendance/"), FN);
-                var mypath = "~/Attendance/";
                 if (!Directory.Exists(Path.Combine(Server.MapPath("~/Attendance/"))))
                 {
                     try
@@ -307,6 +306,14 @@ namespace HRSystem.Controllers
                                             {
                                                 DateTime d = Convert.ToDateTime(Convert.ToDateTime(worksheet.Cells[NoOfRow - 1, 3].Value).ToShortDateString());
                                                 var PreviousDateOfTheFilteredExcel = Convert.ToDateTime(d).ToShortDateString();
+                                                TimeSpan Three = new TimeSpan(15, 0, 0); //15 o'clock
+                                                TimeSpan TwentyThree = new TimeSpan(23, 0, 0); //15 o'clock
+                                                TimeSpan Eleven = new TimeSpan(11, 0, 0); //11 o'clock
+                                                var ListOfCheckinsAfter3PM = RowsWithAllData.Where(x => (Convert.ToDateTime(x.PunchTime).ToShortDateString() == CurrentDate) && (Convert.ToDateTime(Convert.ToDateTime(x.PunchTime).ToShortTimeString()).TimeOfDay >= Three) && (Convert.ToDateTime(Convert.ToDateTime(x.PunchTime).ToShortTimeString()).TimeOfDay <= TwentyThree) && (x.Number == CurrentNumber) && (x.WorkState == "Checkin")).ToList().LastOrDefault();
+                                                var ListOfCheckOutsDuringWorkTime = RowsWithAllData.Where(x => (Convert.ToDateTime(x.PunchTime).ToShortDateString() == CurrentDate) && (Convert.ToDateTime(Convert.ToDateTime(x.PunchTime).ToShortTimeString()).Hour > 11) && (x.Number == CurrentNumber) && (x.WorkState == "Checkout")).OrderByDescending(x => x.PunchTime).ToList();
+
+                                                string PreviousStatusOfTheFilteredExcel = worksheet.Cells[NoOfRow - 1, 4].Value.ToString();
+
 
                                                 if (PreviousDate != CurrentDate)
                                                 {
@@ -428,6 +435,131 @@ namespace HRSystem.Controllers
                                                         }
 
                                                     }
+                                                }
+                                                else if (CurrentDate == PreviousDateOfTheFilteredExcel && ListOfCheckinsAfter3PM != null && PreviousStatusOfTheFilteredExcel != "Checkout" && ListOfCheckOutsDuringWorkTime.Count() == 0)
+                                                {
+                                                   // foreach (var item in ListOfCheckinsAfter3PM)
+                                                  //  {
+                                                        //TimeSpan now = Convert.ToDateTime(item.PunchTime).TimeOfDay;
+                                                        TimeSpan PreviousCheckInTimeOfTheFilteredExcel = Convert.ToDateTime(Convert.ToDateTime(worksheet.Cells[NoOfRow - 1, 3].Value).ToShortTimeString()).TimeOfDay;
+                                                        //TimeSpan PreviousTimeOfTheFilteredExcel = Convert.ToDateTime(t).ToShortTimeString();
+                                                        TimeSpan Eight = new TimeSpan(8, 0, 0);
+                                                        TimeSpan Six = new TimeSpan(18, 0, 0);
+                                                    TimeSpan tt = Convert.ToDateTime(ListOfCheckinsAfter3PM.PunchTime).TimeOfDay;
+
+                                                    if (tt.Hours >= 18)
+                                                        {
+                                                            worksheet.Cells[NoOfRow, 1].Value = ListOfCheckinsAfter3PM.Number;
+                                                            worksheet.Cells[NoOfRow, 2].Value = ListOfCheckinsAfter3PM.Name;
+                                                            worksheet.Cells[NoOfRow, 3].Value = CurrentDate + " " + "6:00:00 PM";
+                                                            worksheet.Cells[NoOfRow, 4].Value = "Checkout";
+                                                            worksheet.Cells[NoOfRow, 5].Value = ListOfCheckinsAfter3PM.Terminal;
+                                                            worksheet.Cells[NoOfRow, 6].Value = ListOfCheckinsAfter3PM.PunchType;
+                                                            worksheet.Cells[NoOfRow, 7].Value = (Six - PreviousCheckInTimeOfTheFilteredExcel).ToString();
+                                                            worksheet.Cells[NoOfRow, 8].Value = ((Six - PreviousCheckInTimeOfTheFilteredExcel) - Eight).ToString();
+                                                            worksheet.Cells[NoOfRow, 9].Value = "new checkout was after 6";
+                                                            
+
+                                                            package.Save();
+                                                            NoOfRow++;
+
+                                                            obj = new AttendanceViewModel();
+                                                            obj.Number = NumberCell;
+                                                            obj.Name = NameCell;
+                                                            obj.PunchTime = CurrentDate + " " + "6:00:00 PM";
+                                                            obj.WorkState = "Checkout";
+                                                            obj.NoOfHours = (tt - PreviousCheckInTimeOfTheFilteredExcel).ToString();
+                                                            obj.RemainingHours = ((tt - PreviousCheckInTimeOfTheFilteredExcel) - Eight).ToString();
+
+                                                            list.Add(obj);
+
+
+                                                            if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
+                                                            {
+                                                                Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                ImportLogObj.Path = curFile;
+                                                                ImportLogObj.FileName = fileName;
+                                                                ImportLogObj.Date = DateTime.Now.Date;
+                                                                Db.ImportLogs.Add(ImportLogObj);
+                                                                Db.SaveChanges();
+                                                            }
+
+                                                            AttendanceObj.Number = Convert.ToInt32(ListOfCheckinsAfter3PM.Number);
+                                                            AttendanceObj.Name = ListOfCheckinsAfter3PM.Name.ToString();
+                                                            AttendanceObj.PunchTime = Convert.ToDateTime(CurrentDate + " " + "6:00:00 PM");
+                                                            AttendanceObj.WorkState = "Checkout";
+                                                            AttendanceObj.Terminal = ListOfCheckinsAfter3PM.Terminal;
+                                                            AttendanceObj.PunchType = ListOfCheckinsAfter3PM.PunchType;
+                                                            AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                            AttendanceObj.Date = DateTime.Now.Date;
+                                                            AttendanceObj.NoOfHours = (tt - PreviousCheckInTimeOfTheFilteredExcel).ToString();
+                                                            AttendanceObj.RemainingHours = ((tt - PreviousCheckInTimeOfTheFilteredExcel) - Eight).ToString();
+
+
+                                                            Db.AttendanceSheets.Add(AttendanceObj);
+                                                            Db.SaveChanges();
+
+                                                           // break;
+                                                        }
+                                                        else
+                                                        {
+                                                            worksheet.Cells[NoOfRow, 1].Value = ListOfCheckinsAfter3PM.Number;
+                                                            worksheet.Cells[NoOfRow, 2].Value = ListOfCheckinsAfter3PM.Name;
+                                                            worksheet.Cells[NoOfRow, 3].Value = ListOfCheckinsAfter3PM.PunchTime;
+                                                            worksheet.Cells[NoOfRow, 4].Value = "Checkout";
+                                                            worksheet.Cells[NoOfRow, 5].Value = ListOfCheckinsAfter3PM.Terminal;
+                                                            worksheet.Cells[NoOfRow, 6].Value = ListOfCheckinsAfter3PM.PunchType;
+                                                            worksheet.Cells[NoOfRow, 7].Value = (tt - PreviousCheckInTimeOfTheFilteredExcel).ToString();
+                                                            worksheet.Cells[NoOfRow, 8].Value = ((tt - PreviousCheckInTimeOfTheFilteredExcel) - Eight).ToString();
+                                                            worksheet.Cells[NoOfRow, 9].Value = "new checkout";
+
+
+                                                            package.Save();
+                                                            NoOfRow++;
+
+                                                            obj = new AttendanceViewModel();
+                                                            obj.Number = NumberCell;
+                                                            obj.Name = NameCell;
+                                                            obj.PunchTime = ListOfCheckinsAfter3PM.PunchTime;
+                                                            obj.WorkState = "Checkout";
+                                                            obj.NoOfHours = (tt - PreviousCheckInTimeOfTheFilteredExcel).ToString();
+                                                            obj.RemainingHours = ((tt - PreviousCheckInTimeOfTheFilteredExcel) - Eight).ToString();
+
+                                                            list.Add(obj);
+
+
+                                                            if (!(Db.ImportLogs.Where(r => r.Id == AttendanceObj.ImportLogNo).Any()))
+                                                            {
+                                                                Guid GuIdObjEmp = Guid.NewGuid();
+
+                                                                ImportLogObj.Id = GuIdObjEmp.ToString();
+                                                                ImportLogObj.Path = curFile;
+                                                                ImportLogObj.FileName = fileName;
+                                                                ImportLogObj.Date = DateTime.Now.Date;
+                                                                Db.ImportLogs.Add(ImportLogObj);
+                                                                Db.SaveChanges();
+                                                            }
+
+                                                            AttendanceObj.Number = Convert.ToInt32(ListOfCheckinsAfter3PM.Number);
+                                                            AttendanceObj.Name = ListOfCheckinsAfter3PM.Name.ToString();
+                                                            AttendanceObj.PunchTime = Convert.ToDateTime(ListOfCheckinsAfter3PM.PunchTime);
+                                                            AttendanceObj.WorkState = "Checkout";
+                                                            AttendanceObj.Terminal = ListOfCheckinsAfter3PM.Terminal;
+                                                            AttendanceObj.PunchType = ListOfCheckinsAfter3PM.PunchType;
+                                                            AttendanceObj.ImportLogNo = ImportLogObj.Id;
+                                                            AttendanceObj.Date = DateTime.Now.Date;
+                                                            AttendanceObj.NoOfHours = (tt - PreviousCheckInTimeOfTheFilteredExcel).ToString();
+                                                            AttendanceObj.RemainingHours = ((tt - PreviousCheckInTimeOfTheFilteredExcel) - Eight).ToString();
+
+
+                                                            Db.AttendanceSheets.Add(AttendanceObj);
+                                                            Db.SaveChanges();
+
+                                                          //  break;
+                                                        }
+                                                   // }
                                                 }
 
 
@@ -1224,7 +1356,7 @@ namespace HRSystem.Controllers
                                                     worksheet.Cells[NoOfRow, 1].Value = NumberCell;
                                                     worksheet.Cells[NoOfRow, 2].Value = NameCell;
                                                     worksheet.Cells[NoOfRow, 3].Value = PunchTimeCell;
-                                                    worksheet.Cells[NoOfRow, 4].Value = "Checkinnnnnn";
+                                                    worksheet.Cells[NoOfRow, 4].Value = "Checkin";
                                                     worksheet.Cells[NoOfRow, 5].Value = TerminalCell;
                                                     worksheet.Cells[NoOfRow, 6].Value = PunchTypeCell;
 
@@ -1235,7 +1367,7 @@ namespace HRSystem.Controllers
                                                     obj.Number = NumberCell;
                                                     obj.Name = NameCell;
                                                     obj.PunchTime = PunchTimeCell;
-                                                    obj.WorkState = "Checkinnnnnn";
+                                                    obj.WorkState = "Checkin";
                                                     list.Add(obj);
 
 
@@ -1256,7 +1388,7 @@ namespace HRSystem.Controllers
                                                     AttendanceObj.Number = Convert.ToInt32(NumberCell);
                                                     AttendanceObj.Name = NameCell.ToString();
                                                     AttendanceObj.PunchTime = Convert.ToDateTime(PunchTimeCell);
-                                                    AttendanceObj.WorkState = "Checkinnnnnn";
+                                                    AttendanceObj.WorkState = "Checkin";
                                                     AttendanceObj.Terminal = TerminalCell;
                                                     AttendanceObj.PunchType = PunchTypeCell;
                                                     AttendanceObj.ImportLogNo = ImportLogObj.Id;
@@ -1327,7 +1459,7 @@ namespace HRSystem.Controllers
                                                             worksheet.Cells[NoOfRow, 3].Value = CurrentDate + " " + CO + " " + "PM";
                                                             worksheet.Cells[NoOfRow, 7].Value = "8:00:00";
                                                             worksheet.Cells[NoOfRow, 8].Value = "00:00:00";
-                                                            worksheet.Cells[NoOfRow, 9].Value = "Checkout was too early and checkinnnnnnn";
+                                                            worksheet.Cells[NoOfRow, 9].Value = "Checkout was too early and Checkinn";
 
                                                             obj.PunchTime = CurrentDate + " " + CO + " " + "PM";
                                                             obj.NoOfHours = "8:00:00";
