@@ -597,4 +597,22 @@
   <data name="ManagerRequests" xml:space="preserve">
     <value>Manager Requests</value>
   </data>
+  <data name="NormalLeave" xml:space="preserve">
+    <value>Normal leave</value>
+  </data>
+  <data name="SickLeave" xml:space="preserve">
+    <value>Sick leave</value>
+  </data>
+  <data name="AccidentalLeave" xml:space="preserve">
+    <value>Accidental leave</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="FatherDeath" xml:space="preserve">
+    <value>Father's death</value>
+  </data>
+  <data name="MotherDeath" xml:space="preserve">
+    <value>Mother's death</value>
+  </data>
 </root>

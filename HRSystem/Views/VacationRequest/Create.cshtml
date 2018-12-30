@@ -34,11 +34,11 @@
             
                         @Html.DropDownList("VacationTypeNoMain", new List<SelectListItem>
         {
-           new SelectListItem{ Text="select", Value = "" },
-           new SelectListItem{ Text="Normal Leave", Value = "1" },
-           new SelectListItem{ Text="Sick leave", Value = "2" },
-           new SelectListItem{ Text="Accidental leave", Value = "3" },
-           new SelectListItem{ Text="Other", Value = "4" },
+           new SelectListItem{ Text= Resources.NubiHR.Select, Value = "" },
+           new SelectListItem{ Text=Resources.NubiHR.NormalLeave, Value = "1" },
+           new SelectListItem{ Text=Resources.NubiHR.SickLeave, Value = "2" },
+           new SelectListItem{ Text=Resources.NubiHR.AccidentalLeave, Value = "3" },
+           new SelectListItem{ Text=Resources.NubiHR.Other, Value = "4" },
         }, new { @class = "form-control" })
             @*@Html.DropDownList("VacationTypeNo", null, "Select", new { @class = "form-control" })*@
         </div>
@@ -47,8 +47,8 @@
             @*@Html.DropDownList("VacationTypeNo", null, "Select", new { @class = "form-control" })*@
 
             @Html.DropDownList("VacationTypeNoOther", new List<SelectListItem>{
-   new SelectListItem{ Text="Father's Death", Value = "5" },
-   new SelectListItem{ Text="Mother's Death", Value = "6" },
+   new SelectListItem{ Text= Resources.NubiHR.FatherDeath, Value = "5" },
+   new SelectListItem{ Text= Resources.NubiHR.MotherDeath, Value = "6" },
 } , new { @class = "form-control" })
 
         </div>
@@ -129,6 +129,8 @@
     </div>
     <div>
         @Html.DropDownList("AlternativeEmp", null, Resources.NubiHR.Select, new { @class = "form-control" })
+        @*@Html.DropDownList("AlternativeEmp", new SelectList(@ViewBag.AlternativeEmp, "Id"), Resources.NubiHR.Select, new { @class = "form-control",})*@
+
     </div>
             <br/>
         <div>

@@ -90,6 +90,7 @@ namespace HRSystem.Controllers
             }
             return View(db.VacationRequests.ToList());
         }
+        [HttpGet]
         public ActionResult Create()
         {
             Manager.RequestManager mng = new Manager.RequestManager();

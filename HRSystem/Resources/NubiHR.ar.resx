@@ -597,4 +597,22 @@
   <data name="ManagerRequests" xml:space="preserve">
     <value>طلبات المدير</value>
   </data>
+  <data name="NormalLeave" xml:space="preserve">
+    <value>اجازة اعتيادية</value>
+  </data>
+  <data name="SickLeave" xml:space="preserve">
+    <value>اجازة مرضية</value>
+  </data>
+  <data name="AccidentalLeave" xml:space="preserve">
+    <value>اجازة عارضة</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>اخرى</value>
+  </data>
+  <data name="FatherDeath" xml:space="preserve">
+    <value>موت الوالد</value>
+  </data>
+  <data name="MotherDeath" xml:space="preserve">
+    <value>موت الوالدة</value>
+  </data>
 </root>
