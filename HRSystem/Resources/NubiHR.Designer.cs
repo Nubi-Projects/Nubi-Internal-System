@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accidental leave.
+        /// </summary>
+        public static string AccidentalLeave {
+            get {
+                return ResourceManager.GetString("AccidentalLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account Number.
         /// </summary>
         public static string AccountNumber {
@@ -565,6 +574,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Father&apos;s death.
+        /// </summary>
+        public static string FatherDeath {
+            get {
+                return ResourceManager.GetString("FatherDeath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
         public static string File {
@@ -808,6 +826,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mother&apos;s death.
+        /// </summary>
+        public static string MotherDeath {
+            get {
+                return ResourceManager.GetString("MotherDeath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Must add one sibling at least.
         /// </summary>
         public static string MustAddOneSiblingAtLeast {
@@ -907,6 +934,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Normal leave.
+        /// </summary>
+        public static string NormalLeave {
+            get {
+                return ResourceManager.GetString("NormalLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NOTE: &apos;Remove&apos; operation will remove the last thing you added.
         /// </summary>
         public static string Note {
@@ -939,6 +975,15 @@ namespace Resources {
         public static string Nubi {
             get {
                 return ResourceManager.GetString("Nubi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
             }
         }
         
@@ -1245,6 +1290,15 @@ namespace Resources {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sick leave.
+        /// </summary>
+        public static string SickLeave {
+            get {
+                return ResourceManager.GetString("SickLeave", resourceCulture);
             }
         }
         
