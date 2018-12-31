@@ -1,6 +1,10 @@
 ﻿@model HRSystem.Models.VMAddEmployee
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = Resources.NubiHR.EmployeeDetails;
+    HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
+    ViewBag.vacations = mngr.totalVacDuration(id: Model.IdEmployee);
+    ViewBag.remaining = mngr.TotalVacationDays(id: Model.IdEmployee);
     var count = 1;
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false ;
 }
@@ -175,6 +179,24 @@
                                     </th>
                                     <td>
                                         @Model.Bonus
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        @Resources.NubiHR.VacationsTaken
+                                    </th>
+                                    <td>
+                                        @ViewBag.vacations
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        @Resources.NubiHR.VacationsRemaining
+                                    </th>
+                                    <td>
+                                        @ViewBag.remaining
                                     </td>
                                 </tr>
 

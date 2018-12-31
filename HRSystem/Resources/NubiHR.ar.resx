@@ -636,4 +636,10 @@
   <data name="PermissionRequest" xml:space="preserve">
     <value>طلب استئذان</value>
   </data>
+  <data name="VacationsTaken" xml:space="preserve">
+    <value>الاجازات المأخوذة</value>
+  </data>
+  <data name="VacationsRemaining" xml:space="preserve">
+    <value>الاجازات المتبقية</value>
+  </data>
 </root>

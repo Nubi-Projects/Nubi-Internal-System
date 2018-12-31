@@ -1483,6 +1483,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vacations Remaining.
+        /// </summary>
+        public static string VacationsRemaining {
+            get {
+                return ResourceManager.GetString("VacationsRemaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vacations Taken.
+        /// </summary>
+        public static string VacationsTaken {
+            get {
+                return ResourceManager.GetString("VacationsTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VacationType.
         /// </summary>
         public static string VacationType {

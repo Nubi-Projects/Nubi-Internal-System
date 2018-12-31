@@ -636,4 +636,10 @@
   <data name="PermissionRequest" xml:space="preserve">
     <value>PermissionRequest</value>
   </data>
+  <data name="VacationsTaken" xml:space="preserve">
+    <value>Vacations Taken</value>
+  </data>
+  <data name="VacationsRemaining" xml:space="preserve">
+    <value>Vacations Remaining</value>
+  </data>
 </root>
