@@ -5,6 +5,14 @@
     var count = 1;
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
     var count1 = 1;
+    var count2 = 1;
+
+    <style type="text/css">
+
+        input:invalid {
+            box-shadow: 0 0 5px 1px red;
+        }
+    </style>
 }
 
 
@@ -81,7 +89,7 @@
 
                 </div>
             </div>
-            <input name="countSib" id='countSibModel' type="hidden" value= @Model.EmergencyContactList.Count() />
+            <input name="countSibModel" id='countSibModel' type="hidden" value= @Model.EmergencyContactList.Count() />
             @if (Model.EmergencyContactList.Count() > 0)
             {
             <div class="col-md-8">
@@ -144,7 +152,7 @@
                         <legend class="the-legend">@Resources.NubiHR.Add @Resources.NubiHR.EmergencyContact</legend>
 
                         @Html.LabelFor(model => Model.IdRelationshipType, htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownListFor(model => model.IdRelationshipType, new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px; " })
+                        @Html.DropDownList("IdRelationshipType1", new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px; " })
                       
 
                         <input id='addButton1' type="button" value="@Resources.NubiHR.AddSiblings" class="btn btn-outline-success" />
@@ -277,7 +285,7 @@
                         @*<div class="panel-heading list-panel-heading">*@
 
 
-                        <input name="countAttTable" id='count' type="hidden" value= @count />
+                        <input name="countAttTable" id='countAttTable' type="hidden" value= @count2 />
                         <div class="col-md-8">
                             <div class="form-group">
                                 <fieldset class="">
@@ -286,7 +294,7 @@
                                         <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
 
 
-                                            <tbody>
+                                            <tbody style="text-align: center;">
                                                 @if (Model.AttachmentList != null)
                                                 {
                                                     <tr>
@@ -307,7 +315,7 @@
                                                                    <i class="glyphicon glyphicon-file"></i>
                                                                 </a>
                                                                 @item.Name
-                                                                @Html.Hidden("Path" + count, item.Path, new { id = "HiddenPath" + count })
+                                                                @Html.Hidden("Path" + count2, item.Path, new { id = "HiddenPath" + count2 })
                                                               
                                                             </td>
 
@@ -320,19 +328,21 @@
                                                                 <td>@item.TypesOfAttachment.AttachmentTypeEn</td>
                                                             }
 
-                                                            <td>@item.ExpirationDate</td>
+                                                            
                                                             @if (@item.TypesOfAttachment.Id == 1 || @item.TypesOfAttachment.Id == 2)
                                                             {
+                                                                <td>@item.ExpirationDate</td>
+
                                                                 if (DateTime.Now.Date >= item.ExpirationDate)
                                                                 {
                                                                     if (item.IsExpired == true)
                                                                     {
-                                                                        <td><input type="checkbox" id="IsExpired @count" name="IsExpired @count" value=@item.IsExpired checked disabled /></td>
+                                                                        <td><input type="checkbox" id="IsExpired @count2" name="IsExpired @count2" value=@item.IsExpired checked disabled /></td>
                                                                     
                                                                     }
                                                                     else
                                                                     {
-                                                                        <td><input type="checkbox" id="IsExpired @count" name="IsExpired @count" /></td>
+                                                                        <td><input type="checkbox" id="IsExpired @count2" name="IsExpired @count2" /></td>
 
                                                                     }
                                                                     <td>@Resources.NubiHR.DateIsExpired</td>
@@ -347,18 +357,16 @@
                                                             }
                                                             else
                                                             {
+                                                                <td>---</td>
+                                                                <td>---</td>
+                                                                <td>---</td>
 
                                                             }
-                                                             @*@if (DateTime.Now.Date >= item.ExpirationDate)
-                                                             {
-
-                                                                <td>@Resources.NubiHR.DateIsExpired</td>
-                                                            }*@
-
+                                      
                                                         </tr>
 
 
-                                                        count++;
+                                                        count2++;
                                                     }
 
                                                 }
@@ -392,6 +400,10 @@
 
                         <input id='addButton' type="button" value="@Resources.NubiHR.AddAttachment" class="btn btn-outline-success" />
                         <input id='removeButton' type="button" value="@Resources.NubiHR.RemoveAttachment" class="btn btn-outline-danger" />
+                        @Html.Hidden("MyAttachmentHidden")
+                        <div id="MyAttachmentList">
+
+                        </div>
 
                         <div class="">
                             <label class="control-label" style="padding-top: 12px;">@Resources.NubiHR.Note</label>
@@ -453,10 +465,10 @@
         $("#addButton").click(function () {
             var value = $("#AttachmentType").val();
             var text = $("#AttachmentType option:selected").text();
-
+            $("<span id='" + value + "' >" + text + "</span>").hide().appendTo("#MyAttachmentList");
 
             if (value == "" && counter > 5) {
-                swal(`Ops!`, `You've selected all types of attachment !`, `info`)
+                swal(`@Resources.NubiHR.Warning`, `You've selected all types of attachment !`, `info`)
                 return false;
 
             }
@@ -473,7 +485,7 @@
                     ' <div class="form-group">' +
                     '<label id="name' + value + ' " name="name' + value + '" class="control-label col-md-8" >' + text + '</label>' +
                     '<div class="col-md-10">' +
-                    '<input id="' + counter + '" name="UploadFile' + counter + '" type="file"  onchange = "return fileValidation(' + counter + ')" />' +
+                    '<input id="' + (counter + 100) + '" name="UploadFile' + counter + '" type="file"  onchange = "return fileValidation(' + (counter + 100) + ')" required />' +
                     '</div>' +
                     '</div>' +
                     '<div class="form-group">' +
@@ -484,6 +496,8 @@
                     '</div>' +
                     '</div>'
                 );
+
+                $("#InputText" + counter).attr('required', '');
 
 
                 $("#AttachmentType option[value='" + value + "']").remove();
@@ -506,7 +520,7 @@
                     ' <div class="form-group">' +
                     '<label id="name' + value + ' " name="name' + value + '" class="control-label col-md-8" >' + text + '</label>' +
                     '<div class="col-md-10">' +
-                    '<input id="' + counter + '" name="UploadFile' + counter + '" type="file"  onchange = "return fileValidation(' + counter + ')" />' +
+                    '<input id="' + (counter + 100) + '" name="UploadFile' + counter + '" type="file"  onchange = "return fileValidation(' + (counter + 100) + ')" required/>' +
                     '</div>' +
                     '</div>' +
                     '</div>'
@@ -537,10 +551,52 @@
                 $('#countAtt').val(counter);
 
                 $("#BigDiv" + counter).remove();
-                //strMyAttachment = strMyAttachment.replace(n +" ", "");
-                //console.log(strMyAttachment);
-                //$("#MyAttachmentHidden").val(strMyAttachment);
 
+                $('br').remove();
+                var element = document.getElementById('MyAttachmentList');
+                var Lastchild = element.lastChild;
+                //var w = element.innerHTML;
+                var n = Lastchild.textContent;
+                var id = "";
+                var file = "";
+
+                if (n == "National ID") {
+
+                    id = 1;
+                    file = "file";
+                }
+                else if (n == "Passport Number") {
+                    id = 2;
+                    file = "file1";
+                }
+                else if (n == "Last Certificate") {
+                    id = 3;
+                    file = "file2";
+                }
+                else if (n == "Image") {
+                    id = 4;
+                    file = "file3";
+                }
+                else if (n == "Training Certificate") {
+                    id = 5;
+                    file = "file4";
+                }
+
+                var el = document.getElementById(id);
+                $(Lastchild).remove();
+                $("\n").remove();
+
+                $('span[id^="' + n + '"]').remove();
+
+
+                //$(" ").remove();
+                strMyAttachment = strMyAttachment.replace(n + " ", "");
+                console.log(strMyAttachment);
+                $("#MyAttachmentHidden").val(strMyAttachment);
+                $(" <option value=" + id + ">" + n + "</option>").appendTo("#AttachmentType");
+                // el.parentNode.removeChild(el);
+                el.style.display = "none";
+                document.getElementById(counter).value = "";
             }
 
         });
@@ -561,15 +617,15 @@
           var counter = 1;
           var strMySibling = "";
 
-        $("#addButton1").click(function () {
-            var value = $("#IdRelationshipType").val();
-            var text = $("#IdRelationshipType option:selected").text();
+         $("#addButton1").click(function () {
+            var value = $("#IdRelationshipType1").val();
+            var text = $("#IdRelationshipType1 option:selected").text();
 
 
             $("<span id='" + text + "' >" + text + "</span>").hide().appendTo("#MySibglingsList");
 
             if (value == "" && counter > 7) {
-                swal(`Ops!`, `You've selected all types of relations !`, `info`)
+                swal(`@Resources.NubiHR.Warning`, `You've selected all types of relations !`, `info`)
                 return false;
 
             }
@@ -586,26 +642,30 @@
                     '<div id="BigDiv1' + counter + '">' +
                     '<div class="form-group">' +
                     '<label id="Sibling' + value + '" name="Sibling' + value + '" class="control-label col-md-8">@Resources.NubiHR.Name ' + "" + '</label>' +
-                    '<div class="col-md-8">' +
-                    '<input type="text" id="NameOfSiblingg' + counter + '" name="NameOfSiblingg' + counter + '" class="form-control" />' +
+                    '<div class="col-md-10">' +
+                    '<input type="text" id="NameOfSibling' + counter + '" name="NameOfSibling' + counter + '" class="form-control" required />' +
                     '</div>' +
                     '</div>' +
                      '<div class="form-group">' +
                     '<label id="NoOfSibling' + value + '" name="NoOfSibling' + value + '" class="control-label col-md-8">@Resources.NubiHR.Mobile ' + "" + '</label>' +
-                    '<div class="col-md-8">' +
-                    '<input type="text" id="MobileEmergencyContactt' + counter + '" name="MobileEmergencyContactt' + counter + '" class="form-control" />' +
+                    '<div class="col-md-10">' +
+                    '<input type="tel" pattern="^\(?((0){1})\)?[-. ]?((1|9){1})[-. ]?([0-9]{8})$" id="MobileEmergencyContact' + counter + '" name="MobileEmergencyContact' + counter + '" class="form-control" required />' +
                     '</div>' +
                     '</div>' +
                     '<div class="form-group">' +
                     '<label id="Other' + value + '" name="Other' + value + '" class="control-label col-md-8">@Resources.NubiHR.RelationshipType ' + "" + '</label>' +
-                    '<div class="col-md-8">' +
-                    '<input type="text" id="Other' + counter + '" name="Other' + counter + '" class="form-control" />' +
+                    '<div class="col-md-10">' +
+                    '<input type="text" id="Other' + counter + '" name="Other' + counter + '" class="form-control" required />' +
                     '</div>' +
                     '</div>' +
                     '</div>'
                 );
 
-                $("#IdRelationshipType option[value='" + value + "']").remove();
+                $("#Other" + counter).attr('required', '');
+                $("#MobileEmergencyContact" + counter).attr('required', '');
+                $("#NameOfSibling" + counter).attr('required', '');
+
+                $("#IdRelationshipType1 option[value='" + value + "']").remove();
                 strMySibling = strMySibling.concat(value + " ");
                 console.log(strMySibling);
                 $("#MySiblingHidden").val(strMySibling);
@@ -624,20 +684,23 @@
                     '<div id="BigDiv1' + counter + '">' +
                     '<div class="form-group">' +
                     '<label id="Sibling' + value + '" name="Sibling' + value + '" class="control-label col-md-8">@Resources.NubiHR.Name ' + "" + '</label>' +
-                    '<div class="col-md-8">' +
-                    '<input type="text" id="NameOfSiblingg' + counter + '" name="NameOfSiblingg' + counter + '" class="form-control" />' +
+                    '<div class="col-md-10">' +
+                    '<input type="text" id="NameOfSibling' + counter + '" name="NameOfSibling' + counter + '" class="form-control" required/>' +
                     '</div>' +
                     '</div>' +
                      '<div class="form-group">' +
                     '<label id="NoOfSibling' + value + '" name="NoOfSibling' + value + '" class="control-label col-md-8">@Resources.NubiHR.Mobile ' + "" + '</label>' +
-                    '<div class="col-md-8">' +
-                    '<input type="text" id="MobileEmergencyContactt' + counter + '" name="MobileEmergencyContactt' + counter + '" class="form-control" />' +
+                    '<div class="col-md-10">' +
+                    '<input type="tel" pattern="^\(?((0){1})\)?[-. ]?((1|9){1})[-. ]?([0-9]{8})$" id="MobileEmergencyContact' + counter + '" name="MobileEmergencyContact' + counter + '" class="form-control" required/>' +
                     '</div>' +
                     '</div>' +
                     '</div>'
                 );
+                $("#MobileEmergencyContact" + counter).attr('required', '');
+                $("#NameOfSibling" + counter).attr('required', '');
 
-                $("#IdRelationshipType option[value='" + value + "']").remove();
+
+                $("#IdRelationshipType1 option[value='" + value + "']").remove();
                 strMySibling = strMySibling.concat(value + " ");
                 console.log(strMySibling);
                 $("#MySiblingsHidden").val(strMySibling);
@@ -651,7 +714,7 @@
 
         });
 
-        $("#removeButton1").click(function () {
+         $("#removeButton1").click(function () {
             if (counter == 1) {
                 swal(`@Resources.NubiHR.Warning`, `No sibling was found to remove`, `info`);
                 return false;
@@ -702,7 +765,7 @@
                 strMySibling = strMySibling.replace(n + " ", "");
                 console.log(strMySibling);
                 $("#MySiblingsHidden").val(strMySibling);
-                $(" <option value=" + id + ">" + n + "</option>").appendTo("#IdRelationshipType");
+                $(" <option value=" + id + ">" + n + "</option>").appendTo("#IdRelationshipType1");
                 $('legend[id^="' + n + '"]').remove();
                 $('span[id^="' + n + '"]').remove();
 
@@ -715,99 +778,89 @@
 
 <script type="text/javascript">*@
 
-     $("#AddAttachment").click(function () {
+     //$("#AddAttachment").click(function () {
 
-         var value = $("#AttachmentType").val();
+     //    var value = $("#AttachmentType").val();
 
-         if (value != "") {
-             var text = $("#AttachmentType option:selected").text();
-             $("#AttachmentType option[value='" + value + "']").remove();
-             strMyAttachment = strMyAttachment.concat(value + " ");
-             console.log(strMyAttachment);
-             $("#MyAttachmentHidden").val(strMyAttachment);
+     //    if (value != "") {
+     //        var text = $("#AttachmentType option:selected").text();
+     //        $("#AttachmentType option[value='" + value + "']").remove();
+     //        strMyAttachment = strMyAttachment.concat(value + " ");
+     //        console.log(strMyAttachment);
+     //        $("#MyAttachmentHidden").val(strMyAttachment);
 
-           //  $("<span id=' " + text + " ' ></span> " + text + " </span>").hide().appendTo("#MyAttachmentList").fadeIn();
-
-
-             $("<span id=' " + text + " ' >" + text + "</span>").hide().appendTo("#MyAttachmentList").fadeIn();
-             $("#MyAttachmentList").append("<br />");
-             var x = document.getElementById(value);
-             x.style.display = "block";
-
-            // x.removeAttribute("hidden");
-         }
-
-     });
+     //      //  $("<span id=' " + text + " ' ></span> " + text + " </span>").hide().appendTo("#MyAttachmentList").fadeIn();
 
 
-     $("#RemoveAttachment").click(function () {
+     //        $("<span id=' " + text + " ' >" + text + "</span>").hide().appendTo("#MyAttachmentList").fadeIn();
+     //        $("#MyAttachmentList").append("<br />");
+     //        var x = document.getElementById(value);
+     //        x.style.display = "block";
 
-         try {
-             $('br').remove();
-             var element = document.getElementById('MyAttachmentList');
-             var Lastchild = element.lastChild;
-             //var w = element.innerHTML;
-             var n = Lastchild.textContent;
-             var id = "";
-             var file = "";
-
-
-             if (n == "National ID") {
-
-                 id = 1;
-                 file = "file";
-             }
-             else if (n == "Passport Number") {
-                 id = 2;
-                 file = "file1";
-             }
-             else if (n == "Last Certificate") {
-                 id = 3;
-                 file = "file2";
-             }
-             else if (n == "Image") {
-                 id = 4;
-                 file = "file3";
-             }
-             else if (n == "Training Certificate") {
-                 id = 5;
-                 file = "file4";
-             }
-
-             var el = document.getElementById(id);
-             $(Lastchild).remove();
-             $("\n").remove();
-
-             $('span[id^="' + n + '"]').remove();
-
-
-             //$(" ").remove();
-             strMyAttachment = strMyAttachment.replace(n + " ", "");
-             console.log(strMyAttachment);
-             $("#MyAttachmentHidden").val(strMyAttachment);
-             $(" <option value=" + id + ">" + n + "</option>").appendTo("#AttachmentType");
-             // el.parentNode.removeChild(el);
-             el.style.display = "none";
-             document.getElementById(file).value = "";
-
-
-         }
-         catch (err) {
-             alert(err);
-
-         }
-
-     });
-
-     //function validateForm() {
-     //    var langArabic = lang === 'ar';
-     //    var x = $("#MyAttachmentHidden").val();
-     //    var AttachmentType = $("#AttachmentType").val()
-     //    if (x == "" && AttachmentType != 'RUser' && (AttachmentType == 'Member' || AttachmentType == 'JUser' || AttachmentType != 'sysadmin')) {
-     //        swal(`Error`, (langArabic ? "الرجاء اختيار نوع المرفق بالضغط على زر اضافة مرفق" : "Please choose attachment type by clicking on Add attachment"),`error`);
-     //        return false;
+     //       // x.removeAttribute("hidden");
      //    }
-     //}
+
+     //});
+
+
+     //$("#RemoveAttachment").click(function () {
+
+     //    try {
+     //        $('br').remove();
+     //        var element = document.getElementById('MyAttachmentList');
+     //        var Lastchild = element.lastChild;
+     //        //var w = element.innerHTML;
+     //        var n = Lastchild.textContent;
+     //        var id = "";
+     //        var file = "";
+
+
+     //        if (n == "National ID") {
+
+     //            id = 1;
+     //            file = "file";
+     //        }
+     //        else if (n == "Passport Number") {
+     //            id = 2;
+     //            file = "file1";
+     //        }
+     //        else if (n == "Last Certificate") {
+     //            id = 3;
+     //            file = "file2";
+     //        }
+     //        else if (n == "Image") {
+     //            id = 4;
+     //            file = "file3";
+     //        }
+     //        else if (n == "Training Certificate") {
+     //            id = 5;
+     //            file = "file4";
+     //        }
+
+     //        var el = document.getElementById(id);
+     //        $(Lastchild).remove();
+     //        $("\n").remove();
+
+     //        $('span[id^="' + n + '"]').remove();
+
+
+     //        //$(" ").remove();
+     //        strMyAttachment = strMyAttachment.replace(n + " ", "");
+     //        console.log(strMyAttachment);
+     //        $("#MyAttachmentHidden").val(strMyAttachment);
+     //        $(" <option value=" + id + ">" + n + "</option>").appendTo("#AttachmentType");
+     //        // el.parentNode.removeChild(el);
+     //        el.style.display = "none";
+     //        document.getElementById(file).value = "";
+
+
+     //    }
+     //    catch (err) {
+     //        alert(err);
+
+     //    }
+
+     //});
 
 
                 </script>
