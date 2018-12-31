@@ -331,13 +331,13 @@
     <value>تاريخ الاستئذان</value>
   </data>
   <data name="TimeFrom" xml:space="preserve">
-    <value>من</value>
+    <value>من الساعة</value>
   </data>
   <data name="TimeTo" xml:space="preserve">
-    <value>الى</value>
+    <value>الى الساعة</value>
   </data>
   <data name="PermissionType" xml:space="preserve">
-    <value>نوع الإذن</value>
+    <value>نوع الاذن</value>
   </data>
   <data name="Note" xml:space="preserve">
     <value>ملاحظة: تقوم عملية الحذف بحذف اخر اضافة </value>
@@ -620,5 +620,20 @@
   </data>
   <data name="Status" xml:space="preserve">
     <value>حالة الطلب</value>
+  </data>
+  <data name="AllRequests" xml:space="preserve">
+    <value>جميع الطلبات</value>
+  </data>
+  <data name="RejectedRequests" xml:space="preserve">
+    <value>الطلبات المرفوضة</value>
+  </data>
+  <data name="ApprovedRequests" xml:space="preserve">
+    <value>الطلبات المُوافق عليها</value>
+  </data>
+  <data name="VacationRequest" xml:space="preserve">
+    <value>طلب اجازة</value>
+  </data>
+  <data name="PermissionRequest" xml:space="preserve">
+    <value>طلب استئذان</value>
   </data>
 </root>

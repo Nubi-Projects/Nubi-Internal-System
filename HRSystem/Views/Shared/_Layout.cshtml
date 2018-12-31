@@ -289,6 +289,27 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>@Resources.NubiHR.NewRequest</span>
+
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="@Url.Action("Create","VacationRequest")">
+                                            @Resources.NubiHR.NewVacationRequest
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Create","PermissionRequest")">
+                                            @Resources.NubiHR.NewPermissionRequests
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                         <li class="">
                             <a href="@Url.Action("Report","Employee")">
                                 <i class="fa fa-shopping-cart"></i>
@@ -504,7 +525,7 @@
     <script src="~/Client Scripts/MvcFoolproofJQueryValidation.js"></script>
     <script>
         $(document).ready(function () {
-    var IsArabic = '@Request.Cookies["culture"].Value';
+            var IsArabic = '@Request.Cookies["culture"].Value';
         IsArabic = (IsArabic === 'ar');
 
         if ($('#assets-data-table').hasClass("ReportPage")) {
@@ -525,6 +546,54 @@
                 }
             });
         }
+        });
+
+        $(document).ready(function () {
+    var IsArabic = '@Request.Cookies["culture"].Value';
+            IsArabic = (IsArabic === 'ar');
+
+            if ($('#assets-data-table1').hasClass("ReportPage")) {
+                $('#assets-data-table1').DataTable({
+                    dom: 'lBfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
+            else {
+                $('#assets-data-table1').DataTable({
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
+        });
+
+        $(document).ready(function () {
+    var IsArabic = '@Request.Cookies["culture"].Value';
+            IsArabic = (IsArabic === 'ar');
+
+            if ($('#assets-data-table2').hasClass("ReportPage")) {
+                $('#assets-data-table2').DataTable({
+                    dom: 'lBfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
+            else {
+                $('#assets-data-table2').DataTable({
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
      });
     </script>
     @*<script>

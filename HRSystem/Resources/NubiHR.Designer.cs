@@ -169,6 +169,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Requests.
+        /// </summary>
+        public static string AllRequests {
+            get {
+                return ResourceManager.GetString("AllRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alternative Emp.
         /// </summary>
         public static string AlternativeEmp {
@@ -183,6 +192,15 @@ namespace Resources {
         public static string Approve {
             get {
                 return ResourceManager.GetString("Approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Approved Requests.
+        /// </summary>
+        public static string ApprovedRequests {
+            get {
+                return ResourceManager.GetString("ApprovedRequests", resourceCulture);
             }
         }
         
@@ -1042,6 +1060,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PermissionRequest.
+        /// </summary>
+        public static string PermissionRequest {
+            get {
+                return ResourceManager.GetString("PermissionRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permission requests.
         /// </summary>
         public static string PermissionRequests {
@@ -1128,6 +1155,15 @@ namespace Resources {
         public static string Reject {
             get {
                 return ResourceManager.GetString("Reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rejected Requests.
+        /// </summary>
+        public static string RejectedRequests {
+            get {
+                return ResourceManager.GetString("RejectedRequests", resourceCulture);
             }
         }
         
@@ -1425,6 +1461,15 @@ namespace Resources {
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VacationRequest.
+        /// </summary>
+        public static string VacationRequest {
+            get {
+                return ResourceManager.GetString("VacationRequest", resourceCulture);
             }
         }
         

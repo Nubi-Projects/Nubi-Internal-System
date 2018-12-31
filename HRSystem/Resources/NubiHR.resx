@@ -621,4 +621,19 @@
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="AllRequests" xml:space="preserve">
+    <value>All Requests</value>
+  </data>
+<data name="RejectedRequests" xml:space="preserve">
+    <value>Rejected Requests</value>
+  </data>
+<data name="ApprovedRequests" xml:space="preserve">
+    <value>Approved Requests</value>
+  </data>
+  <data name="VacationRequest" xml:space="preserve">
+    <value>VacationRequest</value>
+  </data>
+  <data name="PermissionRequest" xml:space="preserve">
+    <value>PermissionRequest</value>
+  </data>
 </root>
