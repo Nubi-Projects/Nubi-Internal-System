@@ -33,6 +33,14 @@
             <th>
                 @Resources.NubiHR.PermissionType
             </th>
+
+            <th>
+                @Resources.NubiHR.TimeFrom
+            </th>
+
+            <th>
+                @Resources.NubiHR.TimeTo
+            </th>
             
             <th>
                 @Resources.NubiHR.Notes
@@ -72,6 +80,14 @@
                 
                 <td>
                     @Html.DisplayFor(modelItem => item.PermissionType.Type)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeFromHours) : @Html.DisplayFor(modelItem => item.TimeFromMinutes)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeToHours) : @Html.DisplayFor(modelItem => item.TimeToMinutes)
                 </td>
                
                 <td>
