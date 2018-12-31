@@ -37,7 +37,7 @@ namespace HRSystem.Models
         public string Mobile2 { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(NubiHR), Name = "Email")]
+        [Display(ResourceType = typeof(NubiHR), Name = "PersonalEmail")]
         [DataType(DataType.EmailAddress)]
         public string EmailEmployee { get; set; }
 

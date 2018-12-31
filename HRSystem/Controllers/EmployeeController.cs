@@ -502,18 +502,21 @@ namespace HRSystem.Controllers
                    
 
                     var countAttTable = Convert.ToInt32(Request.Form["countAttTable"]);
+                    var no = countAttTable;
                     foreach (var item in model.AttachmentList)
                     {
-                        var Expired = Request.Form["IsExpired" + " " + countAttTable];
+                        
+                        var Expired = Request.Form["IsExpired" + " " + no];
 
                         var attach = Db.Attachments.Find(item.Id);
 
-                        if (Expired == "on" && item.IsExpired == false)
+                        if (Expired == "on" && item.IsExpired != true)
                         {
                             attach.IsExpired = true;
                             Db.Entry(attach).State = EntityState.Modified;
                             
                         }
+                        no++;
                     }
                     
 
@@ -527,9 +530,9 @@ namespace HRSystem.Controllers
                         {
                             for (int i = 1; i < counter; i++)
                             {
-                                string NameOfSibling = Request.Form["NameOfSiblingg" + i];
+                                string NameOfSibling = Request.Form["NameOfSibling" + i];
                                 int ValueOfSibling = Convert.ToInt32(Request.Form["ValueOfSibling" + i]);
-                                string MobileEmergencyContact = Request.Form["MobileEmergencyContactt" + i];
+                                string MobileEmergencyContact = Request.Form["MobileEmergencyContact" + i];
                                 string Other = "";
 
                                 if (ValueOfSibling == 7)
@@ -620,7 +623,7 @@ namespace HRSystem.Controllers
                     ViewBag.Department = Db.Departments.ToList();
                     ViewBag.Position = Db.Positions.Where(pos => pos.DepartmentNo == pos.Employees.Select(emp => emp.DepartmentNo).FirstOrDefault());
                     ViewBag.EmployeeName = model.FirstName + " " + model.LastName;
-                    model.EmergencyContactList = Db.EmergencyContacts.Where(x => x.EmpNo == id).ToList();
+                    //model.EmergencyContactList = Db.EmergencyContacts.Where(x => x.EmpNo == id).ToList();
 
                     TempData["chec"] = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
                     ModelState.Clear();
