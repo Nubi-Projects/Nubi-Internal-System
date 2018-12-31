@@ -124,7 +124,12 @@
             <strong> @TempData["checkPermission"] </strong>
         </div>
     }
-
+    @if (TempData["Edit"] != null)
+    {
+        <div class="alert alert-success text-center">
+            <strong> @TempData["Edit"] </strong>
+        </div>
+    }
     <div class="page-wrapper chiller-theme toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
@@ -213,6 +218,19 @@
                                 </ul>
                             </div>*@
                         </li>
+                        <li class="">
+                            <a href="@Url.Action("Index","VacationRequest")">
+                                <i class="fa fa-tachometer-alt"></i>
+                                <span>@Resources.NubiHR.VacationRequests</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="@Url.Action("Index","PermissionRequest")">
+                                <i class="fa fa-tachometer-alt"></i>
+                                <span>@Resources.NubiHR.PermissionRequests</span>
+                            </a>
+                        </li>
+
                         <li class="">
                             <a href="@Url.Action("Create","Employee")">
                                 <i class="fa fa-globe"></i>

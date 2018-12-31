@@ -18,14 +18,14 @@
 {
     <div class="form-group col-md-6">
         <div>
-            @Resources.NubiHR.EmployeeName
+            @Resources.NubiHR.EmployeeName:
         </div>
         <div>
             <label> @Html.DisplayFor(modelItem => Model.Employee.FirstName)</label>
         </div>
         <br />
         <div>
-            @Resources.NubiHR.Position
+            @Resources.NubiHR.Position:
         </div>
         <div>
             <label>
@@ -41,10 +41,11 @@
         </div>
         <br />
         <div>
-            @Resources.NubiHR.VacationType
+            @Resources.NubiHR.VacationType:
         </div>
         <div>
             @Html.DisplayFor(model => model.VacationType.Type, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.VacationTypeNo)
             @*@Html.DropDownListFor(model => model.VacationTypeNo, (SelectList)ViewBag.VacationTypeNo, "Select", new { @class = "form-control" })*@
         </div>
         <br />
@@ -52,7 +53,7 @@
         {
             <div>
                 <div>
-                    @Resources.NubiHR.MedicalReport
+                    @Resources.NubiHR.MedicalReport:
                 </div>
                 <div>
                     @Html.TextBoxFor(model => model.MedicalReport, new { type = "file", id = "file4", onchange = "return fileValidation('file4')", htmlAttributes = new { @class = "form-control" } })
@@ -71,44 +72,50 @@
         </div>
         <br />
         <div>
-            @Resources.NubiHR.StartDate
+            @Resources.NubiHR.StartDate:
         </div>
         <div>
             @Html.DisplayFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.StartDate)
+            @Html.HiddenFor(model => model.RequestDate)
         </div>
         <br />
         <div>
-            @Resources.NubiHR.EndDate
+            @Resources.NubiHR.EndDate:
         </div>
         <div>
             @Html.DisplayFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.EndDate)
         </div>
         <br />
         <div>
-            @Resources.NubiHR.ResumeDate
+            @Resources.NubiHR.ResumeDate:
         </div>
         <div>
             @Html.DisplayFor(model => model.ResumeDate, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.ResumeDate, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ResumeDate)
         </div>
         <br />
         <div>
-            @Resources.NubiHR.MyAddressDuringVacation
+            @Resources.NubiHR.MyAddressDuringVacation:
         </div>
         <div>
             @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
         <br />
-                @*<div>
-            وسيكون البديل الموظف
+         <div>
+             @Resources.NubiHR.TheAlternativeEmployeeWillBe
         </div>
         <div>
-            @Html.DropDownList("UserName", new SelectList(@ViewBag.emp, "Id", "UserName", new { htmlAttributes = new { @class = "form-control" } }), "Select")
+            @Html.DisplayFor(model => model.AlternativeEmp, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.DropDownList("UserName", new SelectList(@ViewBag.emp, "Id", "UserName", new { htmlAttributes = new { @class = "form-control" } }), "Select")*@
+            @Html.HiddenFor(model => model.AlternativeEmp)
         </div>
-         <br />*@
+         <br />
         <div>
             @Resources.NubiHR.Notes
         </div>
@@ -158,6 +165,10 @@
                     }
                 }
             }
+
+            $("#StartDate").change(function () {
+                $("#StartDateAr").val($("#StartDate").val());
+            })
 
         </script>
     </div>
