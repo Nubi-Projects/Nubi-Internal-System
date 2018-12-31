@@ -618,4 +618,7 @@
   <data name="YourRequestHasBeenModified" xml:space="preserve">
     <value>تم تعديل الطلب</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>حالة الطلب</value>
+  </data>
 </root>

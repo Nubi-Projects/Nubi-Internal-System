@@ -11,57 +11,56 @@
 <h2>@Resources.NubiHR.VacationRequests</h2>
 <a href="@Url.Action("Create")">@Resources.NubiHR.Create</a>
 <table id="assets-data-table" class="table table-striped table-bordered table-responsive">
-    <thead>
-        <tr>
-            <th>
-                @Resources.NubiHR.EmployeeName
-            </th>
-            <th>
-                @Resources.NubiHR.RequestDate
-            </th>
-            <th>
-                @Resources.NubiHR.VacationType
-            </th>
-            <th>
-                @Resources.NubiHR.StartDate
-            </th>
-
-            <th>
-                @Resources.NubiHR.EndDate
-            </th>
-
-            <th>
-                @Resources.NubiHR.Duration
-            </th>
-
-            <th>
-                @Resources.NubiHR.ResumeDate
-            </th>
-
-            <th>
-                @Resources.NubiHR.Address
-            </th>
-
-            <th>
-                @Resources.NubiHR.AlternativeEmp
-            </th>
-
-            <th>
-                @Resources.NubiHR.Notes
-            </th>
-
-            <th>
-                @Resources.NubiHR.Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (User.Identity.GetUserId() != null)
+    @if (User.Identity.GetUserId() != null)
+    {
+        if (@helperx.GetUserRole(User.Identity.GetUserId()) == "المدير العام")
         {
-            if (@helperx.GetUserRole(User.Identity.GetUserId()) == "المدير العام")
-            {
+            <thead>
+                <tr>
+                    <th>
+                        @Resources.NubiHR.EmployeeName
+                    </th>
+                    <th>
+                        @Resources.NubiHR.RequestDate
+                    </th>
+                    <th>
+                        @Resources.NubiHR.VacationType
+                    </th>
+                    <th>
+                        @Resources.NubiHR.StartDate
+                    </th>
 
-                foreach (var item in Model.Where(e => e.IsDeleted == false).ToList())
+                    <th>
+                        @Resources.NubiHR.EndDate
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.Duration
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.ResumeDate
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.Address
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.AlternativeEmp
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.Notes
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(e => e.IsDeleted == false).ToList())
                 {
                     <tr onclick="Edit('@item.Id')">
                         <td>
@@ -99,57 +98,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Note)
                         </td>
-
-
-                        <td>
-                            @*@Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |*@
-                            @Html.ActionLink(Resources.NubiHR.Details, "Details", new { id = item.Id })
-                        </td>
-                    </tr>
-                }
-
-            }
-            else
-            {
-                foreach (var item in Model.Where(e => e.IsDeleted == false && e.EmployeeNo == helperx.GetName(User.Identity.GetUserId()).Employee.Id).ToList())
-                {
-                    <tr onclick="Edit('@item.Id')">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Employee.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RequestDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.VacationType.Type)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndDate)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Duration)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ResumeDate)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Address)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AlternativeEmp)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Note)
-                        </td>
-
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.IsRejected)
+                        </td>*@
 
                         <td>
                             @*@Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |*@
@@ -157,9 +108,104 @@
                         </td>
                     </tr>
                 }
-            }
+            </tbody>
         }
-    </tbody>
+        else
+        {
+            <thead>
+                <tr>
+                    <th>
+                        @Resources.NubiHR.EmployeeName
+                    </th>
+                    <th>
+                        @Resources.NubiHR.RequestDate
+                    </th>
+                    <th>
+                        @Resources.NubiHR.VacationType
+                    </th>
+                    <th>
+                        @Resources.NubiHR.StartDate
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.EndDate
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.Duration
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.ResumeDate
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.Address
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.AlternativeEmp
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.Notes
+                    </th>
+
+                    <th>
+                        @Resources.NubiHR.Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(e => e.IsDeleted == false && e.EmployeeNo == helperx.GetName(User.Identity.GetUserId()).Employee.Id).ToList())
+                {
+                    <tr onclick="Edit('@item.Id')">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VacationType.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Duration)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ResumeDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AlternativeEmp)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+
+
+                        <td>
+                            @*@Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |*@
+                            @Html.ActionLink(Resources.NubiHR.Details, "Details", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+    }
 </table>
 <script>
     function Edit(itemid) {

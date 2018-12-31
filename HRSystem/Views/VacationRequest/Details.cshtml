@@ -9,7 +9,67 @@
 
 
    <div class="form-group">
-    <div class="row">
+    <table class="table" style="width:50%">
+        <thead>
+            <tr></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Resources.NubiHR.EmployeeName</td>
+                <td>@Html.DisplayFor(modelItem => Model.Employee.FirstName) @Html.DisplayFor(modelItem => Model.Employee.LastName)</td>
+
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.Position</td>
+                <td>
+                    @if (IsArabic)
+                    {
+                        @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameAr)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => Model.Employee.Position.PositionNameEn)
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.RequestDate</td>
+                <td>@Html.DisplayFor(modelItem => Model.RequestDate)</td>
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.VacationType</td>
+                <td>@Html.DisplayFor(modelItem => Model.VacationType.Type)</td>
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.Duration</td>
+                <td>@Html.DisplayFor(modelItem => Model.Duration)</td>
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.StartDate</td>
+                <td>@Html.DisplayFor(modelItem => Model.StartDate)</td>
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.EndDate</td>
+                <td>@Html.DisplayFor(modelItem => Model.EndDate)</td>
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.ResumeDate</td>
+                <td>@Html.DisplayFor(modelItem => Model.ResumeDate)</td>
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.Address</td>
+                <td>@Html.DisplayFor(modelItem => Model.Address)</td>
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.Notes</td>
+                <td>@Html.DisplayFor(modelItem => Model.Note)</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+    @*<div class="row">
         <label class="control-label col-md-3">
             @Resources.NubiHR.EmployeeName
         </label>
@@ -96,9 +156,8 @@
         <div class="col-md-6">
             @Html.DisplayFor(modelItem => Model.Note)
         </div>
-    </div>
+    </div>*@
        <br />
        <div>
            <a href="@Url.Action("Index")" class="btn-Back" style="color:white; text-decoration: none;">@Resources.NubiHR.Back</a>
        </div>
-</div>
