@@ -1528,6 +1528,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Request Has Been Modified.
+        /// </summary>
+        public static string YourRequestHasBeenModified {
+            get {
+                return ResourceManager.GetString("YourRequestHasBeenModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your Request Has Been Sented.
         /// </summary>
         public static string YourRequestHasBeenSented {

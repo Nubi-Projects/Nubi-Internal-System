@@ -186,7 +186,7 @@ namespace HRSystem.Controllers
                     per.RequestDate = DateTime.Now;
                     per.TimeToHours = timeFrom.Hours + 4;
                     per.LeaderApprovement = true;
-                    TempData["chec"] = "Your Request Has Been Sented";
+                    TempData["chec"] = Resources.NubiHR.YourRequestHasBeenSented;
                     db.PermissionRequests.Add(per);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -236,7 +236,7 @@ namespace HRSystem.Controllers
                 TimeSpan timeTo = new TimeSpan(0, per.TimeToHours, per.TimeToMinutes ?? 0, 0);
                 per.TimeToHours = timeFrom.Hours + 4;
                 per.TimeToMinutes = timeFrom.Minutes;
-                TempData["Edit"] = "Your Request Has Been Modified";
+                TempData["Edit"] = Resources.NubiHR.YourRequestHasBeenModified;
                 db.Entry(per).State = System.Data.Entity.EntityState.Modified;
                 ViewBag.PermissionTypeNo = new SelectList(db.PermissionTypes.ToList(), "Id", "Type");
                 db.SaveChanges();

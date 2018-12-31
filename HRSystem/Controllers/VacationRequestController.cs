@@ -353,7 +353,7 @@ namespace HRSystem.Controllers
             }
             if (ModelState.IsValid)
             {
-                TempData["Edit"] = "Your Request Has Been Modified";
+                TempData["Edit"] = Resources.NubiHR.YourRequestHasBeenModified;
                 db.Entry(vac).State = System.Data.Entity.EntityState.Modified;
                 ViewBag.VacationTypeNo = new SelectList(db.VacationTypes, "ID", "Type");
                 ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
