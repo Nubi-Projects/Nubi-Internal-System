@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = Resources.NubiHR.EmployeeDetails;
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
+    var NoOfYear = mngr.NoOfEmployeeYears(id: Model.IdEmployee);
     var vacations = mngr.totalVacationDuration(id: Model.IdEmployee);
     var result = vacations * 30;
     ViewBag.remaining = mngr.TotalVacationDays(id: Model.IdEmployee);
