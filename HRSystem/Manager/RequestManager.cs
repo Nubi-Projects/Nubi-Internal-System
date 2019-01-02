@@ -39,9 +39,27 @@ namespace HRSystem.Manager
                 return false;
         }
 
+        // this for calculate current user years
+        public int NoOfEmployeeDays(string id)
+        {
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var diff = (DateTime.Now - emp.StartDate).Days;
+            //double result = diff / 12.0;
+            return diff;
+        }
+
+        // this for calculate current user years
         public double NoOfEmployeeYears(string id)
         {
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var diff = GetMonthDifference(DateTime.Now, emp.StartDate);
+            double result = diff / 12.0;
+            return result;
+        }
+        //this for calculate each employee years
+        public double NoOfEmpYears(string id)
+        {
+            var emp = db.Employees.Where(e => e.Id == id).FirstOrDefault();
             var diff = GetMonthDifference(DateTime.Now, emp.StartDate);
             double result = diff / 12.0;
             return result;
@@ -55,10 +73,12 @@ namespace HRSystem.Manager
         //    else
         //        return false;
         //}
+
+        // this to calculate all vacation days that current user has took
         public double? totalVacationDuration(string id)
         {
             int? TotalDuration = 0;
-            //var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
 
             List<VacationRequest> vac = db.VacationRequests.Where(e => e.VacationTypeNo == 1 &&
             e.IsDeleted == false && (e.IsRejected == false || e.IsRejected == null) && e.ManagerApprovement == true).ToList();
@@ -67,6 +87,42 @@ namespace HRSystem.Manager
                 TotalDuration = item.Duration + TotalDuration;
             }
             return TotalDuration / 30.0;
+        }
+
+        // this to calculate all vacation days that employee has took
+        public double? totalVacDuration(string id)
+        {
+            int? TotalDuration = 0;
+            //var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+
+            List<VacationRequest> vac = db.VacationRequests.Where(e => e.VacationTypeNo == 1 &&
+            e.IsDeleted == false && (e.IsRejected == false || e.IsRejected == null) && e.ManagerApprovement == true && e.EmployeeNo == id).ToList();
+            foreach (var item in vac)
+            {
+                TotalDuration = item.Duration + TotalDuration;
+            }
+            return TotalDuration;
+        }
+        // this to calculate Employee vacations balance
+        public int? DueLeave (string id)
+        {
+            var AnnualLeave = 30;
+            var DaysOfYear = 360;
+            var emp = db.Employees.Where(e => e.Id == id).FirstOrDefault();
+            var TotalWorkDays = (DateTime.Now - emp.StartDate).Days;
+            var DueLeaveForEmployee = AnnualLeave * TotalWorkDays / DaysOfYear;
+            return DueLeaveForEmployee;
+        }
+
+        // this to calculate current user vacations balance
+        public int? UserDueLeave(string id)
+        {
+            var AnnualLeave = 30;
+            var DaysOfYear = 360;
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var TotalWorkDays = (DateTime.Now - emp.StartDate).Days;
+            var DueLeaveForEmployee = AnnualLeave * TotalWorkDays / DaysOfYear;
+            return DueLeaveForEmployee;
         }
 
         //public bool EligbleVacation ()
@@ -102,7 +158,16 @@ namespace HRSystem.Manager
             {
                 TotalDuration = item.Duration + TotalDuration;
             }
-            return 30 - TotalDuration;
+            if (TotalDuration > 30)
+            {
+                var balance = TotalDuration % 30;
+                return 30 - balance;
+            }
+            else
+            {
+                return 30 - TotalDuration;
+            }
+            
         }
         public bool AvailableVacation(string id)
         {

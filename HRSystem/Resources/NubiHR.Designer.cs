@@ -1645,6 +1645,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your Vacation Balance Is.
+        /// </summary>
+        public static string YourVacationBalanceIs {
+            get {
+                return ResourceManager.GetString("YourVacationBalanceIs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your vacation days are:.
         /// </summary>
         public static string YourVacationDaysAre {

@@ -124,6 +124,7 @@ namespace HRSystem.Controllers
             Manager.RequestManager mng = new Manager.RequestManager();
             var NoOfYear = mng.NoOfEmployeeYears(id: User.Identity.GetUserId());
             var total = mng.totalVacationDuration(id: User.Identity.GetUserId());
+            var EmpDays = mng.NoOfEmployeeDays(id: User.Identity.GetUserId());
             var HaveTheEmpFatherDeathVacation = mng.EmployeeHaveFatherDeathVacation(id: User.Identity.GetUserId());
             var HaveTheEmpMotherDeathVacation = mng.EmployeeHaveMotherDeathVacation(id: User.Identity.GetUserId());
             var AvailableAccidentalLeave = mng.AvailableAccidentalLeave(id: User.Identity.GetUserId());
@@ -180,12 +181,12 @@ namespace HRSystem.Controllers
 
              
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-                    ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.Employee.FirstName);
+                    ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
                         //db.Employees.ToList();
 
                  
                 }
-                else if (vac.VacationTypeNo == 1 && (total >= NoOfYear) || vac.VacationTypeNo == 1 && NoOfYear < 0.25)
+                else if (vac.VacationTypeNo == 1 && (total >= NoOfYear) || vac.VacationTypeNo == 1 && EmpDays < 92)
                 {
                         TempData["normal"] = Resources.NubiHR.YouCantTakeNormalLeave;
 
