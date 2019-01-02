@@ -335,7 +335,7 @@
             <script src="~/Scripts/index.js"></script>
     <script>
         $(document).ready(function () {
-    var IsArabic = '@Request.Cookies["culture"].Value';
+            var IsArabic = '@Request.Cookies["culture"].Value';
             IsArabic = (IsArabic === 'ar');
 
             if ($('#assets-data-table').hasClass("ReportPage")) {
@@ -351,6 +351,54 @@
             }
             else {
                 $('#assets-data-table').DataTable({
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
+        });
+
+        $(document).ready(function () {
+    var IsArabic = '@Request.Cookies["culture"].Value';
+            IsArabic = (IsArabic === 'ar');
+
+            if ($('#assets-data-table1').hasClass("ReportPage")) {
+                $('#assets-data-table1').DataTable({
+                    dom: 'lBfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
+            else {
+                $('#assets-data-table1').DataTable({
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
+        });
+
+        $(document).ready(function () {
+    var IsArabic = '@Request.Cookies["culture"].Value';
+            IsArabic = (IsArabic === 'ar');
+
+            if ($('#assets-data-table2').hasClass("ReportPage")) {
+                $('#assets-data-table2').DataTable({
+                    dom: 'lBfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+                    "language": {
+                        "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
+                    }
+                });
+            }
+            else {
+                $('#assets-data-table2').DataTable({
                     "language": {
                         "url": IsArabic ? "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Arabic.json" : "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json"
                     }

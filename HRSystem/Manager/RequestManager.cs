@@ -58,7 +58,8 @@ namespace HRSystem.Manager
         public double? totalVacationDuration(string id)
         {
             int? TotalDuration = 0;
-            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            //var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+
             List<VacationRequest> vac = db.VacationRequests.Where(e => e.VacationTypeNo == 1 &&
             e.IsDeleted == false && (e.IsRejected == false || e.IsRejected == null) && e.ManagerApprovement == true).ToList();
             foreach (var item in vac)
@@ -94,9 +95,9 @@ namespace HRSystem.Manager
         public int? TotalVacationDays(string id)
         {
             int? TotalDuration = 0;
-            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            //var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             List<VacationRequest> vac = db.VacationRequests.Where(e => e.VacationTypeNo == 1 &&
-            e.IsDeleted == false && (e.IsRejected == false || e.IsRejected == null) && e.ManagerApprovement == true).ToList();
+            e.IsDeleted == false && (e.IsRejected == false || e.IsRejected == null) && e.ManagerApprovement == true && e.EmployeeNo == id).ToList();
             foreach (var item in vac)
             {
                 TotalDuration = item.Duration + TotalDuration;

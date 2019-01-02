@@ -615,6 +615,33 @@
   <data name="MotherDeath" xml:space="preserve">
     <value>Mother's death</value>
   </data>
+  <data name="YourRequestHasBeenModified" xml:space="preserve">
+    <value>Your Request Has Been Modified</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="AllRequests" xml:space="preserve">
+    <value>All Requests</value>
+  </data>
+<data name="RejectedRequests" xml:space="preserve">
+    <value>Rejected Requests</value>
+  </data>
+<data name="ApprovedRequests" xml:space="preserve">
+    <value>Approved Requests</value>
+  </data>
+  <data name="VacationRequest" xml:space="preserve">
+    <value>VacationRequest</value>
+  </data>
+  <data name="PermissionRequest" xml:space="preserve">
+    <value>PermissionRequest</value>
+  </data>
+  <data name="VacationsTaken" xml:space="preserve">
+    <value>Vacations Taken</value>
+  </data>
+  <data name="VacationsRemaining" xml:space="preserve">
+    <value>Vacations Remaining</value>
+  </data>
   <data name="ForgetPassword" xml:space="preserve">
     <value>Forget password</value>
   </data>

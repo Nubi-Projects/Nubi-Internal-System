@@ -169,6 +169,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Requests.
+        /// </summary>
+        public static string AllRequests {
+            get {
+                return ResourceManager.GetString("AllRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alternative Emp.
         /// </summary>
         public static string AlternativeEmp {
@@ -183,6 +192,15 @@ namespace Resources {
         public static string Approve {
             get {
                 return ResourceManager.GetString("Approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Approved Requests.
+        /// </summary>
+        public static string ApprovedRequests {
+            get {
+                return ResourceManager.GetString("ApprovedRequests", resourceCulture);
             }
         }
         
@@ -1060,6 +1078,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PermissionRequest.
+        /// </summary>
+        public static string PermissionRequest {
+            get {
+                return ResourceManager.GetString("PermissionRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permission requests.
         /// </summary>
         public static string PermissionRequests {
@@ -1146,6 +1173,15 @@ namespace Resources {
         public static string Reject {
             get {
                 return ResourceManager.GetString("Reject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rejected Requests.
+        /// </summary>
+        public static string RejectedRequests {
+            get {
+                return ResourceManager.GetString("RejectedRequests", resourceCulture);
             }
         }
         
@@ -1330,6 +1366,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfull.
         /// </summary>
         public static string Successfull {
@@ -1438,11 +1483,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VacationRequest.
+        /// </summary>
+        public static string VacationRequest {
+            get {
+                return ResourceManager.GetString("VacationRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vacation requests.
         /// </summary>
         public static string VacationRequests {
             get {
                 return ResourceManager.GetString("VacationRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vacations Remaining.
+        /// </summary>
+        public static string VacationsRemaining {
+            get {
+                return ResourceManager.GetString("VacationsRemaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vacations Taken.
+        /// </summary>
+        public static string VacationsTaken {
+            get {
+                return ResourceManager.GetString("VacationsTaken", resourceCulture);
             }
         }
         
@@ -1542,6 +1614,15 @@ namespace Resources {
         public static string YouDidNotCompleteMonthYet {
             get {
                 return ResourceManager.GetString("YouDidNotCompleteMonthYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Request Has Been Modified.
+        /// </summary>
+        public static string YourRequestHasBeenModified {
+            get {
+                return ResourceManager.GetString("YourRequestHasBeenModified", resourceCulture);
             }
         }
         
