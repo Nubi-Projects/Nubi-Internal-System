@@ -1051,6 +1051,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password has been reset successfully.
+        /// </summary>
+        public static string PasswordHasBeenResetSuccessfully {
+            get {
+                return ResourceManager.GetString("PasswordHasBeenResetSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password must be at least 6 characters long.
         /// </summary>
         public static string PasswordLength {

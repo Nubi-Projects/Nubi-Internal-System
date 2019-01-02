@@ -87,10 +87,9 @@ namespace HRSystem.Controllers
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
 
-                TempData["chec"] = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
+                TempData["chec"] = string.Format(Resources.NubiHR.PasswordHasBeenResetSuccessfully, "Index");
                 return RedirectToAction("Index", "Employee");
-                //return RedirectToAction("Index", "Employee", new { Message = ManageMessageId.ChangePasswordSuccess });
-            }
+                }
             else
             {
                 foreach (var error in result.Errors)

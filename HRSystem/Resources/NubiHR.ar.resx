@@ -651,4 +651,7 @@
   <data name="PasswordAndConfirmationPasswordDoesNotMatch" xml:space="preserve">
     <value>كلمة المرور و تأكيد كلمة المرور لا يتطابقان</value>
   </data>
+  <data name="PasswordHasBeenResetSuccessfully" xml:space="preserve">
+    <value> تمت إعادة تعيين كلمة المرور بنجاح </value>
+  </data>
 </root>

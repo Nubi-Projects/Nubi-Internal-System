@@ -651,4 +651,7 @@
   <data name="PasswordAndConfirmationPasswordDoesNotMatch" xml:space="preserve">
     <value>Password and confirmation password doesn't match</value>
   </data>
+  <data name="PasswordHasBeenResetSuccessfully" xml:space="preserve">
+    <value>Password has been reset successfully</value>
+  </data>
 </root>
