@@ -7,7 +7,8 @@ using HRSystem.Models;
 
 namespace HRSystem.Controllers
 {
- 
+
+    [Authorize]
     public class VacationTypeController : BaseController
     {
         NubiDBEntities db = new NubiDBEntities();

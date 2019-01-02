@@ -9,6 +9,7 @@ using System.Globalization;
 
 namespace HRSystem.Controllers
 {
+    [Authorize]
     public class VacationRequestController : BaseController
     {
         NubiDBEntities db = new NubiDBEntities();

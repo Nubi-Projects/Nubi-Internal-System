@@ -30,6 +30,7 @@ using static HRSystem.Controllers.ManageController;
 
 namespace HRSystem.Controllers
 {
+    [Authorize]
     public class EmployeeController : BaseController
     {
         DatabaseManager DBMObj = new DatabaseManager();
