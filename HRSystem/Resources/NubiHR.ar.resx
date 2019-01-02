@@ -642,4 +642,13 @@
   <data name="VacationsRemaining" xml:space="preserve">
     <value>الاجازات المتبقية</value>
   </data>
+  <data name="ForgetPassword" xml:space="preserve">
+    <value>نسيان كلمة المرور</value>
+  </data>
+  <data name="YourVacationDaysAre" xml:space="preserve">
+    <value>عدد ايام اجازاتك:</value>
+  </data>
+  <data name="PasswordAndConfirmationPasswordDoesNotMatch" xml:space="preserve">
+    <value>كلمة المرور و تأكيد كلمة المرور لا يتطابقان</value>
+  </data>
 </root>
