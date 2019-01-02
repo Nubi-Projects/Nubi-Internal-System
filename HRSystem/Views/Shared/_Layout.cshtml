@@ -10,6 +10,10 @@
     ViewBag.ManagerHasSeenPer = mngr.HasManagerSeenPermissionRequests();
     var Sum = VacRequests + PerRequests;
 
+    var DueLeave = mngr.UserDueLeave(id: User.Identity.GetUserId());
+    var AllVacations = mngr.totalVacDuration(id: User.Identity.GetUserId());
+    var EmployeeBalance = DueLeave - AllVacations;
+
     var current = System.Globalization.CultureInfo.CurrentCulture;
     current.DateTimeFormat.Calendar = new System.Globalization.GregorianCalendar();
     current.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
@@ -382,6 +386,20 @@
                                     </li>
                                 </ul>
                             </div>
+                        </li>
+
+                        <li>
+                            @*@if (years >= 1 && (vacations < years))
+            {
+                <a> Your vacation days is</a><span class="badge badge-pill badge-warning notification">@totalvacation</span>
+
+            }
+            else
+            {
+
+            }*@
+                            <a> Your vacation balance is</a><span class="badge badge-pill badge-warning notification">@EmployeeBalance</span>
+
                         </li>
 
                        

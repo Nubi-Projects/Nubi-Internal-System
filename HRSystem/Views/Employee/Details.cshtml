@@ -2,9 +2,10 @@
 @{
     ViewBag.Title = Resources.NubiHR.EmployeeDetails;
     HRSystem.Manager.RequestManager mngr = new HRSystem.Manager.RequestManager();
-    var NoOfYear = mngr.NoOfEmployeeYears(id: Model.IdEmployee);
-    var vacations = mngr.totalVacationDuration(id: Model.IdEmployee);
-    var result = vacations * 30;
+    var NoOfYear = mngr.NoOfEmpYears(id: Model.IdEmployee);
+    var DueLeave = mngr.DueLeave(id: Model.IdEmployee);
+    var AllVacations = mngr.totalVacDuration(id: Model.IdEmployee);
+    var EmployeeBalance = DueLeave - AllVacations;
     ViewBag.remaining = mngr.TotalVacationDays(id: Model.IdEmployee);
     var count = 1;
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false ;
@@ -188,7 +189,7 @@
                                         @Resources.NubiHR.VacationsTaken
                                     </th>
                                     <td>
-                                        @result
+                                        @AllVacations
                                     </td>
                                 </tr>
 
@@ -197,7 +198,8 @@
                                         @Resources.NubiHR.VacationsRemaining
                                     </th>
                                     <td>
-                                        @ViewBag.remaining
+                                        @EmployeeBalance
+                                        
                                     </td>
                                 </tr>
 
