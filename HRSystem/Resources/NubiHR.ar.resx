@@ -651,4 +651,7 @@
   <data name="PasswordAndConfirmationPasswordDoesNotMatch" xml:space="preserve">
     <value>كلمة المرور و تأكيد كلمة المرور لا يتطابقان</value>
   </data>
+  <data name="YourVacationBalanceIs" xml:space="preserve">
+    <value>رصيد الاجازات لديك هو</value>
+  </data>
 </root>

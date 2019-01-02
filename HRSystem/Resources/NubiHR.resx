@@ -651,4 +651,7 @@
   <data name="PasswordAndConfirmationPasswordDoesNotMatch" xml:space="preserve">
     <value>Password and confirmation password doesn't match</value>
   </data>
+  <data name="YourVacationBalanceIs" xml:space="preserve">
+    <value>Your Vacation Balance Is</value>
+  </data>
 </root>
