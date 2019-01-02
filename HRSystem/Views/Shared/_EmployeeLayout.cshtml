@@ -189,11 +189,6 @@
                                 {
                                     @Html.ActionLink("العربية", "ChangeLanguage", "Base", new { lang = "ar" }, new { @class = "btnlang" }) <text> </text>
 
-                                    @*<a class="btnlang" href="@Url.Action("العربية","ChangeLanguage", new { lang = "ar" })">*@
-                                        @*<i class="fa fa-tachometer-alt"></i>*@
-                                        @*<span>العربية</span>
-                                    </a>*@
-
                                     <link rel="stylesheet" href="~/Content/style.css">
 
                                 }
@@ -201,10 +196,6 @@
                                 {
                                     @Html.ActionLink("English", "ChangeLanguage", "Base", new { lang = "en-GB" }, new { @class = "btnlang" }) <text> </text>
 
-                                    @*<a class="btnlang" href="@Url.Action("English","ChangeLanguage", new { lang = "en" })">*@
-                                        @*<i class="fa fa-tachometer-alt"></i>*@
-                                        @*<span>English</span>
-                                    </a>*@
                                     <link rel="stylesheet" href="~/Content/StyleAr.css" />
                                 }
 
@@ -258,7 +249,7 @@
                         <li>
                             @if (years >= 1 && (vacations < years))
                             {
-                                <a> Your vacation days is</a><span class="badge badge-pill badge-warning notification">@totalvacation</span>
+                                <a> @Resources.NubiHR.YourVacationDaysAre </a><span class="badge badge-pill badge-warning notification">@totalvacation</span>
 
                             }
                             else

@@ -619,6 +619,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forget password.
+        /// </summary>
+        public static string ForgetPassword {
+            get {
+                return ResourceManager.GetString("ForgetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         public static string From {
@@ -1011,6 +1020,15 @@ namespace Resources {
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password and confirmation password doesn&apos;t match.
+        /// </summary>
+        public static string PasswordAndConfirmationPasswordDoesNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordAndConfirmationPasswordDoesNotMatch", resourceCulture);
             }
         }
         
@@ -1533,6 +1551,15 @@ namespace Resources {
         public static string YourRequestHasBeenSented {
             get {
                 return ResourceManager.GetString("YourRequestHasBeenSented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your vacation days are:.
+        /// </summary>
+        public static string YourVacationDaysAre {
+            get {
+                return ResourceManager.GetString("YourVacationDaysAre", resourceCulture);
             }
         }
         

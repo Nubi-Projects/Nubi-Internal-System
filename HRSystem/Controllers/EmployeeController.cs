@@ -22,6 +22,11 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Windows.Input;
+using static HRSystem.Controllers.ManageController;
 
 namespace HRSystem.Controllers
 {
@@ -41,11 +46,85 @@ namespace HRSystem.Controllers
         Department DeptObj = new Department();
         AspNetRole RoleObj = new AspNetRole();
         EmergencyContact EmgObj = new EmergencyContact();
-        
+
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
 
 
-       
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        public async Task<ActionResult> ChangePassword(AspNetUser usr, string NewPassword)
+        {
 
+            string token =  UserManager.GeneratePasswordResetToken(usr.Id);
+            var result = await UserManager.ResetPasswordAsync(usr.Id, token, NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(usr.Id);
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+
+                TempData["chec"] = string.Format(Resources.NubiHR.EmployeeHasBeenModifiedSuccesfully, "Index");
+                return RedirectToAction("Index", "Employee");
+                //return RedirectToAction("Index", "Employee", new { Message = ManageMessageId.ChangePasswordSuccess });
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    TempData["check"] = error;
+                    ModelState.AddModelError(string.Empty, TempData["check"].ToString());
+                }
+                return RedirectToAction("Index");
+            }
+            
+        }
+        [HttpPost]
+        public async Task<ActionResult> ForgetPassword(string HiddenID)
+        {
+            if (HiddenID == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var NewPassword = Request.Form["Password"];
+            var id = Db.AspNetUsers.Where(x => x.EmpNo == HiddenID).Select(x => x.Id).FirstOrDefault();
+            var usr = Db.AspNetUsers.Find(id);
+            var password = usr.PasswordHash;
+            if(Request.Form["Password"] != Request.Form["ConfirmPassword"])
+            {
+                TempData["check"] = Resources.NubiHR.PasswordAndConfirmationPasswordDoesNotMatch;
+                ModelState.AddModelError(string.Empty, TempData["check"].ToString());
+                return RedirectToAction("Index");
+            }
+            else
+            {
+
+                await ChangePassword(usr, NewPassword);
+                return RedirectToAction("Index");
+            }
+        }
         public JsonResult GetPosition(int IdDepartment)
         {
             var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;

@@ -615,4 +615,13 @@
   <data name="MotherDeath" xml:space="preserve">
     <value>Mother's death</value>
   </data>
+  <data name="ForgetPassword" xml:space="preserve">
+    <value>Forget password</value>
+  </data>
+  <data name="YourVacationDaysAre" xml:space="preserve">
+    <value>Your vacation days are:</value>
+  </data>
+  <data name="PasswordAndConfirmationPasswordDoesNotMatch" xml:space="preserve">
+    <value>Password and confirmation password doesn't match</value>
+  </data>
 </root>
