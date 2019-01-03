@@ -50,7 +50,7 @@
                 <h2 class="">@Resources.NubiHR.AllEmployees</h2>
             </div>
             <div class="panel-body">
-                <table id="assets-data-table" class="table table-striped table-bordered ReportPage" style="width:100%">
+                <table id="assets-data-table" class="table table-striped table-bordered ReportPage table-responsive" style="width:100%">
 
                     <thead>
                         <tr>
@@ -58,10 +58,12 @@
                             <th>@Resources.NubiHR.EmployeeName</th>
                             <th>@Resources.NubiHR.StartDate</th>
                             <th>@Resources.NubiHR.Department</th>
-                            <th>@Resources.NubiHR.Email</th>
+                            <th>@Resources.NubiHR.Position</th>
+                            <th>@Resources.NubiHR.AspEmail</th>
+                            <th>@Resources.NubiHR.PersonalEmail</th>
                             <th>@Resources.NubiHR.Address</th>
                             <th>@Resources.NubiHR.Mobile</th>
-                            <th>@Resources.NubiHR.Position</th>
+                            
                             <th>@Resources.NubiHR.Salary</th>
 
                         </tr>
@@ -93,14 +95,26 @@
                                     <td>
                                         @item.Department.DepartmentNameAr
                                     </td>
+
+                                    <td>
+                                        @item.Position.PositionNameAr
+                                    </td>
                                 }
                                 else
                                 {
                                     <td>
                                         @item.Department.DepartmentNameEn
                                     </td>
+
+                                    <td>
+                                        @item.Position.PositionNameEn
+                                    </td>
                                 }
 
+                                
+                                <td>
+                                    @item.AspNetUsers.Select(x => x.Email).FirstOrDefault()
+                                </td>
 
                                 <td>
                                     @item.Email
@@ -116,18 +130,6 @@
                                     @item.Mobile1
                                 </td>
 
-                                @if (IsArabic)
-                                {
-                                    <td>
-                                        @item.Position.PositionNameAr
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        @item.Position.PositionNameEn
-                                    </td>
-                                }
 
                                 <td>
                                     @item.Salary.BasicSalary
@@ -153,7 +155,7 @@
         function (settings, data, dataIndex) {
             var min = parseInt($('#SalaryMin').val(), 10);
             var max = parseInt($('#SalaryMax').val(), 10); 
-            var salary = parseFloat(data[8]) || 0; // use data for the salary column
+            var salary = parseFloat(data[9]) || 0; // use data for the salary column
             
 
             if ((isNaN(min) && isNaN(max)) ||

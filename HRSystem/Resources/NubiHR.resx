@@ -654,4 +654,7 @@
   <data name="YourVacationBalanceIs" xml:space="preserve">
     <value>Your Vacation Balance Is</value>
   </data>
+  <data name="PasswordHasBeenResetSuccessfully" xml:space="preserve">
+    <value>Password has been reset successfully</value>
+  </data>
 </root>

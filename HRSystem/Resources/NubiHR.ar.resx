@@ -654,4 +654,7 @@
   <data name="YourVacationBalanceIs" xml:space="preserve">
     <value>رصيد الاجازات لديك هو</value>
   </data>
+  <data name="PasswordHasBeenResetSuccessfully" xml:space="preserve">
+    <value> تمت إعادة تعيين كلمة المرور بنجاح </value>
+  </data>
 </root>
