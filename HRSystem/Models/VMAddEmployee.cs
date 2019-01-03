@@ -13,7 +13,7 @@ namespace HRSystem.Models
     {
 
         //asp table
-        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+      /*  [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [StringLength(100, ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PasswordLength", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(NubiHR), Name = "Password")]
@@ -22,7 +22,7 @@ namespace HRSystem.Models
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(NubiHR), Name = "ConfirmPassword")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "ComparePassword")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; } */
 
 
         //Employee table
