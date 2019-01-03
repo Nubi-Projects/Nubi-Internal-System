@@ -254,7 +254,7 @@ namespace HRSystem.Controllers
                     {
 
                         //insert into attachment table
-                        var counter = Convert.ToInt32(Request.Form["count"]);
+                        var counter = Convert.ToInt32(Request.Form["countSib"]);
 
                         //Attachment tc = new Attachment();
                         if (counter != 1)
@@ -296,7 +296,7 @@ namespace HRSystem.Controllers
                     {
                         
                         //insert into attachment table
-                        var counter = Convert.ToInt32(Request.Form["count"]);
+                        var counter = Convert.ToInt32(Request.Form["countAtt"]);
 
                         //Attachment tc = new Attachment();
                         if (counter != 1)
@@ -601,8 +601,6 @@ namespace HRSystem.Controllers
 
                     if (Request.Form["MySiblingsHidden"] != "")
                     {
-
-                        
                         var counter = Convert.ToInt32(Request.Form["countSib"]);
                         
                         if (counter != 1)
