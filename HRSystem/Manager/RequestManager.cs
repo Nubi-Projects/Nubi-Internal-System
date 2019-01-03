@@ -103,11 +103,26 @@ namespace HRSystem.Manager
             }
             return TotalDuration;
         }
+
+        // this to calculate all vacation days that current user has took
+        public double? totalVaccDuration(string id)
+        {
+            int? TotalDuration = 0;
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+
+            List<VacationRequest> vac = db.VacationRequests.Where(e => e.VacationTypeNo == 1 &&
+            e.IsDeleted == false && (e.IsRejected == false || e.IsRejected == null) && e.ManagerApprovement == true).ToList();
+            foreach (var item in vac)
+            {
+                TotalDuration = item.Duration + TotalDuration;
+            }
+            return TotalDuration;
+        }
         // this to calculate Employee vacations balance
         public int? DueLeave (string id)
         {
             var AnnualLeave = 30;
-            var DaysOfYear = 360;
+            var DaysOfYear = 365;
             var emp = db.Employees.Where(e => e.Id == id).FirstOrDefault();
             var TotalWorkDays = (DateTime.Now - emp.StartDate).Days;
             var DueLeaveForEmployee = AnnualLeave * TotalWorkDays / DaysOfYear;
@@ -118,7 +133,7 @@ namespace HRSystem.Manager
         public int? UserDueLeave(string id)
         {
             var AnnualLeave = 30;
-            var DaysOfYear = 360;
+            var DaysOfYear = 365;
             var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             var TotalWorkDays = (DateTime.Now - emp.StartDate).Days;
             var DueLeaveForEmployee = AnnualLeave * TotalWorkDays / DaysOfYear;

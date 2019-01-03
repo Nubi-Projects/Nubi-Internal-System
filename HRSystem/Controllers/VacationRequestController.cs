@@ -175,7 +175,7 @@ namespace HRSystem.Controllers
             { 
             if (ModelState.IsValid)
             {
-                if (vac.VacationTypeNo == 1 && vac.Duration > 5 && (total <= NoOfYear))
+                if (vac.VacationTypeNo == 1 && vac.Duration > 5 && (total >= NoOfYear))
                 {
                     TempData["checkk"] = Resources.NubiHR.YouCantTakeMoreThan5DaysUntilCompleteOneYear;
 
