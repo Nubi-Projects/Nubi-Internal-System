@@ -128,7 +128,10 @@
         @Resources.NubiHR.TheAlternativeEmployeeWillBe
     </div>
     <div>
-        @Html.DropDownList("AlternativeEmp", null, Resources.NubiHR.Select, new { @class = "form-control" })
+        @*@Html.DropDownList("AlternativeEmp", null, Resources.NubiHR.Select, new { @class = "form-control" })*@
+
+        @Html.DropDownList("AlternativeEmp", new SelectList(@ViewBag.AlternativeEmp, string.Empty, string.Empty), Resources.NubiHR.Select, new { @class = "form-control"})
+
         @*@Html.DropDownList("AlternativeEmp", new SelectList(@ViewBag.AlternativeEmp, "Id"), Resources.NubiHR.Select, new { @class = "form-control",})*@
 
     </div>

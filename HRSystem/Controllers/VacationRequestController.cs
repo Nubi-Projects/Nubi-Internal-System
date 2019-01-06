@@ -109,7 +109,8 @@ namespace HRSystem.Controllers
             }
             //ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type");
-            ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName");
+            ViewBag.AlternativeEmp = db.Employees.OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName ).ToList();
+            
             //ViewBag.emp = db.AspNetUsers.ToList();
             return View();
         }
@@ -181,47 +182,53 @@ namespace HRSystem.Controllers
 
              
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-                    ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
+                        ViewBag.AlternativeEmp = db.Employees.OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+
                         //db.Employees.ToList();
 
-                 
-                }
-                else if (vac.VacationTypeNo == 1 && (total >= NoOfYear) || vac.VacationTypeNo == 1 && EmpDays < 92)
+
+                    }
+                    else if (vac.VacationTypeNo == 1 && (total >= NoOfYear) || vac.VacationTypeNo == 1 && EmpDays < 92)
                 {
                         TempData["normal"] = Resources.NubiHR.YouCantTakeNormalLeave;
 
 
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-                        ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
+                        ViewBag.AlternativeEmp = db.Employees.OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+
                         //ViewBag.emp = db.AspNetUsers.ToList();
                     }
-                else if (vac.VacationTypeNo == 5 && HaveTheEmpFatherDeathVacation == true)
+                    else if (vac.VacationTypeNo == 5 && HaveTheEmpFatherDeathVacation == true)
                 {
                     TempData["CheckFatherDeathVacation"] = Resources.NubiHR.YouCantTakeThisVacationYouAlreadyTakeFatherDeathVacation;
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-                    ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
+                        ViewBag.AlternativeEmp = db.Employees.OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+
                         //ViewBag.emp = db.AspNetUsers.ToList();
                     }
-                else if (vac.VacationTypeNo == 6 && HaveTheEmpMotherDeathVacation == true)
+                    else if (vac.VacationTypeNo == 6 && HaveTheEmpMotherDeathVacation == true)
                 {
                     TempData["CheckMotherDeathVacation"] = Resources.NubiHR.YouCantTakeThisVacationYouAlreadyTakeFatherDeathVacation;
                     ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-                    ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
+                        ViewBag.AlternativeEmp = db.Employees.OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+
                         //ViewBag.emp = db.AspNetUsers.ToList();
                     }
-                else if (vac.VacationTypeNo == 3 && (NoOfAccidentalLeaves == NoOfYear))
+                    else if (vac.VacationTypeNo == 3 && (NoOfAccidentalLeaves == NoOfYear))
                     {
                         TempData["AccidentalLeave"] = Resources.NubiHR.YouTook3AccidentalLeavesInYearYouCantTakeAccidentalLeave;
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-                        ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
+                        ViewBag.AlternativeEmp = db.Employees.OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+
                     }
-                else if ((vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && (NoOfAccidentalLeaves < NoOfYear)))
+                    else if ((vac.VacationTypeNo == 3 && AvailableAccidentalLeave == false && (NoOfAccidentalLeaves < NoOfYear)))
                     {
                         TempData["AccLeave"]= Resources.NubiHR.YouAreNotAvailableToTakeAccidentalLeave;
                         ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-                        ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(), "Id", "FirstName", vac.AlternativeEmp);
+                        ViewBag.AlternativeEmp = db.Employees.OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+
                     }
-                else
+                    else
                 {
                         List<DateTime> VacationsDate = new List<DateTime>();
                         var date = vac.StartDate;
@@ -279,9 +286,9 @@ namespace HRSystem.Controllers
                         {
                             vac.ResumeDate = NextDay;
                         }
-                      
-                        var emp = db.Employees.FirstOrDefault(p => p.Id == AlternativeEmp);
-                        vac.AlternativeEmp = emp.FirstName;
+                        var tt = db.Employees.Where(x => x.FirstName +" "+ x.LastName == AlternativeEmp).FirstOrDefault();
+                        //var emp = db.Employees.FirstOrDefault(p => p.Id == AlternativeEmp);
+                        vac.AlternativeEmp = tt.Id;
                         vac.RequestDate = DateTime.Now;
                         vac.LeaderApprovement = true;
                         TempData["chec"] = Resources.NubiHR.YourRequestHasBeenSented;
@@ -315,6 +322,8 @@ namespace HRSystem.Controllers
             //ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
             ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(),"Id", "FirstName", vac.AlternativeEmp);
+            ViewBag.AlternativeEmp = db.Employees.OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+            ModelState.Clear();
             return View();       
           
           

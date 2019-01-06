@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Details";
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+    HRSystem.Models.NubiDBEntities Db = new HRSystem.Models.NubiDBEntities();
+    var AlternativeEmpName = Db.Employees.Where(x => x.Id == Model.AlternativeEmp).Select(x => x.FirstName + " " + x.LastName).FirstOrDefault();
+
 }
 
 
@@ -55,6 +58,10 @@
             <tr>
                 <td>@Resources.NubiHR.ResumeDate</td>
                 <td>@Html.DisplayFor(modelItem => Model.ResumeDate)</td>
+            </tr>
+            <tr>
+                <td>@Resources.NubiHR.AlternativeEmp</td>
+                <td>@Html.DisplayFor(modelItem => AlternativeEmpName)</td>
             </tr>
             <tr>
                 <td>@Resources.NubiHR.Address</td>

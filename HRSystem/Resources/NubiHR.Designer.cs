@@ -178,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alternative Emp.
+        ///   Looks up a localized string similar to Alternative Employee.
         /// </summary>
         public static string AlternativeEmp {
             get {
