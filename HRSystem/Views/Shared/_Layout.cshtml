@@ -11,7 +11,7 @@
     var Sum = VacRequests + PerRequests;
 
     var DueLeave = mngr.UserDueLeave(id: User.Identity.GetUserId());
-    var AllVacations = mngr.totalVaccDuration(id: User.Identity.GetUserId());
+    var AllVacations = mngr.CurrentUserTotalVacDuration(id: User.Identity.GetUserId());
     var EmployeeBalance = DueLeave - AllVacations;
 
     var current = System.Globalization.CultureInfo.CurrentCulture;
