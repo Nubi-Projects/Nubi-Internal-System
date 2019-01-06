@@ -11,15 +11,24 @@ namespace HRSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using Resources;
+    using System.ComponentModel.DataAnnotations;
+    using System.Globalization;
+
     public partial class VacationRequest
     {
         public long Id { get; set; }
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(NubiHR), Name = "StartDate")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime StartDate { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime EndDate { get; set; }
         public string Address { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime RequestDate { get; set; }
         public string Note { get; set; }
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime ResumeDate { get; set; }
         public bool IsDeleted { get; set; }
         public string EmployeeNo { get; set; }
@@ -32,7 +41,7 @@ namespace HRSystem.Models
         public Nullable<bool> LeaderHasSeen { get; set; }
         public Nullable<bool> ManagerHasSeen { get; set; }
         public string AlternativeEmp { get; set; }
-    
+
         public virtual Employee Employee { get; set; }
         public virtual VacationType VacationType { get; set; }
     }
