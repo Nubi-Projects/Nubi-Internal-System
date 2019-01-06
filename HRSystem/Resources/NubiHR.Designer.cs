@@ -403,6 +403,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Department and position have been added successfully.
+        /// </summary>
+        public static string DepartmentAndPositionHaveBeenAddedSuccessfully {
+            get {
+                return ResourceManager.GetString("DepartmentAndPositionHaveBeenAddedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department in arabic.
+        /// </summary>
+        public static string DepartmentInArabic {
+            get {
+                return ResourceManager.GetString("DepartmentInArabic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department in english.
+        /// </summary>
+        public static string DepartmentInEnglish {
+            get {
+                return ResourceManager.GetString("DepartmentInEnglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string Details {
@@ -1150,11 +1177,65 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please insert arabic letters only.
+        /// </summary>
+        public static string PleaseInsertArabicLettersOnly {
+            get {
+                return ResourceManager.GetString("PleaseInsertArabicLettersOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please insert english letters only.
+        /// </summary>
+        public static string PleaseInsertEnglishLettersOnly {
+            get {
+                return ResourceManager.GetString("PleaseInsertEnglishLettersOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please insert the new password twice.
+        /// </summary>
+        public static string PleaseInsertTheNewPasswordTwice {
+            get {
+                return ResourceManager.GetString("PleaseInsertTheNewPasswordTwice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position.
         /// </summary>
         public static string Position {
             get {
                 return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position has been added successfully.
+        /// </summary>
+        public static string PositionHasBeenAddedSuccessfully {
+            get {
+                return ResourceManager.GetString("PositionHasBeenAddedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position in arabic.
+        /// </summary>
+        public static string PositionInArabic {
+            get {
+                return ResourceManager.GetString("PositionInArabic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position in english.
+        /// </summary>
+        public static string PositionInEnglish {
+            get {
+                return ResourceManager.GetString("PositionInEnglish", resourceCulture);
             }
         }
         

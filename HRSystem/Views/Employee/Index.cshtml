@@ -49,7 +49,15 @@
                                 <td>
                                     @Html.ActionLink(Resources.NubiHR.Edit, "Edit", new { id = item.Id, Employee = item.FirstName + " " + item.LastName }) |
                                     @Html.ActionLink(Resources.NubiHR.Details, "Details", new { id = item.Id }, null) |
-                                    @Html.ActionLink(Resources.NubiHR.ForgetPassword, "ForgetPassword", new { id = item.Id }, new { @class = "editCourseModal", @data_target = "editCourseModal", id = item.Id, data_parameter = item.Id })
+                                    @if(item.AspNetUsers.Count() > 0)
+                                    {
+                                        @Html.ActionLink(Resources.NubiHR.ForgetPassword, "ForgetPassword", new { id = item.Id }, new { @class = "editCourseModal", @data_target = "editCourseModal", id = item.Id, data_parameter = item.Id })
+                                    
+                                    }
+                                    else
+                                    { 
+                                        @Resources.NubiHR.DidntCreateUserYet
+                                    }
                                     
                                 </td>
                             </tr>
@@ -68,7 +76,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@Resources.NubiHR.ForgetPassword</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -83,22 +91,36 @@
 
         <input id="HiddenID" name="HiddenID" hidden />
 
-        @Html.Label("Password", htmlAttributes: new { @class = "control-label" })
-        @Html.Editor("Password", new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessage("Password", "", new { @class = "text-danger" })
+        @*<div class="col-md-8">*@
+            <div class="form-group">
+
+                @Html.Label(Resources.NubiHR.Password, htmlAttributes: new { @class = "control-label" })
+                @*@Html.Password("Password", new { htmlAttributes = new { @class = "form-control" } })*@
+                <input type="password" name="Password" id="Password" class="form-control"/>
+                @Html.ValidationMessage("Password", "", new { @class = "text-danger" })
 
 
-        @Html.Label("ConfirmPassword", htmlAttributes: new { @class = "control-label" })
-        @Html.Editor("ConfirmPassword", new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessage("ConfirmPassword", "", new { @class = "text-danger" })
+            </div>
+        @*</div>*@
+  
+      @*<div class="col-md-8">*@
+          <div class="form-group">
+              @Html.Label(Resources.NubiHR.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+              @*@Html.Password("ConfirmPassword", new { htmlAttributes = new { @class = "form-control" } })*@
+              <input type="password" name="ConfirmPassword" id="ConfirmPassword" class="form-control" />
+              @Html.ValidationMessage("ConfirmPassword", "", new { @class = "text-danger" })
 
+          </div>
+      @*</div>*@
+
+       
 
 
     </div>
-            <div class="modal-footer">
+            <div class="modal-footer col-md-7" style="border-top: 0px solid #e9ecef;">
                 
                 <input type="submit" value="@Resources.NubiHR.Update" class="btn btn-default" />
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
                 
             </div>
 }

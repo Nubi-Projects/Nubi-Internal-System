@@ -657,4 +657,31 @@
   <data name="PasswordHasBeenResetSuccessfully" xml:space="preserve">
     <value> تمت إعادة تعيين كلمة المرور بنجاح </value>
   </data>
+  <data name="PleaseInsertTheNewPasswordTwice" xml:space="preserve">
+    <value>قم بادخال الرقم السري مرتين</value>
+  </data>
+  <data name="DepartmentInEnglish" xml:space="preserve">
+    <value>الادارة باللغة الانجليزية</value>
+  </data>
+  <data name="DepartmentInArabic" xml:space="preserve">
+    <value>الادارة باللغة العربية</value>
+  </data>
+  <data name="PositionInEnglish" xml:space="preserve">
+    <value>المسمى الوظيفي باللغة الانجليزية</value>
+  </data>
+  <data name="PositionInArabic" xml:space="preserve">
+    <value>المسمى الوظيفي باللغة العربية</value>
+  </data>
+  <data name="PositionHasBeenAddedSuccessfully" xml:space="preserve">
+    <value>تم اضافة المسمى الوظيفي بنجاح</value>
+  </data>
+  <data name="DepartmentAndPositionHaveBeenAddedSuccessfully" xml:space="preserve">
+    <value>تم اضافة الادارة و المسمى الوظيفي بنجاح</value>
+  </data>
+  <data name="PleaseInsertArabicLettersOnly" xml:space="preserve">
+    <value>قم بادخال حروف عربية فقط</value>
+  </data>
+  <data name="PleaseInsertEnglishLettersOnly" xml:space="preserve">
+    <value>قم بادخال حروف انجليزية فقط</value>
+  </data>
 </root>
