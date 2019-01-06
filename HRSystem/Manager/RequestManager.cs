@@ -108,9 +108,9 @@ namespace HRSystem.Manager
         public double? CurrentUserTotalVacDuration(string id)
         {
             int? TotalDuration = 0;
-            //var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
+            var emp = db.AspNetUsers.Where(e => e.Id == id).FirstOrDefault().Employee;
             List<VacationRequest> vac = db.VacationRequests.Where(e => e.VacationTypeNo == 1 &&
-            e.IsDeleted == false && (e.IsRejected == false || e.IsRejected == null) && e.ManagerApprovement == true && e.EmployeeNo == id).ToList();
+            e.IsDeleted == false && (e.IsRejected == false || e.IsRejected == null) && e.ManagerApprovement == true && emp.Id == e.EmployeeNo).ToList();
             foreach (var item in vac)
             {
                 TotalDuration = item.Duration + TotalDuration;
