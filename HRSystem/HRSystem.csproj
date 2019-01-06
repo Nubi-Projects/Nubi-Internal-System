@@ -687,6 +687,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile6.pubxml" />
     <Content Include="Views\Import\Index.cshtml" />
     <Content Include="Views\Import\Details.cshtml" />
+    <Content Include="Views\Employee\NewDepartment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

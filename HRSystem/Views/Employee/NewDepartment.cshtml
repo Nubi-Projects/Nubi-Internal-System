@@ -1,0 +1,84 @@
+﻿@model HRSystem.Models.VMAddEmployee
+
+@{
+    ViewBag.Title = Resources.NubiHR.Add + " " + Resources.NubiHR.Department;
+    var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
+}
+
+<h2>@Resources.NubiHR.Add @Resources.NubiHR.Department</h2>
+
+@using (@Html.BeginForm("NewDepartment", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-md-8">
+        <div class="form-group">
+            <fieldset class="the-fieldset">
+                <legend class="the-legend">@Resources.NubiHR.Add @Resources.NubiHR.Department</legend>
+
+
+                @Html.LabelFor(model => Model.IdDepartment, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownList("Department", new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdDepartment, "", new { @class = "text-danger" })
+                <br />
+
+
+                <div id="ShowDiv">
+                    @Html.LabelFor(model => Model.DepartmentNameEn, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => Model.DepartmentNameEn, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.DepartmentNameEn, "", new { @class = "text-danger" })
+                    <br />
+                    @Html.LabelFor(model => Model.DepartmentNameAr, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => Model.DepartmentNameAr, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.DepartmentNameAr, "", new { @class = "text-danger" })
+                    <br />
+                </div>
+               
+
+
+                @Html.LabelFor(model => Model.PositionNameEn, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => Model.PositionNameEn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.PositionNameEn, "", new { @class = "text-danger" })
+                <br />
+                @Html.LabelFor(model => Model.PositionNameAr, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => Model.PositionNameAr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.PositionNameAr, "", new { @class = "text-danger" })
+                <br />
+
+                <input type="submit" value="@Resources.NubiHR.Add" class="btn2" />
+
+
+                </fieldset>
+            </div>
+        </div>
+                }
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $("#Department").on('change',function () {
+            try
+            {
+                var value = $("#Department").val();
+                var ShowDiv = document.getElementById('ShowDiv');
+               
+                if (value == "") {
+                    
+                    ShowDiv.style.display = "block";
+                }
+                else
+                {
+                    ShowDiv.style.display = "none";
+                    document.getElementById('DepartmentNameEn').value = "";
+                    document.getElementById('DepartmentNameAr').value = "";
+                }
+            }
+            catch (err) {
+             alert(err);
+
+         }
+            
+        })
+    });
+</script>
+

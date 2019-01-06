@@ -101,6 +101,52 @@ namespace HRSystem.Controllers
             }
             
         }
+        [HttpGet]
+        public ActionResult NewDepartment()
+        {
+            ViewBag.Department = Db.Departments.ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult NewDepartment(VMAddEmployee model)
+        {
+            if(model.DepartmentNameEn != null && model.DepartmentNameAr != null && model.PositionNameEn != null && model.PositionNameAr != null)
+            {
+                DeptObj.DepartmentNameEn = model.DepartmentNameEn;
+                DeptObj.DepartmentNameAr = model.DepartmentNameAr;
+                Db.Departments.Add(DeptObj);
+
+                positionObj.DepartmentNo = DeptObj.Id;
+                positionObj.PositionNameEn = model.PositionNameEn;
+                positionObj.PositionNameAr = model.PositionNameAr;
+                
+                Db.Positions.Add(positionObj);
+                Db.SaveChanges();
+
+                TempData["chec"] = string.Format(Resources.NubiHR.DepartmentAndPositionHaveBeenAddedSuccessfully, "Create");
+                return RedirectToAction("Create", "Employee");
+            }
+            else if(Request.Form["Department"] != "")
+            {
+                positionObj.DepartmentNo = Convert.ToInt32(Request.Form["Department"]);
+                positionObj.PositionNameEn = model.PositionNameEn;
+                positionObj.PositionNameAr = model.PositionNameAr;
+                
+                Db.Positions.Add(positionObj);
+                Db.SaveChanges();
+
+                TempData["chec"] = string.Format(Resources.NubiHR.PositionHasBeenAddedSuccessfully, "Create");
+                return RedirectToAction("Create", "Employee");
+            }
+            else
+            {
+                TempData["check"] = string.Format(Resources.NubiHR.Required, "NewDepartment");
+                return View();
+            }
+            
+        }
+
         [HttpPost]
         public async Task<ActionResult> ForgetPassword(string HiddenID)
         {
@@ -109,8 +155,21 @@ namespace HRSystem.Controllers
                 return RedirectToAction("Index");
             }
             var NewPassword = Request.Form["Password"];
+            var ConfirmPassword = Request.Form["ConfirmPassword"];
+            if(NewPassword == "" || ConfirmPassword == "")
+            {
+                TempData["check"] = Resources.NubiHR.PleaseInsertTheNewPasswordTwice;
+                ModelState.AddModelError(string.Empty, TempData["check"].ToString());
+                return RedirectToAction("Index");
+            }
             var id = Db.AspNetUsers.Where(x => x.EmpNo == HiddenID).Select(x => x.Id).FirstOrDefault();
             var usr = Db.AspNetUsers.Find(id);
+            if(usr == null)
+            {
+                TempData["check"] = Resources.NubiHR.DidntCreateUserYet;
+                ModelState.AddModelError(string.Empty, TempData["check"].ToString());
+                return RedirectToAction("Index");
+            }
             var password = usr.PasswordHash;
             if(Request.Form["Password"] != Request.Form["ConfirmPassword"])
             {
@@ -120,7 +179,6 @@ namespace HRSystem.Controllers
             }
             else
             {
-
                 await ChangePassword(usr, NewPassword);
                 return RedirectToAction("Index");
             }
@@ -129,17 +187,17 @@ namespace HRSystem.Controllers
         {
             var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
             var DDlPosition = Db.Positions.Where(x => x.DepartmentNo == IdDepartment).ToList();
-            List<SelectListItem> ListPositib = new List<SelectListItem>();
+            List<SelectListItem> ListPosition = new List<SelectListItem>();
 
-            ListPositib.Add(new SelectListItem { Text = Resources.NubiHR.Select, Value = "0" });
+            ListPosition.Add(new SelectListItem { Text = Resources.NubiHR.Select, Value = "0" });
             if (DDlPosition != null)
             {
                 foreach (var x in DDlPosition)
                 {
-                    ListPositib.Add(new SelectListItem { Text = (IsArabic == true ? x.PositionNameAr : x.PositionNameEn) , Value = x.Id.ToString() });
+                    ListPosition.Add(new SelectListItem { Text = (IsArabic == true ? x.PositionNameAr : x.PositionNameEn) , Value = x.Id.ToString() });
                 }
             }
-            return Json(new SelectList(ListPositib, "Value", "Text", JsonRequestBehavior.AllowGet));
+            return Json(new SelectList(ListPosition, "Value", "Text", JsonRequestBehavior.AllowGet));
 
 
         }
@@ -199,14 +257,13 @@ namespace HRSystem.Controllers
             {
                 try
                 {
-
                     //insert into salary table
                     double BasicSalaryString = Convert.ToDouble(model.BasicSalary);
                     salaryObj.BasicSalary = BasicSalaryString;
                     salaryObj.Date = DateTime.Now.Date;
 
                     Db.Salaries.Add(salaryObj);
-                    Db.SaveChanges();
+                   // Db.SaveChanges();
 
                     
                     //if condtion to check if user has account
@@ -220,11 +277,9 @@ namespace HRSystem.Controllers
                         BankObj.Date = DateTime.Now.Date;
 
                         Db.BankAccounts.Add(BankObj);
-                        Db.SaveChanges();
+                        //Db.SaveChanges();
                     }
-
                     
-
                     //insert into employee table
 
                     Guid GuIdObjEmp = Guid.NewGuid();
@@ -237,7 +292,6 @@ namespace HRSystem.Controllers
                     empObj.PositionNo = model.IdPosition;
                     empObj.FunctionalNumber = Convert.ToInt32(model.FunctionalNumber);
                     
-
                     if (model.BankName != null)
                     {
                         empObj.BankNo = BankObj.Id;
@@ -245,16 +299,19 @@ namespace HRSystem.Controllers
                     empObj.SalaryNo = salaryObj.Id;
                     empObj.StartDate = model.StartDate.Date;
                     empObj.Date = DateTime.Now.Date;
-                    empObj.Email = model.EmailEmployee;
 
+                    if(model.EmailEmployee != null)
+                    {
+                        empObj.Email = model.EmailEmployee;
+                    }
+                    
                     Db.Employees.Add(empObj);
-                    Db.SaveChanges();
+                    //Db.SaveChanges();
 
                     if (Request.Form["MySiblingsHidden"] != "")
                     {
-
                         //insert into attachment table
-                        var counter = Convert.ToInt32(Request.Form["count"]);
+                        var counter = Convert.ToInt32(Request.Form["countSib"]);
 
                         //Attachment tc = new Attachment();
                         if (counter != 1)
@@ -283,20 +340,18 @@ namespace HRSystem.Controllers
                                     RelationshipTypeNo = ValueOfSibling,
                                     Type = Other,
                                     Date = DateTime.Now.Date,
-                            });
-                                Db.SaveChanges();
+                                });
+                               // Db.SaveChanges();
 
                             }
                         }
                     }
-
-
-
+                    
                     if (Request.Form["MyAttachmentHidden"] != "")
                     {
                         
                         //insert into attachment table
-                        var counter = Convert.ToInt32(Request.Form["count"]);
+                        var counter = Convert.ToInt32(Request.Form["countAtt"]);
 
                         //Attachment tc = new Attachment();
                         if (counter != 1)
@@ -327,7 +382,7 @@ namespace HRSystem.Controllers
                                         Date = DateTime.Now.Date
 
                                     });
-                                    Db.SaveChanges();
+                                   // Db.SaveChanges();
                                 }
 
                                 else
@@ -344,7 +399,7 @@ namespace HRSystem.Controllers
                                         Date = DateTime.Now.Date
 
                                     });
-                                    Db.SaveChanges();
+                                   // Db.SaveChanges();
                                 }
                                 
 
@@ -352,6 +407,7 @@ namespace HRSystem.Controllers
                         }
                     }
 
+                    Db.SaveChanges();
                     ViewBag.Message = string.Format(Resources.NubiHR.EmployeeHasBeenAddedSuccesfully, "Index", "Employee");
 
                 }
@@ -375,7 +431,7 @@ namespace HRSystem.Controllers
                     ModelState.Clear();
                     ViewBag.Department = Db.Departments.ToList();
                     ViewBag.AttachmentType = Db.TypesOfAttachments.OrderBy(x => x.Id).ToList();
-                    ViewBag.RelationshipType = Db.RelationshipTypes/*.OrderBy(x => (IsArabic == true ? x.RelationAr : x.RelationEn))*/.ToList();
+                    ViewBag.RelationshipType = Db.RelationshipTypes.ToList();
 
                     return View();
                 }
@@ -407,10 +463,7 @@ namespace HRSystem.Controllers
 
                 return View();
             }
-
             
-
-
         }
 
         //GET: Edit/
@@ -601,8 +654,6 @@ namespace HRSystem.Controllers
 
                     if (Request.Form["MySiblingsHidden"] != "")
                     {
-
-                        
                         var counter = Convert.ToInt32(Request.Form["countSib"]);
                         
                         if (counter != 1)

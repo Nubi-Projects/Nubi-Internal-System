@@ -657,4 +657,31 @@
   <data name="PasswordHasBeenResetSuccessfully" xml:space="preserve">
     <value>Password has been reset successfully</value>
   </data>
+  <data name="PleaseInsertTheNewPasswordTwice" xml:space="preserve">
+    <value>Please insert the new password twice</value>
+  </data>
+  <data name="DepartmentInEnglish" xml:space="preserve">
+    <value>Department in english</value>
+  </data>
+  <data name="DepartmentInArabic" xml:space="preserve">
+    <value>Department in arabic</value>
+  </data>
+  <data name="PositionInEnglish" xml:space="preserve">
+    <value>Position in english</value>
+  </data>
+  <data name="PositionInArabic" xml:space="preserve">
+    <value>Position in arabic</value>
+  </data>
+  <data name="PositionHasBeenAddedSuccessfully" xml:space="preserve">
+    <value>Position has been added successfully</value>
+  </data>
+  <data name="DepartmentAndPositionHaveBeenAddedSuccessfully" xml:space="preserve">
+    <value>Department and position have been added successfully</value>
+  </data>
+  <data name="PleaseInsertArabicLettersOnly" xml:space="preserve">
+    <value>Please insert arabic letters only</value>
+  </data>
+  <data name="PleaseInsertEnglishLettersOnly" xml:space="preserve">
+    <value>Please insert english letters only</value>
+  </data>
 </root>
