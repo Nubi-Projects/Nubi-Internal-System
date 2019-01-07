@@ -445,7 +445,7 @@
     <value>حذف مرفق</value>
   </data>
   <data name="EmergencyContact" xml:space="preserve">
-    <value>بيانات اخرى</value>
+    <value>جهة الاتصال للطوارئ</value>
   </data>
   <data name="RelationshipType" xml:space="preserve">
     <value>نوع العلاقة</value>
@@ -683,5 +683,8 @@
   </data>
   <data name="PleaseInsertEnglishLettersOnly" xml:space="preserve">
     <value>قم بادخال حروف انجليزية فقط</value>
+  </data>
+  <data name="EmergencyContactHasBeenDeleted" xml:space="preserve">
+    <value>تم حذف جهة الاتصال للطوارئ</value>
   </data>
 </root>

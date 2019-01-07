@@ -48,6 +48,7 @@
         <EntityTypeShape EntityType="NubiDBModel.AttendanceSheet" Width="1.5" PointX="0.75" PointY="7.75" />
         <EntityTypeShape EntityType="NubiDBModel.ImportLog" Width="1.5" PointX="0.75" PointY="19.5" />
         <AssociationConnector Association="NubiDBModel.FK_AttendanceSheet_ImportLog" />
+        <AssociationConnector Association="NubiDBModel.FK_VacationRequest_VacationRequest" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -101,6 +101,16 @@ namespace HRSystem.Controllers
             }
             
         }
+        public ActionResult DeleteEmergencyContact(int id)
+        {
+            var emegrency = Db.EmergencyContacts.Find(id);
+
+            emegrency.IsDeleted = true;
+            Db.Entry(emegrency).State = EntityState.Modified;
+            Db.SaveChanges();
+            TempData["chec"] = string.Format(Resources.NubiHR.EmergencyContactHasBeenDeleted, "Index");
+            return RedirectToAction("Index", "Employee");
+        }
         [HttpGet]
         public ActionResult NewDepartment()
         {

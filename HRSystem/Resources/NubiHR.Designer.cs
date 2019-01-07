@@ -529,6 +529,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emergency contact has been deleted successfully.
+        /// </summary>
+        public static string EmergencyContactHasBeenDeleted {
+            get {
+                return ResourceManager.GetString("EmergencyContactHasBeenDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee Details.
         /// </summary>
         public static string EmployeeDetails {

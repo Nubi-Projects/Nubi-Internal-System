@@ -199,6 +199,7 @@ namespace HRSystem.Models
 
         [Display(ResourceType = typeof(NubiHR), Name = "RelationshipType")]
         public string Other { get; set; }
+        public bool IsDeletedEmergencyContact { get; set; }
         public System.DateTime DateEmergencyContact { get; set; }
 
         //RelationshipType table

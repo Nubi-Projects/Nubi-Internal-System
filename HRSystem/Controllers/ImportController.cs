@@ -21,7 +21,7 @@ using System.Security.Principal;
 
 namespace HRSystem.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class ImportController : BaseController
     {
         DatabaseManager DBMObj = new DatabaseManager();

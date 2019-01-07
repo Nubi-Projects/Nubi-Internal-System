@@ -684,4 +684,7 @@
   <data name="PleaseInsertEnglishLettersOnly" xml:space="preserve">
     <value>Please insert english letters only</value>
   </data>
+  <data name="EmergencyContactHasBeenDeleted" xml:space="preserve">
+    <value>Emergency contact has been deleted successfully</value>
+  </data>
 </root>

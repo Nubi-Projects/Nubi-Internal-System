@@ -9,25 +9,18 @@
 
 namespace HRSystem.Models
 {
-    using Resources;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class PermissionRequest
     {
         public long Id { get; set; }
         public string EmployeeNo { get; set; }
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime RequestDate { get; set; }
         public int TimeFromHours { get; set; }
         public Nullable<int> TimeFromMinutes { get; set; }
         public int TimeToHours { get; set; }
         public Nullable<int> TimeToMinutes { get; set; }
-        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(NubiHR), Name = "PermissionDate")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-
         public System.DateTime PermissionDate { get; set; }
         public string Note { get; set; }
         public Nullable<bool> LeaderApprovement { get; set; }
@@ -37,7 +30,7 @@ namespace HRSystem.Models
         public bool IsDeleted { get; set; }
         public Nullable<bool> LeaderHasSeen { get; set; }
         public Nullable<bool> ManagerHasSeen { get; set; }
-
+    
         public virtual Employee Employee { get; set; }
         public virtual PermissionType PermissionType { get; set; }
     }

@@ -119,6 +119,7 @@
           <Property Name="RelationshipTypeNo" Type="int" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="80" />
           <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -543,6 +544,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VacationRequest_VacationRequest">
+          <End Role="VacationRequest" Type="Self.VacationRequest" Multiplicity="1" />
+          <End Role="VacationRequest1" Type="Self.VacationRequest" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="VacationRequest">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VacationRequest1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VacationRequest_VacationType">
           <End Role="VacationType" Type="Self.VacationType" Multiplicity="1" />
           <End Role="VacationRequest" Type="Self.VacationRequest" Multiplicity="*" />
@@ -657,6 +670,10 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="VacationRequest" EntitySet="VacationRequest" />
           </AssociationSet>
+          <AssociationSet Name="FK_VacationRequest_VacationRequest" Association="Self.FK_VacationRequest_VacationRequest">
+            <End Role="VacationRequest" EntitySet="VacationRequest" />
+            <End Role="VacationRequest1" EntitySet="VacationRequest" />
+          </AssociationSet>
           <AssociationSet Name="FK_VacationRequest_VacationType" Association="Self.FK_VacationRequest_VacationType">
             <End Role="VacationType" EntitySet="VacationType" />
             <End Role="VacationRequest" EntitySet="VacationRequest" />
@@ -767,6 +784,10 @@
             <End Role="ImportLog" EntitySet="ImportLogs" />
             <End Role="AttendanceSheet" EntitySet="AttendanceSheets" />
           </AssociationSet>
+          <AssociationSet Name="FK_VacationRequest_VacationRequest" Association="NubiDBModel.FK_VacationRequest_VacationRequest">
+            <End Role="VacationRequest" EntitySet="VacationRequests" />
+            <End Role="VacationRequest1" EntitySet="VacationRequests" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -870,6 +891,7 @@
           <NavigationProperty Name="RelationshipType" Relationship="NubiDBModel.FK_EmergencyContact_RelationshipType" FromRole="EmergencyContact" ToRole="RelationshipType" />
           <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_EmergencyContact_Employee" FromRole="EmergencyContact" ToRole="Employee" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1068,6 +1090,8 @@
           <Property Name="AlternativeEmp" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="VacationRequest" ToRole="Employee" />
           <NavigationProperty Name="VacationType" Relationship="NubiDBModel.FK_VacationRequest_VacationType" FromRole="VacationRequest" ToRole="VacationType" />
+          <NavigationProperty Name="VacationRequest1" Relationship="NubiDBModel.FK_VacationRequest_VacationRequest" FromRole="VacationRequest" ToRole="VacationRequest1" />
+          <NavigationProperty Name="VacationRequest2" Relationship="NubiDBModel.FK_VacationRequest_VacationRequest" FromRole="VacationRequest1" ToRole="VacationRequest" />
         </EntityType>
         <EntityType Name="VacationType">
           <Key>
@@ -1326,6 +1350,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VacationRequest_VacationRequest">
+          <End Type="NubiDBModel.VacationRequest" Role="VacationRequest" Multiplicity="1" />
+          <End Type="NubiDBModel.VacationRequest" Role="VacationRequest1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="VacationRequest">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VacationRequest1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1419,6 +1455,7 @@
           <EntitySetMapping Name="EmergencyContacts">
             <EntityTypeMapping TypeName="NubiDBModel.EmergencyContact">
               <MappingFragment StoreEntitySet="EmergencyContact">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="RelationshipTypeNo" ColumnName="RelationshipTypeNo" />

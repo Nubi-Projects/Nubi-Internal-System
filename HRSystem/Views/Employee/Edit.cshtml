@@ -95,7 +95,7 @@
                     <fieldset class="the-fieldset">
                         
                             <legend class="the-legend">@Resources.NubiHR.EmergencyContact</legend>
-                            @foreach (var item1 in Model.EmergencyContactList)
+                            @foreach (var item1 in Model.EmergencyContactList.Where(x => x.IsDeleted == false))
                             {
                                 Model.NameOfSibling = item1.Name;
                                 @Html.LabelFor(model => model.NameOfSibling, htmlAttributes: new { @class = "control-label" })
@@ -133,8 +133,19 @@
                                     }
 
                                 }
-                               <br/><br />
 
+                               <br/>
+                                using (Html.BeginForm("DeleteEmergencyContact", "Employee", new { id = item1.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                @Html.HiddenFor(model => item1.Id)
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <input type="submit" value="@Resources.NubiHR.Delete @item1.Name" class="btn btn-danger" />
+                                <br /><br />
+                                }
+
+                            @*@Html.ActionLink(Resources.NubiHR.Delete, "DeleteEmergencyContact", new { id = item1.Id }, new { htmlAttributes = new { @class = "btn btn-danger" } })*@
                                 count1++;
                             }
                         

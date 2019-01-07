@@ -21,6 +21,7 @@ namespace HRSystem.Models
         public int RelationshipTypeNo { get; set; }
         public string Type { get; set; }
         public System.DateTime Date { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual RelationshipType RelationshipType { get; set; }
         public virtual Employee Employee { get; set; }
