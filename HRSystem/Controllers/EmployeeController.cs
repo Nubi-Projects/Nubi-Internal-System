@@ -350,6 +350,7 @@ namespace HRSystem.Controllers
                                     RelationshipTypeNo = ValueOfSibling,
                                     Type = Other,
                                     Date = DateTime.Now.Date,
+                                    IsDeleted = false,
                                 });
                                // Db.SaveChanges();
 
@@ -692,6 +693,7 @@ namespace HRSystem.Controllers
                                     RelationshipTypeNo = ValueOfSibling,
                                     Type = Other,
                                     Date = model.DateEmergencyContact,
+                                    IsDeleted = false,
                                 });
                                 //Db.SaveChanges();
 

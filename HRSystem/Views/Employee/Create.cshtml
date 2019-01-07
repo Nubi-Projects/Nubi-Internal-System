@@ -84,7 +84,7 @@
                 @Html.ValidationMessageFor(model => Model.LastName, "", new { @class = "text-danger" })
                 <br />
                 @Html.LabelFor(model => Model.EmailEmployee, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => Model.EmailEmployee, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => Model.EmailEmployee, new { htmlAttributes = new { @class = "form-control", placeholder = (IsArabic == true ? "هذا الحقل اختياري" : "This Field is Optional") } })
                 @*@Html.ValidationMessageFor(model => Model.EmailEmployee, "", new { @class = "text-danger" })*@
                 <br />
 
@@ -94,7 +94,7 @@
                 <br />
 
                 @Html.LabelFor(model => Model.Mobile2, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => Model.Mobile2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => Model.Mobile2, new { htmlAttributes = new { @class = "form-control", placeholder = (IsArabic == true ? "هذا الحقل اختياري" : "This Field is Optional") } })
                 <br />
 
                 @Html.LabelFor(model => Model.Address, htmlAttributes: new { @class = "control-label" })
