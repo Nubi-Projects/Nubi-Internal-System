@@ -173,7 +173,7 @@ namespace HRSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var emp = db.Employees.Where(x => x.FirstName + " " + x.LastName == model.EmpNo).FirstOrDefault();
+                var emp = db.Employees.Where(x => x.FirstName + " " + x.LastName == model.EmpNo && x.IsDeleted == false).FirstOrDefault();
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmpNo = emp.Id };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
