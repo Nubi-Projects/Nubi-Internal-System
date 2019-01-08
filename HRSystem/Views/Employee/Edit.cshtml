@@ -11,6 +11,9 @@
 
      
     </style>
+    @section Styles{
+        <link href="~/Scripts/select2-4.0.5/css/select2.css" rel="stylesheet" />
+    }
 }
 
 
@@ -19,7 +22,7 @@
 
 @using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
     if (Model == null)
     {
         <legend style="color: #eea904;">@Resources.NubiHR.Error</legend>
@@ -138,7 +141,7 @@
                                 using (Html.BeginForm("DeleteEmergencyContact", "Employee", new { id = item1.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
                                 @Html.HiddenFor(model => item1.Id)
-                                    @Html.AntiForgeryToken()
+                                    @*@Html.AntiForgeryToken()*@
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                                 <input type="submit" value="@Resources.NubiHR.Delete @item1.Name" class="btn btn-danger" />
@@ -161,11 +164,11 @@
                         <legend class="the-legend">@Resources.NubiHR.Add @Resources.NubiHR.EmergencyContact</legend>
 
                         @Html.LabelFor(model => Model.IdRelationshipType, htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownList("IdRelationshipType1", new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px; " })
+                        @Html.DropDownList("IdRelationshipType1", new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control select2"})
                       
 
-                        <input id='addButton1' type="button" value="@Resources.NubiHR.AddSiblings" class="btn btn-outline-success" />
-                        <input id='removeButton1' type="button" value="@Resources.NubiHR.RemoveSiblings" class="btn btn-outline-danger" />
+                        <input id='addButton1'style="margin-top: 5%;" type="button" value="@Resources.NubiHR.AddSiblings" class="btn btn-outline-success" />
+                        <input id='removeButton1' style="margin-top: 5%;" type="button" value="@Resources.NubiHR.RemoveSiblings" class="btn btn-outline-danger" />
                         <div class="">
                             <label class="control-label" style="padding-top: 12px;">@Resources.NubiHR.Note</label>
                         </div>
@@ -219,12 +222,12 @@
 
 
                         @Html.LabelFor(model => model.IdDepartment, new { @class = "control-label" })
-                        @Html.DropDownListFor(model => model.IdDepartment, new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.IdDepartment, new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control select2" })
                         @Html.ValidationMessageFor(model => model.IdDepartment, "", new { @class = "text-danger" })
 
 
                         @Html.LabelFor(model => model.IdPosition, new { @class = "control-label" })
-                        @Html.DropDownListFor(model => model.IdPosition, new SelectList(ViewBag.Position, "Id", (IsArabic == true ? "PositionNameAr" : "PositionNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.IdPosition, new SelectList(ViewBag.Position, "Id", (IsArabic == true ? "PositionNameAr" : "PositionNameEn")), Resources.NubiHR.Select, new { @class = "form-control select2" })
                         @Html.ValidationMessageFor(model => model.IdPosition, "", new { @class = "text-danger" })
 
 
@@ -403,12 +406,12 @@
 
                         @Html.LabelFor(model => Model.AttachmentType, htmlAttributes: new { @class = "control-label" })
 
-                        @Html.DropDownListFor(model => model.AttachmentType, new SelectList(@ViewBag.AttachmentType, "Id", (IsArabic == true ? "AttachmentTypeAr" : "AttachmentTypeEn")), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px; " })
+                        @Html.DropDownListFor(model => model.AttachmentType, new SelectList(@ViewBag.AttachmentType, "Id", (IsArabic == true ? "AttachmentTypeAr" : "AttachmentTypeEn")), Resources.NubiHR.Select, new { @class = "form-control select2" })
                         @Html.ValidationMessageFor(model => Model.AttachmentType, "", new { @class = "text-danger" })
 
 
-                        <input id='addButton' type="button" value="@Resources.NubiHR.AddAttachment" class="btn btn-outline-success" />
-                        <input id='removeButton' type="button" value="@Resources.NubiHR.RemoveAttachment" class="btn btn-outline-danger" />
+                        <input id='addButton' style="margin-top: 5%;" type="button" value="@Resources.NubiHR.AddAttachment" class="btn btn-outline-success" />
+                        <input id='removeButton' style="margin-top: 5%;" type="button" value="@Resources.NubiHR.RemoveAttachment" class="btn btn-outline-danger" />
                         @Html.Hidden("MyAttachmentHidden")
                         <div id="MyAttachmentList">
 
@@ -439,7 +442,9 @@
 }
 
 
-
+@section Scripts{
+    <script src="~/Scripts/select2-4.0.5/js/select2.full.js"></script>
+}
 
                 @if (ViewBag.MessageException != null)
                 {
@@ -468,7 +473,7 @@
     var strMyAttachment = "";
 
     $(document).ready(function () {
-
+        $('.select2').select2();
         var counter = 1;
 
         $("#addButton").click(function () {

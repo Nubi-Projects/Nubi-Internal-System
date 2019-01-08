@@ -4,6 +4,9 @@
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 
+@section Styles{
+    <link href="~/Scripts/select2-4.0.5/css/select2.css" rel="stylesheet" />
+}
 
 <br />
 
@@ -13,7 +16,7 @@
     <div class="form-group">
         @Html.Label(Resources.NubiHR.Position, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("IdDepartment", new SelectList(@ViewBag.Departments, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+            @Html.DropDownList("IdDepartment", new SelectList(@ViewBag.Departments, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control select2" })
            @* @Html.ValidationMessage("IdDepartment", "", new { @class = "text-danger" })*@
         </div>
     </div>
@@ -146,6 +149,9 @@
     </div>
 </div>
 
+@section Scripts{
+    <script src="~/Scripts/select2-4.0.5/js/select2.full.js"></script>
+}
 
 <script type="text/javascript">
 
@@ -171,7 +177,7 @@
     
     $(document).ready(function () {
 
-       
+        $('.select2').select2();
         $('#IdDepartment').on('change', function () {
 
             var GetElement = document.getElementById("IdDepartment");

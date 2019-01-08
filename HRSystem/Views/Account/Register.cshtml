@@ -3,6 +3,11 @@
     //Layout = null;
     ViewBag.Title = Resources.NubiHR.Register;
 }
+
+@section Styles{
+    <link href="~/Scripts/select2-4.0.5/css/select2.css" rel="stylesheet" />
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +85,7 @@
                         </div>
 
                         @*@Html.DropDownList("EmpNo", null, "Select", new { @class = "form-control" })*@
-                        @Html.DropDownList("EmpNo", new SelectList(@ViewBag.EmpNo, string.Empty, string.Empty), Resources.NubiHR.Select, new { @class = "form-control" })
+                        @Html.DropDownList("EmpNo", new SelectList(@ViewBag.EmpNo, string.Empty, string.Empty), Resources.NubiHR.Select, new { @class = "form-control select2" })
 
 
                     </div>
@@ -108,6 +113,16 @@
 </html>
 
 
+@section Scripts{
+    <script src="~/Scripts/select2-4.0.5/js/select2.full.js"></script>
+}
+
+<script>
+    $(document).ready(function () {
+
+        $('.select2').select2();
+    });
+</script>
 
 
 @*@section Scripts {

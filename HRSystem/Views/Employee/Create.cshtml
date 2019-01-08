@@ -45,6 +45,9 @@
  
    
 </style>
+@section Styles{
+<link href="~/Scripts/select2-4.0.5/css/select2.css" rel="stylesheet" />
+}
 
 
 <h2>@Resources.NubiHR.AddEmployee</h2>
@@ -57,7 +60,7 @@
 
 @using (@Html.BeginForm("Create", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
+    //@Html.AntiForgeryToken()
 
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -119,7 +122,7 @@
 
 
                 @Html.LabelFor(model => Model.IdRelationshipType, htmlAttributes: new { @class = "control-label" })
-                @Html.DropDownListFor(model => model.IdRelationshipType, new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control", @style = "margin-bottom: 23px; " })
+                @Html.DropDownListFor(model => model.IdRelationshipType, new SelectList(@ViewBag.RelationshipType, "Id", (IsArabic == true ? "RelationAr" : "RelationEn")), Resources.NubiHR.Select, new { @class = "form-control select2" })
                 @*@Html.ValidationMessageFor(model => model.IdRelationshipType, "", new { @class = "text-danger" })*@
 
                 @*<div id="TOR" style= "display:none;">
@@ -130,8 +133,8 @@
 
                 </div>*@
 
-                <input id='addButton1' type="button" value="@Resources.NubiHR.AddSiblings" class="btn btn-outline-success" />
-                <input id='removeButton1' type="button" value="@Resources.NubiHR.RemoveSiblings" class="btn btn-outline-danger" />
+                <input id='addButton1' style="margin-top: 5%;" type="button" value="@Resources.NubiHR.AddSiblings" class="btn btn-outline-success" />
+                <input id='removeButton1' style="margin-top: 5%;" type="button" value="@Resources.NubiHR.RemoveSiblings" class="btn btn-outline-danger" />
 
                 <label class="control-label" style="padding-top: 12px;">@Resources.NubiHR.Note</label>
                 @Html.Hidden("MySiblingsHidden")
@@ -149,13 +152,13 @@
                 <legend class="the-legend">@Resources.NubiHR.JobInfo</legend>
 
                 @Html.LabelFor(model => Model.IdDepartment, htmlAttributes: new { @class = "control-label" })
-                @Html.DropDownListFor(model => model.IdDepartment, new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.IdDepartment, new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control select2" })
                 @Html.ValidationMessageFor(model => model.IdDepartment, "", new { @class = "text-danger" })
                 <br />
 
 
                 @Html.LabelFor(model => Model.IdPosition, htmlAttributes: new { @class = "control-label" })
-                @Html.DropDownListFor(model => model.IdPosition, new SelectList(string.Empty, "Id", (IsArabic == true ? "PositionNameAr" : "PositionNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.IdPosition, new SelectList(string.Empty, "Id", (IsArabic == true ? "PositionNameAr" : "PositionNameEn")), Resources.NubiHR.Select, new { @class = "form-control select2" })
                 @Html.ValidationMessageFor(model => model.IdPosition, "", new { @class = "text-danger" })
                 <br />
 
@@ -211,7 +214,7 @@
 
                 @Html.LabelFor(model => Model.AttachmentType, htmlAttributes: new { @class = "control-label" })
 
-                @Html.DropDownListFor(model => model.AttachmentType, new SelectList(@ViewBag.AttachmentType, "Id", (IsArabic == true ? "AttachmentTypeAr" : "AttachmentTypeEn")), Resources.NubiHR.Select, new { @class = "form-control" , @style = "margin-bottom: 23px; " })
+                @Html.DropDownListFor(model => model.AttachmentType, new SelectList(@ViewBag.AttachmentType, "Id", (IsArabic == true ? "AttachmentTypeAr" : "AttachmentTypeEn")), Resources.NubiHR.Select, new { @class = "form-control select2"})
                 @Html.ValidationMessageFor(model => Model.AttachmentType, "", new { @class = "text-danger" })
 
                 @*@Html.LabelFor(model => Model.Name, htmlAttributes: new { @class = "control-label col-md-8" })
@@ -225,8 +228,8 @@
                 @*<a class="btn btn-outline-success" id="addButton">@Resources.NubiHR.AddAttachment</a>
                 <a class="btn btn-outline-danger" id="removeButton">@Resources.NubiHR.RemoveAttachment</a>*@
 
-                <input id='addButton' type="button" value="@Resources.NubiHR.AddAttachment" class="btn btn-outline-success" />
-                <input id='removeButton' type="button" value="@Resources.NubiHR.RemoveAttachment" class="btn btn-outline-danger" />
+                <input id='addButton' style="margin-top: 5%;" type="button" value="@Resources.NubiHR.AddAttachment" class="btn btn-outline-success" />
+                <input id='removeButton' style="margin-top: 5%;" type="button" value="@Resources.NubiHR.RemoveAttachment" class="btn btn-outline-danger" />
               
                 <label class="control-label" style="padding-top: 12px;">@Resources.NubiHR.Note</label>
                 @Html.Hidden("MyAttachmentHidden")
@@ -357,7 +360,9 @@
 </div>
 
 
-
+@section Scripts{
+<script src="~/Scripts/select2-4.0.5/js/select2.full.js"></script>
+    }
 
 @*  validation for upload files *@
 
@@ -400,7 +405,7 @@
 
 
     $(document).ready(function () {
-
+        $('.select2').select2();
         $("#IdDepartment").on('change',function () {
             $("#IdPosition").empty();
             $.ajax({
@@ -436,13 +441,13 @@
             var value = $("#IdRelationshipType").val();
             if (value == 8) {
                 $("#Other").removeAttr('disabled');
-                var x = document.getElementById('TOR');
-                x.style.display = "block";
+                //var x = document.getElementById('TOR');
+                //x.style.display = "block";
             }
             else {
                 $("#Other").prop('disabled', true);
-                var x = document.getElementById('TOR');
-                x.style.display = "none";
+                //var x = document.getElementById('TOR');
+                //x.style.display = "none";
             }
         });
     });
