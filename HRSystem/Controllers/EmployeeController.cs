@@ -349,6 +349,8 @@ namespace HRSystem.Controllers
                     empObj.SalaryNo = salaryObj.Id;
                     empObj.StartDate = model.StartDate.Date;
                     empObj.Date = DateTime.Now.Date;
+                    empObj.IsDeleted = false;
+                    empObj.HasAccount = false;
 
                     if(model.EmailEmployee != null)
                     {

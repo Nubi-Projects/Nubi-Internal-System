@@ -80,21 +80,31 @@ namespace HRSystem.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            bool IsDeleted = db.AspNetUsers.Where( y => y.Email == model.Email && y.IsDeleted == true).Any();
+            if(IsDeleted)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-
-                    return View(model);
+                ModelState.AddModelError("", "This account has been removed");
+                return View(model);
             }
+            else
+            {
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+
+                        return View(model);
+                }
+            }
+            
         }
 
         //
@@ -148,7 +158,7 @@ namespace HRSystem.Controllers
         {
 
             // ViewBag.EmpNo = new SelectList( db.Employees.ToList(), "Id", "FirstName");
-             ViewBag.EmpNo = db.Employees.Where(x => x.HasAccount == false && x.IsDeleted == false)).OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+             ViewBag.EmpNo = db.Employees.Where(x => x.HasAccount == false && x.IsDeleted == false).OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
 
             //ViewBag.JobTitleRoleNo = new SelectList( db.JobTitleRoles.ToList(), "ID", "JobTitle");
             return View();
