@@ -699,4 +699,7 @@
   <data name="EmployeeHasBeenDeleted" xml:space="preserve">
     <value>Employee has been Removed successfully</value>
   </data>
+  <data name="EmailValidation" xml:space="preserve">
+    <value>Invalid email address</value>
+  </data>
 </root>
