@@ -142,11 +142,11 @@ namespace HRSystem.Models
         public int IdDepartment { get; set; }
 
         [Display(ResourceType = typeof(NubiHR), Name = "DepartmentInEnglish")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertEnglishLettersOnly")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertEnglishLettersOnly")]
         public string DepartmentNameEn { get; set; }
 
         [Display(ResourceType = typeof(NubiHR), Name = "DepartmentInArabic")]
-        [RegularExpression(@"^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF]*$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertArabicLettersOnly")]
+        [RegularExpression(@"^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF ]*$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertArabicLettersOnly")]
         public string DepartmentNameAr { get; set; }
         bool IsDeletedDepartment { get; set; }
         public System.DateTime DateDepartment { get; set; }
@@ -170,11 +170,11 @@ namespace HRSystem.Models
         public int DepartmentNoPosition { get; set; }
 
         [Display(ResourceType = typeof(NubiHR), Name = "PositionInEnglish")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertEnglishLettersOnly")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertEnglishLettersOnly")]
         public string PositionNameEn { get; set; }
 
         [Display(ResourceType = typeof(NubiHR), Name = "PositionInArabic")]
-        [RegularExpression(@"^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF]*$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertArabicLettersOnly")]
+        [RegularExpression(@"^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FF ]*$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertArabicLettersOnly")]
         public string PositionNameAr { get; set; }
 
 

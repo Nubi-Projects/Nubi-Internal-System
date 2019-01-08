@@ -141,6 +141,7 @@
           <Property Name="EndDate" Type="date" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="HasAccount" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ExtraSalary">
           <Key>
@@ -922,6 +923,7 @@
           <NavigationProperty Name="PermissionRequests" Relationship="NubiDBModel.FK_PermissionRequest_Employee" FromRole="Employee" ToRole="PermissionRequest" />
           <NavigationProperty Name="VacationRequests" Relationship="NubiDBModel.FK_VacationRequest_Employee" FromRole="Employee" ToRole="VacationRequest" />
           <NavigationProperty Name="EmergencyContacts" Relationship="NubiDBModel.FK_EmergencyContact_Employee" FromRole="Employee" ToRole="EmergencyContact" />
+          <Property Name="HasAccount" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="ExtraSalary">
           <Key>
@@ -1469,6 +1471,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="NubiDBModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="HasAccount" ColumnName="HasAccount" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />

@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HRSystem.Models;
 using System.Security.Cryptography;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace HRSystem.Controllers
 {
@@ -144,8 +146,10 @@ namespace HRSystem.Controllers
         [Authorize(Roles ="Admin")]
         public ActionResult Register()
         {
-            
-            ViewBag.EmpNo = new SelectList( db.Employees.ToList(), "Id", "FirstName");
+
+            // ViewBag.EmpNo = new SelectList( db.Employees.ToList(), "Id", "FirstName");
+             ViewBag.EmpNo = db.Employees.Where(x => x.HasAccount == false && x.IsDeleted == false)).OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+
             //ViewBag.JobTitleRoleNo = new SelectList( db.JobTitleRoles.ToList(), "ID", "JobTitle");
             return View();
         }
@@ -159,20 +163,25 @@ namespace HRSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmpNo = model.EmpNo };
+                var emp = db.Employees.Where(x => x.FirstName + " " + x.LastName == model.EmpNo).FirstOrDefault();
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmpNo = emp.Id };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var e = db.Employees.Find(emp.Id);
+                    e.HasAccount = true;
+                    db.Entry(e).State = EntityState.Modified;
+                    db.SaveChanges();
                     //UserManager.AddToRole(user.Id, model.RoleNo);
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    TempData["chec"] = string.Format(Resources.NubiHR.AccountHasBeenCreatedSuccessfully, "Index");
+                    return RedirectToAction("Index", "VacationRequest");
                 }
                 AddErrors(result);
             }
@@ -181,7 +190,9 @@ namespace HRSystem.Controllers
 
 
             //if error 
-            ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
+            //ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
+            ViewBag.EmpNo = db.Employees.Where(x => x.HasAccount == false && x.IsDeleted == false).OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+
             //ViewBag.JobTitleRoleNo = new SelectList(db.JobTitleRoles.ToList(), "ID", "JobTitle");
             return View(model);
         }

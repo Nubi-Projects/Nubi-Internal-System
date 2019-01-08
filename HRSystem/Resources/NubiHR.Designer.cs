@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account has been created successfully.
+        /// </summary>
+        public static string AccountHasBeenCreatedSuccessfully {
+            get {
+                return ResourceManager.GetString("AccountHasBeenCreatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account Number.
         /// </summary>
         public static string AccountNumber {
@@ -174,6 +183,15 @@ namespace Resources {
         public static string AllRequests {
             get {
                 return ResourceManager.GetString("AllRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department \ position already exists.
+        /// </summary>
+        public static string AlreadyExist {
+            get {
+                return ResourceManager.GetString("AlreadyExist", resourceCulture);
             }
         }
         
@@ -552,6 +570,15 @@ namespace Resources {
         public static string EmployeeHasBeenAddedSuccesfully {
             get {
                 return ResourceManager.GetString("EmployeeHasBeenAddedSuccesfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee has been Removed successfully.
+        /// </summary>
+        public static string EmployeeHasBeenDeleted {
+            get {
+                return ResourceManager.GetString("EmployeeHasBeenDeleted", resourceCulture);
             }
         }
         
@@ -1371,6 +1398,15 @@ namespace Resources {
         public static string Required {
             get {
                 return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset password.
+        /// </summary>
+        public static string ResetPassword {
+            get {
+                return ResourceManager.GetString("ResetPassword", resourceCulture);
             }
         }
         

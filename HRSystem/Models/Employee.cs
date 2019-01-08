@@ -40,6 +40,7 @@ namespace HRSystem.Models
         public Nullable<System.DateTime> EndDate { get; set; }
         public System.DateTime Date { get; set; }
         public bool IsDeleted { get; set; }
+        public bool HasAccount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }

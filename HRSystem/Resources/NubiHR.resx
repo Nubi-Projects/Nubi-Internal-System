@@ -687,4 +687,16 @@
   <data name="EmergencyContactHasBeenDeleted" xml:space="preserve">
     <value>Emergency contact has been deleted successfully</value>
   </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+  <data name="AlreadyExist" xml:space="preserve">
+    <value>Department \ position already exists</value>
+  </data>
+  <data name="AccountHasBeenCreatedSuccessfully" xml:space="preserve">
+    <value>Account has been created successfully</value>
+  </data>
+  <data name="EmployeeHasBeenDeleted" xml:space="preserve">
+    <value>Employee has been Removed successfully</value>
+  </data>
 </root>

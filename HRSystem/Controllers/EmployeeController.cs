@@ -111,6 +111,26 @@ namespace HRSystem.Controllers
             TempData["chec"] = string.Format(Resources.NubiHR.EmergencyContactHasBeenDeleted, "Index");
             return RedirectToAction("Index", "Employee");
         }
+        public ActionResult DeleteEmployee(string id)
+        {
+            var employee = Db.Employees.Find(id);
+            var Asp = Db.AspNetUsers.Where(x => x.EmpNo == id).FirstOrDefault();
+            
+            if(Asp != null)
+            {
+                Asp.IsDeleted = true;
+                Db.Entry(Asp).State = EntityState.Modified;
+            }
+
+            employee.IsDeleted = true;
+            Db.Entry(employee).State = EntityState.Modified;
+            
+
+            Db.SaveChanges();
+
+            TempData["chec"] = string.Format(Resources.NubiHR.EmployeeHasBeenDeleted, "Index");
+            return RedirectToAction("Index", "Employee");
+        }
         [HttpGet]
         public ActionResult NewDepartment()
         {
@@ -121,40 +141,60 @@ namespace HRSystem.Controllers
         [HttpPost]
         public ActionResult NewDepartment(VMAddEmployee model)
         {
-            if(model.DepartmentNameEn != null && model.DepartmentNameAr != null && model.PositionNameEn != null && model.PositionNameAr != null)
+            var DeptEn = Db.Departments.Where(x => x.DepartmentNameEn == model.DepartmentNameEn).Any();
+            var DeptAr = Db.Departments.Where(x => x.DepartmentNameAr == model.DepartmentNameAr).Any();
+            var PosEn = Db.Positions.Where(x => x.PositionNameEn == model.PositionNameEn).Any();
+            var PosAr = Db.Positions.Where(x => x.PositionNameAr == model.PositionNameAr).Any();
+
+            var DeptEn1 = Db.Departments.Where(x => x.DepartmentNameEn == model.PositionNameEn).Any();
+            var DeptAr1 = Db.Departments.Where(x => x.DepartmentNameAr == model.PositionNameAr).Any();
+            var PosEn1 = Db.Positions.Where(x => x.PositionNameEn == model.DepartmentNameEn).Any();
+            var PosAr1 = Db.Positions.Where(x => x.PositionNameAr == model.DepartmentNameAr).Any();
+
+            if (!DeptEn && !DeptAr && !PosEn && !PosAr && !DeptEn1 && !DeptAr1 && !PosEn1 && !PosAr1)
             {
-                DeptObj.DepartmentNameEn = model.DepartmentNameEn;
-                DeptObj.DepartmentNameAr = model.DepartmentNameAr;
-                Db.Departments.Add(DeptObj);
+                if (model.DepartmentNameEn != null && model.DepartmentNameAr != null && model.PositionNameEn != null && model.PositionNameAr != null)
+                {
+                    DeptObj.DepartmentNameEn = model.DepartmentNameEn;
+                    DeptObj.DepartmentNameAr = model.DepartmentNameAr;
+                    Db.Departments.Add(DeptObj);
 
-                positionObj.DepartmentNo = DeptObj.Id;
-                positionObj.PositionNameEn = model.PositionNameEn;
-                positionObj.PositionNameAr = model.PositionNameAr;
-                
-                Db.Positions.Add(positionObj);
-                Db.SaveChanges();
+                    positionObj.DepartmentNo = DeptObj.Id;
+                    positionObj.PositionNameEn = model.PositionNameEn;
+                    positionObj.PositionNameAr = model.PositionNameAr;
 
-                TempData["chec"] = string.Format(Resources.NubiHR.DepartmentAndPositionHaveBeenAddedSuccessfully, "Create");
-                return RedirectToAction("Create", "Employee");
-            }
-            else if(Request.Form["Department"] != "")
-            {
-                positionObj.DepartmentNo = Convert.ToInt32(Request.Form["Department"]);
-                positionObj.PositionNameEn = model.PositionNameEn;
-                positionObj.PositionNameAr = model.PositionNameAr;
-                
-                Db.Positions.Add(positionObj);
-                Db.SaveChanges();
+                    Db.Positions.Add(positionObj);
+                    Db.SaveChanges();
 
-                TempData["chec"] = string.Format(Resources.NubiHR.PositionHasBeenAddedSuccessfully, "Create");
-                return RedirectToAction("Create", "Employee");
+                    TempData["chec"] = string.Format(Resources.NubiHR.DepartmentAndPositionHaveBeenAddedSuccessfully, "Create");
+                    return RedirectToAction("Create", "Employee");
+                }
+                else if (Request.Form["Department"] != "")
+                {
+                    positionObj.DepartmentNo = Convert.ToInt32(Request.Form["Department"]);
+                    positionObj.PositionNameEn = model.PositionNameEn;
+                    positionObj.PositionNameAr = model.PositionNameAr;
+
+                    Db.Positions.Add(positionObj);
+                    Db.SaveChanges();
+
+                    TempData["chec"] = string.Format(Resources.NubiHR.PositionHasBeenAddedSuccessfully, "Create");
+                    return RedirectToAction("Create", "Employee");
+                }
+                else
+                {
+                    TempData["check"] = string.Format(Resources.NubiHR.Required, "NewDepartment");
+                    ViewBag.Department = Db.Departments.ToList();
+                    return View();
+                }
             }
             else
             {
-                TempData["check"] = string.Format(Resources.NubiHR.Required, "NewDepartment");
+                TempData["check"] = string.Format(Resources.NubiHR.AlreadyExist, "NewDepartment");
+                ViewBag.Department = Db.Departments.ToList();
                 return View();
             }
-            
+
         }
 
         [HttpPost]

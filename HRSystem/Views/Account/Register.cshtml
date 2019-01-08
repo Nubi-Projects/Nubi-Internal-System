@@ -79,7 +79,9 @@
                             @Resources.NubiHR.SelectEmployee
                         </div>
 
-                        @Html.DropDownList("EmpNo", null, "Select", new { @class = "form-control" })
+                        @*@Html.DropDownList("EmpNo", null, "Select", new { @class = "form-control" })*@
+                        @Html.DropDownList("EmpNo", new SelectList(@ViewBag.EmpNo, string.Empty, string.Empty), Resources.NubiHR.Select, new { @class = "form-control" })
+
 
                     </div>
                     @*<div class="form-group">

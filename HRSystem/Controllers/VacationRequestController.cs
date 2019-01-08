@@ -286,9 +286,9 @@ namespace HRSystem.Controllers
                         {
                             vac.ResumeDate = NextDay;
                         }
-                        var tt = db.Employees.Where(x => x.FirstName +" "+ x.LastName == AlternativeEmp).FirstOrDefault();
+                        var emp = db.Employees.Where(x => x.FirstName +" "+ x.LastName == AlternativeEmp).FirstOrDefault();
                         //var emp = db.Employees.FirstOrDefault(p => p.Id == AlternativeEmp);
-                        vac.AlternativeEmp = tt.Id;
+                        vac.AlternativeEmp = emp.Id;
                         vac.RequestDate = DateTime.Now;
                         vac.LeaderApprovement = true;
                         TempData["chec"] = Resources.NubiHR.YourRequestHasBeenSented;
@@ -321,7 +321,7 @@ namespace HRSystem.Controllers
             }
             //ViewBag.EmpNo = new SelectList(db.Employees.ToList(), "Id", "FirstName");
             ViewBag.VacationTypeNo = new SelectList(db.VacationTypes.ToList(), "ID", "Type", vac.VacationTypeNo);
-            ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(),"Id", "FirstName", vac.AlternativeEmp);
+           // ViewBag.AlternativeEmp = new SelectList(db.Employees.ToList(),"Id", "FirstName", vac.AlternativeEmp);
             ViewBag.AlternativeEmp = db.Employees.OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
             ModelState.Clear();
             return View();       

@@ -687,4 +687,16 @@
   <data name="EmergencyContactHasBeenDeleted" xml:space="preserve">
     <value>تم حذف جهة الاتصال للطوارئ</value>
   </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>إعادة تعيين كلمة المرور</value>
+  </data>
+  <data name="AlreadyExist" xml:space="preserve">
+    <value>الادارة او المسمى الوظيفي موجود مسبقا</value>
+  </data>
+  <data name="AccountHasBeenCreatedSuccessfully" xml:space="preserve">
+    <value>تم انشاء الحساب بنجاح</value>
+  </data>
+  <data name="EmployeeHasBeenDeleted" xml:space="preserve">
+    <value>تم حذف الموظف</value>
+  </data>
 </root>
