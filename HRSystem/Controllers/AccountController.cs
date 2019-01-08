@@ -148,7 +148,7 @@ namespace HRSystem.Controllers
         {
 
             // ViewBag.EmpNo = new SelectList( db.Employees.ToList(), "Id", "FirstName");
-             ViewBag.EmpNo = db.Employees.Where(x => x.HasAccount == false && x.IsDeleted == false)).OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
+             ViewBag.EmpNo = db.Employees.Where(x => x.HasAccount == false && x.IsDeleted == false).OrderBy(x => x.FirstName + x.LastName).Select(x => x.FirstName + " " + x.LastName).ToList();
 
             //ViewBag.JobTitleRoleNo = new SelectList( db.JobTitleRoles.ToList(), "ID", "JobTitle");
             return View();
@@ -163,7 +163,7 @@ namespace HRSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var emp = db.Employees.Where(x => x.FirstName + " " + x.LastName == model.EmpNo).FirstOrDefault();
+                var emp = db.Employees.Where(x => x.FirstName + " " + x.LastName == model.EmpNo && x.IsDeleted == false).FirstOrDefault();
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmpNo = emp.Id };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
