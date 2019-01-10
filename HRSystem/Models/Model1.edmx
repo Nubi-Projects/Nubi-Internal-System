@@ -5,6 +5,31 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NubiDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alert">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AlertText" Type="nvarchar" MaxLength="1024" />
+          <Property Name="Link" Type="nvarchar(max)" />
+          <Property Name="MsgSmsId" Type="int" />
+          <Property Name="MsgEmailId" Type="int" />
+          <Property Name="MsgSmsText" Type="nvarchar" MaxLength="256" />
+          <Property Name="MsgEmailText" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IsSendSms" Type="bit" Nullable="false" />
+          <Property Name="IsSendEmail" Type="bit" Nullable="false" />
+          <Property Name="IsOpen" Type="bit" Nullable="false" />
+          <Property Name="DateSendSms" Type="datetime" />
+          <Property Name="DateSendEmail" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="IsHiddenInNavbar" Type="bit" Nullable="false" />
+          <Property Name="TemplateId" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="MobilePhone" Type="nvarchar(max)" />
+          <Property Name="EmailSubject" Type="nvarchar" MaxLength="128" />
+          <Property Name="AttachmentPath" Type="nvarchar" MaxLength="1024" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -315,6 +340,18 @@
           <Property Name="Date" Type="datetime" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Alert_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Alert" Type="Self.Alert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alert">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AspNetUserRoles_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
@@ -570,6 +607,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NubiDBModelStoreContainer">
+          <EntitySet Name="Alert" EntityType="Self.Alert" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -595,6 +633,10 @@
           <EntitySet Name="UserSessions" EntityType="Self.UserSessions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VacationRequest" EntityType="Self.VacationRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VacationType" EntityType="Self.VacationType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Alert_AspNetUsers" Association="Self.FK_Alert_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Alert" EntitySet="Alert" />
+          </AssociationSet>
           <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="Self.FK_AspNetUserRoles_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -789,6 +831,11 @@
             <End Role="VacationRequest" EntitySet="VacationRequests" />
             <End Role="VacationRequest1" EntitySet="VacationRequests" />
           </AssociationSet>
+          <EntitySet Name="Alerts" EntityType="NubiDBModel.Alert" />
+          <AssociationSet Name="FK_Alert_AspNetUsers" Association="NubiDBModel.FK_Alert_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Alert" EntitySet="Alerts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
@@ -840,6 +887,7 @@
           <NavigationProperty Name="UserPreferences" Relationship="NubiDBModel.FK_UserPreferences_AspNetUsers" FromRole="AspNetUser" ToRole="UserPreference" />
           <NavigationProperty Name="UserSessions" Relationship="NubiDBModel.FK_UserSessions_Users" FromRole="AspNetUser" ToRole="UserSession" />
           <NavigationProperty Name="AspNetRoles" Relationship="NubiDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="Alerts" Relationship="NubiDBModel.FK_Alert_AspNetUsers" FromRole="AspNetUser" ToRole="Alert" />
         </EntityType>
         <EntityType Name="Attachment">
           <Key>
@@ -1364,6 +1412,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Alert">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AlertText" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MsgSmsId" Type="Int32" />
+          <Property Name="MsgEmailId" Type="Int32" />
+          <Property Name="MsgSmsText" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MsgEmailText" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IsSendSms" Type="Boolean" Nullable="false" />
+          <Property Name="IsSendEmail" Type="Boolean" Nullable="false" />
+          <Property Name="IsOpen" Type="Boolean" Nullable="false" />
+          <Property Name="DateSendSms" Type="DateTime" Precision="3" />
+          <Property Name="DateSendEmail" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="IsHiddenInNavbar" Type="Boolean" Nullable="false" />
+          <Property Name="TemplateId" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailSubject" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentPath" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="NubiDBModel.FK_Alert_AspNetUsers" FromRole="Alert" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_Alert_AspNetUsers">
+          <End Type="NubiDBModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="NubiDBModel.Alert" Role="Alert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alert">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1698,6 +1784,32 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alerts">
+            <EntityTypeMapping TypeName="NubiDBModel.Alert">
+              <MappingFragment StoreEntitySet="Alert">
+                <ScalarProperty Name="AttachmentPath" ColumnName="AttachmentPath" />
+                <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="IsHiddenInNavbar" ColumnName="IsHiddenInNavbar" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="DateSendEmail" ColumnName="DateSendEmail" />
+                <ScalarProperty Name="DateSendSms" ColumnName="DateSendSms" />
+                <ScalarProperty Name="IsOpen" ColumnName="IsOpen" />
+                <ScalarProperty Name="IsSendEmail" ColumnName="IsSendEmail" />
+                <ScalarProperty Name="IsSendSms" ColumnName="IsSendSms" />
+                <ScalarProperty Name="MsgEmailText" ColumnName="MsgEmailText" />
+                <ScalarProperty Name="MsgSmsText" ColumnName="MsgSmsText" />
+                <ScalarProperty Name="MsgEmailId" ColumnName="MsgEmailId" />
+                <ScalarProperty Name="MsgSmsId" ColumnName="MsgSmsId" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="AlertText" ColumnName="AlertText" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

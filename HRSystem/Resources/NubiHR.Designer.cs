@@ -664,6 +664,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed sending an Email! .
+        /// </summary>
+        public static string FailedSendingForgetPasswordConfirmationMsg {
+            get {
+                return ResourceManager.GetString("FailedSendingForgetPasswordConfirmationMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Father&apos;s death.
         /// </summary>
         public static string FatherDeath {
@@ -714,6 +723,15 @@ namespace Resources {
         public static string ForgetPassword {
             get {
                 return ResourceManager.GetString("ForgetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password recovery link has been sent to your email address.
+        /// </summary>
+        public static string ForgetPasswordConfirmationMsg {
+            get {
+                return ResourceManager.GetString("ForgetPasswordConfirmationMsg", resourceCulture);
             }
         }
         
@@ -1758,6 +1776,15 @@ namespace Resources {
         public static string YouDidNotCompleteMonthYet {
             get {
                 return ResourceManager.GetString("YouDidNotCompleteMonthYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have already opened this link, if you forgot your password again please click on Forget password.
+        /// </summary>
+        public static string YouHaveAlreadyOpenedThisLink {
+            get {
+                return ResourceManager.GetString("YouHaveAlreadyOpenedThisLink", resourceCulture);
             }
         }
         

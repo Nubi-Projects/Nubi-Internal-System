@@ -9,6 +9,7 @@ namespace HRSystem.Controllers
 {
     public class BaseController : Controller
     {
+        /*
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
             string lang = null;
@@ -32,8 +33,43 @@ namespace HRSystem.Controllers
             }
             new LanguageManager().SetLanguage(lang);
             return base.BeginExecuteCore(callback, state);
+        } */
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            string lang = null;
+            HttpCookie langCookie = Request.Cookies["culture"];
+            if (langCookie != null)
+            {
+                lang = langCookie.Value;
+            }
+            else
+            {
+                var userLanguage = Request.UserLanguages;
+                var userLang = userLanguage != null ? userLanguage[0] : "";
+                if (userLang != "")
+                {
+                    lang = userLang;
+                }
+                else
+                {
+                    lang = LanguageManager.GetDefaultLanguage();
+                }
+            }
+            new LanguageManager().SetLanguage(lang);
+            if (filterContext.ActionDescriptor.ActionName.Equals("ResetPassword") & filterContext.ActionDescriptor.ControllerDescriptor.ControllerName.Equals("Account"))
+            {
+                base.OnActionExecuting(filterContext);
+
+                return;
+            }
+            else
+            {
+                
+                return;
+            }
         }
-        public ActionResult ChangeLanguage(string lang)
+
+            public ActionResult ChangeLanguage(string lang)
         {
             new LanguageManager().SetLanguage(lang);
             var referer = Request.ServerVariables["HTTP_REFERER"];

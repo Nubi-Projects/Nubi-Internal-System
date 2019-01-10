@@ -49,5 +49,6 @@ namespace HRSystem.Models
         public virtual DbSet<VacationType> VacationTypes { get; set; }
         public virtual DbSet<AttendanceSheet> AttendanceSheets { get; set; }
         public virtual DbSet<ImportLog> ImportLogs { get; set; }
+        public virtual DbSet<Alert> Alerts { get; set; }
     }
 }
