@@ -92,7 +92,7 @@
         <div class="row">
             <label>@Resources.NubiHR.Hour</label>
             <div class="col-md-4">
-                @Html.EditorFor(model => model.TimeFromHours, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TimeFromHours, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                 @Html.ValidationMessageFor(model => model.TimeFromHours, "", new { @class = "text-danger" })
             </div>
             <label>@Resources.NubiHR.Minute</label>
@@ -122,7 +122,8 @@
             @Resources.NubiHR.Notes
         </div>
         <div>
-            @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
         </div>
         <br />
         <div class="form-group">
@@ -168,7 +169,7 @@
         if (inchours >= 16)
         {
             $("#TimeTo").text("Rest of the day");
-            $("#TimeToMinute").text("00");
+            $("#TimeToMinute").text("0");
         }
         else if (inchours <= 16 && minute === "")
         {
