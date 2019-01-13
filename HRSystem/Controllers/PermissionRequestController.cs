@@ -186,7 +186,16 @@ namespace HRSystem.Controllers
                     //{
                     per.RequestDate = DateTime.Now;
                     per.TimeToHours = timeFrom.Hours + 4;
-                    per.TimeToMinutes = timeFrom.Minutes;
+                    if (per.TimeToHours > 16)
+                    {
+                        per.TimeToHours = 16;
+                        per.TimeToMinutes = 0;
+                    }
+                    else
+                    {
+                        per.TimeToMinutes = timeFrom.Minutes;
+                    }
+                    
                     per.LeaderApprovement = true;
                     TempData["chec"] = Resources.NubiHR.YourRequestHasBeenSented;
                     db.PermissionRequests.Add(per);
