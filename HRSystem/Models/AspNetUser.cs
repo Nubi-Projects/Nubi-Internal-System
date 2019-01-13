@@ -20,6 +20,7 @@ namespace HRSystem.Models
             this.UserPreferences = new HashSet<UserPreference>();
             this.UserSessions = new HashSet<UserSession>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.Alerts = new HashSet<Alert>();
         }
     
         public string Id { get; set; }
@@ -44,5 +45,7 @@ namespace HRSystem.Models
         public virtual ICollection<UserSession> UserSessions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Alert> Alerts { get; set; }
     }
 }

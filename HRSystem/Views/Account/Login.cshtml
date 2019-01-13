@@ -1,193 +1,123 @@
 ﻿@using HRSystem.Models
 @model LoginViewModel
 @{
-    Layout = null;
+    //Layout = "~/Views/Shared/_OtherLayout.cshtml";
     ViewBag.Title = Resources.NubiHR.Login;
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="~/Content/image/nubi.png" />
-    <title>@ViewBag.Title - @Resources.NubiHR.Nubi</title>
-    @*@Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")*@
+   <style>
+       .x {
+           position: absolute;
+           margin: auto;
+           top: -50%;
+           right: 0;
+           bottom: 0;
+           left: 0;
+           height: 100px;
+           border-radius: 3px;
+       }
+   </style>
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-log", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-4"></div>
+                <div class="col-md-4" style="margin:12% 0px">
+
+                    <form>
+                        <img src="~/Content/image/nubi.png" alt="Login" class="d-block mx-auto img-fluid">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="input-container">
+                            <i class="fa fa-user icon"></i>
+                            @Html.TextBoxFor(m => m.Email, new { placeholder = Html.DisplayNameFor(n => n.Email), @class = "input-field" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="input-container">
+                            <i class="fa fa-key icon"></i>
+                            @Html.PasswordFor(m => m.Password, new { placeholder = Html.DisplayNameFor(n => n.Password), @class = "input-field" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+
+                        <button type="submit" class="btn2">@Resources.NubiHR.Login</button>
+
+                        @using (Html.BeginForm("ForgotPassword", "Account", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                        {
+                                      @*<button type="submit" class="btn2">@Resources.NubiHR.ForgetPassword</button>*@
+                                        @Html.ActionLink(Resources.NubiHR.ForgetPassword, "ForgotPassword" ,@*, new { id = item.Id}*@null, new { @style = "color: beige;" } )
+
+                        }
+                      
+                        @*<div class="text-center" style=" margin-top: 10px;">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> <a href="@Url.Action("Register", "Account")" class="newaccount">Create New account</a>
+                    </div>*@
+
+                    </form>
+                </div>
+            </div>
+    }
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--  jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
-    <!-- Bootstrap Date-Picker Plugin -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    @*<script src="~/Content/js/bootstrap.js"></script>
-    <script src="~/Content/js/bootstrap.min.js"></script>*@
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        $(function () {
 
-            $(window).on("load resize", function () {
-                //alert (window.innerHeight);
-                $(".bg").css("height", window.innerHeight);
-            });
-        });
-    </script>
-    <style>
-        footer {
-            position: fixed;
-            bottom: 0;
-            /*margin: auto;*/
-        }
-    </style>
-</head>
-<body style="height:auto">
-    <div class="bg">
-        <div class="overlay">
-            <div class="container">
-
-
-
-
-                @*@if (@TempData["check"] != null)
-                {
-
-                    <div class="alert alert-danger">
-                        <strong> @TempData["check"] </strong>
-                    </div>
-
-
-                }
-
-                @if (@TempData["chec"] != null)
-                {
-
-                    <div class="alert alert-danger">
-                        <strong> @TempData["chec"] </strong>
-                    </div>
-
-
-                }
-
-                @if (@TempData["vac"] != null)
-                {
-
-                    <div class="alert alert-danger">
-                        <strong> @TempData["vac"] </strong>
-                    </div>
-
-
-                }*@
-                <h2 style="opacity:-2">@ViewBag.Title</h2>
-@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-log", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4" style="margin:81px 0px">
-
-            <form>
-                <img src="~/Content/image/nubi.png" alt="Login" class="d-block mx-auto img-fluid">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="input-container">
-                    <i class="fa fa-user icon"></i>
-                    @Html.TextBoxFor(m => m.Email, new { placeholder = Html.DisplayNameFor(n => n.Email) ,@class = "input-field" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                </div>
-
-
-                <div class="input-container">
-                    <i class="fa fa-key icon"></i>
-                    @Html.PasswordFor(m => m.Password, new { placeholder = Html.DisplayNameFor(n => n.Password), @class = "input-field" })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                </div>
-
-                <button type="submit" class="btn2">@Resources.NubiHR.Login</button>
-
-                @*<div class="text-center" style=" margin-top: 10px;">
-                    <i class="fa fa-user-plus" aria-hidden="true"></i> <a href="@Url.Action("Register", "Account")" class="newaccount">Create New account</a>
-                </div>*@
-                
-            </form>
-        </div>
-        <div class="col-md-4"></div>
-    </div>
-}
-                
 
                 @*<div class="row">
-                    <div class="col-md-8">
-                        <section id="loginForm">
-                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                                @Html.AntiForgeryToken()
-                                <h4>Use a local account to log in.</h4>
-                                <hr />
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                                    <div class="col-md-10">
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                                    <div class="col-md-10">
-                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <div class="checkbox">
-                                            @Html.CheckBoxFor(m => m.RememberMe)
-                                            @Html.LabelFor(m => m.RememberMe)
+                            <div class="col-md-8">
+                                <section id="loginForm">
+                                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                                        @Html.AntiForgeryToken()
+                                        <h4>Use a local account to log in.</h4>
+                                        <hr />
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Log in" class="btn btn-default" />
-                                    </div>
-                                </div>
-                                <p>
-                                    @Html.ActionLink("Register as a new user", "Register")
-                                </p>
-                                @* Enable this once you have account confirmation enabled for password reset functionality
-                                    <p>
-                                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                                    </p>*@
-                            
-                        @*</section>
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                            <div class="col-md-10">
+                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                                    @Html.LabelFor(m => m.RememberMe)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Log in" class="btn btn-default" />
+                                            </div>
+                                        </div>
+                                        <p>
+                                            @Html.ActionLink("Register as a new user", "Register")
+                                        </p>
+                                        @* Enable this once you have account confirmation enabled for password reset functionality
+                                            <p>
+                                                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                                            </p>*@
+
+                @*</section>
                     </div>*@
-                    @*<div class="col-md-4">
-                            <section id="socialLoginForm">
-                                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                            </section>
-                        </div>*@
+                @*<div class="col-md-4">
+                        <section id="socialLoginForm">
+                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </section>
+                    </div>*@
                 @*</div>*@
-                
-                <footer class="col-sm-12">
-                    <p>&copy; @DateTime.Now.Year - Powered by Nubi IT Service</p>
-                </footer>
-            </div>
-        </div>
-    </div>
+
+            
 
             @*@Scripts.Render("~/bundles/jquery")
                 @Scripts.Render("~/bundles/bootstrap")*@
-   
-</body>
-</html>
-
+ 
 
 
 

@@ -699,4 +699,16 @@
   <data name="EmployeeHasBeenDeleted" xml:space="preserve">
     <value>Employee has been Removed successfully</value>
   </data>
+  <data name="EmailValidation" xml:space="preserve">
+    <value>Invalid email address</value>
+  </data>
+  <data name="ForgetPasswordConfirmationMsg" xml:space="preserve">
+    <value>Password recovery link has been sent to your email address</value>
+  </data>
+  <data name="FailedSendingForgetPasswordConfirmationMsg" xml:space="preserve">
+    <value>Failed sending an Email! </value>
+  </data>
+  <data name="YouHaveAlreadyOpenedThisLink" xml:space="preserve">
+    <value>You have already opened this link, if you forgot your password again please click on Forget password</value>
+  </data>
 </root>

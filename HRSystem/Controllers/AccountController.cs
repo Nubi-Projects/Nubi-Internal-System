@@ -80,21 +80,31 @@ namespace HRSystem.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            bool IsDeleted = db.AspNetUsers.Where( y => y.Email == model.Email && y.IsDeleted == true).Any();
+            if(IsDeleted)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-
-                    return View(model);
+                ModelState.AddModelError("", "This account has been removed");
+                return View(model);
             }
+            else
+            {
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+
+                        return View(model);
+                }
+            }
+            
         }
 
         //
@@ -207,7 +217,7 @@ namespace HRSystem.Controllers
                 return View(Resources.NubiHR.Error);
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            return View(result.Succeeded ? "ConfirmEmail" : Resources.NubiHR.Error);
         }
 
         //
@@ -225,25 +235,103 @@ namespace HRSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+            var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                var UserEmail = db.AspNetUsers.Where(x => x.Email == model.Email).Select(x => x.Email).FirstOrDefault();
+
+                if (UserEmail != null)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    var ID = db.AspNetUsers.Where(x => x.Email == model.Email).Select(x => x.Id).FirstOrDefault();
+                    var EmpNo = db.AspNetUsers.Where(x => x.Id == ID).Select(y => y.EmpNo).FirstOrDefault();
+                    var EmployeeName = db.Employees.Where(x => x.Id == EmpNo).Select(y => y.FirstName + " " + y.LastName).FirstOrDefault();
+                    // Send an email with this link
+                    string code = await UserManager.GeneratePasswordResetTokenAsync(ID);
+                    var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = ID, code = code }, protocol: Request.Url.Scheme);
+                    
+                    Alert _Alert = new Alert();
+
+                    _Alert.Email = UserEmail;
+                    //_Alert.MobilePhone = Researcher.MobilePhone;
+
+                    var MsgEmailText = "Dear "+ EmployeeName + ", Please reset your password by clicking <a href=\"" + callbackUrl + "\">Here</a>";
+
+                    //var MsgSmsText = ResearcherTemplate.MsgSmsText;
+                    // MsgSmsText = MsgSmsText.Replace("{{test}}", test);
+
+
+                    _Alert.EmailSubject = "Reset Password";
+                    _Alert.MsgEmailText = MsgEmailText;
+                    // _Alert.MsgSmsText = MsgSmsText;
+                    _Alert.UserId = ID;
+                    //_Alert.Link = callbackUrl;
+                    _Alert.MobilePhone = db.Employees.Where(x => x.Id == EmpNo).Select(y => y.Mobile1).FirstOrDefault();
+
+                    var AlertId = Create(_Alert);
+                    if (AlertId > 0)
+                    {
+                        HRSystem.Manager.Helper.SendEmail(AlertId);
+                       
+                        //var IsSendEmail = db.Alerts.Find(AlertId);
+                        var IsSendEmail = HRSystem.Manager.Helper.FunSendEmail(_Alert.MsgEmailText, _Alert.Email, _Alert.EmailSubject, true, _Alert.AttachmentPath);
+                        if (IsSendEmail == true)
+                        {
+                            _Alert.IsSendEmail = true;
+                            _Alert.DateSendEmail = DateTime.Now;
+                            db.Entry(_Alert).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
+
+                            TempData["chec"] = Resources.NubiHR.ForgetPasswordConfirmationMsg;
+                            return RedirectToAction("Login", "Account");
+                        }
+                        else
+                        {
+                            TempData["check"] = Resources.NubiHR.FailedSendingForgetPasswordConfirmationMsg;
+                            
+                            return RedirectToAction("Login", "Account");
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    TempData["check"] = Resources.NubiHR.EmailValidation;
+                    return View("ForgotPassword");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                /*
+                 * var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                    // Don't reveal that the user does not exist or is not confirmed
+                   // return View("ForgotPasswordConfirmation");
+
+                }
+                */
+
             }
+
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        public static int Create(Alert alert)
+        {
+            using (NubiDBEntities db = new NubiDBEntities())
+            {
+                alert.CreationDate = DateTime.Now;
+                db.Alerts.Add(alert);
+                db.SaveChanges();
+                return alert.Id;
+            }
+            //  return 0;
         }
 
         //
@@ -257,9 +345,11 @@ namespace HRSystem.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string code, string userid)
         {
-            return code == null ? View(Resources.NubiHR.Error) : View();
+            ViewBag.Email = db.AspNetUsers.Where(x => x.Id == userid).Select(y => y.Email).FirstOrDefault();
+            
+            return code == null ? View("Login") : View();
         }
 
         //
@@ -267,24 +357,44 @@ namespace HRSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model, string email)
         {
+            
+            model.Email = email;
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             var user = await UserManager.FindByNameAsync(model.Email);
+            
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                TempData["check"] = Resources.NubiHR.EmailValidation;
+                return View(model);
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
+            var alert = db.Alerts.Where(x => x.UserId == user.Id).OrderByDescending(z => z.Id).FirstOrDefault();
+            if (alert.IsOpen == true)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                TempData["check"] = Resources.NubiHR.YouHaveAlreadyOpenedThisLink;
+                return RedirectToAction("Login", "Account");
             }
-            AddErrors(result);
+            else
+            {
+                var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+                if (result.Succeeded)
+                {
+                    alert.IsOpen = true;
+                    db.Entry(alert).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    TempData["chec"] = Resources.NubiHR.PasswordHasBeenResetSuccessfully;
+                    //AddErrors(result);
+                    return RedirectToAction("Login", "Account");
+                }
+                AddErrors(result);
+            }
+            ViewBag.Email = db.AspNetUsers.Where(x => x.Id == user.Id).Select(y => y.Email).FirstOrDefault();
             return View();
         }
 

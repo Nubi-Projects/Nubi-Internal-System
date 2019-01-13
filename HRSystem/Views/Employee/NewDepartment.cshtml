@@ -5,6 +5,10 @@
     var IsArabic = Request.Cookies["culture"].Value == "ar" ? true : false;
 }
 
+@section Styles{
+    <link href="~/Scripts/select2-4.0.5/css/select2.css" rel="stylesheet" />
+}
+
 <h2>@Resources.NubiHR.Add @Resources.NubiHR.Department</h2>
 
 @using (@Html.BeginForm("NewDepartment", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -16,7 +20,7 @@
 
 
                 @Html.LabelFor(model => Model.IdDepartment, htmlAttributes: new { @class = "control-label" })
-                @Html.DropDownList("Department", new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control" })
+                @Html.DropDownList("Department", new SelectList(@ViewBag.Department, "Id", (IsArabic == true ? "DepartmentNameAr" : "DepartmentNameEn")), Resources.NubiHR.Select, new { @class = "form-control select2" })
                 @Html.ValidationMessageFor(model => model.IdDepartment, "", new { @class = "text-danger" })
                 <br />
 
@@ -51,11 +55,15 @@
         </div>
                 }
 
+@section Scripts{
+    <script src="~/Scripts/select2-4.0.5/js/select2.full.js"></script>
+}
+
 <script>
 
 
     $(document).ready(function () {
-
+        $('.select2').select2();
         $("#Department").on('change',function () {
             try
             {

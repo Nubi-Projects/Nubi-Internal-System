@@ -106,6 +106,7 @@ namespace HRSystem.Models
         [Display(ResourceType = typeof(NubiHR), Name = "Password")]
         public string Password { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(NubiHR), Name = "ConfirmPassword")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "ComparePassword")]

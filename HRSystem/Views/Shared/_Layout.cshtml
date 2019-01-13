@@ -69,6 +69,8 @@
             });
         });
     </script>*@
+
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     @if (@TempData["check"] != null)
@@ -621,6 +623,7 @@
             }
      });
     </script>
+    
     @*<script>
         $(document).ready(function () {
             $('#startdate_datepicker').datepicker();
@@ -664,6 +667,6 @@
     @*//$("#startdate_datepicker").datepicker();
     //$("#enddate_datepicker").datepicker();
     //$("#resumedate_datepicker").datepicker();*@
-    
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -101,6 +101,7 @@ namespace HRSystem.Controllers
             }
             
         }
+       // [ValidateAntiForgeryToken]
         public ActionResult DeleteEmergencyContact(int id)
         {
             var emegrency = Db.EmergencyContacts.Find(id);
@@ -349,6 +350,8 @@ namespace HRSystem.Controllers
                     empObj.SalaryNo = salaryObj.Id;
                     empObj.StartDate = model.StartDate.Date;
                     empObj.Date = DateTime.Now.Date;
+                    empObj.IsDeleted = false;
+                    empObj.HasAccount = false;
 
                     if(model.EmailEmployee != null)
                     {
@@ -574,7 +577,7 @@ namespace HRSystem.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //  more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Edit(string id, VMAddEmployee model)
         {
             model.IdEmployee = id;

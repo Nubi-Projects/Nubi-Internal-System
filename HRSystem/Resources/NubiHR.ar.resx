@@ -289,7 +289,7 @@
     <value>-- اخنر --</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>انشاءحساب جيد</value>
+    <value>انشاء حساب جديد</value>
   </data>
   <data name="ComparePassword" xml:space="preserve">
     <value>كلمة المرور و تأكيد كلمة المرور لا يتطابقان</value>
@@ -698,5 +698,17 @@
   </data>
   <data name="EmployeeHasBeenDeleted" xml:space="preserve">
     <value>تم حذف الموظف</value>
+  </data>
+  <data name="EmailValidation" xml:space="preserve">
+    <value>عنوان البريد الإلكتروني غير صالح</value>
+  </data>
+  <data name="ForgetPasswordConfirmationMsg" xml:space="preserve">
+    <value>تم إرسال رابط إستعادة كلمة المرور إلى بريدك الإلكتروني</value>
+  </data>
+  <data name="FailedSendingForgetPasswordConfirmationMsg" xml:space="preserve">
+    <value>لم يتم إرسال الرسالة الى بريدك الاكتروني! </value>
+  </data>
+  <data name="YouHaveAlreadyOpenedThisLink" xml:space="preserve">
+    <value>لقد قمت بفتح هذا الرابط من قبل، اذا نسيت كلمة المرور مرة اخرى الرجاء قم بالضغط على نسيان كلمة المرور</value>
   </data>
 </root>

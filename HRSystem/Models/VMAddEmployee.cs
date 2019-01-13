@@ -32,10 +32,12 @@ namespace HRSystem.Models
 
         [Display(ResourceType = typeof(NubiHR), Name = "FirstName")]
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertEnglishLettersOnly")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "LastName")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertEnglishLettersOnly")]
         public string LastName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
@@ -52,11 +54,15 @@ namespace HRSystem.Models
 
         ///[Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "PersonalEmail")]
-        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        [DataType(DataType.EmailAddress, ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "EmailValidation")]
+       // [EmailAddress(ErrorMessage = "Invalid Email Address")]
+       // [RegularExpression(@"^([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "EmailValidation")]
         public string EmailEmployee { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "Address")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertEnglishLettersOnly")]
         public string Address { get; set; }
         public int DepartmentNoEmployee { get; set; }
         public int PositionNoEmployee { get; set; }
@@ -101,10 +107,12 @@ namespace HRSystem.Models
         
         [RequiredIfNotEmpty("AccountNumber", DependentPropertyDisplayName = "AccountNumber", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "BankName")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertEnglishLettersOnly")]
         public string BankName { get; set; }
 
         [RequiredIfNotEmpty("BankName", DependentPropertyDisplayName = "BankName", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(NubiHR), Name = "BankBranch")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessageResourceType = typeof(NubiHR), ErrorMessageResourceName = "PleaseInsertEnglishLettersOnly")]
         public string BankBranch { get; set; }
         public Nullable<bool> IsDeletedBank { get; set; }
         //public Nullable<System.DateTime> DateBank { get; set; }
