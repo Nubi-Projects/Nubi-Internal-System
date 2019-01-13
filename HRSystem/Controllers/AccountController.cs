@@ -264,7 +264,7 @@ namespace HRSystem.Controllers
                     _Alert.MsgEmailText = MsgEmailText;
                     // _Alert.MsgSmsText = MsgSmsText;
                     _Alert.UserId = ID;
-                    _Alert.Link = callbackUrl;
+                    //_Alert.Link = callbackUrl;
                     _Alert.MobilePhone = db.Employees.Where(x => x.Id == EmpNo).Select(y => y.Mobile1).FirstOrDefault();
 
                     var AlertId = Create(_Alert);

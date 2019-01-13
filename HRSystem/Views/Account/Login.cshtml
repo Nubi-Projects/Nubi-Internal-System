@@ -44,7 +44,7 @@
                         @using (Html.BeginForm("ForgotPassword", "Account", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
                         {
                                       @*<button type="submit" class="btn2">@Resources.NubiHR.ForgetPassword</button>*@
-                                        @Html.ActionLink(Resources.NubiHR.ForgetPassword, "ForgotPassword"@*, new { id = item.Id}*@)
+                                        @Html.ActionLink(Resources.NubiHR.ForgetPassword, "ForgotPassword" ,@*, new { id = item.Id}*@null, new { @style = "color: beige;" } )
 
                         }
                       

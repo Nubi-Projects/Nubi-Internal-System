@@ -11,7 +11,7 @@ GO
 CREATE TABLE [dbo].[Alert](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[AlertText] [nvarchar](1024) NULL,
-	[Link] [nchar](10) NULL,
+	[Link] [nvarchar](max) NULL,
 	[MsgSmsId] [int] NULL,
 	[MsgEmailId] [int] NULL,
 	[MsgSmsText] [nvarchar](256) NULL,
