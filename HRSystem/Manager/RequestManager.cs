@@ -299,7 +299,7 @@ namespace HRSystem.Manager
 
         public int NoOfManagerPermissionRequests()
         {
-            var EmpReq = db.PermissionRequests.Count(e => e.LeaderApprovement == true && e.IsDeleted == false);
+            var EmpReq = db.PermissionRequests.Count(e => e.LeaderApprovement == true && e.IsDeleted == false && e.ManagerApprovement == null);
             if (EmpReq > 0)
             {
                 return EmpReq;
@@ -313,7 +313,7 @@ namespace HRSystem.Manager
 
         public bool HasLeaderSeenVacationRequests()
         {
-            var EmpReq = db.VacationRequests.Where(e => e.LeaderApprovement == null && e.LeaderHasSeen == true).ToList();
+            var EmpReq = db.VacationRequests.Where(e => e.LeaderApprovement == null && e.LeaderHasSeen == true && e.IsDeleted == false).ToList();
             if (EmpReq != null && EmpReq.Count > 0)
             {
                 return true;
@@ -327,7 +327,7 @@ namespace HRSystem.Manager
 
         public bool HasLeaderSeenPermissionRequests()
         {
-            var EmpReq = db.PermissionRequests.Where(e => e.LeaderApprovement == null && e.LeaderHasSeen == true).ToList();
+            var EmpReq = db.PermissionRequests.Where(e => e.LeaderApprovement == null && e.LeaderHasSeen == true && e.IsDeleted == false).ToList();
             if (EmpReq != null && EmpReq.Count > 0)
             {
                 return true;
@@ -341,7 +341,7 @@ namespace HRSystem.Manager
 
         public bool HasManagerSeenVacationRequests()
         {
-            var EmpReq = db.VacationRequests.Where(e => e.ManagerApprovement == null && e.ManagerHasSeen == true).ToList();
+            var EmpReq = db.VacationRequests.Where(e => e.ManagerApprovement == null && e.ManagerHasSeen == true && e.IsDeleted == false).ToList();
             if (EmpReq != null && EmpReq.Count > 0)
             {
                 return true;
@@ -355,7 +355,7 @@ namespace HRSystem.Manager
 
         public bool HasManagerSeenPermissionRequests()
         {
-            var EmpReq = db.PermissionRequests.Where(e => e.ManagerApprovement == null && e.ManagerHasSeen == true).ToList();
+            var EmpReq = db.PermissionRequests.Where(e => e.ManagerApprovement == null && e.ManagerHasSeen == true && e.IsDeleted == false).ToList();
             if (EmpReq != null && EmpReq.Count > 0)
             {
                 return true;
